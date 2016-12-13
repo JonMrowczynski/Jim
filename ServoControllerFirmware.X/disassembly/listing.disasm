@@ -1,0 +1,460 @@
+Disassembly Listing for EDDIE
+Generated From:
+C:/Users/Jon/MPLABXProjects/EDDIE.X/dist/default/production/EDDIE.X.production.elf
+Jan 12, 2016 7:33:07 PM
+
+---  C:/Users/Jon/MPLABXProjects/EDDIE.X/ServoController.c  ---------------------------------------------
+1:             /*******************************************************************************
+2:             File Name       : ServoController.c
+3:             Version         : 1.0
+4:             Author          : Jon Mrowczynski
+5:             Target          : PIC16F628A
+6:             Compiler        : XC8 v1.35 Free version
+7:             IDE             : MPLAB X IDE v3.10
+8:             Programmer      : PICKit3.5
+9:             Last Updated    : 1/11/2015
+10:            
+11:             * Description:
+12:             * 
+13:             * This firmware allows a PIC16F628A MCU to control up to six servo motors as
+14:             * well as a set of two LEDs in parallel. TIMER2 match interrupts are used to 
+15:             * create the PWM signals necessary to control the six servo motors.
+16:             *
+17:             * In order to get the necessary 0.1ms TIMER2 interrupt period resolution 
+18:             * (t_interrupt), the equation is used to determine the value for the PR2 register:
+19:             *
+20:             * t_interrupt [s] = [(PR2 - TMR2) + 1] * 4 * Tosc * Prescaler * Postscaler [s]
+21:             *
+22:             * Where TMR2 is the value stored in the TMR2 register, Tosc is the period of
+23:             * the (internal/external) clock, PR2 is the value stored in the TIMER2 period
+24:             * register, Prescaler and Postscaler are the scales that are set in the TIMER2
+25:             * configuration register.
+26:             *
+27:             * For our purposes these values are/have been set to:
+28:             * t_interrupt = 0.1ms
+29:             * TMR2 = 0
+30:             * Tosc = (1 / 4,000,000) seconds
+31:             * Prescaler => 1:1
+32:             * Postscaler => 1:1
+33:             *
+34:             * Which would yield a PR2 value of *99*.
+35:             *
+36:             * The notes that are now associated with the motors and the lights have been
+37:             * changed to match the tones of a C4 pentatonic scale, which are C4, D4, E4, 
+38:             * G4, A4, C5 and D5
+39:             *
+40:             * The velocity of the note will determine the position of the servo motor.
+41:             * For our servo motors a counterclockwise rotation requires a pulse width of
+42:             * 2.0ms, a clockwise rotation requires a pulse width of 1.0ms and the central
+43:             * or neutral position requires a pulse width of 1.5ms.
+44:             *
+45:             * We need a baud rate (BRATE) of 31250 to work with MIDI. In order to calculate
+46:             * the value that we need to set the SPBRG register to in order to get a baud 
+47:             * rate of 31250, we use the following formula which only holds for high baud 
+48:             * rates (BRGH == 1):
+49:             *
+50:             * SPBRG = Fosc / ( 16 * Desired Baud Rate ) - 1
+51:             *
+52:             * So in our case, with a desired baud rate of 31250 and a Tosc of 4Mhz, the
+53:             * equation would yield:
+54:             *
+55:             * SPBRG = 4,000,000 / ( 16 * 31250 ) - 1 = *7*
+56:             * 
+57:             * *NOTE*: Because of the integer division in the position macro, the minimum
+58:             * change in the angular position of the servo motors is 9 degrees. This is 
+59:             * due to the ones place of the velocity value being neglected when the 
+60:             * integer division is performed. Therefore the velocity value 50 and 55 would 
+61:             * yield the same threshold value 185 since 
+62:             *              180 + (55 / 10) = 180 + 5.5 (but the .5 gets cut off so)
+63:             *                              = 180 + 5 = 180 + (50 / 10) = 185
+64:             ******************************************************************************/
+65:            #include <pic.h>
+66:            
+67:            #pragma config FOSC     = HS    // Using an external 20Mhz crystal oscillator
+68:            #pragma config WDTE     = OFF   // Watchdog Timer Disabled
+69:            #pragma config PWRTE    = OFF   // Power Up Timer Disabled
+70:            #pragma config MCLRE    = ON    // Master Clear Enabled
+71:            #pragma config BOREN    = OFF   // Brown-out Detect Disabled
+72:            #pragma config LVP      = OFF   // Low-Voltage Programming Disabled
+73:            #pragma config CPD      = OFF   // Data memory code protection off
+74:            #pragma config CP       = OFF   // Code protection off
+75:            
+76:            #define BRATE               39          // Set a midi baudrate of 31250 (need 57600...?)
+77:            #define UENABLE             0b10100100  // USART enable
+78:            #define RCENABLE            0b10010000  // Receive enable
+79:            #define INTCON_INIT         0b11000000  // Enables global and peripheral interrupts
+80:            #define T2CON_INIT          0b00000101
+81:            #define DISABLE_COMPARATORS 0b00000111  
+82:            
+83:            #define MAX_VALUE           200
+84:            #define COUNTER_RESET       MAX_VALUE
+85:            #define NEUTRAL_POSITION    (MAX_VALUE - 15)
+86:            #define MIN_VALUE           (MAX_VALUE - 20)
+87:            // Allows for 11 angular positions.
+88:            #define position(velocity)  (MIN_VALUE + (velocity))
+89:            #define PR2_INIT            124
+90:            
+91:            #define SERVO1_MIDI_NOTE 0x3C   //C4
+92:            #define SERVO2_MIDI_NOTE 0x3E   //D4
+93:            #define SERVO3_MIDI_NOTE 0x40   //E4
+94:            #define SERVO4_MIDI_NOTE 0x43   //G4
+95:            #define SERVO5_MIDI_NOTE 0x45   //A4
+96:            #define SERVO6_MIDI_NOTE 0x48   //C5
+97:            #define LIGHTS_MIDI_NOTE 0x4A   //D5
+98:            
+99:            #define SERVO1 RA0  
+100:           #define SERVO2 RA1  
+101:           #define SERVO3 RA2  
+102:           #define SERVO4 RA3  
+103:           #define SERVO5 RB0  
+104:           #define SERVO6 RB3  
+105:           #define LIGHTS RB5  
+106:           
+107:           #define ALL_OFF     0b00000000
+108:           #define ALL_OUTPUT  0b00000000
+109:           #define ON          1 
+110:           #define INPUT       1
+111:           #define HIGH        1
+112:           #define ENABLE      1
+113:           #define DISABLE     0
+114:           #define LOW         0
+115:           #define OFF         0
+116:           #define CLEAR       0
+117:           
+118:           volatile static unsigned char pitch     = CLEAR;
+119:           volatile static unsigned char velocity  = CLEAR;
+120:           volatile static bit go = 0;
+121:           
+122:           volatile static unsigned char receive_counter = 0;
+123:           volatile static unsigned char sawtooth_counter = 0;
+124:           
+125:           // Whatever value the servox_threshold is initialized to is the initial 
+126:           // position of the servo motor when the circuit is turned on.
+127:           
+128:           volatile static unsigned char servo1_threshold = NEUTRAL_POSITION;
+129:           volatile static unsigned char servo2_threshold = NEUTRAL_POSITION;
+130:           volatile static unsigned char servo3_threshold = NEUTRAL_POSITION;
+131:           volatile static unsigned char servo4_threshold = NEUTRAL_POSITION;
+132:           volatile static unsigned char servo5_threshold = NEUTRAL_POSITION;
+133:           volatile static unsigned char servo6_threshold = NEUTRAL_POSITION;
+134:           
+135:           static void interrupt isr(void) {
+0004  00FE     MOVWF 0x7E
+136:               if (TMR2IF) {
+00A4  1C8C     BTFSS PIR1, 0x1
+00A5  28E3     GOTO 0xE3
+137:                   asm("MOVLW 0x1");
+00A6  3001     MOVLW 0x1
+138:                   asm("ADDWF _sawtooth_counter, F");
+00A7  07F2     ADDWF sawtooth_counter, F
+139:                   if (sawtooth_counter >= MIN_VALUE) {
+00A8  30B4     MOVLW 0xB4
+00A9  0272     SUBWF sawtooth_counter, W
+00AA  1C03     BTFSS STATUS, 0x0
+00AB  28E0     GOTO 0xE0
+140:                       if (sawtooth_counter >= COUNTER_RESET) {
+00AC  30C8     MOVLW 0xC8
+00AD  0272     SUBWF sawtooth_counter, W
+00AE  1C03     BTFSS STATUS, 0x0
+00AF  28BA     GOTO 0xBA
+141:                           SERVO1 = LOW;
+00B0  1283     BCF STATUS, 0x5
+00B1  1303     BCF STATUS, 0x6
+00B2  1005     BCF PORTA, 0x0
+142:                           SERVO2 = LOW;
+00B3  1085     BCF PORTA, 0x1
+143:                           SERVO3 = LOW;
+00B4  1105     BCF PORTA, 0x2
+144:                           SERVO4 = LOW;
+00B5  1185     BCF PORTA, 0x3
+145:                           SERVO5 = LOW;
+00B6  1006     BCF PORTB, 0x0
+146:                           SERVO6 = LOW;
+00B7  1186     BCF PORTB, 0x3
+147:                           sawtooth_counter = CLEAR;
+00B8  01F2     CLRF sawtooth_counter
+148:                       } else {
+00B9  28E0     GOTO 0xE0
+149:                           if (sawtooth_counter == servo1_threshold) SERVO1 = HIGH;
+00BA  0872     MOVF sawtooth_counter, W
+00BB  0674     XORWF servo1_threshold, W
+00BC  1D03     BTFSS STATUS, 0x2
+00BD  28C1     GOTO 0xC1
+00BE  1283     BCF STATUS, 0x5
+00BF  1303     BCF STATUS, 0x6
+00C0  1405     BSF PORTA, 0x0
+150:                           if (sawtooth_counter == servo2_threshold) SERVO2 = HIGH;
+00C1  0872     MOVF sawtooth_counter, W
+00C2  0675     XORWF servo2_threshold, W
+00C3  1D03     BTFSS STATUS, 0x2
+00C4  28C8     GOTO 0xC8
+00C5  1283     BCF STATUS, 0x5
+00C6  1303     BCF STATUS, 0x6
+00C7  1485     BSF PORTA, 0x1
+151:                           if (sawtooth_counter == servo3_threshold) SERVO3 = HIGH;
+00C8  0872     MOVF sawtooth_counter, W
+00C9  0676     XORWF servo3_threshold, W
+00CA  1D03     BTFSS STATUS, 0x2
+00CB  28CF     GOTO 0xCF
+00CC  1283     BCF STATUS, 0x5
+00CD  1303     BCF STATUS, 0x6
+00CE  1505     BSF PORTA, 0x2
+152:                           if (sawtooth_counter == servo4_threshold) SERVO4 = HIGH;
+00CF  0872     MOVF sawtooth_counter, W
+00D0  0677     XORWF servo4_threshold, W
+00D1  1D03     BTFSS STATUS, 0x2
+00D2  28D6     GOTO 0xD6
+00D3  1283     BCF STATUS, 0x5
+00D4  1303     BCF STATUS, 0x6
+00D5  1585     BSF PORTA, 0x3
+153:                           if (sawtooth_counter == servo5_threshold) SERVO5 = HIGH;
+00D6  0872     MOVF sawtooth_counter, W
+00D7  1283     BCF STATUS, 0x5
+00D8  1303     BCF STATUS, 0x6
+00D9  0620     XORWF servo5_threshold, W
+00DA  1903     BTFSC STATUS, 0x2
+00DB  1406     BSF PORTB, 0x0
+154:                           if (sawtooth_counter == servo6_threshold) SERVO6 = HIGH;
+00DC  0872     MOVF sawtooth_counter, W
+00DD  0621     XORWF servo6_threshold, W
+00DE  1903     BTFSC STATUS, 0x2
+00DF  1586     BSF PORTB, 0x3
+155:                       }
+156:                   }
+157:                   TMR2IF = CLEAR;
+00E0  1283     BCF STATUS, 0x5
+00E1  1303     BCF STATUS, 0x6
+00E2  108C     BCF PIR1, 0x1
+158:               }
+159:               if (RCIF) {   
+00E3  1E8C     BTFSS PIR1, 0x5
+00E4  28F7     GOTO 0xF7
+160:                   // increment receive_counter
+161:                   asm("MOVLW 0x1");
+00E5  3001     MOVLW 0x1
+162:                   asm("ADDWF _receive_counter, F");
+00E6  07F1     ADDWF receive_counter, F
+163:                   if(receive_counter == 1) {
+00E7  0371     DECF receive_counter, W
+00E8  1D03     BTFSS STATUS, 0x2
+00E9  28EC     GOTO 0xEC
+164:                       // ignore first byte of MIDI signal since we don't use it
+165:                       asm("CLRF RCREG");
+00EA  019A     CLRF RCREG
+166:                   }
+00EB  28F7     GOTO 0xF7
+167:                   else if (receive_counter == 2) {
+00EC  3002     MOVLW 0x2
+00ED  0671     XORWF receive_counter, W
+00EE  1D03     BTFSS STATUS, 0x2
+00EF  28F3     GOTO 0xF3
+168:                       // store the second Midi byte into pitch
+169:                       asm("MOVF RCREG, W");
+00F0  081A     MOVF RCREG, W
+170:                       asm("MOVWF _pitch");
+00F1  00F0     MOVWF pitch
+171:                   }
+00F2  28F7     GOTO 0xF7
+172:                   else {
+173:                       // store the third midi byte into velocity, clear the receive_counter
+174:                       asm("MOVF RCREG, W");
+00F3  081A     MOVF RCREG, W
+175:                       asm("MOVWF _velocity");
+00F4  00F3     MOVWF velocity
+176:                       asm("CLRF _receive_counter");
+00F5  01F1     CLRF receive_counter
+177:                       go = 1;
+00F6  147C     BSF go, 0x0
+178:                   }
+179:               }
+180:           }
+00F7  087B     MOVF 0x7B, W
+00F8  1283     BCF STATUS, 0x5
+00F9  1303     BCF STATUS, 0x6
+00FA  00FF     MOVWF 0x7F
+00FB  087A     MOVF 0x7A, W
+00FC  008A     MOVWF PCLATH
+00FD  0879     MOVF 0x79, W
+00FE  0084     MOVWF FSR
+00FF  0E78     SWAPF __pcstackCOMMON, W
+0100  0083     MOVWF STATUS
+0101  0EFE     SWAPF 0x7E, F
+0102  0E7E     SWAPF 0x7E, W
+0103  0009     RETFIE
+181:           
+182:           void main(void) {
+183:               
+184:               PORTA = ALL_OFF;   // Set all port A pins to low.
+0024  1283     BCF STATUS, 0x5
+0025  1303     BCF STATUS, 0x6
+0026  0185     CLRF PORTA
+185:               PORTB = ALL_OFF;   // Set all port B pins to low.
+0027  0186     CLRF PORTB
+186:           
+187:               SPBRG  = BRATE;    
+0028  3027     MOVLW 0x27
+0029  1683     BSF STATUS, 0x5
+002A  1303     BCF STATUS, 0x6
+002B  0099     MOVWF TXREG
+188:               TXSTA  = UENABLE;
+002C  30A4     MOVLW 0xA4
+002D  0098     MOVWF RCSTA
+189:               RCSTA  = RCENABLE;
+002E  3090     MOVLW 0x90
+002F  1283     BCF STATUS, 0x5
+0030  1303     BCF STATUS, 0x6
+0031  0098     MOVWF RCSTA
+190:               TRISA  = ALL_OUTPUT;
+0032  1683     BSF STATUS, 0x5
+0033  1303     BCF STATUS, 0x6
+0034  0185     CLRF PORTA
+191:               TRISB  = ALL_OUTPUT;
+0035  0186     CLRF PORTB
+192:               TRISB1 = INPUT;
+0036  1486     BSF PORTB, 0x1
+193:           
+194:               SPEN = ENABLE;   // Serial port enabled
+0037  1283     BCF STATUS, 0x5
+0038  1303     BCF STATUS, 0x6
+0039  1798     BSF RCSTA, 0x7
+195:               
+196:               RCIE = ENABLE;  // Enable MIDI interrupts
+003A  1683     BSF STATUS, 0x5
+003B  1303     BCF STATUS, 0x6
+003C  168C     BSF PIR1, 0x5
+197:               
+198:               RX9  = DISABLE;  // 8 bit reception
+003D  1283     BCF STATUS, 0x5
+003E  1303     BCF STATUS, 0x6
+003F  1318     BCF RCSTA, 0x6
+199:               CREN = ENABLE;   // Continuous receive enable
+0040  1618     BSF RCSTA, 0x4
+200:           
+201:               CMCON = DISABLE_COMPARATORS;  
+0041  3007     MOVLW 0x7
+0042  009F     MOVWF CMCON
+202:           
+203:               /* Setup the TIMER2 peripheral so that we can use TMR2 interrupts. */
+204:           
+205:               TMR2IF  = CLEAR;    // Make sure the TIMER2 interrupt flag is cleared.
+0043  108C     BCF PIR1, 0x1
+206:               T2CON   = T2CON_INIT;
+0044  3005     MOVLW 0x5
+0045  0092     MOVWF T2CON
+207:               PR2     = PR2_INIT;     
+0046  307C     MOVLW 0x7C
+0047  1683     BSF STATUS, 0x5
+0048  1303     BCF STATUS, 0x6
+0049  0092     MOVWF T2CON
+208:               TMR2IE  = ENABLE;       
+004A  148C     BSF PIR1, 0x1
+209:               INTCON  = INTCON_INIT;
+004B  30C0     MOVLW 0xC0
+004C  008B     MOVWF INTCON
+210:           
+211:               // Wait for interrupts forever and carry out the routine when one
+212:               // of the flags is triggered
+213:               while(1) {
+00A3  284D     GOTO 0x4D
+214:                   if (go){
+004D  187C     BTFSC go, 0x0
+004E  288B     GOTO 0x8B
+004F  284D     GOTO 0x4D
+215:                     switch(pitch) {
+008B  0870     MOVF pitch, W
+008C  3A3C     XORLW 0x3C
+008D  1903     BTFSC STATUS, 0x2
+008E  2850     GOTO 0x50
+008F  3A02     XORLW 0x2
+0090  1903     BTFSC STATUS, 0x2
+0091  2858     GOTO 0x58
+0092  3A7E     XORLW 0x7E
+0093  1903     BTFSC STATUS, 0x2
+0094  2860     GOTO 0x60
+0095  3A03     XORLW 0x3
+0096  1903     BTFSC STATUS, 0x2
+0097  2868     GOTO 0x68
+0098  3A06     XORLW 0x6
+0099  1903     BTFSC STATUS, 0x2
+009A  2870     GOTO 0x70
+009B  3A0D     XORLW 0xD
+009C  1903     BTFSC STATUS, 0x2
+009D  2878     GOTO 0x78
+009E  3A02     XORLW 0x2
+009F  1903     BTFSC STATUS, 0x2
+00A0  2880     GOTO 0x80
+00A1  28A2     GOTO 0xA2
+216:                           case SERVO1_MIDI_NOTE: servo1_threshold = position(velocity); break;
+0050  0873     MOVF velocity, W
+0051  3EB4     ADDLW 0xB4
+0052  1283     BCF STATUS, 0x5
+0053  1303     BCF STATUS, 0x6
+0054  00A2     MOVWF __pcstackBANK0
+0055  0822     MOVF __pcstackBANK0, W
+0056  00F4     MOVWF servo1_threshold
+0057  28A2     GOTO 0xA2
+217:                           case SERVO2_MIDI_NOTE: servo2_threshold = position(velocity); break;
+0058  0873     MOVF velocity, W
+0059  3EB4     ADDLW 0xB4
+005A  1283     BCF STATUS, 0x5
+005B  1303     BCF STATUS, 0x6
+005C  00A2     MOVWF __pcstackBANK0
+005D  0822     MOVF __pcstackBANK0, W
+005E  00F5     MOVWF servo2_threshold
+005F  28A2     GOTO 0xA2
+218:                           case SERVO3_MIDI_NOTE: servo3_threshold = position(velocity); break;
+0060  0873     MOVF velocity, W
+0061  3EB4     ADDLW 0xB4
+0062  1283     BCF STATUS, 0x5
+0063  1303     BCF STATUS, 0x6
+0064  00A2     MOVWF __pcstackBANK0
+0065  0822     MOVF __pcstackBANK0, W
+0066  00F6     MOVWF servo3_threshold
+0067  28A2     GOTO 0xA2
+219:                           case SERVO4_MIDI_NOTE: servo4_threshold = position(velocity); break;
+0068  0873     MOVF velocity, W
+0069  3EB4     ADDLW 0xB4
+006A  1283     BCF STATUS, 0x5
+006B  1303     BCF STATUS, 0x6
+006C  00A2     MOVWF __pcstackBANK0
+006D  0822     MOVF __pcstackBANK0, W
+006E  00F7     MOVWF servo4_threshold
+006F  28A2     GOTO 0xA2
+220:                           case SERVO5_MIDI_NOTE: servo5_threshold = position(velocity); break;
+0070  0873     MOVF velocity, W
+0071  3EB4     ADDLW 0xB4
+0072  1283     BCF STATUS, 0x5
+0073  1303     BCF STATUS, 0x6
+0074  00A2     MOVWF __pcstackBANK0
+0075  0822     MOVF __pcstackBANK0, W
+0076  00A0     MOVWF servo5_threshold
+0077  28A2     GOTO 0xA2
+221:                           case SERVO6_MIDI_NOTE: servo6_threshold = position(velocity); break;
+0078  0873     MOVF velocity, W
+0079  3EB4     ADDLW 0xB4
+007A  1283     BCF STATUS, 0x5
+007B  1303     BCF STATUS, 0x6
+007C  00A2     MOVWF __pcstackBANK0
+007D  0822     MOVF __pcstackBANK0, W
+007E  00A1     MOVWF servo6_threshold
+007F  28A2     GOTO 0xA2
+222:                           case LIGHTS_MIDI_NOTE: LIGHTS = (velocity > 0) ? ON : OFF; break;
+0080  0873     MOVF velocity, W
+0081  1903     BTFSC STATUS, 0x2
+0082  2887     GOTO 0x87
+0083  1283     BCF STATUS, 0x5
+0084  1303     BCF STATUS, 0x6
+0085  1686     BSF PORTB, 0x5
+0086  28A2     GOTO 0xA2
+0087  1283     BCF STATUS, 0x5
+0088  1303     BCF STATUS, 0x6
+0089  1286     BCF PORTB, 0x5
+223:                           default: break;
+224:                       }  
+008A  28A2     GOTO 0xA2
+225:                       go = 0;
+00A2  107C     BCF go, 0x0
+00A3  284D     GOTO 0x4D
+226:                   }
+227:               }
+228:           }
