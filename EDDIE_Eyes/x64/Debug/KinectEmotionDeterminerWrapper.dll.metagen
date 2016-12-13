@@ -1,0 +1,48 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly KinectEmotionDeterminerWrapper, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly KinectEmotionDeterminer, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly Microsoft.Kinect.Face, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Class KinectEmotionDeterminerWrapper: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    KinectEmotionDeterminer.MainWindow mainWindow : Public
+    System.Threading.Thread guiThread : Public
+    Int32 numOfFaceShapeAnimations : Public
+    Boolean leftLipCornerPulled : Public
+    Boolean rightLipCornerPulled : Public
+    Boolean leftLipCornerDepressed : Public
+    Boolean rightLipCornerDepressed : Public
+    Boolean rightEyebrowLowered : Public
+    Boolean leftEyebrowLowered : Public
+    Boolean rightEyebrowRaised : Public
+    Boolean leftEyebrowRaised : Public
+  Methods:
+    getFacialData(): PrivateScope, Public, HideBySig
+    calibrate(): PrivateScope, Public, HideBySig
+    checkFAUs(Double*): PrivateScope, Public, HideBySig
+    updateMainWindowBooleans(): PrivateScope, Public, HideBySig
+    updateDisplayedEmotionText(String): PrivateScope, Public, HideBySig
+    isHappy(): PrivateScope, Public, HideBySig
+    isSad(): PrivateScope, Public, HideBySig
+    isAngry(): PrivateScope, Public, HideBySig
+    isNeutral(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
