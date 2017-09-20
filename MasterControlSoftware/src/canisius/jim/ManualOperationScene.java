@@ -73,7 +73,7 @@ public class ManualOperationScene extends Application {
 	
 	private final void manualOperationSceneSetup(final Stage stage) {
 		
-		Connect.EstablishUSBConnection();
+		//Connect.EstablishUSBConnection();
 		
 		stage.setTitle("Ruppet Calibrator");
 		
@@ -459,7 +459,7 @@ public class ManualOperationScene extends Application {
 			RuppetControl.MIN_VELOCITY
 		);
 		spinner.setEditable(true);
-		spinner.setPrefWidth(55);
+		spinner.setPrefWidth(75);
 		
 		// Allow the user to increment or decrement the value in the Spinner's Editor, (the TextField)
 		// by using the up and down arrows respectively.
