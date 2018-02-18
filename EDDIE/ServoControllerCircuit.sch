@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.6.0">
+<eagle version="8.6.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
+<setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
@@ -13922,17 +13923,17 @@ Source: www.kingbright.com</description>
 </sheet>
 </sheets>
 <errors>
-<approved hash="113,1,25.4,63.428,6N138,,,,,"/>
-<approved hash="113,1,63.5,25.328,PIC16F628A,,,,,"/>
+<approved hash="113,1,25.4,63.5229,6N138,,,,,"/>
+<approved hash="113,1,63.5,25.4229,PIC16F628A,,,,,"/>
 <approved hash="113,1,27.9188,82.2494,MIDI_PIN-4,,,,,"/>
-<approved hash="113,1,12.2554,49.5766,MIDI_PIN-5,,,,,"/>
-<approved hash="113,1,-29.3331,15.24,GND,,,,,"/>
+<approved hash="113,1,12.2777,49.4817,MIDI_PIN-5,,,,,"/>
+<approved hash="113,1,-29.6053,15.24,GND,,,,,"/>
 <approved hash="113,1,143.51,5.40173,LED1,,,,,"/>
 <approved hash="113,1,143.51,-4.75827,LED2,,,,,"/>
-<approved hash="113,1,-29.1546,38.1,+5V,,,,,"/>
-<approved hash="113,1,-20.3981,64.4694,MIDI_PIN_TX-4,,,,,"/>
-<approved hash="113,1,-20.3981,84.7894,MIDI_PIN_TX-5,,,,,"/>
-<approved hash="113,1,-20.3981,74.6294,MIDI_PIN_TX-2,,,,,"/>
+<approved hash="113,1,-29.0742,38.1,+5V,,,,,"/>
+<approved hash="113,1,-20.5364,64.4694,MIDI_PIN_TX-4,,,,,"/>
+<approved hash="113,1,-20.5364,84.7894,MIDI_PIN_TX-5,,,,,"/>
+<approved hash="113,1,-20.5364,74.6294,MIDI_PIN_TX-2,,,,,"/>
 </errors>
 </schematic>
 </drawing>
