@@ -1,20 +1,21 @@
 
 # 1 "ServoController.c"
 
-# 26 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\htc.h"
+# 26 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\xc8debug.h"
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f628a.h"
+# 50 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic16f628a.h"
 extern volatile unsigned char INDF @ 0x000;
 
 asm("INDF equ 00h");
+
 
 
 
@@ -24,9 +25,11 @@ asm("TMR0 equ 01h");
 
 
 
+
 extern volatile unsigned char PCL @ 0x002;
 
 asm("PCL equ 02h");
+
 
 
 
@@ -52,18 +55,17 @@ unsigned RP1 :1;
 };
 struct {
 unsigned CARRY :1;
-};
-struct {
-unsigned :2;
+unsigned :1;
 unsigned ZERO :1;
 };
 } STATUSbits_t;
 extern volatile STATUSbits_t STATUSbits @ 0x003;
 
-# 154
+# 157
 extern volatile unsigned char FSR @ 0x004;
 
 asm("FSR equ 04h");
+
 
 
 
@@ -86,7 +88,7 @@ unsigned RA7 :1;
 } PORTAbits_t;
 extern volatile PORTAbits_t PORTAbits @ 0x005;
 
-# 221
+# 226
 extern volatile unsigned char PORTB @ 0x006;
 
 asm("PORTB equ 06h");
@@ -106,7 +108,7 @@ unsigned RB7 :1;
 } PORTBbits_t;
 extern volatile PORTBbits_t PORTBbits @ 0x006;
 
-# 282
+# 288
 extern volatile unsigned char PCLATH @ 0x00A;
 
 asm("PCLATH equ 0Ah");
@@ -119,7 +121,7 @@ unsigned PCLATH :5;
 } PCLATHbits_t;
 extern volatile PCLATHbits_t PCLATHbits @ 0x00A;
 
-# 301
+# 308
 extern volatile unsigned char INTCON @ 0x00B;
 
 asm("INTCON equ 0Bh");
@@ -145,7 +147,7 @@ unsigned TMR0IE :1;
 } INTCONbits_t;
 extern volatile INTCONbits_t INTCONbits @ 0x00B;
 
-# 378
+# 386
 extern volatile unsigned char PIR1 @ 0x00C;
 
 asm("PIR1 equ 0Ch");
@@ -165,10 +167,11 @@ unsigned EEIF :1;
 } PIR1bits_t;
 extern volatile PIR1bits_t PIR1bits @ 0x00C;
 
-# 434
+# 443
 extern volatile unsigned short TMR1 @ 0x00E;
 
 asm("TMR1 equ 0Eh");
+
 
 
 
@@ -178,9 +181,11 @@ asm("TMR1L equ 0Eh");
 
 
 
+
 extern volatile unsigned char TMR1H @ 0x00F;
 
 asm("TMR1H equ 0Fh");
+
 
 
 
@@ -205,10 +210,11 @@ unsigned T1CKPS1 :1;
 } T1CONbits_t;
 extern volatile T1CONbits_t T1CONbits @ 0x010;
 
-# 510
+# 523
 extern volatile unsigned char TMR2 @ 0x011;
 
 asm("TMR2 equ 011h");
+
 
 
 
@@ -235,10 +241,11 @@ unsigned TOUTPS3 :1;
 } T2CONbits_t;
 extern volatile T2CONbits_t T2CONbits @ 0x012;
 
-# 586
+# 601
 extern volatile unsigned short CCPR1 @ 0x015;
 
 asm("CCPR1 equ 015h");
+
 
 
 
@@ -248,9 +255,11 @@ asm("CCPR1L equ 015h");
 
 
 
+
 extern volatile unsigned char CCPR1H @ 0x016;
 
 asm("CCPR1H equ 016h");
+
 
 
 
@@ -274,7 +283,7 @@ unsigned CCP1M3 :1;
 } CCP1CONbits_t;
 extern volatile CCP1CONbits_t CCP1CONbits @ 0x017;
 
-# 661
+# 680
 extern volatile unsigned char RCSTA @ 0x018;
 
 asm("RCSTA equ 018h");
@@ -298,16 +307,18 @@ unsigned ADDEN :1;
 } RCSTAbits_t;
 extern volatile RCSTAbits_t RCSTAbits @ 0x018;
 
-# 731
+# 751
 extern volatile unsigned char TXREG @ 0x019;
 
 asm("TXREG equ 019h");
 
 
 
+
 extern volatile unsigned char RCREG @ 0x01A;
 
 asm("RCREG equ 01Ah");
+
 
 
 
@@ -333,7 +344,7 @@ unsigned CM2 :1;
 } CMCONbits_t;
 extern volatile CMCONbits_t CMCONbits @ 0x01F;
 
-# 812
+# 835
 extern volatile unsigned char OPTION_REG @ 0x081;
 
 asm("OPTION_REG equ 081h");
@@ -356,7 +367,7 @@ unsigned PS2 :1;
 } OPTION_REGbits_t;
 extern volatile OPTION_REGbits_t OPTION_REGbits @ 0x081;
 
-# 881
+# 905
 extern volatile unsigned char TRISA @ 0x085;
 
 asm("TRISA equ 085h");
@@ -376,7 +387,7 @@ unsigned TRISA7 :1;
 } TRISAbits_t;
 extern volatile TRISAbits_t TRISAbits @ 0x085;
 
-# 942
+# 967
 extern volatile unsigned char TRISB @ 0x086;
 
 asm("TRISB equ 086h");
@@ -396,7 +407,7 @@ unsigned TRISB7 :1;
 } TRISBbits_t;
 extern volatile TRISBbits_t TRISBbits @ 0x086;
 
-# 1003
+# 1029
 extern volatile unsigned char PIE1 @ 0x08C;
 
 asm("PIE1 equ 08Ch");
@@ -416,7 +427,7 @@ unsigned EEIE :1;
 } PIE1bits_t;
 extern volatile PIE1bits_t PIE1bits @ 0x08C;
 
-# 1059
+# 1086
 extern volatile unsigned char PCON @ 0x08E;
 
 asm("PCON equ 08Eh");
@@ -438,10 +449,11 @@ unsigned nBOD :1;
 } PCONbits_t;
 extern volatile PCONbits_t PCONbits @ 0x08E;
 
-# 1107
+# 1135
 extern volatile unsigned char PR2 @ 0x092;
 
 asm("PR2 equ 092h");
+
 
 
 
@@ -464,10 +476,11 @@ unsigned CSRC :1;
 } TXSTAbits_t;
 extern volatile TXSTAbits_t TXSTAbits @ 0x098;
 
-# 1169
+# 1199
 extern volatile unsigned char SPBRG @ 0x099;
 
 asm("SPBRG equ 099h");
+
 
 
 
@@ -477,9 +490,11 @@ asm("EEDATA equ 09Ah");
 
 
 
+
 extern volatile unsigned char EEADR @ 0x09B;
 
 asm("EEADR equ 09Bh");
+
 
 
 
@@ -498,10 +513,11 @@ unsigned WRERR :1;
 } EECON1bits_t;
 extern volatile EECON1bits_t EECON1bits @ 0x09C;
 
-# 1224
+# 1258
 extern volatile unsigned char EECON2 @ 0x09D;
 
 asm("EECON2 equ 09Dh");
+
 
 
 
@@ -527,7 +543,7 @@ unsigned VR3 :1;
 } VRCONbits_t;
 extern volatile VRCONbits_t VRCONbits @ 0x09F;
 
-# 1300
+# 1335
 extern volatile __bit ADDEN @ (((unsigned) &RCSTA)*8) + 3;
 
 extern volatile __bit ADEN @ (((unsigned) &RCSTA)*8) + 3;
@@ -791,34 +807,39 @@ extern volatile __bit nT1SYNC @ (((unsigned) &T1CON)*8) + 2;
 extern volatile __bit nTO @ (((unsigned) &STATUS)*8) + 4;
 
 
-# 27 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic.h"
+# 28 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
-# 77
+# 78
 extern unsigned int flash_read(unsigned short addr);
 
-# 141
+# 142
 extern void flash_erase(unsigned short addr);
 
-# 114 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\eeprom_routines.h"
+# 114 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 
 
-# 151 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic.h"
+# 152 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic.h"
 #pragma intrinsic(_delay)
 extern __nonreentrant void _delay(unsigned long);
+#pragma intrinsic(_delaywdt)
+extern __nonreentrant void _delaywdt(unsigned long);
 
-# 186
-extern unsigned char __resetbits;
-extern __bit __powerdown;
-extern __bit __timeout;
+# 193
+extern __bank0 unsigned char __resetbits;
+extern __bank0 __bit __powerdown;
+extern __bank0 __bit __timeout;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\stdbool.h"
+typedef unsigned char bool;
 
 
-# 17 "ServoController.h"
+# 18 "configuration.h"
 #pragma config CP = ON
 #pragma config CPD = ON
 #pragma config LVP = OFF
@@ -828,134 +849,146 @@ extern __bit __timeout;
 #pragma config WDTE = OFF
 #pragma config FOSC = HS
 
-# 79 "ServoController.c"
-volatile static unsigned char part = 0;
+# 50 "tmr2.h"
+static inline void initTMR2(void) {
+T2CON = 0b00000101;
+PR2 = 124;
+PIE1 = 0b00100010;
+}
 
-# 84
-volatile static unsigned char receiveCounter = 0;
+# 50 "usart.h"
+static inline void initUSART() {
+SPBRG = 39;
+TRISB1 = 1;
+TXSTA = 0b10100100;
+RCSTA = 0b10010000;
+}
 
-# 90
-volatile static unsigned char sawtoothCounter = 0;
+static inline void clearOverrunError() {
+static unsigned char temp = 0;
+do {
+temp = RCREG;
+temp = RCREG;
+CREN = 0;
+CREN = 1;
+} while(OERR);
+}
 
-# 95
-volatile static unsigned char servo1SliderVal = 180 + 6;
-volatile static unsigned char servo2SliderVal = 180 + 6;
-volatile static unsigned char servo3SliderVal = 180 + 7;
-volatile static unsigned char servo4SliderVal = 180 + 3;
-volatile static unsigned char servo5SliderVal = 180 + 5;
+static inline void clearFramingError() {
+static unsigned char temp = 0;
+do {
+temp = RCREG;
+temp = RCREG;
+SPEN = 0;
+SPEN = 1;
+} while (FERR);
+}
 
-# 122
-static void interrupt isr(void) {
+# 61 "ServoController.h"
+extern volatile unsigned char part;
 
+# 68
+extern volatile unsigned char receiveCounter;
+
+# 76
+extern volatile unsigned char sawtoothCounter;
+
+extern volatile unsigned char eyebrowSliderVal;
+extern volatile unsigned char leftLipCornerSliderVal;
+extern volatile unsigned char rightLipCornerSliderVal;
+extern volatile unsigned char lowerJawSliderVal;
+extern volatile unsigned char eyelidsSliderVal;
+extern volatile unsigned char servo6SliderVal;
+
+static inline void initServos() {
+TRISA0 = 0;
+TRISA1 = 0;
+TRISA2 = 0;
+TRISA3 = 0;
+TRISB0 = 0;
+TRISB3 = 0;
+}
+
+# 36 "ServoController.c"
+volatile unsigned char part = 0;
+volatile unsigned char receiveCounter = 0;
+volatile unsigned char sawtoothCounter = 0;
+
+# 43
+volatile unsigned char eyebrowSliderVal = 180 + 6;
+volatile unsigned char leftLipCornerSliderVal = 180 + 6;
+volatile unsigned char rightLipCornerSliderVal = 180 + 7;
+volatile unsigned char lowerJawSliderVal = 180 + 3;
+volatile unsigned char eyelidsSliderVal = 180 + 5;
+
+
+void interrupt isr(void) {
 if (TMR2IF) {
-
 ++sawtoothCounter;
-
 if (sawtoothCounter >= 180) {
-
 if (sawtoothCounter >= 200) {
-
 RA0 = 0;
 RA1 = 0;
 RA2 = 0;
 RA3 = 0;
-RB0 = 0;
+RA4 = 0;
 
 sawtoothCounter = 0;
-
 } else {
-
-if (sawtoothCounter == servo1SliderVal) RA0 = 1;
-if (sawtoothCounter == servo2SliderVal) RA1 = 1;
-if (sawtoothCounter == servo3SliderVal) RA2 = 1;
-if (sawtoothCounter == servo4SliderVal) RA3 = 1;
-if (sawtoothCounter == servo5SliderVal) RB0 = 1;
-
+if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
+if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
+if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
+if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
+if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
 
 }
-
 }
-
 TMR2IF = 0;
-
 }
-
 if (RCIF) {
-
 ++receiveCounter;
-
 switch(receiveCounter) {
-
 case 1:
 RCREG = 0;
 break;
-
 case 2:
 part = RCREG;
 break;
-
 case 3:
 receiveCounter = 0;
-
 switch(part) {
-
-case 0x3C: servo1SliderVal = (180 + (RCREG)); break;
-case 0x3E: servo2SliderVal = (180 + (RCREG)); break;
-case 0x40: servo3SliderVal = (180 + (RCREG)); break;
-case 0x43: servo4SliderVal = (180 + (RCREG)); break;
-case 0x45: servo5SliderVal = (180 + (RCREG)); break;
+case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
+case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
+case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
+case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
+case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
 
 case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
-
 }
-
 break;
-
+default:
+receiveCounter = 0;
+break;
 }
-
 }
-
-}
-
-void transmit(void) {
-
-while(!TRMT);
-TXREG = 0x90;
-while(!TRMT);
-TXREG = 0x3C;
-while(!TRMT);
-TXREG = 0x64;
-_delay((unsigned long)((250)*(20000000/4000.0)));
-while(!TRMT);
-TXREG = 0x80;
-while(!TRMT);
-TXREG = 0x3C;
-while(!TRMT);
-TXREG = 0x64;
-_delay((unsigned long)((250)*(20000000/4000.0)));
-
 }
 
 void main(void) {
 
 
 
-PORTA = 0b00000000;
-PORTB = 0b00000000;
-SPBRG = 39;
-TXSTA = 0b10100100;
-RCSTA = 0b10010000;
-CMCON = 0b00000111;
-TRISA = 0b00000000;
-TRISB = 0b00000110;
-T2CON = 0b00000101;
-PR2 = 124;
+initServos();
+initUSART();
+initTMR2();
 PIR1 = 0b00000000;
-PIE1 = 0b00100010;
 INTCON = 0b11000000;
 
-
-
-for(;1;);
+# 115
+while(1) {
+if (OERR)
+clearOverrunError();
+if(FERR)
+clearFramingError();
+}
 
 }

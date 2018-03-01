@@ -5,8 +5,8 @@
  * Target       : PIC16F628A
  * Compiler     : XC8 v1.45 Free version
  * IDE          : MPLAB X IDE v4.10
- * Programmer   : PICKit3.5
- * Last Updated : 2/18/2018
+ * Programmer   : PICKit3
+ * Last Updated : 3/1/2018
  * 
  */
 
