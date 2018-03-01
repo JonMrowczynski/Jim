@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.6.1">
+<eagle version="8.6.3">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -13368,12 +13368,6 @@ Source: www.kingbright.com</description>
 <part name="LED2" library="led" deviceset="LED" device="5MM"/>
 <part name="+5V" library="wirepad" deviceset="2,15/1,0" device=""/>
 <part name="T1" library="transistor" deviceset="2N3904" device=""/>
-<part name="MIDI_PIN_TX-4" library="wirepad" deviceset="2,15/1,0" device=""/>
-<part name="MIDI_PIN_TX-5" library="wirepad" deviceset="2,15/1,0" device=""/>
-<part name="MIDI_PIN_TX-2" library="wirepad" deviceset="2,15/1,0" device=""/>
-<part name="GND12" library="supply1" deviceset="GND" device=""/>
-<part name="R8" library="resistor" deviceset="R-US_" device="0207/12" value="220"/>
-<part name="R9" library="resistor" deviceset="R-US_" device="0207/12" value="220"/>
 <part name="C6" library="resistor" deviceset="CPOL-US" device="E5-10.5" value="1000uF"/>
 <part name="C4" library="resistor" deviceset="CPOL-US" device="E3.5-8" value="330uF"/>
 <part name="C5" library="resistor" deviceset="CPOL-US" device="E3.5-8" value="330uF"/>
@@ -13463,21 +13457,6 @@ Source: www.kingbright.com</description>
 <attribute name="NAME" x="86.36" y="-10.16" size="1.778" layer="95"/>
 <attribute name="VALUE" x="88.9" y="-12.7" size="1.778" layer="96"/>
 </instance>
-<instance part="MIDI_PIN_TX-4" gate="1" x="-22.86" y="63.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="-11.557" y="66.7258" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="-21.717" y="66.802" size="1.778" layer="96" rot="R180"/>
-</instance>
-<instance part="MIDI_PIN_TX-5" gate="1" x="-22.86" y="83.82" smashed="yes" rot="R180">
-<attribute name="NAME" x="-11.557" y="87.0458" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="-21.717" y="87.122" size="1.778" layer="96" rot="R180"/>
-</instance>
-<instance part="MIDI_PIN_TX-2" gate="1" x="-22.86" y="73.66" smashed="yes" rot="R180">
-<attribute name="NAME" x="-11.557" y="76.8858" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="-21.717" y="76.962" size="1.778" layer="96" rot="R180"/>
-</instance>
-<instance part="GND12" gate="1" x="-38.1" y="73.66" rot="R270"/>
-<instance part="R8" gate="G$1" x="-40.64" y="83.82" rot="R180"/>
-<instance part="R9" gate="G$1" x="-40.64" y="63.5" rot="R180"/>
 <instance part="C6" gate="G$1" x="-12.7" y="27.94"/>
 <instance part="C4" gate="G$1" x="88.9" y="83.82"/>
 <instance part="C5" gate="G$1" x="132.08" y="35.56"/>
@@ -13568,11 +13547,6 @@ Source: www.kingbright.com</description>
 <pinref part="LED1" gate="G$1" pin="C"/>
 <pinref part="LED2" gate="G$1" pin="C"/>
 <label x="160.02" y="0" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="R9" gate="G$1" pin="2"/>
-<wire x1="-45.72" y1="63.5" x2="-53.34" y2="63.5" width="0.1524" layer="91"/>
-<label x="-53.34" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -13701,11 +13675,6 @@ Source: www.kingbright.com</description>
 <wire x1="81.28" y1="76.2" x2="88.9" y2="76.2" width="0.1524" layer="91"/>
 <junction x="88.9" y="76.2"/>
 <pinref part="C4" gate="G$1" pin="-"/>
-</segment>
-<segment>
-<pinref part="MIDI_PIN_TX-2" gate="1" pin="P"/>
-<wire x1="-25.4" y1="73.66" x2="-35.56" y2="73.66" width="0.1524" layer="91"/>
-<pinref part="GND12" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -13885,33 +13854,6 @@ Source: www.kingbright.com</description>
 <pinref part="LED2" gate="G$1" pin="A"/>
 </segment>
 </net>
-<net name="TX_PIN" class="0">
-<segment>
-<pinref part="PIC16F628A" gate="G$1" pin="8"/>
-<wire x1="55.88" y1="15.24" x2="48.26" y2="15.24" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="15.24" x2="48.26" y2="-2.54" width="0.1524" layer="91"/>
-<label x="48.26" y="-2.54" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
-<pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="-45.72" y1="83.82" x2="-53.34" y2="83.82" width="0.1524" layer="91"/>
-<label x="-53.34" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="N$11" class="0">
-<segment>
-<pinref part="MIDI_PIN_TX-5" gate="1" pin="P"/>
-<wire x1="-25.4" y1="83.82" x2="-35.56" y2="83.82" width="0.1524" layer="91"/>
-<pinref part="R8" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$12" class="0">
-<segment>
-<pinref part="MIDI_PIN_TX-4" gate="1" pin="P"/>
-<wire x1="-25.4" y1="63.5" x2="-35.56" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="R9" gate="G$1" pin="1"/>
-</segment>
-</net>
 <net name="N$6" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
@@ -13931,9 +13873,6 @@ Source: www.kingbright.com</description>
 <approved hash="113,1,143.51,5.40173,LED1,,,,,"/>
 <approved hash="113,1,143.51,-4.75827,LED2,,,,,"/>
 <approved hash="113,1,-29.0742,38.1,+5V,,,,,"/>
-<approved hash="113,1,-20.5364,64.4694,MIDI_PIN_TX-4,,,,,"/>
-<approved hash="113,1,-20.5364,84.7894,MIDI_PIN_TX-5,,,,,"/>
-<approved hash="113,1,-20.5364,74.6294,MIDI_PIN_TX-2,,,,,"/>
 </errors>
 </schematic>
 </drawing>
