@@ -71,44 +71,40 @@ Last Updated    : 1/25/2016
  ******************************************************************************/
 
 #include <pic.h>
+#include "configuration.h"
 #include "ServoController.h"
 
 /* This byte represents the part that the other byte from the MIDI message 
    should be associated with */
 
-volatile static unsigned char part = CLEAR;
+volatile unsigned char part = CLEAR;
 
 /* This counter variable helps keep track of what part of the MIDI message the 
    PIC just received. */
 
-volatile static unsigned char receiveCounter = CLEAR;
+volatile unsigned char receiveCounter = CLEAR;
 
 /* This counter variable represents the value of the discretely changing 
    sawtooth function that helps the PIC implement the PWM signals that 
    controls the angular position of all six servo motors */
 
-volatile static unsigned char sawtoothCounter = CLEAR;
+volatile unsigned char sawtoothCounter = CLEAR;
 
 /* For all servos, make each of them go to their neutral positions when 
    the circuit is first turned on. */
 
-volatile static unsigned char servo1SliderVal = EYEBROW_NEUTRAL_POSITION;
-volatile static unsigned char servo2SliderVal = LEFT_LIP_CORNER_NEUTRAL_POSITION;
-volatile static unsigned char servo3SliderVal = RIGHT_LIP_CORNER_NEUTRAL_POSITION;
-volatile static unsigned char servo4SliderVal = LOWER_JAW_NEUTRAL_POSITION;
-volatile static unsigned char servo5SliderVal = EYELIDS_NEUTRAL_POSITION;
-//volatile static unsigned char servo6Threshold = NEUTRAL_POSITION;
+volatile unsigned char servo1SliderVal = EYEBROW_NEUTRAL_POSITION;
+volatile unsigned char servo2SliderVal = LEFT_LIP_CORNER_NEUTRAL_POSITION;
+volatile unsigned char servo3SliderVal = RIGHT_LIP_CORNER_NEUTRAL_POSITION;
+volatile unsigned char servo4SliderVal = LOWER_JAW_NEUTRAL_POSITION;
+volatile unsigned char servo5SliderVal = EYELIDS_NEUTRAL_POSITION;
+//volatile unsigned char servo6Threshold = NEUTRAL_POSITION;
 
 static void interrupt isr(void) {
-    
     if (TMR2IF) {
-        
         ++sawtoothCounter;
-        
         if (sawtoothCounter >= MIN_SLIDER_VAL) {
-            
             if (sawtoothCounter >= COUNTER_RESET) {
-
                 SERVO1 = LOW;
                 SERVO2 = LOW;
                 SERVO3 = LOW;
@@ -116,43 +112,29 @@ static void interrupt isr(void) {
                 SERVO5 = LOW;
                 //SERVO6 = LOW;
                 sawtoothCounter = CLEAR;
-
             } else {
-
                 if (sawtoothCounter == servo1SliderVal) SERVO1 = HIGH;
                 if (sawtoothCounter == servo2SliderVal) SERVO2 = HIGH;
                 if (sawtoothCounter == servo3SliderVal) SERVO3 = HIGH;
                 if (sawtoothCounter == servo4SliderVal) SERVO4 = HIGH;
                 if (sawtoothCounter == servo5SliderVal) SERVO5 = HIGH;
                 //if (sawtoothCounter == servo6Threshold) SERVO6 = HIGH;
-
             }
-            
        } // end of inner if
-        
         TMR2IF = CLEAR;
-        
     } // end of TMR2IF if
-    
     if (RCIF) {   
-        
         ++receiveCounter;
-                
         switch(receiveCounter) {
-          
             case 1:
                 RCREG = CLEAR;
                 break;
-                
             case 2:
                 part = RCREG;
                 break;
-                
             case 3:
                 receiveCounter = CLEAR;
-                
                 switch(part) {
-                
                     case SERVO1_MIDI_NOTE: servo1SliderVal = position(RCREG); break;
                     case SERVO2_MIDI_NOTE: servo2SliderVal = position(RCREG); break;
                     case SERVO3_MIDI_NOTE: servo3SliderVal = position(RCREG); break;
@@ -160,19 +142,13 @@ static void interrupt isr(void) {
                     case SERVO5_MIDI_NOTE: servo5SliderVal = position(RCREG); break;
                     //case SERVO6_MIDI_NOTE: servo6Threshold = position(RCREG); break;
                     case LIGHTS_MIDI_NOTE: LIGHTS = (RCREG > 0) ? ON : OFF; break;
-
                 } // end of inner switch
-                
                 break;
-                            
-        } // end of outer switch
-                        
+        } // end of outer switch  
     } // end of RCIF if
-    
 } // end of isr
 
 void transmit(void) {
-    
     while(!TRMT);
     TXREG = 0x90;
     while(!TRMT);   
@@ -187,7 +163,6 @@ void transmit(void) {
     while(!TRMT);
     TXREG = 0x64;
     __delay_ms(250);
-    
 }
 
 void main(void) {

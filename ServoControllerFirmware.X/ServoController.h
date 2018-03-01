@@ -12,17 +12,6 @@
 
 #define _XTAL_FREQ 20000000 // 20MHz quarts crystal resonator
 
-// Set the configuration bits for the PIC
-
-#pragma config CP       = ON    // Code protection on
-#pragma config CPD      = ON    // Data memory code protection on
-#pragma config LVP      = OFF   // Low-Voltage Programming Disabled
-#pragma config BOREN    = ON    // Brown-out Reset Enabled
-#pragma config MCLRE    = OFF   // Master Clear Disabled
-#pragma config PWRTE    = ON    // Power Up Timer Enabled
-#pragma config WDTE     = OFF   // Watchdog Timer Disabled
-#pragma config FOSC     = HS    // Using an external 20Mhz crystal oscillator
-
 // Declare constants that initialize some of the PIC's registers 
 
 #define BRATE               39          // Set a midi baudrate to 31250
@@ -89,5 +78,16 @@
 #define NO          0
 #define OFF         0
 #define CLEAR       0    
+
+extern volatile unsigned char part;
+extern volatile unsigned char receiveCounter;
+extern volatile unsigned char sawtoothCounter;
+
+extern volatile unsigned char servo1SliderVal;
+extern volatile unsigned char servo2SliderVal;
+extern volatile unsigned char servo3SliderVal;
+extern volatile unsigned char servo4SliderVal;
+extern volatile unsigned char servo5SliderVal;
+extern volatile unsigned char servo6SliderVal;
 
 #endif
