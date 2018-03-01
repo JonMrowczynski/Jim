@@ -10,48 +10,25 @@
 #ifndef _SERVOCONTROLLER_H_
 #define _SERVOCONTROLLER_H_
 
-#define _XTAL_FREQ 20000000 // 20MHz quarts crystal resonator
-
-// Declare constants that initialize some of the PIC's registers 
-
-#define BRATE               39          // Set a midi baudrate to 31250
-#define UENABLE             0b10100100  // USART enable
-#define RCENABLE            0b10010000  // Receive enable
-#define INTCON_INIT         0b11000000  // Enables global and peripheral interrupts
-#define T2CON_INIT          0b00000101  // Enables Timer 2
-#define ENABLE_INTERRUPTS   0b00100010  // Enable Timer 2 and Receive Interrupts
-#define DISABLE_COMPARATORS 0b00000111  // Disable the PIC'S comparators
-
 // Map some of the PIC output pins either to a servo motor or the lights 
 
-#define SERVO1 RA0 // EYEBROW
-#define SERVO2 RA1 // LEFT LIP CORNER
-#define SERVO3 RA2 // RIGHT LIP CORNER
-#define SERVO4 RA3 // LOWER JAW
-#define SERVO5 RB0 // EYELIDS
-#define SERVO6 RB3 // NOT USED
-#define LIGHTS RB5 // EYE LIGHTS
+#define EYEBROW_SERVO           RA0
+#define LEFT_LIP_CORNER_SERVO   RA1
+#define RIGHT_LIP_CORNER_SERVO  RA2
+#define LOWER_JAW_SERVO         RA3
+#define EYELIDS_SERVO           RA4
+#define UNUSED_SERVO            RB3
+#define LIGHTS                  RB5
 
 // Associate a MIDI note with the servo motors and lights that are in parallel
 
-#define SERVO1_MIDI_NOTE 0x3C   // C4 
-#define SERVO2_MIDI_NOTE 0x3E   // D4 
-#define SERVO3_MIDI_NOTE 0x40   // E4 
-#define SERVO4_MIDI_NOTE 0x43   // G4 
-#define SERVO5_MIDI_NOTE 0x45   // A5
-#define SERVO6_MIDI_NOTE 0x48   // C5
-#define LIGHTS_MIDI_NOTE 0x4A   // D5
-
-// Declare constants related to the PIC's Timer 2 interrupts
-
-#define MAX_VALUE           200                      // Need 200ms period
-#define COUNTER_RESET       MAX_VALUE                // Reset sawtoothcounter every 200ms
-#define MIN_SLIDER_VAL      180
-#define MAX_SLIDER_VAL      190
-#define position(velocity)  (MIN_SLIDER_VAL + (velocity)) // Allows for 11 unique angular positions
-#define MIN_VELOCITY_VAL    0
-#define MAX_VELOCITY_VAL    10
-#define PR2_INIT            124 
+#define EYEBROW_MIDI_NOTE           0x3C   // C4 
+#define LEFT_LIP_CORNER_MIDI_NOTE   0x3E   // D4 
+#define RIGHT_LIP_CORNER_MIDI_NOTE  0x40   // E4 
+#define LOWER_JAW_MIDI_NOTE         0x43   // G4 
+#define EYELIDS_MIDI_NOTE           0x45   // A5
+#define UNUSED_MIDI_NOTE            0x48   // C5
+#define LIGHTS_MIDI_NOTE            0x4A   // D5
 
 // The neutral positions of the movable body parts of the Ruppet 
 

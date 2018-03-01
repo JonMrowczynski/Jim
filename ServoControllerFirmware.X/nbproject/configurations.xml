@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>ServoController.h</itemPath>
       <itemPath>configuration.h</itemPath>
+      <itemPath>tmr2.h</itemPath>
+      <itemPath>usart.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -360,14 +362,6 @@
                   value=""/>
         <property key="warningmessagebreakoptions.warningmessages" value="holdstate"/>
       </Simulator>
-      <XC8-config-global>
-        <property key="advanced-elf" value="true"/>
-        <property key="output-file-format" value="-mcof,+elf"/>
-        <property key="stack-size-high" value="auto"/>
-        <property key="stack-size-low" value="auto"/>
-        <property key="stack-size-main" value="auto"/>
-        <property key="stack-type" value="compiled"/>
-      </XC8-config-global>
     </conf>
   </confs>
 </configurationDescriptor>

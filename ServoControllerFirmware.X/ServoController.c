@@ -72,6 +72,8 @@ Last Updated    : 1/25/2016
 
 #include <pic.h>
 #include "configuration.h"
+#include "tmr2.h"
+#include "usart.h"
 #include "ServoController.h"
 
 /* This byte represents the part that the other byte from the MIDI message 
@@ -100,24 +102,24 @@ volatile unsigned char servo4SliderVal = LOWER_JAW_NEUTRAL_POSITION;
 volatile unsigned char servo5SliderVal = EYELIDS_NEUTRAL_POSITION;
 //volatile unsigned char servo6Threshold = NEUTRAL_POSITION;
 
-static void interrupt isr(void) {
+void interrupt isr(void) {
     if (TMR2IF) {
         ++sawtoothCounter;
         if (sawtoothCounter >= MIN_SLIDER_VAL) {
             if (sawtoothCounter >= COUNTER_RESET) {
-                SERVO1 = LOW;
-                SERVO2 = LOW;
-                SERVO3 = LOW;
-                SERVO4 = LOW;
-                SERVO5 = LOW;
+                EYEBROW_SERVO = LOW;
+                LEFT_LIP_CORNER_SERVO = LOW;
+                RIGHT_LIP_CORNER_SERVO = LOW;
+                LOWER_JAW_SERVO = LOW;
+                EYELIDS_SERVO = LOW;
                 //SERVO6 = LOW;
                 sawtoothCounter = CLEAR;
             } else {
-                if (sawtoothCounter == servo1SliderVal) SERVO1 = HIGH;
-                if (sawtoothCounter == servo2SliderVal) SERVO2 = HIGH;
-                if (sawtoothCounter == servo3SliderVal) SERVO3 = HIGH;
-                if (sawtoothCounter == servo4SliderVal) SERVO4 = HIGH;
-                if (sawtoothCounter == servo5SliderVal) SERVO5 = HIGH;
+                if (sawtoothCounter == servo1SliderVal) EYEBROW_SERVO = HIGH;
+                if (sawtoothCounter == servo2SliderVal) LEFT_LIP_CORNER_SERVO = HIGH;
+                if (sawtoothCounter == servo3SliderVal) RIGHT_LIP_CORNER_SERVO = HIGH;
+                if (sawtoothCounter == servo4SliderVal) LOWER_JAW_SERVO = HIGH;
+                if (sawtoothCounter == servo5SliderVal) EYELIDS_SERVO = HIGH;
                 //if (sawtoothCounter == servo6Threshold) SERVO6 = HIGH;
             }
        } // end of inner if
@@ -135,42 +137,28 @@ static void interrupt isr(void) {
             case 3:
                 receiveCounter = CLEAR;
                 switch(part) {
-                    case SERVO1_MIDI_NOTE: servo1SliderVal = position(RCREG); break;
-                    case SERVO2_MIDI_NOTE: servo2SliderVal = position(RCREG); break;
-                    case SERVO3_MIDI_NOTE: servo3SliderVal = position(RCREG); break;
-                    case SERVO4_MIDI_NOTE: servo4SliderVal = position(RCREG); break;
-                    case SERVO5_MIDI_NOTE: servo5SliderVal = position(RCREG); break;
+                    case EYEBROW_MIDI_NOTE: servo1SliderVal = position(RCREG); break;
+                    case LEFT_LIP_CORNER_MIDI_NOTE: servo2SliderVal = position(RCREG); break;
+                    case RIGHT_LIP_CORNER_MIDI_NOTE: servo3SliderVal = position(RCREG); break;
+                    case LOWER_JAW_MIDI_NOTE: servo4SliderVal = position(RCREG); break;
+                    case EYELIDS_MIDI_NOTE: servo5SliderVal = position(RCREG); break;
                     //case SERVO6_MIDI_NOTE: servo6Threshold = position(RCREG); break;
                     case LIGHTS_MIDI_NOTE: LIGHTS = (RCREG > 0) ? ON : OFF; break;
                 } // end of inner switch
                 break;
+            default:
+                receiveCounter = CLEAR;
+                break;
         } // end of outer switch  
     } // end of RCIF if
 } // end of isr
-
-void transmit(void) {
-    while(!TRMT);
-    TXREG = 0x90;
-    while(!TRMT);   
-    TXREG = SERVO1_MIDI_NOTE;
-    while(!TRMT);
-    TXREG = 0x64;
-    __delay_ms(250);
-    while(!TRMT);
-    TXREG = 0x80;
-    while(!TRMT);
-    TXREG = SERVO1_MIDI_NOTE;
-    while(!TRMT);
-    TXREG = 0x64;
-    __delay_ms(250);
-}
 
 void main(void) {
     
     // Perform the setup operations
     
     PORTA   = ALL_OFF;              // Set all port A pins to low.
-    PORTB   = ALL_OFF;              
+    PORTB   = ALL_OFF;              // Set all port B pins to low.
     SPBRG   = BRATE;                // Set the MIDI baud rate to 31250
     TXSTA   = UENABLE;              // Enable the USART
     RCSTA   = RCENABLE;             // Enable the reception of MIDI data

@@ -1,6 +1,6 @@
 /*
  * File Name    : configuration.h   
- * Version      : 2.0
+ * Version      : 1.0
  * Author       : Jon Mrowczynski 
  * Target       : PIC16F628A
  * Compiler     : XC8 v1.45 Free version
@@ -22,6 +22,6 @@
 #pragma config MCLRE    = OFF   // Master Clear Disabled
 #pragma config PWRTE    = ON    // Power Up Timer Enabled
 #pragma config WDTE     = OFF   // Watchdog Timer Disabled
-#pragma config FOSC     = HS    // Using an external 20Mhz crystal oscillator
+#pragma config FOSC     = HS    // Using an external 20Mhz quartz crystal resonator
 
 #endif
