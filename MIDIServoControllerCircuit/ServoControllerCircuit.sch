@@ -13339,7 +13339,7 @@ Source: www.kingbright.com</description>
 <part name="R4" library="resistor" deviceset="R-US_" device="0207/12" value="10k"/>
 <part name="C1" library="resistor" deviceset="C-EU" device="050-025X075" value="22p"/>
 <part name="C2" library="resistor" deviceset="C-EU" device="050-025X075" value="22p"/>
-<part name="D1" library="diode" deviceset="1N4148" device="DO35-10" value="1N4198"/>
+<part name="D1" library="diode" deviceset="1N4148" device="DO35-10" value="1N4148"/>
 <part name="Q1" library="special" deviceset="XTAL/S" device="" value="20MHz"/>
 <part name="C3" library="resistor" deviceset="C-EU" device="050-025X075" value="0.1u"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
