@@ -4,9 +4,13 @@
  * Author       : Jon Mrowczynski 
  * Target       : PIC16F628A
  * Compiler     : XC8 v1.45 Free version
- * IDE          : MPLAB X IDE v4.10
+ * IDE          : MPLAB X IDE v4.15
  * Programmer   : PICKit3
- * Last Updated : 3/1/2018
+ * Last Updated : 3/3/2018
+ * 
+ * Contains some constants that are used in a wide variety of files dealing with 
+ * setting the states of the pins that are associated with certain 
+ * functionalities.
  */
 
 #ifndef _PINS_H_
@@ -20,5 +24,8 @@
 
 #define LOW     0
 #define HIGH    1
+
+#define OFF 0
+#define ON  1 
 
 #endif

@@ -4,9 +4,9 @@
  * Author       : Jon Mrowczynski 
  * Target       : PIC16F628A
  * Compiler     : XC8 v1.45 Free version
- * IDE          : MPLAB X IDE v4.10
+ * IDE          : MPLAB X IDE v4.15
  * Programmer   : PICKit3
- * Last Updated : 3/1/2018
+ * Last Updated : 3/3/2018
  *
  * In order to get the necessary 0.1ms TIMER2 interrupt period resolution 
  * (t_interrupt), the equation below is used to determine the value for the 
@@ -14,7 +14,7 @@
  *
  * t_interrupt [s] = [(PR2 - TMR2) + 1] * 4 * Tosc * Prescaler * Postscaler [s]
  *
- * Where TMR2 is the value stored in the TMR2 register, Tosc is the period of
+ * where TMR2 is the value stored in the TMR2 register, Tosc is the period of
  * the (internal/external) clock, PR2 is the value stored in the TIMER2 period
  * register, Prescaler and Postscaler are the scales that are set in the TIMER2
  * configuration register.
@@ -26,7 +26,7 @@
  * Prescaler => 1:4 = 4
  * Postscaler => 1:1 = 1
  *
- * Which yields a PR2 value of 124.
+ * which yields a PR2 value of 124.
  */
 
 #ifndef _TMR2_H_
@@ -36,11 +36,10 @@
 #include <stdbool.h>
 #include "pins.h"
 
-#define PR2_INIT        124 
+#define PR2_INIT    124 
 
-#define PWM_PERIOD      200 // Need 200ms PWM period
-#define MIN_SLIDER_VAL  180
-#define MAX_SLIDER_VAL  190
+#define PWM_PERIOD              200 // 200ms PWM period
+#define MIN_SAWTOOTH_THRESHOLD  180
 
 static inline void initTMR2(void) {
     PR2     = PR2_INIT;

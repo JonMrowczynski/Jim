@@ -839,7 +839,7 @@ extern __bank0 __bit __timeout;
 typedef unsigned char bool;
 
 
-# 18 "configuration.h"
+# 17 "configuration.h"
 #pragma config CP = ON
 #pragma config CPD = ON
 #pragma config LVP = OFF
@@ -849,22 +849,25 @@ typedef unsigned char bool;
 #pragma config WDTE = OFF
 #pragma config FOSC = HS
 
-# 50 "tmr2.h"
+# 44 "tmr2.h"
 static inline void initTMR2(void) {
-T2CON = 0b00000101;
 PR2 = 124;
-PIE1 = 0b00100010;
+T2CON = 0b00000001;
+TMR2IF = 0;
+TMR2IE = 1;
+TMR2ON = 1;
 }
 
-# 65 "usart.h"
+# 52 "usart.h"
 static inline void initUSART() {
-SPBRG = 39;
 TRISB1 = 1;
-TXSTA = 0b10100100;
-RCSTA = 0b10010000;
+SPBRG = 39;
+BRGH = 1;
+CREN = 1;
+SPEN = 1;
 }
 
-# 78
+# 65
 static inline void clearOverrunError() {
 static unsigned char temp = 0;
 do {
@@ -875,7 +878,7 @@ CREN = 1;
 } while(OERR);
 }
 
-# 96
+# 83
 static inline void clearFramingError() {
 static unsigned char temp = 0;
 do {
@@ -886,23 +889,23 @@ SPEN = 1;
 } while (FERR);
 }
 
-# 51 "ServoController.h"
-extern volatile unsigned char part;
+# 56 "ServoController.h"
+extern volatile unsigned char partMidiNote;
 
-# 58
+# 63
 extern volatile unsigned char receiveCounter;
 
-# 66
+# 72
 extern volatile unsigned char sawtoothCounter;
 
-extern volatile unsigned char eyebrowSliderVal;
-extern volatile unsigned char leftLipCornerSliderVal;
-extern volatile unsigned char rightLipCornerSliderVal;
-extern volatile unsigned char lowerJawSliderVal;
-extern volatile unsigned char eyelidsSliderVal;
-extern volatile unsigned char servo6SliderVal;
-
 # 80
+extern volatile unsigned char eyebrowSawtoothThreshold;
+extern volatile unsigned char leftLipCornerSawtoothThreshold;
+extern volatile unsigned char rightLipCornerSawtoothThreshold;
+extern volatile unsigned char lowerJawSawtoothThreshold;
+extern volatile unsigned char eyelidsSawtoothThreshold;
+
+# 92
 static inline void initServos(void) {
 TRISA0 = 0;
 TRISA1 = 0;
@@ -912,17 +915,17 @@ TRISB0 = 0;
 TRISB3 = 0;
 }
 
-# 36 "ServoController.c"
-volatile unsigned char part = 0;
+# 39 "ServoController.c"
+volatile unsigned char partMidiNote = 0;
 volatile unsigned char receiveCounter = 0;
 volatile unsigned char sawtoothCounter = 0;
 
-# 45
-volatile unsigned char eyebrowSliderVal = 180 + 6;
-volatile unsigned char leftLipCornerSliderVal = 180 + 6;
-volatile unsigned char rightLipCornerSliderVal = 180 + 7;
-volatile unsigned char lowerJawSliderVal = 180 + 3;
-volatile unsigned char eyelidsSliderVal = 180 + 5;
+# 49
+volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
+volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
+volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
+volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
+volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
 
 
 void interrupt isr(void) {
@@ -938,11 +941,11 @@ RA4 = 0;
 
 sawtoothCounter = 0;
 } else {
-if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
-if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
-if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
-if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
-if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
+if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
+if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
+if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
+if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
+if (sawtoothCounter == eyelidsSawtoothThreshold) RA4 = 1;
 
 }
 }
@@ -955,22 +958,23 @@ case 1:
 RCREG = 0;
 break;
 case 2:
-part = RCREG;
+partMidiNote = RCREG;
 break;
 case 3:
 receiveCounter = 0;
-switch(part) {
-case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
-case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
-case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
-case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
-case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
+switch(partMidiNote) {
+case 0x3C: eyebrowSawtoothThreshold = (180 + (RCREG)); break;
+case 0x3E: leftLipCornerSawtoothThreshold = (180 + (RCREG)); break;
+case 0x40: rightLipCornerSawtoothThreshold = (180 + (RCREG)); break;
+case 0x43: lowerJawSawtoothThreshold = (180 + (RCREG)); break;
+case 0x45: eyelidsSawtoothThreshold = (180 + (RCREG)); break;
 
 case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
 }
 break;
 default:
 receiveCounter = 0;
+RCREG = 0;
 break;
 }
 }
@@ -983,10 +987,11 @@ void main(void) {
 initServos();
 initUSART();
 initTMR2();
-PIR1 = 0b00000000;
-INTCON = 0b11000000;
 
-# 117
+PEIE = 1;
+GIE = 1;
+
+# 123
 while(1) {
 if (OERR)
 clearOverrunError();

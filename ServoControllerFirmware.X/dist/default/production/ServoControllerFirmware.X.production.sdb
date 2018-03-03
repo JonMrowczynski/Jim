@@ -11,44 +11,40 @@
 [v _eecpymem eecpymem `(v  1 e 1 0 ]
 "39
 [v _memcpyee memcpyee `(v  1 e 1 0 ]
-"52 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+"56 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
 [v _isr isr `II(v  1 e 1 0 ]
-"103
+"108
 [v _main main `(v  1 e 1 0 ]
-"80 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+"92 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
 [v _initServos initServos `T(v  1 s 1 initServos ]
-"50 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
+"44 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
 [v _initTMR2 initTMR2 `T(v  1 s 1 initTMR2 ]
-"65 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+"52 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
 [v _initUSART initUSART `T(v  1 s 1 initUSART ]
-"78
+"65
 [v _clearOverrunError clearOverrunError `T(v  1 s 1 clearOverrunError ]
-"96
+"83
 [v _clearFramingError clearFramingError `T(v  1 s 1 clearFramingError ]
-"308 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic16f628a.h
-[v _INTCON INTCON `VEuc  1 e 1 @11 ]
-"386
-[v _PIR1 PIR1 `VEuc  1 e 1 @12 ]
-"530
+"530 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic16f628a.h
 [v _T2CON T2CON `VEuc  1 e 1 @18 ]
-"680
-[v _RCSTA RCSTA `VEuc  1 e 1 @24 ]
 "758
 [v _RCREG RCREG `VEuc  1 e 1 @26 ]
-"1029
-[v _PIE1 PIE1 `VEuc  1 e 1 @140 ]
 "1135
 [v _PR2 PR2 `VEuc  1 e 1 @146 ]
-"1142
-[v _TXSTA TXSTA `VEuc  1 e 1 @152 ]
 "1199
 [v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+"1339
+[v _BRGH BRGH `VEb  1 e 0 @1218 ]
 "1379
 [v _CREN CREN `VEb  1 e 0 @196 ]
 "1389
 [v _FERR FERR `VEb  1 e 0 @194 ]
+"1391
+[v _GIE GIE `VEb  1 e 0 @95 ]
 "1401
 [v _OERR OERR `VEb  1 e 0 @193 ]
+"1405
+[v _PEIE PEIE `VEb  1 e 0 @94 ]
 "1415
 [v _RA0 RA0 `VEb  1 e 0 @40 ]
 "1417
@@ -65,8 +61,12 @@
 [v _RCIF RCIF `VEb  1 e 0 @101 ]
 "1465
 [v _SPEN SPEN `VEb  1 e 0 @199 ]
+"1501
+[v _TMR2IE TMR2IE `VEb  1 e 0 @1121 ]
 "1503
 [v _TMR2IF TMR2IF `VEb  1 e 0 @97 ]
+"1505
+[v _TMR2ON TMR2ON `VEb  1 e 0 @146 ]
 "1515
 [v _TRISA0 TRISA0 `VEb  1 e 0 @1064 ]
 "1517
@@ -81,58 +81,58 @@
 [v _TRISB1 TRISB1 `VEb  1 e 0 @1073 ]
 "1537
 [v _TRISB3 TRISB3 `VEb  1 e 0 @1075 ]
-"36 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-[v _part part `VEuc  1 e 1 0 ]
-"37
+"39 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+[v _partMidiNote partMidiNote `VEuc  1 e 1 0 ]
+"40
 [v _receiveCounter receiveCounter `VEuc  1 e 1 0 ]
-"38
+"41
 [v _sawtoothCounter sawtoothCounter `VEuc  1 e 1 0 ]
-"45
-[v _eyebrowSliderVal eyebrowSliderVal `VEuc  1 e 1 0 ]
-"46
-[v _leftLipCornerSliderVal leftLipCornerSliderVal `VEuc  1 e 1 0 ]
-"47
-[v _rightLipCornerSliderVal rightLipCornerSliderVal `VEuc  1 e 1 0 ]
-"48
-[v _lowerJawSliderVal lowerJawSliderVal `VEuc  1 e 1 0 ]
 "49
-[v _eyelidsSliderVal eyelidsSliderVal `VEuc  1 e 1 0 ]
-"103
+[v _eyebrowSawtoothThreshold eyebrowSawtoothThreshold `VEuc  1 e 1 0 ]
+"50
+[v _leftLipCornerSawtoothThreshold leftLipCornerSawtoothThreshold `VEuc  1 e 1 0 ]
+"51
+[v _rightLipCornerSawtoothThreshold rightLipCornerSawtoothThreshold `VEuc  1 e 1 0 ]
+"52
+[v _lowerJawSawtoothThreshold lowerJawSawtoothThreshold `VEuc  1 e 1 0 ]
+"53
+[v _eyelidsSawtoothThreshold eyelidsSawtoothThreshold `VEuc  1 e 1 0 ]
+"108
 [v _main main `(v  1 e 1 0 ]
 {
-"124
+"130
 } 0
-"65 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+"52 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
 [v _initUSART initUSART `T(v  1 s 1 initUSART ]
 {
-"70
+"58
 } 0
-"50 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
+"44 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
 [v _initTMR2 initTMR2 `T(v  1 s 1 initTMR2 ]
 {
-"54
+"50
 } 0
-"80 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+"92 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
 [v _initServos initServos `T(v  1 s 1 initServos ]
 {
-"87
+"99
 } 0
-"78 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+"65 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
 [v _clearOverrunError clearOverrunError `T(v  1 s 1 clearOverrunError ]
 {
-"79
+"66
 [v clearOverrunError@temp temp `uc  1 s 1 temp ]
-"86
+"73
 } 0
-"96
+"83
 [v _clearFramingError clearFramingError `T(v  1 s 1 clearFramingError ]
 {
-"97
+"84
 [v clearFramingError@temp temp `uc  1 s 1 temp ]
-"104
+"91
 } 0
-"52 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+"56 C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
 [v _isr isr `II(v  1 e 1 0 ]
 {
-"101
+"106
 } 0

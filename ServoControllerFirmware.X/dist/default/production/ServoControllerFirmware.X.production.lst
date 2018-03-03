@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V1.45 build -152302408 
-                                                                                               Thu Mar 01 14:04:33 2018
+                                                                                               Sat Mar 03 12:21:16 2018
 
 Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160504
      1                           	processor	16F628A
@@ -105,50 +105,50 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
     91  009F                     	;# 
     92                           
     93                           	psect	idataCOMMON
-    94  0103                     __pidataCOMMON:	
+    94  0104                     __pidataCOMMON:	
     95                           
-    96                           ;initializer for _eyelidsSliderVal
-    97  0103  34B9               	retlw	185
+    96                           ;initializer for _eyelidsSawtoothThreshold
+    97  0104  34B9               	retlw	185
     98                           
-    99                           ;initializer for _lowerJawSliderVal
-   100  0104  34B7               	retlw	183
+    99                           ;initializer for _lowerJawSawtoothThreshold
+   100  0105  34B7               	retlw	183
    101                           
-   102                           ;initializer for _rightLipCornerSliderVal
-   103  0105  34BB               	retlw	187
+   102                           ;initializer for _rightLipCornerSawtoothThreshold
+   103  0106  34BB               	retlw	187
    104                           
-   105                           ;initializer for _leftLipCornerSliderVal
-   106  0106  34BA               	retlw	186
+   105                           ;initializer for _leftLipCornerSawtoothThreshold
+   106  0107  34BA               	retlw	186
    107                           
-   108                           ;initializer for _eyebrowSliderVal
-   109  0107  34BA               	retlw	186
-   110  000B                     _INTCON	set	11
-   111  000C                     _PIR1	set	12
-   112  001A                     _RCREG	set	26
-   113  0018                     _RCSTA	set	24
-   114  0012                     _T2CON	set	18
-   115  0035                     _RB5	set	53
-   116  0065                     _RCIF	set	101
-   117  002C                     _RA4	set	44
-   118  002B                     _RA3	set	43
-   119  002A                     _RA2	set	42
-   120  0029                     _RA1	set	41
-   121  0028                     _RA0	set	40
-   122  0061                     _TMR2IF	set	97
-   123  00C2                     _FERR	set	194
-   124  00C7                     _SPEN	set	199
-   125  00C1                     _OERR	set	193
-   126  00C4                     _CREN	set	196
-   127  0098                     _TXSTA	set	152
-   128  0099                     _SPBRG	set	153
-   129  008C                     _PIE1	set	140
-   130  0092                     _PR2	set	146
-   131  0433                     _TRISB3	set	1075
-   132  0430                     _TRISB0	set	1072
-   133  042B                     _TRISA3	set	1067
-   134  042A                     _TRISA2	set	1066
-   135  0429                     _TRISA1	set	1065
-   136  0428                     _TRISA0	set	1064
-   137  0431                     _TRISB1	set	1073
+   108                           ;initializer for _eyebrowSawtoothThreshold
+   109  0108  34BA               	retlw	186
+   110  001A                     _RCREG	set	26
+   111  0012                     _T2CON	set	18
+   112  005F                     _GIE	set	95
+   113  005E                     _PEIE	set	94
+   114  0035                     _RB5	set	53
+   115  0065                     _RCIF	set	101
+   116  002C                     _RA4	set	44
+   117  002B                     _RA3	set	43
+   118  002A                     _RA2	set	42
+   119  0029                     _RA1	set	41
+   120  0028                     _RA0	set	40
+   121  00C2                     _FERR	set	194
+   122  00C1                     _OERR	set	193
+   123  00C7                     _SPEN	set	199
+   124  00C4                     _CREN	set	196
+   125  0092                     _TMR2ON	set	146
+   126  0061                     _TMR2IF	set	97
+   127  0099                     _SPBRG	set	153
+   128  0092                     _PR2	set	146
+   129  0433                     _TRISB3	set	1075
+   130  0430                     _TRISB0	set	1072
+   131  042B                     _TRISA3	set	1067
+   132  042A                     _TRISA2	set	1066
+   133  0429                     _TRISA1	set	1065
+   134  0428                     _TRISA0	set	1064
+   135  04C2                     _BRGH	set	1218
+   136  0431                     _TRISB1	set	1073
+   137  0461                     _TMR2IE	set	1121
    138                           
    139                           ; #config settings
    140  0000                     
@@ -157,15 +157,15 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    143  0011                     __initialization:	
    144                           
    145                           ; Initialize objects allocated to COMMON
-   146  0011  2103               	fcall	__pidataCOMMON	;fetch initializer
+   146  0011  2104               	fcall	__pidataCOMMON	;fetch initializer
    147  0012  00F0               	movwf	__pdataCOMMON& (0+127)
-   148  0013  2104               	fcall	__pidataCOMMON+1	;fetch initializer
+   148  0013  2105               	fcall	__pidataCOMMON+1	;fetch initializer
    149  0014  00F1               	movwf	(__pdataCOMMON+1)& (0+127)
-   150  0015  2105               	fcall	__pidataCOMMON+2	;fetch initializer
+   150  0015  2106               	fcall	__pidataCOMMON+2	;fetch initializer
    151  0016  00F2               	movwf	(__pdataCOMMON+2)& (0+127)
-   152  0017  2106               	fcall	__pidataCOMMON+3	;fetch initializer
+   152  0017  2107               	fcall	__pidataCOMMON+3	;fetch initializer
    153  0018  00F3               	movwf	(__pdataCOMMON+3)& (0+127)
-   154  0019  2107               	fcall	__pidataCOMMON+4	;fetch initializer
+   154  0019  2108               	fcall	__pidataCOMMON+4	;fetch initializer
    155  001A  00F4               	movwf	(__pdataCOMMON+4)& (0+127)
    156                           
    157                           ; Clear objects allocated to BANK0
@@ -189,20 +189,20 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    175  007A                     	ds	1
    176  007B                     _receiveCounter:	
    177  007B                     	ds	1
-   178  007C                     _part:	
+   178  007C                     _partMidiNote:	
    179  007C                     	ds	1
    180                           
    181                           	psect	dataCOMMON
    182  0070                     __pdataCOMMON:	
-   183  0070                     _eyelidsSliderVal:	
+   183  0070                     _eyelidsSawtoothThreshold:	
    184  0070                     	ds	1
-   185  0071                     _lowerJawSliderVal:	
+   185  0071                     _lowerJawSawtoothThreshold:	
    186  0071                     	ds	1
-   187  0072                     _rightLipCornerSliderVal:	
+   187  0072                     _rightLipCornerSawtoothThreshold:	
    188  0072                     	ds	1
-   189  0073                     _leftLipCornerSliderVal:	
+   189  0073                     _leftLipCornerSawtoothThreshold:	
    190  0073                     	ds	1
-   191  0074                     _eyebrowSliderVal:	
+   191  0074                     _eyebrowSawtoothThreshold:	
    192  0074                     	ds	1
    193                           
    194                           	psect	bssBANK0
@@ -268,7 +268,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    254 ;;
    255 ;; *************** function _main *****************
    256 ;; Defined at:
-   257 ;;		line 103 in file "ServoController.c"
+   257 ;;		line 108 in file "ServoController.c"
    258 ;; Parameters:    Size  Location     Type
    259 ;;		None
    260 ;; Auto vars:     Size  Location     Type
@@ -303,686 +303,698 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    289                           ;psect for function _main
    290  00B2                     _main:	
    291                           
-   292                           ;ServoController.c: 107: initServos();
+   292                           ;ServoController.c: 112: initServos();
    293                           
    294                           ;incstack = 0
    295                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
-   296  00B2  20FA               	fcall	_initServos
+   296  00B2  20FB               	fcall	_initServos
    297                           
-   298                           ;ServoController.c: 108: initUSART();
-   299  00B3  20E3               	fcall	_initUSART
+   298                           ;ServoController.c: 113: initUSART();
+   299  00B3  20F0               	fcall	_initUSART
    300                           
-   301                           ;ServoController.c: 109: initTMR2();
-   302  00B4  20EF               	fcall	_initTMR2
+   301                           ;ServoController.c: 114: initTMR2();
+   302  00B4  20C2               	fcall	_initTMR2
    303                           
-   304                           ;ServoController.c: 110: PIR1 = 0b00000000;
-   305  00B5  1283               	bcf	3,5	;RP0=0, select bank0
-   306  00B6  1303               	bcf	3,6	;RP1=0, select bank0
-   307  00B7  018C               	clrf	12	;volatile
-   308                           
-   309                           ;ServoController.c: 111: INTCON = 0b11000000;
-   310  00B8  30C0               	movlw	192
-   311  00B9  008B               	movwf	11	;volatile
-   312  00BA                     l766:	
-   313                           ;ServoController.c: 117: while(1) {
-   314                           
-   315                           
-   316                           ;ServoController.c: 118: if (OERR)
-   317  00BA  1283               	bcf	3,5	;RP0=0, select bank0
-   318  00BB  1303               	bcf	3,6	;RP1=0, select bank0
-   319  00BC  1C98               	btfss	24,1	;volatile
-   320  00BD  28BF               	goto	l770
-   321                           
-   322                           ;ServoController.c: 119: clearOverrunError();
-   323  00BE  20C5               	fcall	_clearOverrunError
-   324  00BF                     l770:	
-   325                           
-   326                           ;ServoController.c: 120: if(FERR)
-   327  00BF  1283               	bcf	3,5	;RP0=0, select bank0
-   328  00C0  1303               	bcf	3,6	;RP1=0, select bank0
-   329  00C1  1D18               	btfss	24,2	;volatile
-   330  00C2  28BA               	goto	l766
-   331                           
-   332                           ;ServoController.c: 121: clearFramingError();
-   333  00C3  20D4               	fcall	_clearFramingError
-   334  00C4  28BA               	goto	l766
-   335  00C5                     __end_of_main:	
-   336                           
-   337                           	psect	text1
-   338  00E3                     __ptext1:	
-   339 ;; *************** function _initUSART *****************
-   340 ;; Defined at:
-   341 ;;		line 65 in file "usart.h"
-   342 ;; Parameters:    Size  Location     Type
-   343 ;;		None
-   344 ;; Auto vars:     Size  Location     Type
-   345 ;;		None
-   346 ;; Return value:  Size  Location     Type
-   347 ;;                  1    wreg      void 
-   348 ;; Registers used:
-   349 ;;		wreg
-   350 ;; Tracked objects:
-   351 ;;		On entry : 0/0
-   352 ;;		On exit  : 0/0
-   353 ;;		Unchanged: 0/0
-   354 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
-   355 ;;      Params:         0       0       0       0
-   356 ;;      Locals:         0       0       0       0
-   357 ;;      Temps:          0       0       0       0
-   358 ;;      Totals:         0       0       0       0
-   359 ;;Total ram usage:        0 bytes
-   360 ;; Hardware stack levels used:    1
-   361 ;; Hardware stack levels required when called:    1
-   362 ;; This function calls:
-   363 ;;		Nothing
-   364 ;; This function is called by:
-   365 ;;		_main
-   366 ;; This function uses a non-reentrant model
-   367 ;;
-   368                           
+   304                           ;ServoController.c: 116: PEIE = 1;
+   305  00B5  170B               	bsf	11,6	;volatile
+   306                           
+   307                           ;ServoController.c: 117: GIE = 1;
+   308  00B6  178B               	bsf	11,7	;volatile
+   309  00B7                     l790:	
+   310                           ;ServoController.c: 123: while(1) {
+   311                           
+   312                           
+   313                           ;ServoController.c: 124: if (OERR)
+   314  00B7  1283               	bcf	3,5	;RP0=0, select bank0
+   315  00B8  1303               	bcf	3,6	;RP1=0, select bank0
+   316  00B9  1C98               	btfss	24,1	;volatile
+   317  00BA  28BC               	goto	l794
+   318                           
+   319                           ;ServoController.c: 125: clearOverrunError();
+   320  00BB  20D2               	fcall	_clearOverrunError
+   321  00BC                     l794:	
+   322                           
+   323                           ;ServoController.c: 126: if(FERR)
+   324  00BC  1283               	bcf	3,5	;RP0=0, select bank0
+   325  00BD  1303               	bcf	3,6	;RP1=0, select bank0
+   326  00BE  1D18               	btfss	24,2	;volatile
+   327  00BF  28B7               	goto	l790
+   328                           
+   329                           ;ServoController.c: 127: clearFramingError();
+   330  00C0  20E1               	fcall	_clearFramingError
+   331  00C1  28B7               	goto	l790
+   332  00C2                     __end_of_main:	
+   333                           
+   334                           	psect	text1
+   335  00F0                     __ptext1:	
+   336 ;; *************** function _initUSART *****************
+   337 ;; Defined at:
+   338 ;;		line 52 in file "usart.h"
+   339 ;; Parameters:    Size  Location     Type
+   340 ;;		None
+   341 ;; Auto vars:     Size  Location     Type
+   342 ;;		None
+   343 ;; Return value:  Size  Location     Type
+   344 ;;                  1    wreg      void 
+   345 ;; Registers used:
+   346 ;;		wreg
+   347 ;; Tracked objects:
+   348 ;;		On entry : 0/0
+   349 ;;		On exit  : 0/0
+   350 ;;		Unchanged: 0/0
+   351 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   352 ;;      Params:         0       0       0       0
+   353 ;;      Locals:         0       0       0       0
+   354 ;;      Temps:          0       0       0       0
+   355 ;;      Totals:         0       0       0       0
+   356 ;;Total ram usage:        0 bytes
+   357 ;; Hardware stack levels used:    1
+   358 ;; Hardware stack levels required when called:    1
+   359 ;; This function calls:
+   360 ;;		Nothing
+   361 ;; This function is called by:
+   362 ;;		_main
+   363 ;; This function uses a non-reentrant model
+   364 ;;
+   365                           
+   366                           
+   367                           ;psect for function _initUSART
+   368  00F0                     _initUSART:	
    369                           
-   370                           ;psect for function _initUSART
-   371  00E3                     _initUSART:	
-   372                           
-   373                           ;usart.h: 66: SPBRG = 39;
-   374                           
-   375                           ;incstack = 0
-   376                           ; Regs used in _initUSART: [wreg]
-   377  00E3  3027               	movlw	39
-   378  00E4  1683               	bsf	3,5	;RP0=1, select bank1
-   379  00E5  1303               	bcf	3,6	;RP1=0, select bank1
-   380  00E6  0099               	movwf	25	;volatile
+   370                           ;usart.h: 53: TRISB1 = 1;
+   371                           
+   372                           ;incstack = 0
+   373                           ; Regs used in _initUSART: [wreg]
+   374  00F0  1683               	bsf	3,5	;RP0=1, select bank1
+   375  00F1  1303               	bcf	3,6	;RP1=0, select bank1
+   376  00F2  1486               	bsf	6,1	;volatile
+   377                           
+   378                           ;usart.h: 54: SPBRG = 39;
+   379  00F3  3027               	movlw	39
+   380  00F4  0099               	movwf	25	;volatile
    381                           
-   382                           ;usart.h: 67: TRISB1 = 1;
-   383  00E7  1486               	bsf	6,1	;volatile
+   382                           ;usart.h: 55: BRGH = 1;
+   383  00F5  1518               	bsf	24,2	;volatile
    384                           
-   385                           ;usart.h: 68: TXSTA = 0b10100100;
-   386  00E8  30A4               	movlw	164
-   387  00E9  0098               	movwf	24	;volatile
-   388                           
-   389                           ;usart.h: 69: RCSTA = 0b10010000;
-   390  00EA  3090               	movlw	144
-   391  00EB  1283               	bcf	3,5	;RP0=0, select bank0
-   392  00EC  1303               	bcf	3,6	;RP1=0, select bank0
-   393  00ED  0098               	movwf	24	;volatile
-   394  00EE  0008               	return
-   395  00EF                     __end_of_initUSART:	
-   396                           
-   397                           	psect	text2
-   398  00EF                     __ptext2:	
-   399 ;; *************** function _initTMR2 *****************
-   400 ;; Defined at:
-   401 ;;		line 50 in file "tmr2.h"
-   402 ;; Parameters:    Size  Location     Type
+   385                           ;usart.h: 56: CREN = 1;
+   386  00F6  1283               	bcf	3,5	;RP0=0, select bank0
+   387  00F7  1303               	bcf	3,6	;RP1=0, select bank0
+   388  00F8  1618               	bsf	24,4	;volatile
+   389                           
+   390                           ;usart.h: 57: SPEN = 1;
+   391  00F9  1798               	bsf	24,7	;volatile
+   392  00FA  0008               	return
+   393  00FB                     __end_of_initUSART:	
+   394                           
+   395                           	psect	text2
+   396  00C2                     __ptext2:	
+   397 ;; *************** function _initTMR2 *****************
+   398 ;; Defined at:
+   399 ;;		line 44 in file "tmr2.h"
+   400 ;; Parameters:    Size  Location     Type
+   401 ;;		None
+   402 ;; Auto vars:     Size  Location     Type
    403 ;;		None
-   404 ;; Auto vars:     Size  Location     Type
-   405 ;;		None
-   406 ;; Return value:  Size  Location     Type
-   407 ;;                  1    wreg      void 
-   408 ;; Registers used:
-   409 ;;		wreg
-   410 ;; Tracked objects:
-   411 ;;		On entry : 0/0
-   412 ;;		On exit  : 0/0
-   413 ;;		Unchanged: 0/0
-   414 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
-   415 ;;      Params:         0       0       0       0
-   416 ;;      Locals:         0       0       0       0
-   417 ;;      Temps:          0       0       0       0
-   418 ;;      Totals:         0       0       0       0
-   419 ;;Total ram usage:        0 bytes
-   420 ;; Hardware stack levels used:    1
-   421 ;; Hardware stack levels required when called:    1
-   422 ;; This function calls:
-   423 ;;		Nothing
-   424 ;; This function is called by:
-   425 ;;		_main
-   426 ;; This function uses a non-reentrant model
-   427 ;;
-   428                           
-   429                           
-   430                           ;psect for function _initTMR2
-   431  00EF                     _initTMR2:	
+   404 ;; Return value:  Size  Location     Type
+   405 ;;                  1    wreg      void 
+   406 ;; Registers used:
+   407 ;;		wreg
+   408 ;; Tracked objects:
+   409 ;;		On entry : 0/0
+   410 ;;		On exit  : 0/0
+   411 ;;		Unchanged: 0/0
+   412 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   413 ;;      Params:         0       0       0       0
+   414 ;;      Locals:         0       0       0       0
+   415 ;;      Temps:          0       0       0       0
+   416 ;;      Totals:         0       0       0       0
+   417 ;;Total ram usage:        0 bytes
+   418 ;; Hardware stack levels used:    1
+   419 ;; Hardware stack levels required when called:    1
+   420 ;; This function calls:
+   421 ;;		Nothing
+   422 ;; This function is called by:
+   423 ;;		_main
+   424 ;; This function uses a non-reentrant model
+   425 ;;
+   426                           
+   427                           
+   428                           ;psect for function _initTMR2
+   429  00C2                     _initTMR2:	
+   430                           
+   431                           ;tmr2.h: 45: PR2 = 124;
    432                           
-   433                           ;tmr2.h: 51: T2CON = 0b00000101;
-   434                           
-   435                           ;incstack = 0
-   436                           ; Regs used in _initTMR2: [wreg]
-   437  00EF  3005               	movlw	5
-   438  00F0  1283               	bcf	3,5	;RP0=0, select bank0
-   439  00F1  1303               	bcf	3,6	;RP1=0, select bank0
-   440  00F2  0092               	movwf	18	;volatile
-   441                           
-   442                           ;tmr2.h: 52: PR2 = 124;
-   443  00F3  307C               	movlw	124
-   444  00F4  1683               	bsf	3,5	;RP0=1, select bank1
-   445  00F5  1303               	bcf	3,6	;RP1=0, select bank1
-   446  00F6  0092               	movwf	18	;volatile
-   447                           
-   448                           ;tmr2.h: 53: PIE1 = 0b00100010;
-   449  00F7  3022               	movlw	34
-   450  00F8  008C               	movwf	12	;volatile
-   451  00F9  0008               	return
-   452  00FA                     __end_of_initTMR2:	
+   433                           ;incstack = 0
+   434                           ; Regs used in _initTMR2: [wreg]
+   435  00C2  307C               	movlw	124
+   436  00C3  1683               	bsf	3,5	;RP0=1, select bank1
+   437  00C4  1303               	bcf	3,6	;RP1=0, select bank1
+   438  00C5  0092               	movwf	18	;volatile
+   439                           
+   440                           ;tmr2.h: 46: T2CON = 0b00000001;
+   441  00C6  3001               	movlw	1
+   442  00C7  1283               	bcf	3,5	;RP0=0, select bank0
+   443  00C8  1303               	bcf	3,6	;RP1=0, select bank0
+   444  00C9  0092               	movwf	18	;volatile
+   445                           
+   446                           ;tmr2.h: 47: TMR2IF = 0;
+   447  00CA  108C               	bcf	12,1	;volatile
+   448                           
+   449                           ;tmr2.h: 48: TMR2IE = 1;
+   450  00CB  1683               	bsf	3,5	;RP0=1, select bank1
+   451  00CC  1303               	bcf	3,6	;RP1=0, select bank1
+   452  00CD  148C               	bsf	12,1	;volatile
    453                           
-   454                           	psect	text3
-   455  00FA                     __ptext3:	
-   456 ;; *************** function _initServos *****************
-   457 ;; Defined at:
-   458 ;;		line 80 in file "ServoController.h"
-   459 ;; Parameters:    Size  Location     Type
-   460 ;;		None
-   461 ;; Auto vars:     Size  Location     Type
-   462 ;;		None
-   463 ;; Return value:  Size  Location     Type
-   464 ;;                  1    wreg      void 
-   465 ;; Registers used:
-   466 ;;		None
-   467 ;; Tracked objects:
-   468 ;;		On entry : 0/0
-   469 ;;		On exit  : 0/0
-   470 ;;		Unchanged: 0/0
-   471 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
-   472 ;;      Params:         0       0       0       0
-   473 ;;      Locals:         0       0       0       0
-   474 ;;      Temps:          0       0       0       0
-   475 ;;      Totals:         0       0       0       0
-   476 ;;Total ram usage:        0 bytes
-   477 ;; Hardware stack levels used:    1
-   478 ;; Hardware stack levels required when called:    1
-   479 ;; This function calls:
-   480 ;;		Nothing
-   481 ;; This function is called by:
-   482 ;;		_main
-   483 ;; This function uses a non-reentrant model
-   484 ;;
-   485                           
-   486                           
-   487                           ;psect for function _initServos
-   488  00FA                     _initServos:	
-   489                           
-   490                           ;ServoController.h: 81: TRISA0 = 0;
-   491                           
-   492                           ;incstack = 0
-   493                           ; Regs used in _initServos: []
-   494  00FA  1683               	bsf	3,5	;RP0=1, select bank1
-   495  00FB  1303               	bcf	3,6	;RP1=0, select bank1
-   496  00FC  1005               	bcf	5,0	;volatile
-   497                           
-   498                           ;ServoController.h: 82: TRISA1 = 0;
-   499  00FD  1085               	bcf	5,1	;volatile
-   500                           
-   501                           ;ServoController.h: 83: TRISA2 = 0;
-   502  00FE  1105               	bcf	5,2	;volatile
-   503                           
-   504                           ;ServoController.h: 84: TRISA3 = 0;
-   505  00FF  1185               	bcf	5,3	;volatile
-   506                           
-   507                           ;ServoController.h: 85: TRISB0 = 0;
-   508  0100  1006               	bcf	6,0	;volatile
-   509                           
-   510                           ;ServoController.h: 86: TRISB3 = 0;
-   511  0101  1186               	bcf	6,3	;volatile
-   512  0102  0008               	return
-   513  0103                     __end_of_initServos:	
-   514                           
-   515                           	psect	text4
-   516  00C5                     __ptext4:	
-   517 ;; *************** function _clearOverrunError *****************
-   518 ;; Defined at:
-   519 ;;		line 78 in file "usart.h"
-   520 ;; Parameters:    Size  Location     Type
-   521 ;;		None
-   522 ;; Auto vars:     Size  Location     Type
-   523 ;;		None
-   524 ;; Return value:  Size  Location     Type
-   525 ;;                  1    wreg      void 
-   526 ;; Registers used:
-   527 ;;		wreg
-   528 ;; Tracked objects:
-   529 ;;		On entry : 0/0
-   530 ;;		On exit  : 0/0
-   531 ;;		Unchanged: 0/0
-   532 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
-   533 ;;      Params:         0       0       0       0
-   534 ;;      Locals:         0       0       0       0
-   535 ;;      Temps:          0       1       0       0
-   536 ;;      Totals:         0       1       0       0
-   537 ;;Total ram usage:        1 bytes
-   538 ;; Hardware stack levels used:    1
-   539 ;; Hardware stack levels required when called:    1
-   540 ;; This function calls:
-   541 ;;		Nothing
-   542 ;; This function is called by:
-   543 ;;		_main
-   544 ;; This function uses a non-reentrant model
-   545 ;;
-   546                           
-   547                           
-   548                           ;psect for function _clearOverrunError
-   549  00C5                     _clearOverrunError:	
-   550  00C5                     l67:	
-   551                           ;incstack = 0
-   552                           ; Regs used in _clearOverrunError: [wreg]
-   553                           ;usart.h: 79: static unsigned char temp = 0;
-   554                           ;usart.h: 80: do {
-   555                           
-   556                           
-   557                           ;usart.h: 81: temp = RCREG;
-   558  00C5  1283               	bcf	3,5	;RP0=0, select bank0
-   559  00C6  1303               	bcf	3,6	;RP1=0, select bank0
-   560  00C7  081A               	movf	26,w	;volatile
-   561  00C8  00A2               	movwf	??_clearOverrunError
-   562  00C9  0822               	movf	??_clearOverrunError,w
-   563  00CA  00A1               	movwf	clearOverrunError@temp
-   564                           
-   565                           ;usart.h: 82: temp = RCREG;
-   566  00CB  081A               	movf	26,w	;volatile
-   567  00CC  00A2               	movwf	??_clearOverrunError
-   568  00CD  0822               	movf	??_clearOverrunError,w
-   569  00CE  00A1               	movwf	clearOverrunError@temp
-   570                           
-   571                           ;usart.h: 83: CREN = 0;
-   572  00CF  1218               	bcf	24,4	;volatile
-   573                           
-   574                           ;usart.h: 84: CREN = 1;
-   575  00D0  1618               	bsf	24,4	;volatile
-   576                           
-   577                           ;usart.h: 85: } while(OERR);
-   578  00D1  1C98               	btfss	24,1	;volatile
-   579  00D2  0008               	return
-   580  00D3  28C5               	goto	l67
-   581  00D4                     __end_of_clearOverrunError:	
-   582                           
-   583                           	psect	text5
-   584  00D4                     __ptext5:	
-   585 ;; *************** function _clearFramingError *****************
-   586 ;; Defined at:
-   587 ;;		line 96 in file "usart.h"
-   588 ;; Parameters:    Size  Location     Type
-   589 ;;		None
-   590 ;; Auto vars:     Size  Location     Type
-   591 ;;		None
-   592 ;; Return value:  Size  Location     Type
-   593 ;;                  1    wreg      void 
-   594 ;; Registers used:
-   595 ;;		wreg
-   596 ;; Tracked objects:
-   597 ;;		On entry : 0/0
-   598 ;;		On exit  : 0/0
-   599 ;;		Unchanged: 0/0
-   600 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
-   601 ;;      Params:         0       0       0       0
-   602 ;;      Locals:         0       0       0       0
-   603 ;;      Temps:          0       1       0       0
-   604 ;;      Totals:         0       1       0       0
-   605 ;;Total ram usage:        1 bytes
-   606 ;; Hardware stack levels used:    1
-   607 ;; Hardware stack levels required when called:    1
-   608 ;; This function calls:
-   609 ;;		Nothing
-   610 ;; This function is called by:
-   611 ;;		_main
-   612 ;; This function uses a non-reentrant model
-   613 ;;
-   614                           
-   615                           
-   616                           ;psect for function _clearFramingError
-   617  00D4                     _clearFramingError:	
-   618  00D4                     l74:	
-   619                           ;incstack = 0
-   620                           ; Regs used in _clearFramingError: [wreg]
-   621                           ;usart.h: 97: static unsigned char temp = 0;
-   622                           ;usart.h: 98: do {
-   623                           
-   624                           
-   625                           ;usart.h: 99: temp = RCREG;
-   626  00D4  1283               	bcf	3,5	;RP0=0, select bank0
-   627  00D5  1303               	bcf	3,6	;RP1=0, select bank0
-   628  00D6  081A               	movf	26,w	;volatile
-   629  00D7  00A2               	movwf	??_clearFramingError
-   630  00D8  0822               	movf	??_clearFramingError,w
-   631  00D9  00A0               	movwf	clearFramingError@temp
-   632                           
-   633                           ;usart.h: 100: temp = RCREG;
-   634  00DA  081A               	movf	26,w	;volatile
-   635  00DB  00A2               	movwf	??_clearFramingError
-   636  00DC  0822               	movf	??_clearFramingError,w
-   637  00DD  00A0               	movwf	clearFramingError@temp
-   638                           
-   639                           ;usart.h: 101: SPEN = 0;
-   640  00DE  1398               	bcf	24,7	;volatile
-   641                           
-   642                           ;usart.h: 102: SPEN = 1;
-   643  00DF  1798               	bsf	24,7	;volatile
-   644                           
-   645                           ;usart.h: 103: } while (FERR);
-   646  00E0  1D18               	btfss	24,2	;volatile
-   647  00E1  0008               	return
-   648  00E2  28D4               	goto	l74
-   649  00E3                     __end_of_clearFramingError:	
-   650                           
-   651                           	psect	text6
-   652  0022                     __ptext6:	
-   653 ;; *************** function _isr *****************
-   654 ;; Defined at:
-   655 ;;		line 52 in file "ServoController.c"
-   656 ;; Parameters:    Size  Location     Type
-   657 ;;		None
-   658 ;; Auto vars:     Size  Location     Type
-   659 ;;		None
-   660 ;; Return value:  Size  Location     Type
-   661 ;;                  1    wreg      void 
-   662 ;; Registers used:
-   663 ;;		wreg, fsr0l, fsr0h, status,2, status,0
-   664 ;; Tracked objects:
-   665 ;;		On entry : 0/0
-   666 ;;		On exit  : 0/0
-   667 ;;		Unchanged: 0/0
-   668 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
-   669 ;;      Params:         0       0       0       0
-   670 ;;      Locals:         0       0       0       0
-   671 ;;      Temps:          5       0       0       0
-   672 ;;      Totals:         5       0       0       0
-   673 ;;Total ram usage:        5 bytes
-   674 ;; Hardware stack levels used:    1
-   675 ;; This function calls:
-   676 ;;		Nothing
-   677 ;; This function is called by:
-   678 ;;		Interrupt level 1
-   679 ;; This function uses a non-reentrant model
-   680 ;;
-   681                           
-   682                           
-   683                           ;psect for function _isr
-   684  0022                     _isr:	
-   685                           
-   686                           ;ServoController.c: 53: if (TMR2IF) {
-   687  0022  1C8C               	btfss	12,1	;volatile
-   688  0023  284C               	goto	i1l100
+   454                           ;tmr2.h: 49: TMR2ON = 1;
+   455  00CE  1283               	bcf	3,5	;RP0=0, select bank0
+   456  00CF  1303               	bcf	3,6	;RP1=0, select bank0
+   457  00D0  1512               	bsf	18,2	;volatile
+   458  00D1  0008               	return
+   459  00D2                     __end_of_initTMR2:	
+   460                           
+   461                           	psect	text3
+   462  00FB                     __ptext3:	
+   463 ;; *************** function _initServos *****************
+   464 ;; Defined at:
+   465 ;;		line 92 in file "ServoController.h"
+   466 ;; Parameters:    Size  Location     Type
+   467 ;;		None
+   468 ;; Auto vars:     Size  Location     Type
+   469 ;;		None
+   470 ;; Return value:  Size  Location     Type
+   471 ;;                  1    wreg      void 
+   472 ;; Registers used:
+   473 ;;		None
+   474 ;; Tracked objects:
+   475 ;;		On entry : 0/0
+   476 ;;		On exit  : 0/0
+   477 ;;		Unchanged: 0/0
+   478 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   479 ;;      Params:         0       0       0       0
+   480 ;;      Locals:         0       0       0       0
+   481 ;;      Temps:          0       0       0       0
+   482 ;;      Totals:         0       0       0       0
+   483 ;;Total ram usage:        0 bytes
+   484 ;; Hardware stack levels used:    1
+   485 ;; Hardware stack levels required when called:    1
+   486 ;; This function calls:
+   487 ;;		Nothing
+   488 ;; This function is called by:
+   489 ;;		_main
+   490 ;; This function uses a non-reentrant model
+   491 ;;
+   492                           
+   493                           
+   494                           ;psect for function _initServos
+   495  00FB                     _initServos:	
+   496                           
+   497                           ;ServoController.h: 93: TRISA0 = 0;
+   498                           
+   499                           ;incstack = 0
+   500                           ; Regs used in _initServos: []
+   501  00FB  1683               	bsf	3,5	;RP0=1, select bank1
+   502  00FC  1303               	bcf	3,6	;RP1=0, select bank1
+   503  00FD  1005               	bcf	5,0	;volatile
+   504                           
+   505                           ;ServoController.h: 94: TRISA1 = 0;
+   506  00FE  1085               	bcf	5,1	;volatile
+   507                           
+   508                           ;ServoController.h: 95: TRISA2 = 0;
+   509  00FF  1105               	bcf	5,2	;volatile
+   510                           
+   511                           ;ServoController.h: 96: TRISA3 = 0;
+   512  0100  1185               	bcf	5,3	;volatile
+   513                           
+   514                           ;ServoController.h: 97: TRISB0 = 0;
+   515  0101  1006               	bcf	6,0	;volatile
+   516                           
+   517                           ;ServoController.h: 98: TRISB3 = 0;
+   518  0102  1186               	bcf	6,3	;volatile
+   519  0103  0008               	return
+   520  0104                     __end_of_initServos:	
+   521                           
+   522                           	psect	text4
+   523  00D2                     __ptext4:	
+   524 ;; *************** function _clearOverrunError *****************
+   525 ;; Defined at:
+   526 ;;		line 65 in file "usart.h"
+   527 ;; Parameters:    Size  Location     Type
+   528 ;;		None
+   529 ;; Auto vars:     Size  Location     Type
+   530 ;;		None
+   531 ;; Return value:  Size  Location     Type
+   532 ;;                  1    wreg      void 
+   533 ;; Registers used:
+   534 ;;		wreg
+   535 ;; Tracked objects:
+   536 ;;		On entry : 0/0
+   537 ;;		On exit  : 0/0
+   538 ;;		Unchanged: 0/0
+   539 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   540 ;;      Params:         0       0       0       0
+   541 ;;      Locals:         0       0       0       0
+   542 ;;      Temps:          0       1       0       0
+   543 ;;      Totals:         0       1       0       0
+   544 ;;Total ram usage:        1 bytes
+   545 ;; Hardware stack levels used:    1
+   546 ;; Hardware stack levels required when called:    1
+   547 ;; This function calls:
+   548 ;;		Nothing
+   549 ;; This function is called by:
+   550 ;;		_main
+   551 ;; This function uses a non-reentrant model
+   552 ;;
+   553                           
+   554                           
+   555                           ;psect for function _clearOverrunError
+   556  00D2                     _clearOverrunError:	
+   557  00D2                     l67:	
+   558                           ;incstack = 0
+   559                           ; Regs used in _clearOverrunError: [wreg]
+   560                           ;usart.h: 66: static unsigned char temp = 0;
+   561                           ;usart.h: 67: do {
+   562                           
+   563                           
+   564                           ;usart.h: 68: temp = RCREG;
+   565  00D2  1283               	bcf	3,5	;RP0=0, select bank0
+   566  00D3  1303               	bcf	3,6	;RP1=0, select bank0
+   567  00D4  081A               	movf	26,w	;volatile
+   568  00D5  00A2               	movwf	??_clearOverrunError
+   569  00D6  0822               	movf	??_clearOverrunError,w
+   570  00D7  00A1               	movwf	clearOverrunError@temp
+   571                           
+   572                           ;usart.h: 69: temp = RCREG;
+   573  00D8  081A               	movf	26,w	;volatile
+   574  00D9  00A2               	movwf	??_clearOverrunError
+   575  00DA  0822               	movf	??_clearOverrunError,w
+   576  00DB  00A1               	movwf	clearOverrunError@temp
+   577                           
+   578                           ;usart.h: 70: CREN = 0;
+   579  00DC  1218               	bcf	24,4	;volatile
+   580                           
+   581                           ;usart.h: 71: CREN = 1;
+   582  00DD  1618               	bsf	24,4	;volatile
+   583                           
+   584                           ;usart.h: 72: } while(OERR);
+   585  00DE  1C98               	btfss	24,1	;volatile
+   586  00DF  0008               	return
+   587  00E0  28D2               	goto	l67
+   588  00E1                     __end_of_clearOverrunError:	
+   589                           
+   590                           	psect	text5
+   591  00E1                     __ptext5:	
+   592 ;; *************** function _clearFramingError *****************
+   593 ;; Defined at:
+   594 ;;		line 83 in file "usart.h"
+   595 ;; Parameters:    Size  Location     Type
+   596 ;;		None
+   597 ;; Auto vars:     Size  Location     Type
+   598 ;;		None
+   599 ;; Return value:  Size  Location     Type
+   600 ;;                  1    wreg      void 
+   601 ;; Registers used:
+   602 ;;		wreg
+   603 ;; Tracked objects:
+   604 ;;		On entry : 0/0
+   605 ;;		On exit  : 0/0
+   606 ;;		Unchanged: 0/0
+   607 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   608 ;;      Params:         0       0       0       0
+   609 ;;      Locals:         0       0       0       0
+   610 ;;      Temps:          0       1       0       0
+   611 ;;      Totals:         0       1       0       0
+   612 ;;Total ram usage:        1 bytes
+   613 ;; Hardware stack levels used:    1
+   614 ;; Hardware stack levels required when called:    1
+   615 ;; This function calls:
+   616 ;;		Nothing
+   617 ;; This function is called by:
+   618 ;;		_main
+   619 ;; This function uses a non-reentrant model
+   620 ;;
+   621                           
+   622                           
+   623                           ;psect for function _clearFramingError
+   624  00E1                     _clearFramingError:	
+   625  00E1                     l74:	
+   626                           ;incstack = 0
+   627                           ; Regs used in _clearFramingError: [wreg]
+   628                           ;usart.h: 84: static unsigned char temp = 0;
+   629                           ;usart.h: 85: do {
+   630                           
+   631                           
+   632                           ;usart.h: 86: temp = RCREG;
+   633  00E1  1283               	bcf	3,5	;RP0=0, select bank0
+   634  00E2  1303               	bcf	3,6	;RP1=0, select bank0
+   635  00E3  081A               	movf	26,w	;volatile
+   636  00E4  00A2               	movwf	??_clearFramingError
+   637  00E5  0822               	movf	??_clearFramingError,w
+   638  00E6  00A0               	movwf	clearFramingError@temp
+   639                           
+   640                           ;usart.h: 87: temp = RCREG;
+   641  00E7  081A               	movf	26,w	;volatile
+   642  00E8  00A2               	movwf	??_clearFramingError
+   643  00E9  0822               	movf	??_clearFramingError,w
+   644  00EA  00A0               	movwf	clearFramingError@temp
+   645                           
+   646                           ;usart.h: 88: SPEN = 0;
+   647  00EB  1398               	bcf	24,7	;volatile
+   648                           
+   649                           ;usart.h: 89: SPEN = 1;
+   650  00EC  1798               	bsf	24,7	;volatile
+   651                           
+   652                           ;usart.h: 90: } while (FERR);
+   653  00ED  1D18               	btfss	24,2	;volatile
+   654  00EE  0008               	return
+   655  00EF  28E1               	goto	l74
+   656  00F0                     __end_of_clearFramingError:	
+   657                           
+   658                           	psect	text6
+   659  0022                     __ptext6:	
+   660 ;; *************** function _isr *****************
+   661 ;; Defined at:
+   662 ;;		line 56 in file "ServoController.c"
+   663 ;; Parameters:    Size  Location     Type
+   664 ;;		None
+   665 ;; Auto vars:     Size  Location     Type
+   666 ;;		None
+   667 ;; Return value:  Size  Location     Type
+   668 ;;                  1    wreg      void 
+   669 ;; Registers used:
+   670 ;;		wreg, fsr0l, fsr0h, status,2, status,0
+   671 ;; Tracked objects:
+   672 ;;		On entry : 0/0
+   673 ;;		On exit  : 0/0
+   674 ;;		Unchanged: 0/0
+   675 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   676 ;;      Params:         0       0       0       0
+   677 ;;      Locals:         0       0       0       0
+   678 ;;      Temps:          5       0       0       0
+   679 ;;      Totals:         5       0       0       0
+   680 ;;Total ram usage:        5 bytes
+   681 ;; Hardware stack levels used:    1
+   682 ;; This function calls:
+   683 ;;		Nothing
+   684 ;; This function is called by:
+   685 ;;		Interrupt level 1
+   686 ;; This function uses a non-reentrant model
+   687 ;;
+   688                           
    689                           
-   690                           ;ServoController.c: 54: ++sawtoothCounter;
-   691  0024  3001               	movlw	1
-   692  0025  00F5               	movwf	??_isr
-   693  0026  0875               	movf	??_isr,w
-   694  0027  07FA               	addwf	_sawtoothCounter,f	;volatile
-   695                           
-   696                           ;ServoController.c: 55: if (sawtoothCounter >= 180) {
-   697  0028  30B4               	movlw	180
-   698  0029  027A               	subwf	_sawtoothCounter,w	;volatile
-   699  002A  1C03               	skipc
-   700  002B  284B               	goto	i1l101
-   701                           
-   702                           ;ServoController.c: 56: if (sawtoothCounter >= 200) {
-   703  002C  30C8               	movlw	200
-   704  002D  027A               	subwf	_sawtoothCounter,w	;volatile
-   705  002E  1C03               	skipc
-   706  002F  2837               	goto	i1l630
-   707                           
-   708                           ;ServoController.c: 57: RA0 = 0;
-   709  0030  1005               	bcf	5,0	;volatile
-   710                           
-   711                           ;ServoController.c: 58: RA1 = 0;
-   712  0031  1085               	bcf	5,1	;volatile
-   713                           
-   714                           ;ServoController.c: 59: RA2 = 0;
-   715  0032  1105               	bcf	5,2	;volatile
-   716                           
-   717                           ;ServoController.c: 60: RA3 = 0;
-   718  0033  1185               	bcf	5,3	;volatile
-   719                           
-   720                           ;ServoController.c: 61: RA4 = 0;
-   721  0034  1205               	bcf	5,4	;volatile
-   722                           
-   723                           ;ServoController.c: 63: sawtoothCounter = 0;
-   724  0035  01FA               	clrf	_sawtoothCounter	;volatile
-   725                           
-   726                           ;ServoController.c: 64: } else {
-   727  0036  284B               	goto	i1l101
-   728  0037                     i1l630:	
+   690                           ;psect for function _isr
+   691  0022                     _isr:	
+   692                           
+   693                           ;ServoController.c: 57: if (TMR2IF) {
+   694  0022  1C8C               	btfss	12,1	;volatile
+   695  0023  284C               	goto	i1l100
+   696                           
+   697                           ;ServoController.c: 58: ++sawtoothCounter;
+   698  0024  3001               	movlw	1
+   699  0025  00F5               	movwf	??_isr
+   700  0026  0875               	movf	??_isr,w
+   701  0027  07FA               	addwf	_sawtoothCounter,f	;volatile
+   702                           
+   703                           ;ServoController.c: 59: if (sawtoothCounter >= 180) {
+   704  0028  30B4               	movlw	180
+   705  0029  027A               	subwf	_sawtoothCounter,w	;volatile
+   706  002A  1C03               	skipc
+   707  002B  284B               	goto	i1l101
+   708                           
+   709                           ;ServoController.c: 60: if (sawtoothCounter >= 200) {
+   710  002C  30C8               	movlw	200
+   711  002D  027A               	subwf	_sawtoothCounter,w	;volatile
+   712  002E  1C03               	skipc
+   713  002F  2837               	goto	i1l642
+   714                           
+   715                           ;ServoController.c: 61: RA0 = 0;
+   716  0030  1005               	bcf	5,0	;volatile
+   717                           
+   718                           ;ServoController.c: 62: RA1 = 0;
+   719  0031  1085               	bcf	5,1	;volatile
+   720                           
+   721                           ;ServoController.c: 63: RA2 = 0;
+   722  0032  1105               	bcf	5,2	;volatile
+   723                           
+   724                           ;ServoController.c: 64: RA3 = 0;
+   725  0033  1185               	bcf	5,3	;volatile
+   726                           
+   727                           ;ServoController.c: 65: RA4 = 0;
+   728  0034  1205               	bcf	5,4	;volatile
    729                           
-   730                           ;ServoController.c: 65: if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
-   731  0037  087A               	movf	_sawtoothCounter,w	;volatile
-   732  0038  0674               	xorwf	_eyebrowSliderVal,w	;volatile
-   733  0039  1903               	btfsc	3,2
-   734  003A  1405               	bsf	5,0	;volatile
-   735                           
-   736                           ;ServoController.c: 66: if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
-   737  003B  087A               	movf	_sawtoothCounter,w	;volatile
-   738  003C  0673               	xorwf	_leftLipCornerSliderVal,w	;volatile
-   739  003D  1903               	btfsc	3,2
-   740  003E  1485               	bsf	5,1	;volatile
-   741                           
-   742                           ;ServoController.c: 67: if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
-   743  003F  087A               	movf	_sawtoothCounter,w	;volatile
-   744  0040  0672               	xorwf	_rightLipCornerSliderVal,w	;volatile
-   745  0041  1903               	btfsc	3,2
-   746  0042  1505               	bsf	5,2	;volatile
-   747                           
-   748                           ;ServoController.c: 68: if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
-   749  0043  087A               	movf	_sawtoothCounter,w	;volatile
-   750  0044  0671               	xorwf	_lowerJawSliderVal,w	;volatile
-   751  0045  1903               	btfsc	3,2
-   752  0046  1585               	bsf	5,3	;volatile
-   753                           
-   754                           ;ServoController.c: 69: if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
-   755  0047  087A               	movf	_sawtoothCounter,w	;volatile
-   756  0048  0670               	xorwf	_eyelidsSliderVal,w	;volatile
-   757  0049  1903               	btfsc	3,2
-   758  004A  1605               	bsf	5,4	;volatile
-   759  004B                     i1l101:	
+   730                           ;ServoController.c: 67: sawtoothCounter = 0;
+   731  0035  01FA               	clrf	_sawtoothCounter	;volatile
+   732                           
+   733                           ;ServoController.c: 68: } else {
+   734  0036  284B               	goto	i1l101
+   735  0037                     i1l642:	
+   736                           
+   737                           ;ServoController.c: 69: if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
+   738  0037  087A               	movf	_sawtoothCounter,w	;volatile
+   739  0038  0674               	xorwf	_eyebrowSawtoothThreshold,w	;volatile
+   740  0039  1903               	btfsc	3,2
+   741  003A  1405               	bsf	5,0	;volatile
+   742                           
+   743                           ;ServoController.c: 70: if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
+   744  003B  087A               	movf	_sawtoothCounter,w	;volatile
+   745  003C  0673               	xorwf	_leftLipCornerSawtoothThreshold,w	;volatile
+   746  003D  1903               	btfsc	3,2
+   747  003E  1485               	bsf	5,1	;volatile
+   748                           
+   749                           ;ServoController.c: 71: if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
+   750  003F  087A               	movf	_sawtoothCounter,w	;volatile
+   751  0040  0672               	xorwf	_rightLipCornerSawtoothThreshold,w	;volatile
+   752  0041  1903               	btfsc	3,2
+   753  0042  1505               	bsf	5,2	;volatile
+   754                           
+   755                           ;ServoController.c: 72: if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
+   756  0043  087A               	movf	_sawtoothCounter,w	;volatile
+   757  0044  0671               	xorwf	_lowerJawSawtoothThreshold,w	;volatile
+   758  0045  1903               	btfsc	3,2
+   759  0046  1585               	bsf	5,3	;volatile
    760                           
-   761                           ;ServoController.c: 71: }
-   762                           ;ServoController.c: 72: }
-   763                           ;ServoController.c: 73: TMR2IF = 0;
-   764  004B  108C               	bcf	12,1	;volatile
-   765  004C                     i1l100:	
-   766                           
-   767                           ;ServoController.c: 74: }
-   768                           ;ServoController.c: 75: if (RCIF) {
-   769  004C  1E8C               	btfss	12,5	;volatile
-   770  004D  28A7               	goto	i1l124
-   771                           
-   772                           ;ServoController.c: 76: ++receiveCounter;
-   773  004E  3001               	movlw	1
-   774  004F  00F5               	movwf	??_isr
-   775  0050  0875               	movf	??_isr,w
-   776  0051  07FB               	addwf	_receiveCounter,f	;volatile
-   777                           
-   778                           ;ServoController.c: 77: switch(receiveCounter) {
-   779  0052  289C               	goto	i1l678
-   780  0053                     i1l652:	
-   781                           ;ServoController.c: 78: case 1:
-   782                           
-   783                           
-   784                           ;ServoController.c: 79: RCREG = 0;
-   785  0053  019A               	clrf	26	;volatile
-   786                           
-   787                           ;ServoController.c: 80: break;
-   788  0054  28A7               	goto	i1l124
-   789  0055                     i1l654:	
-   790                           ;ServoController.c: 81: case 2:
-   791                           
-   792                           
-   793                           ;ServoController.c: 82: part = RCREG;
-   794  0055  081A               	movf	26,w	;volatile
-   795  0056  00F5               	movwf	??_isr
-   796  0057  0875               	movf	??_isr,w
-   797  0058  00FC               	movwf	_part	;volatile
+   761                           ;ServoController.c: 73: if (sawtoothCounter == eyelidsSawtoothThreshold) RA4 = 1;
+   762  0047  087A               	movf	_sawtoothCounter,w	;volatile
+   763  0048  0670               	xorwf	_eyelidsSawtoothThreshold,w	;volatile
+   764  0049  1903               	btfsc	3,2
+   765  004A  1605               	bsf	5,4	;volatile
+   766  004B                     i1l101:	
+   767                           
+   768                           ;ServoController.c: 75: }
+   769                           ;ServoController.c: 76: }
+   770                           ;ServoController.c: 77: TMR2IF = 0;
+   771  004B  108C               	bcf	12,1	;volatile
+   772  004C                     i1l100:	
+   773                           
+   774                           ;ServoController.c: 78: }
+   775                           ;ServoController.c: 79: if (RCIF) {
+   776  004C  1E8C               	btfss	12,5	;volatile
+   777  004D  28A7               	goto	i1l124
+   778                           
+   779                           ;ServoController.c: 80: ++receiveCounter;
+   780  004E  3001               	movlw	1
+   781  004F  00F5               	movwf	??_isr
+   782  0050  0875               	movf	??_isr,w
+   783  0051  07FB               	addwf	_receiveCounter,f	;volatile
+   784                           
+   785                           ;ServoController.c: 81: switch(receiveCounter) {
+   786  0052  289C               	goto	i1l690
+   787  0053                     i1l664:	
+   788                           ;ServoController.c: 82: case 1:
+   789                           
+   790  0053  289A               	goto	L1
+   791  0054                     i1l666:	
+   792                           ;ServoController.c: 85: case 2:
+   793                           
+   794                           ;ServoController.c: 84: break;
+   795                           
+   796                           ;ServoController.c: 83: RCREG = 0;
+   797                           
    798                           
-   799                           ;ServoController.c: 83: break;
-   800  0059  28A7               	goto	i1l124
-   801  005A                     i1l656:	
-   802                           ;ServoController.c: 84: case 3:
-   803                           
+   799                           ;ServoController.c: 86: partMidiNote = RCREG;
+   800  0054  081A               	movf	26,w	;volatile
+   801  0055  00F5               	movwf	??_isr
+   802  0056  0875               	movf	??_isr,w
+   803  0057  00FC               	movwf	_partMidiNote	;volatile
    804                           
-   805                           ;ServoController.c: 85: receiveCounter = 0;
-   806  005A  01FB               	clrf	_receiveCounter	;volatile
-   807                           
-   808                           ;ServoController.c: 86: switch(part) {
-   809  005B  2885               	goto	i1l672
-   810  005C                     i1l658:	
-   811                           ;ServoController.c: 87: case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
-   812                           
-   813  005C  081A               	movf	26,w	;volatile
-   814  005D  3EB4               	addlw	180
-   815  005E  00F5               	movwf	??_isr
-   816  005F  0875               	movf	??_isr,w
-   817  0060  00F4               	movwf	_eyebrowSliderVal	;volatile
-   818  0061  28A7               	goto	i1l124
-   819  0062                     i1l660:	
-   820                           ;ServoController.c: 88: case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
-   821                           
-   822  0062  081A               	movf	26,w	;volatile
-   823  0063  3EB4               	addlw	180
-   824  0064  00F5               	movwf	??_isr
-   825  0065  0875               	movf	??_isr,w
-   826  0066  00F3               	movwf	_leftLipCornerSliderVal	;volatile
-   827  0067  28A7               	goto	i1l124
-   828  0068                     i1l662:	
-   829                           ;ServoController.c: 89: case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
-   830                           
-   831  0068  081A               	movf	26,w	;volatile
-   832  0069  3EB4               	addlw	180
-   833  006A  00F5               	movwf	??_isr
-   834  006B  0875               	movf	??_isr,w
-   835  006C  00F2               	movwf	_rightLipCornerSliderVal	;volatile
-   836  006D  28A7               	goto	i1l124
-   837  006E                     i1l664:	
-   838                           ;ServoController.c: 90: case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
-   839                           
-   840  006E  081A               	movf	26,w	;volatile
-   841  006F  3EB4               	addlw	180
-   842  0070  00F5               	movwf	??_isr
-   843  0071  0875               	movf	??_isr,w
-   844  0072  00F1               	movwf	_lowerJawSliderVal	;volatile
-   845  0073  28A7               	goto	i1l124
-   846  0074                     i1l666:	
-   847                           ;ServoController.c: 91: case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
-   848                           
-   849  0074  081A               	movf	26,w	;volatile
-   850  0075  3EB4               	addlw	180
-   851  0076  00F5               	movwf	??_isr
-   852  0077  0875               	movf	??_isr,w
-   853  0078  00F0               	movwf	_eyelidsSliderVal	;volatile
-   854  0079  28A7               	goto	i1l124
-   855  007A                     i1l668:	
-   856                           ;ServoController.c: 93: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
-   857                           
-   858  007A  081A               	movf	26,w	;volatile
-   859  007B  1903               	btfsc	3,2
-   860  007C  2881               	goto	u12_20
-   861  007D  1283               	bcf	3,5	;RP0=0, select bank0
-   862  007E  1303               	bcf	3,6	;RP1=0, select bank0
-   863  007F  1686               	bsf	6,5	;volatile
-   864  0080  28A7               	goto	i1l124
-   865  0081                     u12_20:	
-   866  0081  1283               	bcf	3,5	;RP0=0, select bank0
-   867  0082  1303               	bcf	3,6	;RP1=0, select bank0
-   868  0083  1286               	bcf	6,5	;volatile
-   869                           
-   870                           ;ServoController.c: 94: }
-   871  0084  28A7               	goto	i1l124
-   872  0085                     i1l672:	
-   873  0085  087C               	movf	_part,w	;volatile
-   874                           
-   875                           ; Switch size 1, requested type "space"
-   876                           ; Number of cases is 6, Range of values is 60 to 74
-   877                           ; switch strategies available:
-   878                           ; Name         Instructions Cycles
-   879                           ; simple_byte           19    10 (average)
-   880                           ; direct_byte           24     9 (fixed)
-   881                           ; jumptable            263     9 (fixed)
-   882                           ;	Chosen strategy is simple_byte
-   883  0086  3A3C               	xorlw	60	; case 60
-   884  0087  1903               	skipnz
-   885  0088  285C               	goto	i1l658
-   886  0089  3A02               	xorlw	2	; case 62
-   887  008A  1903               	skipnz
-   888  008B  2862               	goto	i1l660
-   889  008C  3A7E               	xorlw	126	; case 64
-   890  008D  1903               	skipnz
-   891  008E  2868               	goto	i1l662
-   892  008F  3A03               	xorlw	3	; case 67
-   893  0090  1903               	skipnz
-   894  0091  286E               	goto	i1l664
-   895  0092  3A06               	xorlw	6	; case 69
-   896  0093  1903               	skipnz
-   897  0094  2874               	goto	i1l666
-   898  0095  3A0F               	xorlw	15	; case 74
-   899  0096  1903               	skipnz
-   900  0097  287A               	goto	i1l668
-   901  0098  28A7               	goto	i1l124
-   902                           
-   903                           ;ServoController.c: 95: break;
-   904  0099  28A7               	goto	i1l124
-   905  009A                     i1l674:	
-   906                           ;ServoController.c: 96: default:
-   907                           
+   805                           ;ServoController.c: 87: break;
+   806  0058  28A7               	goto	i1l124
+   807  0059                     i1l668:	
+   808                           ;ServoController.c: 88: case 3:
+   809                           
+   810                           
+   811                           ;ServoController.c: 89: receiveCounter = 0;
+   812  0059  01FB               	clrf	_receiveCounter	;volatile
+   813                           
+   814                           ;ServoController.c: 90: switch(partMidiNote) {
+   815  005A  2884               	goto	i1l684
+   816  005B                     i1l670:	
+   817                           ;ServoController.c: 91: case 0x3C: eyebrowSawtoothThreshold = (180 + (RCREG)); break;
+   818                           
+   819  005B  081A               	movf	26,w	;volatile
+   820  005C  3EB4               	addlw	180
+   821  005D  00F5               	movwf	??_isr
+   822  005E  0875               	movf	??_isr,w
+   823  005F  00F4               	movwf	_eyebrowSawtoothThreshold	;volatile
+   824  0060  28A7               	goto	i1l124
+   825  0061                     i1l672:	
+   826                           ;ServoController.c: 92: case 0x3E: leftLipCornerSawtoothThreshold = (180 + (RCREG)); bre
+      +                          ak;
+   827                           
+   828  0061  081A               	movf	26,w	;volatile
+   829  0062  3EB4               	addlw	180
+   830  0063  00F5               	movwf	??_isr
+   831  0064  0875               	movf	??_isr,w
+   832  0065  00F3               	movwf	_leftLipCornerSawtoothThreshold	;volatile
+   833  0066  28A7               	goto	i1l124
+   834  0067                     i1l674:	
+   835                           ;ServoController.c: 93: case 0x40: rightLipCornerSawtoothThreshold = (180 + (RCREG)); br
+      +                          eak;
+   836                           
+   837  0067  081A               	movf	26,w	;volatile
+   838  0068  3EB4               	addlw	180
+   839  0069  00F5               	movwf	??_isr
+   840  006A  0875               	movf	??_isr,w
+   841  006B  00F2               	movwf	_rightLipCornerSawtoothThreshold	;volatile
+   842  006C  28A7               	goto	i1l124
+   843  006D                     i1l676:	
+   844                           ;ServoController.c: 94: case 0x43: lowerJawSawtoothThreshold = (180 + (RCREG)); break;
+   845                           
+   846  006D  081A               	movf	26,w	;volatile
+   847  006E  3EB4               	addlw	180
+   848  006F  00F5               	movwf	??_isr
+   849  0070  0875               	movf	??_isr,w
+   850  0071  00F1               	movwf	_lowerJawSawtoothThreshold	;volatile
+   851  0072  28A7               	goto	i1l124
+   852  0073                     i1l678:	
+   853                           ;ServoController.c: 95: case 0x45: eyelidsSawtoothThreshold = (180 + (RCREG)); break;
+   854                           
+   855  0073  081A               	movf	26,w	;volatile
+   856  0074  3EB4               	addlw	180
+   857  0075  00F5               	movwf	??_isr
+   858  0076  0875               	movf	??_isr,w
+   859  0077  00F0               	movwf	_eyelidsSawtoothThreshold	;volatile
+   860  0078  28A7               	goto	i1l124
+   861  0079                     i1l680:	
+   862                           ;ServoController.c: 97: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
+   863                           
+   864  0079  081A               	movf	26,w	;volatile
+   865  007A  1903               	btfsc	3,2
+   866  007B  2880               	goto	u12_20
+   867  007C  1283               	bcf	3,5	;RP0=0, select bank0
+   868  007D  1303               	bcf	3,6	;RP1=0, select bank0
+   869  007E  1686               	bsf	6,5	;volatile
+   870  007F  28A7               	goto	i1l124
+   871  0080                     u12_20:	
+   872  0080  1283               	bcf	3,5	;RP0=0, select bank0
+   873  0081  1303               	bcf	3,6	;RP1=0, select bank0
+   874  0082  1286               	bcf	6,5	;volatile
+   875                           
+   876                           ;ServoController.c: 98: }
+   877  0083  28A7               	goto	i1l124
+   878  0084                     i1l684:	
+   879  0084  087C               	movf	_partMidiNote,w	;volatile
+   880                           
+   881                           ; Switch size 1, requested type "space"
+   882                           ; Number of cases is 6, Range of values is 60 to 74
+   883                           ; switch strategies available:
+   884                           ; Name         Instructions Cycles
+   885                           ; simple_byte           19    10 (average)
+   886                           ; direct_byte           24     9 (fixed)
+   887                           ; jumptable            263     9 (fixed)
+   888                           ;	Chosen strategy is simple_byte
+   889  0085  3A3C               	xorlw	60	; case 60
+   890  0086  1903               	skipnz
+   891  0087  285B               	goto	i1l670
+   892  0088  3A02               	xorlw	2	; case 62
+   893  0089  1903               	skipnz
+   894  008A  2861               	goto	i1l672
+   895  008B  3A7E               	xorlw	126	; case 64
+   896  008C  1903               	skipnz
+   897  008D  2867               	goto	i1l674
+   898  008E  3A03               	xorlw	3	; case 67
+   899  008F  1903               	skipnz
+   900  0090  286D               	goto	i1l676
+   901  0091  3A06               	xorlw	6	; case 69
+   902  0092  1903               	skipnz
+   903  0093  2873               	goto	i1l678
+   904  0094  3A0F               	xorlw	15	; case 74
+   905  0095  1903               	skipnz
+   906  0096  2879               	goto	i1l680
+   907  0097  28A7               	goto	i1l124
    908                           
-   909                           ;ServoController.c: 97: receiveCounter = 0;
-   910  009A  01FB               	clrf	_receiveCounter	;volatile
-   911                           
-   912                           ;ServoController.c: 99: }
+   909                           ;ServoController.c: 99: break;
+   910  0098  28A7               	goto	i1l124
+   911  0099                     i1l686:	
+   912                           ;ServoController.c: 100: default:
    913                           
-   914                           ;ServoController.c: 98: break;
-   915  009B  28A7               	goto	i1l124
-   916  009C                     i1l678:	
-   917  009C  087B               	movf	_receiveCounter,w	;volatile
+   914                           
+   915                           ;ServoController.c: 101: receiveCounter = 0;
+   916  0099  01FB               	clrf	_receiveCounter	;volatile
+   917  009A                     L1:	
    918                           
-   919                           ; Switch size 1, requested type "space"
-   920                           ; Number of cases is 3, Range of values is 1 to 3
-   921                           ; switch strategies available:
-   922                           ; Name         Instructions Cycles
-   923                           ; simple_byte           10     6 (average)
-   924                           ; direct_byte           12     9 (fixed)
-   925                           ; jumptable            263     9 (fixed)
-   926                           ;	Chosen strategy is simple_byte
-   927  009D  3A01               	xorlw	1	; case 1
-   928  009E  1903               	skipnz
-   929  009F  2853               	goto	i1l652
-   930  00A0  3A03               	xorlw	3	; case 2
-   931  00A1  1903               	skipnz
-   932  00A2  2855               	goto	i1l654
-   933  00A3  3A01               	xorlw	1	; case 3
-   934  00A4  1903               	skipnz
-   935  00A5  285A               	goto	i1l656
-   936  00A6  289A               	goto	i1l674
-   937  00A7                     i1l124:	
-   938  00A7  0879               	movf	??_isr+4,w
-   939  00A8  00FF               	movwf	127
-   940  00A9  0878               	movf	??_isr+3,w
-   941  00AA  008A               	movwf	10
-   942  00AB  0877               	movf	??_isr+2,w
-   943  00AC  0084               	movwf	4
-   944  00AD  0E76               	swapf	(??_isr+1)^(0+-128),w
-   945  00AE  0083               	movwf	3
-   946  00AF  0EFE               	swapf	126,f
-   947  00B0  0E7E               	swapf	126,w
-   948  00B1  0009               	retfie
-   949  00B2                     __end_of_isr:	
-   950  007E                     btemp	set	126	;btemp
-   951  007E                     wtemp0	set	126
-   952                           
-   953                           	psect	intentry
-   954  0004                     __pintentry:	
-   955                           ;incstack = 0
-   956                           ; Regs used in _isr: [wreg-fsr0h+status,2+status,0]
-   957                           
-   958  0004                     interrupt_function:	
-   959  007E                     saved_w	set	btemp
-   960  0004  00FE               	movwf	btemp
-   961  0005  0E03               	swapf	3,w
-   962  0006  00F6               	movwf	??_isr+1
-   963  0007  0804               	movf	4,w
-   964  0008  00F7               	movwf	??_isr+2
-   965  0009  080A               	movf	10,w
-   966  000A  00F8               	movwf	??_isr+3
-   967  000B  1283               	bcf	3,5	;RP0=0, select bank0
-   968  000C  1303               	bcf	3,6	;RP1=0, select bank0
-   969  000D  087F               	movf	btemp+1,w
-   970  000E  00F9               	movwf	??_isr+4
-   971  000F  2822               	ljmp	_isr
+   919                           ;ServoController.c: 102: RCREG = 0;
+   920  009A  019A               	clrf	26	;volatile
+   921                           
+   922                           ;ServoController.c: 104: }
+   923                           
+   924                           ;ServoController.c: 103: break;
+   925  009B  28A7               	goto	i1l124
+   926  009C                     i1l690:	
+   927  009C  087B               	movf	_receiveCounter,w	;volatile
+   928                           
+   929                           ; Switch size 1, requested type "space"
+   930                           ; Number of cases is 3, Range of values is 1 to 3
+   931                           ; switch strategies available:
+   932                           ; Name         Instructions Cycles
+   933                           ; simple_byte           10     6 (average)
+   934                           ; direct_byte           12     9 (fixed)
+   935                           ; jumptable            263     9 (fixed)
+   936                           ;	Chosen strategy is simple_byte
+   937  009D  3A01               	xorlw	1	; case 1
+   938  009E  1903               	skipnz
+   939  009F  2853               	goto	i1l664
+   940  00A0  3A03               	xorlw	3	; case 2
+   941  00A1  1903               	skipnz
+   942  00A2  2854               	goto	i1l666
+   943  00A3  3A01               	xorlw	1	; case 3
+   944  00A4  1903               	skipnz
+   945  00A5  2859               	goto	i1l668
+   946  00A6  2899               	goto	i1l686
+   947  00A7                     i1l124:	
+   948  00A7  0879               	movf	??_isr+4,w
+   949  00A8  00FF               	movwf	127
+   950  00A9  0878               	movf	??_isr+3,w
+   951  00AA  008A               	movwf	10
+   952  00AB  0877               	movf	??_isr+2,w
+   953  00AC  0084               	movwf	4
+   954  00AD  0E76               	swapf	(??_isr+1)^(0+-128),w
+   955  00AE  0083               	movwf	3
+   956  00AF  0EFE               	swapf	126,f
+   957  00B0  0E7E               	swapf	126,w
+   958  00B1  0009               	retfie
+   959  00B2                     __end_of_isr:	
+   960  007E                     btemp	set	126	;btemp
+   961  007E                     wtemp0	set	126
+   962                           
+   963                           	psect	intentry
+   964  0004                     __pintentry:	
+   965                           ;incstack = 0
+   966                           ; Regs used in _isr: [wreg-fsr0h+status,2+status,0]
+   967                           
+   968  0004                     interrupt_function:	
+   969  007E                     saved_w	set	btemp
+   970  0004  00FE               	movwf	btemp
+   971  0005  0E03               	swapf	3,w
+   972  0006  00F6               	movwf	??_isr+1
+   973  0007  0804               	movf	4,w
+   974  0008  00F7               	movwf	??_isr+2
+   975  0009  080A               	movf	10,w
+   976  000A  00F8               	movwf	??_isr+3
+   977  000B  1283               	bcf	3,5	;RP0=0, select bank0
+   978  000C  1303               	bcf	3,6	;RP1=0, select bank0
+   979  000D  087F               	movf	btemp+1,w
+   980  000E  00F9               	movwf	??_isr+4
+   981  000F  2822               	ljmp	_isr
 
 
 Data Sizes:
@@ -1109,49 +1121,49 @@ EEDATA              80      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V1.45 build -152302408 
-Symbol Table                                                                                   Thu Mar 01 14:04:33 2018
+Symbol Table                                                                                   Sat Mar 03 12:21:16 2018
 
-                __CFG_CP$ON 0000                          l74 00D4                          l67 00C5  
-               __CFG_CPD$ON 0000  __size_of_clearFramingError 000F                         l770 00BF  
-                       l766 00BA                         _RA0 0028                         _RA1 0029  
-                       _RA2 002A                         _RA3 002B                         _RA4 002C  
-                       _RB5 0035                         _PR2 0092                         _isr 0022  
-                       fsr0 0004                __CFG_FOSC$HS 0000                __CFG_LVP$OFF 0000  
-                      ?_isr 0075                        _CREN 00C4                        _FERR 00C2  
-                      _PIE1 008C                        _RCIF 0065                        _PIR1 000C  
-                      _OERR 00C1                        _SPEN 00C7                        _main 00B2  
-                      _part 007C                        btemp 007E               __CFG_BOREN$ON 0000  
-                      start 0010                       ??_isr 0075                       ?_main 0075  
-             __CFG_WDTE$OFF 0000                       _T2CON 0012                       i1l100 004C  
-                     i1l101 004B                       i1l124 00A7                       i1l630 0037  
-                     i1l660 0062                       i1l652 0053                       i1l662 0068  
-                     i1l654 0055                       i1l664 006E                       i1l672 0085  
-                     i1l656 005A                       i1l674 009A                       i1l666 0074  
-                     i1l658 005C                       i1l668 007A                       i1l678 009C  
-                     _RCREG 001A                       _RCSTA 0018                       u12_20 0081  
-                     _SPBRG 0099                       _TXSTA 0098               __CFG_PWRTE$ON 0000  
-                     pclath 000A                       status 0003                       wtemp0 007E  
-            __CFG_MCLRE$OFF 0000             __initialization 0011                __end_of_main 00C5  
-                    ??_main 0023                      _INTCON 000B                      _TMR2IF 0061  
-                    _TRISA0 0428                      _TRISA1 0429                      _TRISA2 042A  
-                    _TRISB0 0430                      _TRISB1 0431                      _TRISA3 042B  
-                    _TRISB3 0433            __end_of_initTMR2 00FA                __pdataCOMMON 0070  
-                    saved_w 007E       clearOverrunError@temp 0021     __end_of__initialization 0020  
-          _eyebrowSliderVal 0074              __pcstackCOMMON 0075           _clearOverrunError 00C5  
-        ?_clearOverrunError 0075         ??_clearOverrunError 0022                  __pbssBANK0 0020  
-        __size_of_initUSART 000C                  __pmaintext 00B2                  __pintentry 0004  
- __end_of_clearOverrunError 00D4                   ?_initTMR2 0075                  _initServos 00FA  
-          _eyelidsSliderVal 0070           __end_of_initUSART 00EF                     __ptext1 00E3  
-                   __ptext2 00EF                     __ptext3 00FA                     __ptext4 00C5  
-                   __ptext5 00D4                     __ptext6 0022                __size_of_isr 0090  
-      end_of_initialization 0020             _sawtoothCounter 007A                  ??_initTMR2 0022  
-__size_of_clearOverrunError 000F                 ?_initServos 0075           _lowerJawSliderVal 0071  
-             __pidataCOMMON 0103         start_initialization 0011                 __end_of_isr 00B2  
-    _leftLipCornerSliderVal 0073       clearFramingError@temp 0020                 __pbssCOMMON 007A  
-                 ___latbits 0000               __pcstackBANK0 0022         __size_of_initServos 0009  
-         __size_of_initTMR2 000B     _rightLipCornerSliderVal 0072                   _initUSART 00E3  
-         interrupt_function 0004                  ?_initUSART 0075                ??_initServos 0022  
-         _clearFramingError 00D4          ?_clearFramingError 0075                    _initTMR2 00EF  
-        __end_of_initServos 0103         ??_clearFramingError 0022               __size_of_main 0013  
-            _receiveCounter 007B   __end_of_clearFramingError 00E3                 ??_initUSART 0022  
-                  intlevel1 0000  
+                     __CFG_CP$ON 0000                               l74 00E1                               l67 00D2  
+                    __CFG_CPD$ON 0000       __size_of_clearFramingError 000F                              l790 00B7  
+                            l794 00BC                              _GIE 005F                              _RA0 0028  
+                            _RA1 0029                              _RA2 002A                              _RA3 002B  
+                            _RA4 002C                              _RB5 0035                              _PR2 0092  
+                            _isr 0022                              fsr0 0004                     __CFG_FOSC$HS 0000  
+                   __CFG_LVP$OFF 0000                             ?_isr 0075                             _BRGH 04C2  
+                           _CREN 00C4                             _FERR 00C2                             _PEIE 005E  
+                           _RCIF 0065                             _OERR 00C1                             _SPEN 00C7  
+                           _main 00B2                             btemp 007E                    __CFG_BOREN$ON 0000  
+      _lowerJawSawtoothThreshold 0071                             start 0010                            ??_isr 0075  
+                          ?_main 0075                    __CFG_WDTE$OFF 0000                            _T2CON 0012  
+                          i1l100 004C                            i1l101 004B                            i1l124 00A7  
+                          i1l642 0037                            i1l670 005B                            i1l680 0079  
+                          i1l672 0061                            i1l664 0053                            i1l674 0067  
+                          i1l666 0054                            i1l690 009C                            i1l676 006D  
+                          i1l684 0084                            i1l668 0059                            i1l686 0099  
+                          i1l678 0073                            _RCREG 001A                            u12_20 0080  
+                          _SPBRG 0099                    __CFG_PWRTE$ON 0000                            pclath 000A  
+                          status 0003                            wtemp0 007E         _eyebrowSawtoothThreshold 0074  
+       _eyelidsSawtoothThreshold 0070                   __CFG_MCLRE$OFF 0000                  __initialization 0011  
+                   __end_of_main 00C2                           ??_main 0023                           _TMR2IE 0461  
+                         _TMR2IF 0061                           _TMR2ON 0092                           _TRISA0 0428  
+                         _TRISA1 0429                           _TRISA2 042A                           _TRISB0 0430  
+                         _TRISB1 0431                           _TRISA3 042B                           _TRISB3 0433  
+               __end_of_initTMR2 00D2                     __pdataCOMMON 0070                           saved_w 007E  
+          clearOverrunError@temp 0021          __end_of__initialization 0020                   __pcstackCOMMON 0075  
+              _clearOverrunError 00D2               ?_clearOverrunError 0075              ??_clearOverrunError 0022  
+                     __pbssBANK0 0020               __size_of_initUSART 000B                       __pmaintext 00B2  
+                     __pintentry 0004        __end_of_clearOverrunError 00E1                        ?_initTMR2 0075  
+                     _initServos 00FB                __end_of_initUSART 00FB                          __ptext1 00F0  
+                        __ptext2 00C2                          __ptext3 00FB                          __ptext4 00D2  
+                        __ptext5 00E1                          __ptext6 0022                     __size_of_isr 0090  
+           end_of_initialization 0020                  _sawtoothCounter 007A                       ??_initTMR2 0022  
+     __size_of_clearOverrunError 000F                      ?_initServos 0075                    __pidataCOMMON 0104  
+            start_initialization 0011                      __end_of_isr 00B2            clearFramingError@temp 0020  
+                    __pbssCOMMON 007A                        ___latbits 0000                    __pcstackBANK0 0022  
+ _leftLipCornerSawtoothThreshold 0073              __size_of_initServos 0009                __size_of_initTMR2 0010  
+                      _initUSART 00F0  _rightLipCornerSawtoothThreshold 0072                     _partMidiNote 007C  
+              interrupt_function 0004                       ?_initUSART 0075                     ??_initServos 0022  
+              _clearFramingError 00E1               ?_clearFramingError 0075                         _initTMR2 00C2  
+             __end_of_initServos 0104              ??_clearFramingError 0022                    __size_of_main 0010  
+                 _receiveCounter 007B        __end_of_clearFramingError 00F0                      ??_initUSART 0022  
+                       intlevel1 0000  

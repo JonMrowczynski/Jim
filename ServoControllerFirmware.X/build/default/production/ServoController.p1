@@ -1,26 +1,28 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"530 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic16f628a.h
-[v _T2CON `Vuc ~T0 @X0 0 e@18 ]
-"1135
+"1135 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic16f628a.h
 [v _PR2 `Vuc ~T0 @X0 0 e@146 ]
-"1029
-[v _PIE1 `Vuc ~T0 @X0 0 e@140 ]
-"1199
-[v _SPBRG `Vuc ~T0 @X0 0 e@153 ]
+"530
+[v _T2CON `Vuc ~T0 @X0 0 e@18 ]
+"1503
+[v _TMR2IF `Vb ~T0 @X0 0 e@97 ]
+"1501
+[v _TMR2IE `Vb ~T0 @X0 0 e@1121 ]
+"1505
+[v _TMR2ON `Vb ~T0 @X0 0 e@146 ]
 "1533
 [v _TRISB1 `Vb ~T0 @X0 0 e@1073 ]
-"1142
-[v _TXSTA `Vuc ~T0 @X0 0 e@152 ]
-"680
-[v _RCSTA `Vuc ~T0 @X0 0 e@24 ]
-"758
-[v _RCREG `Vuc ~T0 @X0 0 e@26 ]
+"1199
+[v _SPBRG `Vuc ~T0 @X0 0 e@153 ]
+"1339
+[v _BRGH `Vb ~T0 @X0 0 e@1218 ]
 "1379
 [v _CREN `Vb ~T0 @X0 0 e@196 ]
-"1401
-[v _OERR `Vb ~T0 @X0 0 e@193 ]
 "1465
 [v _SPEN `Vb ~T0 @X0 0 e@199 ]
+"758
+[v _RCREG `Vuc ~T0 @X0 0 e@26 ]
+"1401
+[v _OERR `Vb ~T0 @X0 0 e@193 ]
 "1389
 [v _FERR `Vb ~T0 @X0 0 e@194 ]
 "1515
@@ -35,8 +37,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISB0 `Vb ~T0 @X0 0 e@1072 ]
 "1537
 [v _TRISB3 `Vb ~T0 @X0 0 e@1075 ]
-"1503
-[v _TMR2IF `Vb ~T0 @X0 0 e@97 ]
 "1415
 [v _RA0 `Vb ~T0 @X0 0 e@40 ]
 "1417
@@ -52,10 +52,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "1441
 [v _RB5 `Vb ~T0 @X0 0 e@53 ]
 [p mainexit ]
-"386
-[v _PIR1 `Vuc ~T0 @X0 0 e@12 ]
-"308
-[v _INTCON `Vuc ~T0 @X0 0 e@11 ]
+"1405
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"1391
+[v _GIE `Vb ~T0 @X0 0 e@95 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -624,478 +624,489 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 194: extern __bank0 __bit __powerdown;
 [; ;pic.h: 195: extern __bank0 __bit __timeout;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-"18 configuration.h
+"17 configuration.h
 [p x CP=ON ]
-"19
+"18
 [p x CPD=ON ]
-"20
+"19
 [p x LVP=OFF ]
-"21
+"20
 [p x BOREN=ON ]
-"22
+"21
 [p x MCLRE=OFF ]
-"23
+"22
 [p x PWRTE=ON ]
-"24
+"23
 [p x WDTE=OFF ]
-"25
+"24
 [p x FOSC=HS ]
 [v F609 `(v ~T0 @X0 1 tf ]
-"50 tmr2.h
+"44 tmr2.h
 [v _initTMR2 `TF609 ~T0 @X0 1 s ]
 {
-[; ;tmr2.h: 50: static inline void initTMR2(void) {
+[; ;tmr2.h: 44: static inline void initTMR2(void) {
 [e :U _initTMR2 ]
 [f ]
-[; ;tmr2.h: 51: T2CON = 0b00000101;
-"51
-[e = _T2CON -> -> 5 `i `uc ]
-[; ;tmr2.h: 52: PR2 = 124;
-"52
+[; ;tmr2.h: 45: PR2 = 124;
+"45
 [e = _PR2 -> -> 124 `i `uc ]
-[; ;tmr2.h: 53: PIE1 = 0b00100010;
-"53
-[e = _PIE1 -> -> 34 `i `uc ]
-[; ;tmr2.h: 54: }
-"54
+[; ;tmr2.h: 46: T2CON = 0b00000001;
+"46
+[e = _T2CON -> -> 1 `i `uc ]
+[; ;tmr2.h: 47: TMR2IF = 0;
+"47
+[e = _TMR2IF -> -> 0 `i `b ]
+[; ;tmr2.h: 48: TMR2IE = 1;
+"48
+[e = _TMR2IE -> -> 1 `i `b ]
+[; ;tmr2.h: 49: TMR2ON = 1;
+"49
+[e = _TMR2ON -> -> 1 `i `b ]
+[; ;tmr2.h: 50: }
+"50
 [e :UE 51 ]
 }
 [v F611 `(v ~T0 @X0 1 tf ]
-"65 usart.h
+"52 usart.h
 [v _initUSART `TF611 ~T0 @X0 1 s ]
 {
-[; ;usart.h: 65: static inline void initUSART() {
+[; ;usart.h: 52: static inline void initUSART() {
 [e :U _initUSART ]
 [f ]
-[; ;usart.h: 66: SPBRG = 39;
-"66
-[e = _SPBRG -> -> 39 `i `uc ]
-[; ;usart.h: 67: TRISB1 = 1;
-"67
+[; ;usart.h: 53: TRISB1 = 1;
+"53
 [e = _TRISB1 -> -> 1 `i `b ]
-[; ;usart.h: 68: TXSTA = 0b10100100;
-"68
-[e = _TXSTA -> -> 164 `i `uc ]
-[; ;usart.h: 69: RCSTA = 0b10010000;
-"69
-[e = _RCSTA -> -> 144 `i `uc ]
-[; ;usart.h: 70: }
-"70
+[; ;usart.h: 54: SPBRG = 39;
+"54
+[e = _SPBRG -> -> 39 `i `uc ]
+[; ;usart.h: 55: BRGH = 1;
+"55
+[e = _BRGH -> -> 1 `i `b ]
+[; ;usart.h: 56: CREN = 1;
+"56
+[e = _CREN -> -> 1 `i `b ]
+[; ;usart.h: 57: SPEN = 1;
+"57
+[e = _SPEN -> -> 1 `i `b ]
+[; ;usart.h: 58: }
+"58
 [e :UE 52 ]
 }
 [v F613 `(v ~T0 @X0 1 tf ]
-"78
+"65
 [v _clearOverrunError `TF613 ~T0 @X0 1 s ]
 {
-[; ;usart.h: 78: static inline void clearOverrunError() {
+[; ;usart.h: 65: static inline void clearOverrunError() {
 [e :U _clearOverrunError ]
 [f ]
-"79
+"66
 [v F614 `uc ~T0 @X0 1 s temp ]
 [i F614
 -> -> 0 `i `uc
 ]
-[; ;usart.h: 79: static unsigned char temp = 0;
-[; ;usart.h: 80: do {
-"80
+[; ;usart.h: 66: static unsigned char temp = 0;
+[; ;usart.h: 67: do {
+"67
 [e :U 56 ]
 {
-[; ;usart.h: 81: temp = RCREG;
-"81
+[; ;usart.h: 68: temp = RCREG;
+"68
 [e = F614 _RCREG ]
-[; ;usart.h: 82: temp = RCREG;
-"82
+[; ;usart.h: 69: temp = RCREG;
+"69
 [e = F614 _RCREG ]
-[; ;usart.h: 83: CREN = 0;
-"83
+[; ;usart.h: 70: CREN = 0;
+"70
 [e = _CREN -> -> 0 `i `b ]
-[; ;usart.h: 84: CREN = 1;
-"84
+[; ;usart.h: 71: CREN = 1;
+"71
 [e = _CREN -> -> 1 `i `b ]
-"85
+"72
 }
-[; ;usart.h: 85: } while(OERR);
+[; ;usart.h: 72: } while(OERR);
 [e $ _OERR 56  ]
 [e :U 55 ]
-[; ;usart.h: 86: }
-"86
+[; ;usart.h: 73: }
+"73
 [e :UE 53 ]
 }
 [v F616 `(v ~T0 @X0 1 tf ]
-"96
+"83
 [v _clearFramingError `TF616 ~T0 @X0 1 s ]
 {
-[; ;usart.h: 96: static inline void clearFramingError() {
+[; ;usart.h: 83: static inline void clearFramingError() {
 [e :U _clearFramingError ]
 [f ]
-"97
+"84
 [v F617 `uc ~T0 @X0 1 s temp ]
 [i F617
 -> -> 0 `i `uc
 ]
-[; ;usart.h: 97: static unsigned char temp = 0;
-[; ;usart.h: 98: do {
-"98
+[; ;usart.h: 84: static unsigned char temp = 0;
+[; ;usart.h: 85: do {
+"85
 [e :U 60 ]
 {
-[; ;usart.h: 99: temp = RCREG;
-"99
+[; ;usart.h: 86: temp = RCREG;
+"86
 [e = F617 _RCREG ]
-[; ;usart.h: 100: temp = RCREG;
-"100
+[; ;usart.h: 87: temp = RCREG;
+"87
 [e = F617 _RCREG ]
-[; ;usart.h: 101: SPEN = 0;
-"101
+[; ;usart.h: 88: SPEN = 0;
+"88
 [e = _SPEN -> -> 0 `i `b ]
-[; ;usart.h: 102: SPEN = 1;
-"102
+[; ;usart.h: 89: SPEN = 1;
+"89
 [e = _SPEN -> -> 1 `i `b ]
-"103
+"90
 }
-[; ;usart.h: 103: } while (FERR);
+[; ;usart.h: 90: } while (FERR);
 [e $ _FERR 60  ]
 [e :U 59 ]
-[; ;usart.h: 104: }
-"104
+[; ;usart.h: 91: }
+"91
 [e :UE 57 ]
 }
-[; ;ServoController.h: 51: extern volatile unsigned char part;
-[; ;ServoController.h: 58: extern volatile unsigned char receiveCounter;
-[; ;ServoController.h: 66: extern volatile unsigned char sawtoothCounter;
-[; ;ServoController.h: 68: extern volatile unsigned char eyebrowSliderVal;
-[; ;ServoController.h: 69: extern volatile unsigned char leftLipCornerSliderVal;
-[; ;ServoController.h: 70: extern volatile unsigned char rightLipCornerSliderVal;
-[; ;ServoController.h: 71: extern volatile unsigned char lowerJawSliderVal;
-[; ;ServoController.h: 72: extern volatile unsigned char eyelidsSliderVal;
-[; ;ServoController.h: 73: extern volatile unsigned char servo6SliderVal;
-[v F629 `(v ~T0 @X0 1 tf ]
-"80 ServoController.h
-[v _initServos `TF629 ~T0 @X0 1 s ]
+[; ;ServoController.h: 56: extern volatile unsigned char partMidiNote;
+[; ;ServoController.h: 63: extern volatile unsigned char receiveCounter;
+[; ;ServoController.h: 72: extern volatile unsigned char sawtoothCounter;
+[; ;ServoController.h: 80: extern volatile unsigned char eyebrowSawtoothThreshold;
+[; ;ServoController.h: 81: extern volatile unsigned char leftLipCornerSawtoothThreshold;
+[; ;ServoController.h: 82: extern volatile unsigned char rightLipCornerSawtoothThreshold;
+[; ;ServoController.h: 83: extern volatile unsigned char lowerJawSawtoothThreshold;
+[; ;ServoController.h: 84: extern volatile unsigned char eyelidsSawtoothThreshold;
+[v F628 `(v ~T0 @X0 1 tf ]
+"92 ServoController.h
+[v _initServos `TF628 ~T0 @X0 1 s ]
 {
-[; ;ServoController.h: 80: static inline void initServos(void) {
+[; ;ServoController.h: 92: static inline void initServos(void) {
 [e :U _initServos ]
 [f ]
-[; ;ServoController.h: 81: TRISA0 = 0;
-"81
+[; ;ServoController.h: 93: TRISA0 = 0;
+"93
 [e = _TRISA0 -> -> 0 `i `b ]
-[; ;ServoController.h: 82: TRISA1 = 0;
-"82
+[; ;ServoController.h: 94: TRISA1 = 0;
+"94
 [e = _TRISA1 -> -> 0 `i `b ]
-[; ;ServoController.h: 83: TRISA2 = 0;
-"83
+[; ;ServoController.h: 95: TRISA2 = 0;
+"95
 [e = _TRISA2 -> -> 0 `i `b ]
-[; ;ServoController.h: 84: TRISA3 = 0;
-"84
+[; ;ServoController.h: 96: TRISA3 = 0;
+"96
 [e = _TRISA3 -> -> 0 `i `b ]
-[; ;ServoController.h: 85: TRISB0 = 0;
-"85
+[; ;ServoController.h: 97: TRISB0 = 0;
+"97
 [e = _TRISB0 -> -> 0 `i `b ]
-[; ;ServoController.h: 86: TRISB3 = 0;
-"86
+[; ;ServoController.h: 98: TRISB3 = 0;
+"98
 [e = _TRISB3 -> -> 0 `i `b ]
-[; ;ServoController.h: 87: }
-"87
+[; ;ServoController.h: 99: }
+"99
 [e :UE 61 ]
 }
-"36 ServoController.c
-[v _part `Vuc ~T0 @X0 1 e ]
-[i _part
+"39 ServoController.c
+[v _partMidiNote `Vuc ~T0 @X0 1 e ]
+[i _partMidiNote
 -> -> 0 `i `uc
 ]
-[; ;ServoController.c: 36: volatile unsigned char part = 0;
-"37
+[; ;ServoController.c: 39: volatile unsigned char partMidiNote = 0;
+"40
 [v _receiveCounter `Vuc ~T0 @X0 1 e ]
 [i _receiveCounter
 -> -> 0 `i `uc
 ]
-[; ;ServoController.c: 37: volatile unsigned char receiveCounter = 0;
-"38
+[; ;ServoController.c: 40: volatile unsigned char receiveCounter = 0;
+"41
 [v _sawtoothCounter `Vuc ~T0 @X0 1 e ]
 [i _sawtoothCounter
 -> -> 0 `i `uc
 ]
-[; ;ServoController.c: 38: volatile unsigned char sawtoothCounter = 0;
-"45
-[v _eyebrowSliderVal `Vuc ~T0 @X0 1 e ]
-[i _eyebrowSliderVal
+[; ;ServoController.c: 41: volatile unsigned char sawtoothCounter = 0;
+"49
+[v _eyebrowSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _eyebrowSawtoothThreshold
 -> + -> 180 `i -> 6 `i `uc
 ]
-[; ;ServoController.c: 45: volatile unsigned char eyebrowSliderVal = 180 + 6;
-"46
-[v _leftLipCornerSliderVal `Vuc ~T0 @X0 1 e ]
-[i _leftLipCornerSliderVal
+[; ;ServoController.c: 49: volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
+"50
+[v _leftLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _leftLipCornerSawtoothThreshold
 -> + -> 180 `i -> 6 `i `uc
 ]
-[; ;ServoController.c: 46: volatile unsigned char leftLipCornerSliderVal = 180 + 6;
-"47
-[v _rightLipCornerSliderVal `Vuc ~T0 @X0 1 e ]
-[i _rightLipCornerSliderVal
+[; ;ServoController.c: 50: volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
+"51
+[v _rightLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _rightLipCornerSawtoothThreshold
 -> + -> 180 `i -> 7 `i `uc
 ]
-[; ;ServoController.c: 47: volatile unsigned char rightLipCornerSliderVal = 180 + 7;
-"48
-[v _lowerJawSliderVal `Vuc ~T0 @X0 1 e ]
-[i _lowerJawSliderVal
+[; ;ServoController.c: 51: volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
+"52
+[v _lowerJawSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _lowerJawSawtoothThreshold
 -> + -> 180 `i -> 3 `i `uc
 ]
-[; ;ServoController.c: 48: volatile unsigned char lowerJawSliderVal = 180 + 3;
-"49
-[v _eyelidsSliderVal `Vuc ~T0 @X0 1 e ]
-[i _eyelidsSliderVal
+[; ;ServoController.c: 52: volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
+"53
+[v _eyelidsSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _eyelidsSawtoothThreshold
 -> + -> 180 `i -> 5 `i `uc
 ]
-[; ;ServoController.c: 49: volatile unsigned char eyelidsSliderVal = 180 + 5;
+[; ;ServoController.c: 53: volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
 [v $root$_isr `(v ~T0 @X0 0 e ]
-[v F632 `(v ~T0 @X0 1 tf ]
-"52
-[v _isr `IF632 ~T0 @X0 1 e ]
+[v F631 `(v ~T0 @X0 1 tf ]
+"56
+[v _isr `IF631 ~T0 @X0 1 e ]
 {
-[; ;ServoController.c: 52: void interrupt isr(void) {
+[; ;ServoController.c: 56: void interrupt isr(void) {
 [e :U _isr ]
 [f ]
-[; ;ServoController.c: 53: if (TMR2IF) {
-"53
+[; ;ServoController.c: 57: if (TMR2IF) {
+"57
 [e $ ! _TMR2IF 63  ]
 {
-[; ;ServoController.c: 54: ++sawtoothCounter;
-"54
+[; ;ServoController.c: 58: ++sawtoothCounter;
+"58
 [e =+ _sawtoothCounter -> -> 1 `i `uc ]
-[; ;ServoController.c: 55: if (sawtoothCounter >= 180) {
-"55
+[; ;ServoController.c: 59: if (sawtoothCounter >= 180) {
+"59
 [e $ ! >= -> _sawtoothCounter `i -> 180 `i 64  ]
 {
-[; ;ServoController.c: 56: if (sawtoothCounter >= 200) {
-"56
+[; ;ServoController.c: 60: if (sawtoothCounter >= 200) {
+"60
 [e $ ! >= -> _sawtoothCounter `i -> 200 `i 65  ]
 {
-[; ;ServoController.c: 57: RA0 = 0;
-"57
-[e = _RA0 -> -> 0 `i `b ]
-[; ;ServoController.c: 58: RA1 = 0;
-"58
-[e = _RA1 -> -> 0 `i `b ]
-[; ;ServoController.c: 59: RA2 = 0;
-"59
-[e = _RA2 -> -> 0 `i `b ]
-[; ;ServoController.c: 60: RA3 = 0;
-"60
-[e = _RA3 -> -> 0 `i `b ]
-[; ;ServoController.c: 61: RA4 = 0;
+[; ;ServoController.c: 61: RA0 = 0;
 "61
-[e = _RA4 -> -> 0 `i `b ]
-[; ;ServoController.c: 63: sawtoothCounter = 0;
+[e = _RA0 -> -> 0 `i `b ]
+[; ;ServoController.c: 62: RA1 = 0;
+"62
+[e = _RA1 -> -> 0 `i `b ]
+[; ;ServoController.c: 63: RA2 = 0;
 "63
-[e = _sawtoothCounter -> -> 0 `i `uc ]
+[e = _RA2 -> -> 0 `i `b ]
+[; ;ServoController.c: 64: RA3 = 0;
 "64
+[e = _RA3 -> -> 0 `i `b ]
+[; ;ServoController.c: 65: RA4 = 0;
+"65
+[e = _RA4 -> -> 0 `i `b ]
+[; ;ServoController.c: 67: sawtoothCounter = 0;
+"67
+[e = _sawtoothCounter -> -> 0 `i `uc ]
+"68
 }
-[; ;ServoController.c: 64: } else {
+[; ;ServoController.c: 68: } else {
 [e $U 66  ]
 [e :U 65 ]
 {
-[; ;ServoController.c: 65: if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
-"65
-[e $ ! == -> _sawtoothCounter `i -> _eyebrowSliderVal `i 67  ]
+[; ;ServoController.c: 69: if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
+"69
+[e $ ! == -> _sawtoothCounter `i -> _eyebrowSawtoothThreshold `i 67  ]
 [e = _RA0 -> -> 1 `i `b ]
 [e :U 67 ]
-[; ;ServoController.c: 66: if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
-"66
-[e $ ! == -> _sawtoothCounter `i -> _leftLipCornerSliderVal `i 68  ]
+[; ;ServoController.c: 70: if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
+"70
+[e $ ! == -> _sawtoothCounter `i -> _leftLipCornerSawtoothThreshold `i 68  ]
 [e = _RA1 -> -> 1 `i `b ]
 [e :U 68 ]
-[; ;ServoController.c: 67: if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
-"67
-[e $ ! == -> _sawtoothCounter `i -> _rightLipCornerSliderVal `i 69  ]
+[; ;ServoController.c: 71: if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
+"71
+[e $ ! == -> _sawtoothCounter `i -> _rightLipCornerSawtoothThreshold `i 69  ]
 [e = _RA2 -> -> 1 `i `b ]
 [e :U 69 ]
-[; ;ServoController.c: 68: if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
-"68
-[e $ ! == -> _sawtoothCounter `i -> _lowerJawSliderVal `i 70  ]
+[; ;ServoController.c: 72: if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
+"72
+[e $ ! == -> _sawtoothCounter `i -> _lowerJawSawtoothThreshold `i 70  ]
 [e = _RA3 -> -> 1 `i `b ]
 [e :U 70 ]
-[; ;ServoController.c: 69: if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
-"69
-[e $ ! == -> _sawtoothCounter `i -> _eyelidsSliderVal `i 71  ]
+[; ;ServoController.c: 73: if (sawtoothCounter == eyelidsSawtoothThreshold) RA4 = 1;
+"73
+[e $ ! == -> _sawtoothCounter `i -> _eyelidsSawtoothThreshold `i 71  ]
 [e = _RA4 -> -> 1 `i `b ]
 [e :U 71 ]
-"71
+"75
 }
 [e :U 66 ]
-"72
+"76
 }
 [e :U 64 ]
-[; ;ServoController.c: 71: }
-[; ;ServoController.c: 72: }
-[; ;ServoController.c: 73: TMR2IF = 0;
-"73
+[; ;ServoController.c: 75: }
+[; ;ServoController.c: 76: }
+[; ;ServoController.c: 77: TMR2IF = 0;
+"77
 [e = _TMR2IF -> -> 0 `i `b ]
-"74
+"78
 }
 [e :U 63 ]
-[; ;ServoController.c: 74: }
-[; ;ServoController.c: 75: if (RCIF) {
-"75
+[; ;ServoController.c: 78: }
+[; ;ServoController.c: 79: if (RCIF) {
+"79
 [e $ ! _RCIF 72  ]
 {
-[; ;ServoController.c: 76: ++receiveCounter;
-"76
+[; ;ServoController.c: 80: ++receiveCounter;
+"80
 [e =+ _receiveCounter -> -> 1 `i `uc ]
-[; ;ServoController.c: 77: switch(receiveCounter) {
-"77
+[; ;ServoController.c: 81: switch(receiveCounter) {
+"81
 [e $U 74  ]
 {
-[; ;ServoController.c: 78: case 1:
-"78
-[e :U 75 ]
-[; ;ServoController.c: 79: RCREG = 0;
-"79
-[e = _RCREG -> -> 0 `i `uc ]
-[; ;ServoController.c: 80: break;
-"80
-[e $U 73  ]
-[; ;ServoController.c: 81: case 2:
-"81
-[e :U 76 ]
-[; ;ServoController.c: 82: part = RCREG;
+[; ;ServoController.c: 82: case 1:
 "82
-[e = _part _RCREG ]
-[; ;ServoController.c: 83: break;
+[e :U 75 ]
+[; ;ServoController.c: 83: RCREG = 0;
 "83
-[e $U 73  ]
-[; ;ServoController.c: 84: case 3:
+[e = _RCREG -> -> 0 `i `uc ]
+[; ;ServoController.c: 84: break;
 "84
-[e :U 77 ]
-[; ;ServoController.c: 85: receiveCounter = 0;
+[e $U 73  ]
+[; ;ServoController.c: 85: case 2:
 "85
-[e = _receiveCounter -> -> 0 `i `uc ]
-[; ;ServoController.c: 86: switch(part) {
+[e :U 76 ]
+[; ;ServoController.c: 86: partMidiNote = RCREG;
 "86
+[e = _partMidiNote _RCREG ]
+[; ;ServoController.c: 87: break;
+"87
+[e $U 73  ]
+[; ;ServoController.c: 88: case 3:
+"88
+[e :U 77 ]
+[; ;ServoController.c: 89: receiveCounter = 0;
+"89
+[e = _receiveCounter -> -> 0 `i `uc ]
+[; ;ServoController.c: 90: switch(partMidiNote) {
+"90
 [e $U 79  ]
 {
-[; ;ServoController.c: 87: case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
-"87
-[e :U 80 ]
-[e = _eyebrowSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
-[e $U 78  ]
-[; ;ServoController.c: 88: case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
-"88
-[e :U 81 ]
-[e = _leftLipCornerSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
-[e $U 78  ]
-[; ;ServoController.c: 89: case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
-"89
-[e :U 82 ]
-[e = _rightLipCornerSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
-[e $U 78  ]
-[; ;ServoController.c: 90: case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
-"90
-[e :U 83 ]
-[e = _lowerJawSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
-[e $U 78  ]
-[; ;ServoController.c: 91: case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
+[; ;ServoController.c: 91: case 0x3C: eyebrowSawtoothThreshold = (180 + (RCREG)); break;
 "91
-[e :U 84 ]
-[e = _eyelidsSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
+[e :U 80 ]
+[e = _eyebrowSawtoothThreshold -> + -> 180 `i -> _RCREG `i `uc ]
 [e $U 78  ]
-[; ;ServoController.c: 93: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
+[; ;ServoController.c: 92: case 0x3E: leftLipCornerSawtoothThreshold = (180 + (RCREG)); break;
+"92
+[e :U 81 ]
+[e = _leftLipCornerSawtoothThreshold -> + -> 180 `i -> _RCREG `i `uc ]
+[e $U 78  ]
+[; ;ServoController.c: 93: case 0x40: rightLipCornerSawtoothThreshold = (180 + (RCREG)); break;
 "93
+[e :U 82 ]
+[e = _rightLipCornerSawtoothThreshold -> + -> 180 `i -> _RCREG `i `uc ]
+[e $U 78  ]
+[; ;ServoController.c: 94: case 0x43: lowerJawSawtoothThreshold = (180 + (RCREG)); break;
+"94
+[e :U 83 ]
+[e = _lowerJawSawtoothThreshold -> + -> 180 `i -> _RCREG `i `uc ]
+[e $U 78  ]
+[; ;ServoController.c: 95: case 0x45: eyelidsSawtoothThreshold = (180 + (RCREG)); break;
+"95
+[e :U 84 ]
+[e = _eyelidsSawtoothThreshold -> + -> 180 `i -> _RCREG `i `uc ]
+[e $U 78  ]
+[; ;ServoController.c: 97: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
+"97
 [e :U 85 ]
 [e = _RB5 -> ? > -> _RCREG `i -> 0 `i : -> 1 `i -> 0 `i `b ]
 [e $U 78  ]
-"94
+"98
 }
-[; ;ServoController.c: 94: }
+[; ;ServoController.c: 98: }
 [e $U 78  ]
-"86
+"90
 [e :U 79 ]
-[e [\ _part , $ -> -> 60 `i `uc 80
+[e [\ _partMidiNote , $ -> -> 60 `i `uc 80
  , $ -> -> 62 `i `uc 81
  , $ -> -> 64 `i `uc 82
  , $ -> -> 67 `i `uc 83
  , $ -> -> 69 `i `uc 84
  , $ -> -> 74 `i `uc 85
  78 ]
-"94
-[e :U 78 ]
-[; ;ServoController.c: 95: break;
-"95
-[e $U 73  ]
-[; ;ServoController.c: 96: default:
-"96
-[e :U 86 ]
-[; ;ServoController.c: 97: receiveCounter = 0;
-"97
-[e = _receiveCounter -> -> 0 `i `uc ]
-[; ;ServoController.c: 98: break;
 "98
-[e $U 73  ]
+[e :U 78 ]
+[; ;ServoController.c: 99: break;
 "99
-}
-[; ;ServoController.c: 99: }
 [e $U 73  ]
-"77
+[; ;ServoController.c: 100: default:
+"100
+[e :U 86 ]
+[; ;ServoController.c: 101: receiveCounter = 0;
+"101
+[e = _receiveCounter -> -> 0 `i `uc ]
+[; ;ServoController.c: 102: RCREG = 0;
+"102
+[e = _RCREG -> -> 0 `i `uc ]
+[; ;ServoController.c: 103: break;
+"103
+[e $U 73  ]
+"104
+}
+[; ;ServoController.c: 104: }
+[e $U 73  ]
+"81
 [e :U 74 ]
 [e [\ _receiveCounter , $ -> -> 1 `i `uc 75
  , $ -> -> 2 `i `uc 76
  , $ -> -> 3 `i `uc 77
  86 ]
-"99
+"104
 [e :U 73 ]
-"100
+"105
 }
 [e :U 72 ]
-[; ;ServoController.c: 100: }
-[; ;ServoController.c: 101: }
-"101
+[; ;ServoController.c: 105: }
+[; ;ServoController.c: 106: }
+"106
 [e :UE 62 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"103
+"108
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;ServoController.c: 103: void main(void) {
+[; ;ServoController.c: 108: void main(void) {
 [e :U _main ]
 [f ]
-[; ;ServoController.c: 107: initServos();
-"107
+[; ;ServoController.c: 112: initServos();
+"112
 [e ( _initServos ..  ]
-[; ;ServoController.c: 108: initUSART();
-"108
+[; ;ServoController.c: 113: initUSART();
+"113
 [e ( _initUSART ..  ]
-[; ;ServoController.c: 109: initTMR2();
-"109
+[; ;ServoController.c: 114: initTMR2();
+"114
 [e ( _initTMR2 ..  ]
-[; ;ServoController.c: 110: PIR1 = 0b00000000;
-"110
-[e = _PIR1 -> -> 0 `i `uc ]
-[; ;ServoController.c: 111: INTCON = 0b11000000;
-"111
-[e = _INTCON -> -> 192 `i `uc ]
-[; ;ServoController.c: 117: while(1) {
+[; ;ServoController.c: 116: PEIE = 1;
+"116
+[e = _PEIE -> -> 1 `i `b ]
+[; ;ServoController.c: 117: GIE = 1;
 "117
+[e = _GIE -> -> 1 `i `b ]
+[; ;ServoController.c: 123: while(1) {
+"123
 [e :U 89 ]
 {
-[; ;ServoController.c: 118: if (OERR)
-"118
+[; ;ServoController.c: 124: if (OERR)
+"124
 [e $ ! _OERR 91  ]
-[; ;ServoController.c: 119: clearOverrunError();
-"119
+[; ;ServoController.c: 125: clearOverrunError();
+"125
 [e ( _clearOverrunError ..  ]
 [e :U 91 ]
-[; ;ServoController.c: 120: if(FERR)
-"120
+[; ;ServoController.c: 126: if(FERR)
+"126
 [e $ ! _FERR 92  ]
-[; ;ServoController.c: 121: clearFramingError();
-"121
+[; ;ServoController.c: 127: clearFramingError();
+"127
 [e ( _clearFramingError ..  ]
 [e :U 92 ]
-"122
+"128
 }
 [e :U 88 ]
-"117
+"123
 [e $U 89  ]
 [e :U 90 ]
-[; ;ServoController.c: 122: }
-[; ;ServoController.c: 124: }
-"124
+[; ;ServoController.c: 128: }
+[; ;ServoController.c: 130: }
+"130
 [e :UE 87 ]
 }

@@ -4,9 +4,9 @@
  * Author       : Jon Mrowczynski 
  * Target       : PIC16F628A
  * Compiler     : XC8 v1.45 Free version
- * IDE          : MPLAB X IDE v4.10
+ * IDE          : MPLAB X IDE v4.15
  * Programmer   : PICKit3
- * Last Updated : 3/1/2018
+ * Last Updated : 3/3/2018
  * 
  * We need a baud rate (BRATE) of 31250 to work with MIDI. In order to calculate
  * the value that we need to set the SPBRG register to in order to get a baud 
@@ -18,16 +18,11 @@
  * Therefore, in our case, with a desired baud rate of 31250 and a Fosc of 20Mhz,
  * the equation would yield:
  *
- * SPBRG = 20,000,000 / ( 16 * 31250 ) - 1 = * 39 *
+ * SPBRG = 20,000,000 / ( 16 * 31250 ) - 1 = 39
  * 
- * *NOTE*: Because of the integer division in the position macro, the minimum
- * change in the angular position of the servo motors is 9 degrees. This is 
- * due to the ones place of the velocity value being neglected when the 
- * integer division is performed. Therefore the velocity value 50 and 55 would 
- * yield the same angular position value: 185, since
- * 
- *        180 + (55 / 10) = 180 + 5.5 (but the .5 gets cut off so)
- *                        = 180 + 5 = 180 + (50 / 10) = 185
+ * Note that that the theoretical baud rate error is 0%. However, There is going
+ * to be some error introduced from error in the frequency of the quartz crystal 
+ * resonator.
  */
 
 #ifndef _USART_H_
@@ -37,7 +32,10 @@
 #include <stdbool.h>
 #include "pins.h"
 
-// Associate a MIDI note with the servo motors and lights that are in parallel
+#define BRATE   39  // Set baudrate to 31250 for MIDI communication
+
+// Each of the servo motors and lights (which are in parallel) have a MIDI note
+// that is associated with them.
 
 #define EYEBROW_MIDI_NOTE           0x3C   // C4 
 #define LEFT_LIP_CORNER_MIDI_NOTE   0x3E   // D4 
@@ -47,16 +45,8 @@
 #define UNUSED_MIDI_NOTE            0x48   // C5
 #define LIGHTS_MIDI_NOTE            0x4A   // D5
 
-#define MIN_VELOCITY_VAL    0
-#define MAX_VELOCITY_VAL    10
-
-// Declare constants that initialize some of the PIC's registers 
-
-#define BRATE               39          // Set a midi baudrate to 31250
-
 /**
- * Initializes the USART to allow the PIC to receive data. This currently does 
- * not allow the PIC to transmit data.
+ * Initializes the USART to allow the PIC to receive data.
  */
 
 static inline void initUSART() {
@@ -68,9 +58,8 @@ static inline void initUSART() {
 }
 
 /**
- * In case of an receive register overrun error, reset the EUSART to be able to
- * receive messages again. This should be called in any loop where it is 
- * required for the EUSART to be able to receive data in order to exit the loop.
+ * In case of a receive register overrun error, reset the USART to be able to
+ * receive messages again.
  */
 
 static inline void clearOverrunError() {
@@ -85,10 +74,10 @@ static inline void clearOverrunError() {
 
 /**
  * A framing error can occur if there is any noise on the signal lines, or if 
- * the baud rates of the communicating devices are different. Of course, there 
- * could potentially be a sufficient amount of noise on the signal lines causes
- * by a variety of things. It is also the case that the baud rate of the XBee
- * is not going to be exactly the same as the baud rate of the PIC.
+ * the baud rates of the communicating devices are different. There is the 
+ * potential for a lot of noise in the circuit due to the number of PWM signals,
+ * the close proximity of some of the signal lines, as well as noise from each 
+ * of the servo motors.
  */
 
 static inline void clearFramingError() {
