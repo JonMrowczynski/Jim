@@ -22,7 +22,7 @@
 #define LEFT_LIP_CORNER_SERVO_OUTPUT   RA1
 #define RIGHT_LIP_CORNER_SERVO_OUTPUT  RA2
 #define LOWER_JAW_SERVO_OUTPUT         RA3
-#define EYELIDS_SERVO_OUTPUT           RA4
+#define EYELIDS_SERVO_OUTPUT           RB0
 #define UNUSED_SERVO_OUTPUT            RB3
 #define LIGHTS                         RB5
 
