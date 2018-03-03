@@ -33,7 +33,7 @@
 #include "usart.h"
 #include "ServoController.h"
 
-volatile unsigned char part             = CLEAR;
+volatile unsigned char partMidiNote     = CLEAR;
 volatile unsigned char receiveCounter   = CLEAR;
 volatile unsigned char sawtoothCounter  = CLEAR;
 
@@ -53,20 +53,20 @@ void interrupt isr(void) {
     if (TMR2IF) {
         ++sawtoothCounter;
         if (sawtoothCounter >= MIN_SLIDER_VAL) {
-            if (sawtoothCounter >= COUNTER_RESET) {
-                EYEBROW_SERVO           = LOW;
-                LEFT_LIP_CORNER_SERVO   = LOW;
-                RIGHT_LIP_CORNER_SERVO  = LOW;
-                LOWER_JAW_SERVO         = LOW;
-                EYELIDS_SERVO           = LOW;
+            if (sawtoothCounter >= PWM_PERIOD) {
+                EYEBROW_SERVO_OUTPUT           = LOW;
+                LEFT_LIP_CORNER_SERVO_OUTPUT   = LOW;
+                RIGHT_LIP_CORNER_SERVO_OUTPUT  = LOW;
+                LOWER_JAW_SERVO_OUTPUT         = LOW;
+                EYELIDS_SERVO_OUTPUT           = LOW;
                 //SERVO6 = LOW;
                 sawtoothCounter = CLEAR;
             } else {
-                if (sawtoothCounter == eyebrowSliderVal)        EYEBROW_SERVO           = HIGH;
-                if (sawtoothCounter == leftLipCornerSliderVal)  LEFT_LIP_CORNER_SERVO   = HIGH;
-                if (sawtoothCounter == rightLipCornerSliderVal) RIGHT_LIP_CORNER_SERVO  = HIGH;
-                if (sawtoothCounter == lowerJawSliderVal)       LOWER_JAW_SERVO         = HIGH;
-                if (sawtoothCounter == eyelidsSliderVal)        EYELIDS_SERVO           = HIGH;
+                if (sawtoothCounter == eyebrowSliderVal)        EYEBROW_SERVO_OUTPUT           = HIGH;
+                if (sawtoothCounter == leftLipCornerSliderVal)  LEFT_LIP_CORNER_SERVO_OUTPUT   = HIGH;
+                if (sawtoothCounter == rightLipCornerSliderVal) RIGHT_LIP_CORNER_SERVO_OUTPUT  = HIGH;
+                if (sawtoothCounter == lowerJawSliderVal)       LOWER_JAW_SERVO_OUTPUT         = HIGH;
+                if (sawtoothCounter == eyelidsSliderVal)        EYELIDS_SERVO_OUTPUT           = HIGH;
                 //if (sawtoothCounter == servo6Threshold) SERVO6 = HIGH;
             }
        }
@@ -79,11 +79,11 @@ void interrupt isr(void) {
                 RCREG = CLEAR;
                 break;
             case 2:
-                part = RCREG;
+                partMidiNote = RCREG;
                 break;
             case 3:
                 receiveCounter = CLEAR;
-                switch(part) {
+                switch(partMidiNote) {
                     case EYEBROW_MIDI_NOTE:             eyebrowSliderVal        = position(RCREG); break;
                     case LEFT_LIP_CORNER_MIDI_NOTE:     leftLipCornerSliderVal  = position(RCREG); break;
                     case RIGHT_LIP_CORNER_MIDI_NOTE:    rightLipCornerSliderVal = position(RCREG); break;
@@ -95,6 +95,7 @@ void interrupt isr(void) {
                 break;
             default:
                 receiveCounter = CLEAR;
+                RCREG = CLEAR;
                 break;
         }
     }
@@ -107,8 +108,9 @@ void main(void) {
     initServos();
     initUSART();
     initTMR2();
-    PIR1    = CLEAR_ALL;            // Clear all of the interrupt flags
-    INTCON  = INTCON_INIT;          // Enable global and peripheral interrupts
+    
+    PEIE    = true;  // Enable peripheral interrupts
+    GIE     = true;  // Enable global interrupts
 
     // In case the USART experiences an overrun error and/or a framing error, 
     // fix the encountered error. Otherwise, just wait to perform the interrupt 

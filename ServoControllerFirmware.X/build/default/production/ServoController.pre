@@ -856,7 +856,7 @@ PR2 = 124;
 PIE1 = 0b00100010;
 }
 
-# 50 "usart.h"
+# 65 "usart.h"
 static inline void initUSART() {
 SPBRG = 39;
 TRISB1 = 1;
@@ -864,6 +864,7 @@ TXSTA = 0b10100100;
 RCSTA = 0b10010000;
 }
 
+# 78
 static inline void clearOverrunError() {
 static unsigned char temp = 0;
 do {
@@ -874,6 +875,7 @@ CREN = 1;
 } while(OERR);
 }
 
+# 96
 static inline void clearFramingError() {
 static unsigned char temp = 0;
 do {
@@ -884,13 +886,13 @@ SPEN = 1;
 } while (FERR);
 }
 
-# 61 "ServoController.h"
+# 51 "ServoController.h"
 extern volatile unsigned char part;
 
-# 68
+# 58
 extern volatile unsigned char receiveCounter;
 
-# 76
+# 66
 extern volatile unsigned char sawtoothCounter;
 
 extern volatile unsigned char eyebrowSliderVal;
@@ -900,7 +902,8 @@ extern volatile unsigned char lowerJawSliderVal;
 extern volatile unsigned char eyelidsSliderVal;
 extern volatile unsigned char servo6SliderVal;
 
-static inline void initServos() {
+# 80
+static inline void initServos(void) {
 TRISA0 = 0;
 TRISA1 = 0;
 TRISA2 = 0;
@@ -914,7 +917,7 @@ volatile unsigned char part = 0;
 volatile unsigned char receiveCounter = 0;
 volatile unsigned char sawtoothCounter = 0;
 
-# 43
+# 45
 volatile unsigned char eyebrowSliderVal = 180 + 6;
 volatile unsigned char leftLipCornerSliderVal = 180 + 6;
 volatile unsigned char rightLipCornerSliderVal = 180 + 7;
@@ -983,7 +986,7 @@ initTMR2();
 PIR1 = 0b00000000;
 INTCON = 0b11000000;
 
-# 115
+# 117
 while(1) {
 if (OERR)
 clearOverrunError();

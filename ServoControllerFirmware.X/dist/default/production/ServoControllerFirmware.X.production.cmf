@@ -27,7 +27,7 @@ intentry CODE 0 4 4 C 2
 bssBANK0 BANK0 1 20 20 2 1
 dataCOMMON COMMON 1 70 70 5 1
 bssCOMMON COMMON 1 7A 7A 3 1
-$C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+$C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 reset_vec CODE 0 0 0 1 2
 end_init CODE 0 10 10 1 2
 config CONFIG 0 2007 2007 1 2
@@ -75,113 +75,113 @@ STRING 108-7FF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\ServoControllerFirmware.X.production.obj
-11 cinit CODE >219:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-11 cinit CODE >222:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-11 cinit CODE >281:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-12 cinit CODE >282:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-13 cinit CODE >283:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-14 cinit CODE >284:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-15 cinit CODE >285:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-16 cinit CODE >286:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-17 cinit CODE >287:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-18 cinit CODE >288:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-19 cinit CODE >289:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-1A cinit CODE >290:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-1B cinit CODE >294:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-1C cinit CODE >295:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-1D cinit CODE >298:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-1E cinit CODE >299:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-1F cinit CODE >300:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-20 cinit CODE >306:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-20 cinit CODE >308:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-21 cinit CODE >309:C:\Users\SLEEPW~1\AppData\Local\Temp\s974.
-4 intentry CODE >50:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-22 text6 CODE >50:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-22 text6 CODE >51:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-24 text6 CODE >52:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-28 text6 CODE >53:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-2C text6 CODE >54:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-30 text6 CODE >55:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-31 text6 CODE >56:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-32 text6 CODE >57:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-33 text6 CODE >58:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-34 text6 CODE >59:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-35 text6 CODE >61:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-36 text6 CODE >62:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-37 text6 CODE >63:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-3B text6 CODE >64:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-3F text6 CODE >65:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-43 text6 CODE >66:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-47 text6 CODE >67:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-4B text6 CODE >70:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-4B text6 CODE >71:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-4C text6 CODE >72:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-4C text6 CODE >73:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-4E text6 CODE >74:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-52 text6 CODE >75:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-53 text6 CODE >77:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-54 text6 CODE >78:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-55 text6 CODE >80:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-59 text6 CODE >81:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-5A text6 CODE >83:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-5B text6 CODE >84:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-5C text6 CODE >85:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-62 text6 CODE >86:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-68 text6 CODE >87:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-6E text6 CODE >88:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-74 text6 CODE >89:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-7A text6 CODE >91:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-84 text6 CODE >92:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-85 text6 CODE >84:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-99 text6 CODE >93:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-9A text6 CODE >95:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-9B text6 CODE >97:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-9C text6 CODE >75:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-A7 text6 CODE >99:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-D4 text5 CODE >67:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-D4 text5 CODE >69:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-D4 text5 CODE >70:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-DA text5 CODE >71:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-DE text5 CODE >72:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-DF text5 CODE >73:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-E0 text5 CODE >74:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-C5 text4 CODE >57:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-C5 text4 CODE >59:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-C5 text4 CODE >60:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-CB text4 CODE >61:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-CF text4 CODE >62:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-D0 text4 CODE >63:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-D1 text4 CODE >64:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-FA text3 CODE >85:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-FA text3 CODE >86:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-FD text3 CODE >87:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-FE text3 CODE >88:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-FF text3 CODE >89:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-100 text3 CODE >90:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-101 text3 CODE >91:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
-102 text3 CODE >92:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+11 cinit CODE >219:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+11 cinit CODE >222:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+11 cinit CODE >281:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+12 cinit CODE >282:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+13 cinit CODE >283:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+14 cinit CODE >284:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+15 cinit CODE >285:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+16 cinit CODE >286:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+17 cinit CODE >287:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+18 cinit CODE >288:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+19 cinit CODE >289:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+1A cinit CODE >290:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+1B cinit CODE >294:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+1C cinit CODE >295:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+1D cinit CODE >298:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+1E cinit CODE >299:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+1F cinit CODE >300:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+20 cinit CODE >306:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+20 cinit CODE >308:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+21 cinit CODE >309:C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.
+4 intentry CODE >52:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+22 text6 CODE >52:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+22 text6 CODE >53:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+24 text6 CODE >54:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+28 text6 CODE >55:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+2C text6 CODE >56:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+30 text6 CODE >57:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+31 text6 CODE >58:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+32 text6 CODE >59:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+33 text6 CODE >60:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+34 text6 CODE >61:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+35 text6 CODE >63:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+36 text6 CODE >64:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+37 text6 CODE >65:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+3B text6 CODE >66:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+3F text6 CODE >67:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+43 text6 CODE >68:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+47 text6 CODE >69:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+4B text6 CODE >72:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+4B text6 CODE >73:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+4C text6 CODE >74:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+4C text6 CODE >75:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+4E text6 CODE >76:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+52 text6 CODE >77:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+53 text6 CODE >79:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+54 text6 CODE >80:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+55 text6 CODE >82:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+59 text6 CODE >83:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+5A text6 CODE >85:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+5B text6 CODE >86:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+5C text6 CODE >87:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+62 text6 CODE >88:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+68 text6 CODE >89:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+6E text6 CODE >90:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+74 text6 CODE >91:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+7A text6 CODE >93:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+84 text6 CODE >94:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+85 text6 CODE >86:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+99 text6 CODE >95:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+9A text6 CODE >97:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+9B text6 CODE >99:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+9C text6 CODE >77:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+A7 text6 CODE >101:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+D4 text5 CODE >96:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+D4 text5 CODE >98:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+D4 text5 CODE >99:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+DA text5 CODE >100:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+DE text5 CODE >101:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+DF text5 CODE >102:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+E0 text5 CODE >103:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+C5 text4 CODE >78:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+C5 text4 CODE >80:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+C5 text4 CODE >81:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+CB text4 CODE >82:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+CF text4 CODE >83:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+D0 text4 CODE >84:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+D1 text4 CODE >85:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+FA text3 CODE >80:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+FA text3 CODE >81:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+FD text3 CODE >82:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+FE text3 CODE >83:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+FF text3 CODE >84:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+100 text3 CODE >85:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+101 text3 CODE >86:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
+102 text3 CODE >87:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.h
 EF text2 CODE >50:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
 EF text2 CODE >51:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
 F3 text2 CODE >52:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
 F7 text2 CODE >53:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
 F9 text2 CODE >54:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\tmr2.h
-E3 text1 CODE >50:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-E3 text1 CODE >51:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-E7 text1 CODE >52:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-E8 text1 CODE >53:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-EA text1 CODE >54:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-EE text1 CODE >55:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
-B2 maintext CODE >101:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-B2 maintext CODE >105:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-B3 maintext CODE >106:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-B4 maintext CODE >107:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-B5 maintext CODE >108:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-B8 maintext CODE >109:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-BA maintext CODE >116:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-BE maintext CODE >117:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-BF maintext CODE >118:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-C3 maintext CODE >119:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
-C4 maintext CODE >115:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+E3 text1 CODE >65:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+E3 text1 CODE >66:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+E7 text1 CODE >67:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+E8 text1 CODE >68:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+EA text1 CODE >69:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+EE text1 CODE >70:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\usart.h
+B2 maintext CODE >103:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+B2 maintext CODE >107:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+B3 maintext CODE >108:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+B4 maintext CODE >109:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+B5 maintext CODE >110:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+B8 maintext CODE >111:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+BA maintext CODE >118:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+BE maintext CODE >119:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+BF maintext CODE >120:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+C3 maintext CODE >121:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
+C4 maintext CODE >117:C:\Users\sleepwonder\Desktop\ProjectJim\Firmware\ServoControllerFirmware.X\ServoController.c
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -209,23 +209,23 @@ _PIE1 8C 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.
 _PIR1 C 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 _RCIF 65 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 _SPEN C7 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
-___sp 0 0 STACK 2 stack C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+___sp 0 0 STACK 2 stack C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 _main 164 0 CODE 0 maintext dist/default/production\ServoControllerFirmware.X.production.obj
 _part 7C 0 COMMON 1 bssCOMMON dist/default/production\ServoControllerFirmware.X.production.obj
 btemp 7E 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
-start 20 0 CODE 0 init C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+start 20 0 CODE 0 init C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 __size_of_main 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 _lowerJawSliderVal 71 0 COMMON 1 dataCOMMON dist/default/production\ServoControllerFirmware.X.production.obj
 __Hpowerup 0 0 CODE 0 powerup -
 __HdataCOMMON 0 0 ABS 0 dataCOMMON -
 __size_of_initServos 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
-intlevel0 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
-intlevel1 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
-intlevel2 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
-intlevel3 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
-intlevel4 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
-intlevel5 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+intlevel0 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
+intlevel1 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
+intlevel2 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
+intlevel3 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
+intlevel4 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
+intlevel5 0 0 ENTRY 0 functab C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 _initTMR2 1DE 0 CODE 0 text2 dist/default/production\ServoControllerFirmware.X.production.obj
 wtemp0 7E 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
@@ -254,7 +254,7 @@ _TRISA3 42B 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.producti
 _TRISB0 430 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 _TRISB1 431 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 _TRISB3 433 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
-___int_sp 0 0 STACK 2 stack C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+___int_sp 0 0 STACK 2 stack C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -309,7 +309,7 @@ __end_of_clearFramingError 1C6 0 CODE 0 text5 dist/default/production\ServoContr
 __end_of_isr 164 0 CODE 0 text6 dist/default/production\ServoControllerFirmware.X.production.obj
 __CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+reset_vec 0 0 CODE 0 reset_vec C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 __LbssBANK0 0 0 ABS 0 bssBANK0 -
 __end_of_initUSART 1DE 0 CODE 0 text1 dist/default/production\ServoControllerFirmware.X.production.obj
 __size_of_initUSART 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
@@ -320,8 +320,8 @@ __CFG_CPD$ON 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.produ
 __CFG_WDTE$OFF 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 _initUSART 1C6 0 CODE 0 text1 dist/default/production\ServoControllerFirmware.X.production.obj
 _sawtoothCounter 7A 0 COMMON 1 bssCOMMON dist/default/production\ServoControllerFirmware.X.production.obj
-stackhi 0 0 ABS 0 - C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
-stacklo 0 0 ABS 0 - C:\Users\SLEEPW~1\AppData\Local\Temp\s974.obj
+stackhi 0 0 ABS 0 - C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
+stacklo 0 0 ABS 0 - C:\Users\SLEEPW~1\AppData\Local\Temp\s93g.obj
 _initServos 1F4 0 CODE 0 text3 dist/default/production\ServoControllerFirmware.X.production.obj
 __CFG_LVP$OFF 0 0 ABS 0 - dist/default/production\ServoControllerFirmware.X.production.obj
 __Lspace_0 0 0 ABS 0 - -

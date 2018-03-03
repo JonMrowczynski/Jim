@@ -34,18 +34,25 @@
 #define _USART_H_
 
 #include <pic.h>
+#include <stdbool.h>
 #include "pins.h"
+
+// Associate a MIDI note with the servo motors and lights that are in parallel
+
+#define EYEBROW_MIDI_NOTE           0x3C   // C4 
+#define LEFT_LIP_CORNER_MIDI_NOTE   0x3E   // D4 
+#define RIGHT_LIP_CORNER_MIDI_NOTE  0x40   // E4 
+#define LOWER_JAW_MIDI_NOTE         0x43   // G4 
+#define EYELIDS_MIDI_NOTE           0x45   // A5
+#define UNUSED_MIDI_NOTE            0x48   // C5
+#define LIGHTS_MIDI_NOTE            0x4A   // D5
+
+#define MIN_VELOCITY_VAL    0
+#define MAX_VELOCITY_VAL    10
 
 // Declare constants that initialize some of the PIC's registers 
 
 #define BRATE               39          // Set a midi baudrate to 31250
-#define UENABLE             0b10100100  // USART enable
-#define RCENABLE            0b10010000  // Receive enable
-#define INTCON_INIT         0b11000000  // Enables global and peripheral interrupts
-#define DISABLE_COMPARATORS 0b00000111  // Disable the PIC'S comparators
-
-#define DISABLE 0
-#define ENABLE  1
 
 /**
  * Initializes the USART to allow the PIC to receive data. This currently does 
@@ -53,10 +60,11 @@
  */
 
 static inline void initUSART() {
-    SPBRG   = BRATE;                // Set the MIDI baud rate to 31250
     TRISB1  = INPUT;
-    TXSTA   = UENABLE;              // Enable the USART
-    RCSTA   = RCENABLE;             // Enable the reception of MIDI data
+    SPBRG   = BRATE;    // Set the MIDI baud rate to 31250
+    BRGH    = SET;      // Use high speed baud rate
+    CREN    = true;     // Enable continuous receive
+    SPEN    = true;     // Enable serial port
 }
 
 /**
@@ -70,8 +78,8 @@ static inline void clearOverrunError() {
     do {                
         temp = RCREG;  
         temp = RCREG;  
-        CREN = DISABLE; 
-        CREN = ENABLE;  
+        CREN = false; 
+        CREN = true;  
     } while(OERR); 
 }
 
@@ -88,8 +96,8 @@ static inline void clearFramingError() {
     do {
         temp = RCREG;
         temp = RCREG;
-        SPEN = CLEAR;
-        SPEN = SET;
+        SPEN = false;
+        SPEN = true;
     } while (FERR);
 }
 

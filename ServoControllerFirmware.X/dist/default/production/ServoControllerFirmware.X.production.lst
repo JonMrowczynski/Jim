@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V1.45 build -152302408 
-                                                                                               Thu Mar 01 13:52:38 2018
+                                                                                               Thu Mar 01 14:04:33 2018
 
 Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160504
      1                           	processor	16F628A
@@ -268,7 +268,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    254 ;;
    255 ;; *************** function _main *****************
    256 ;; Defined at:
-   257 ;;		line 101 in file "ServoController.c"
+   257 ;;		line 103 in file "ServoController.c"
    258 ;; Parameters:    Size  Location     Type
    259 ;;		None
    260 ;; Auto vars:     Size  Location     Type
@@ -303,47 +303,47 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    289                           ;psect for function _main
    290  00B2                     _main:	
    291                           
-   292                           ;ServoController.c: 105: initServos();
+   292                           ;ServoController.c: 107: initServos();
    293                           
    294                           ;incstack = 0
    295                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
    296  00B2  20FA               	fcall	_initServos
    297                           
-   298                           ;ServoController.c: 106: initUSART();
+   298                           ;ServoController.c: 108: initUSART();
    299  00B3  20E3               	fcall	_initUSART
    300                           
-   301                           ;ServoController.c: 107: initTMR2();
+   301                           ;ServoController.c: 109: initTMR2();
    302  00B4  20EF               	fcall	_initTMR2
    303                           
-   304                           ;ServoController.c: 108: PIR1 = 0b00000000;
+   304                           ;ServoController.c: 110: PIR1 = 0b00000000;
    305  00B5  1283               	bcf	3,5	;RP0=0, select bank0
    306  00B6  1303               	bcf	3,6	;RP1=0, select bank0
    307  00B7  018C               	clrf	12	;volatile
    308                           
-   309                           ;ServoController.c: 109: INTCON = 0b11000000;
+   309                           ;ServoController.c: 111: INTCON = 0b11000000;
    310  00B8  30C0               	movlw	192
    311  00B9  008B               	movwf	11	;volatile
    312  00BA                     l766:	
-   313                           ;ServoController.c: 115: while(1) {
+   313                           ;ServoController.c: 117: while(1) {
    314                           
    315                           
-   316                           ;ServoController.c: 116: if (OERR)
+   316                           ;ServoController.c: 118: if (OERR)
    317  00BA  1283               	bcf	3,5	;RP0=0, select bank0
    318  00BB  1303               	bcf	3,6	;RP1=0, select bank0
    319  00BC  1C98               	btfss	24,1	;volatile
    320  00BD  28BF               	goto	l770
    321                           
-   322                           ;ServoController.c: 117: clearOverrunError();
+   322                           ;ServoController.c: 119: clearOverrunError();
    323  00BE  20C5               	fcall	_clearOverrunError
    324  00BF                     l770:	
    325                           
-   326                           ;ServoController.c: 118: if(FERR)
+   326                           ;ServoController.c: 120: if(FERR)
    327  00BF  1283               	bcf	3,5	;RP0=0, select bank0
    328  00C0  1303               	bcf	3,6	;RP1=0, select bank0
    329  00C1  1D18               	btfss	24,2	;volatile
    330  00C2  28BA               	goto	l766
    331                           
-   332                           ;ServoController.c: 119: clearFramingError();
+   332                           ;ServoController.c: 121: clearFramingError();
    333  00C3  20D4               	fcall	_clearFramingError
    334  00C4  28BA               	goto	l766
    335  00C5                     __end_of_main:	
@@ -352,7 +352,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    338  00E3                     __ptext1:	
    339 ;; *************** function _initUSART *****************
    340 ;; Defined at:
-   341 ;;		line 50 in file "usart.h"
+   341 ;;		line 65 in file "usart.h"
    342 ;; Parameters:    Size  Location     Type
    343 ;;		None
    344 ;; Auto vars:     Size  Location     Type
@@ -384,7 +384,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    370                           ;psect for function _initUSART
    371  00E3                     _initUSART:	
    372                           
-   373                           ;usart.h: 51: SPBRG = 39;
+   373                           ;usart.h: 66: SPBRG = 39;
    374                           
    375                           ;incstack = 0
    376                           ; Regs used in _initUSART: [wreg]
@@ -393,14 +393,14 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    379  00E5  1303               	bcf	3,6	;RP1=0, select bank1
    380  00E6  0099               	movwf	25	;volatile
    381                           
-   382                           ;usart.h: 52: TRISB1 = 1;
+   382                           ;usart.h: 67: TRISB1 = 1;
    383  00E7  1486               	bsf	6,1	;volatile
    384                           
-   385                           ;usart.h: 53: TXSTA = 0b10100100;
+   385                           ;usart.h: 68: TXSTA = 0b10100100;
    386  00E8  30A4               	movlw	164
    387  00E9  0098               	movwf	24	;volatile
    388                           
-   389                           ;usart.h: 54: RCSTA = 0b10010000;
+   389                           ;usart.h: 69: RCSTA = 0b10010000;
    390  00EA  3090               	movlw	144
    391  00EB  1283               	bcf	3,5	;RP0=0, select bank0
    392  00EC  1303               	bcf	3,6	;RP1=0, select bank0
@@ -469,7 +469,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    455  00FA                     __ptext3:	
    456 ;; *************** function _initServos *****************
    457 ;; Defined at:
-   458 ;;		line 85 in file "ServoController.h"
+   458 ;;		line 80 in file "ServoController.h"
    459 ;; Parameters:    Size  Location     Type
    460 ;;		None
    461 ;; Auto vars:     Size  Location     Type
@@ -501,7 +501,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    487                           ;psect for function _initServos
    488  00FA                     _initServos:	
    489                           
-   490                           ;ServoController.h: 86: TRISA0 = 0;
+   490                           ;ServoController.h: 81: TRISA0 = 0;
    491                           
    492                           ;incstack = 0
    493                           ; Regs used in _initServos: []
@@ -509,19 +509,19 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    495  00FB  1303               	bcf	3,6	;RP1=0, select bank1
    496  00FC  1005               	bcf	5,0	;volatile
    497                           
-   498                           ;ServoController.h: 87: TRISA1 = 0;
+   498                           ;ServoController.h: 82: TRISA1 = 0;
    499  00FD  1085               	bcf	5,1	;volatile
    500                           
-   501                           ;ServoController.h: 88: TRISA2 = 0;
+   501                           ;ServoController.h: 83: TRISA2 = 0;
    502  00FE  1105               	bcf	5,2	;volatile
    503                           
-   504                           ;ServoController.h: 89: TRISA3 = 0;
+   504                           ;ServoController.h: 84: TRISA3 = 0;
    505  00FF  1185               	bcf	5,3	;volatile
    506                           
-   507                           ;ServoController.h: 90: TRISB0 = 0;
+   507                           ;ServoController.h: 85: TRISB0 = 0;
    508  0100  1006               	bcf	6,0	;volatile
    509                           
-   510                           ;ServoController.h: 91: TRISB3 = 0;
+   510                           ;ServoController.h: 86: TRISB3 = 0;
    511  0101  1186               	bcf	6,3	;volatile
    512  0102  0008               	return
    513  0103                     __end_of_initServos:	
@@ -530,7 +530,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    516  00C5                     __ptext4:	
    517 ;; *************** function _clearOverrunError *****************
    518 ;; Defined at:
-   519 ;;		line 57 in file "usart.h"
+   519 ;;		line 78 in file "usart.h"
    520 ;; Parameters:    Size  Location     Type
    521 ;;		None
    522 ;; Auto vars:     Size  Location     Type
@@ -564,11 +564,11 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    550  00C5                     l67:	
    551                           ;incstack = 0
    552                           ; Regs used in _clearOverrunError: [wreg]
-   553                           ;usart.h: 58: static unsigned char temp = 0;
-   554                           ;usart.h: 59: do {
+   553                           ;usart.h: 79: static unsigned char temp = 0;
+   554                           ;usart.h: 80: do {
    555                           
    556                           
-   557                           ;usart.h: 60: temp = RCREG;
+   557                           ;usart.h: 81: temp = RCREG;
    558  00C5  1283               	bcf	3,5	;RP0=0, select bank0
    559  00C6  1303               	bcf	3,6	;RP1=0, select bank0
    560  00C7  081A               	movf	26,w	;volatile
@@ -576,19 +576,19 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    562  00C9  0822               	movf	??_clearOverrunError,w
    563  00CA  00A1               	movwf	clearOverrunError@temp
    564                           
-   565                           ;usart.h: 61: temp = RCREG;
+   565                           ;usart.h: 82: temp = RCREG;
    566  00CB  081A               	movf	26,w	;volatile
    567  00CC  00A2               	movwf	??_clearOverrunError
    568  00CD  0822               	movf	??_clearOverrunError,w
    569  00CE  00A1               	movwf	clearOverrunError@temp
    570                           
-   571                           ;usart.h: 62: CREN = 0;
+   571                           ;usart.h: 83: CREN = 0;
    572  00CF  1218               	bcf	24,4	;volatile
    573                           
-   574                           ;usart.h: 63: CREN = 1;
+   574                           ;usart.h: 84: CREN = 1;
    575  00D0  1618               	bsf	24,4	;volatile
    576                           
-   577                           ;usart.h: 64: } while(OERR);
+   577                           ;usart.h: 85: } while(OERR);
    578  00D1  1C98               	btfss	24,1	;volatile
    579  00D2  0008               	return
    580  00D3  28C5               	goto	l67
@@ -598,7 +598,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    584  00D4                     __ptext5:	
    585 ;; *************** function _clearFramingError *****************
    586 ;; Defined at:
-   587 ;;		line 67 in file "usart.h"
+   587 ;;		line 96 in file "usart.h"
    588 ;; Parameters:    Size  Location     Type
    589 ;;		None
    590 ;; Auto vars:     Size  Location     Type
@@ -632,11 +632,11 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    618  00D4                     l74:	
    619                           ;incstack = 0
    620                           ; Regs used in _clearFramingError: [wreg]
-   621                           ;usart.h: 68: static unsigned char temp = 0;
-   622                           ;usart.h: 69: do {
+   621                           ;usart.h: 97: static unsigned char temp = 0;
+   622                           ;usart.h: 98: do {
    623                           
    624                           
-   625                           ;usart.h: 70: temp = RCREG;
+   625                           ;usart.h: 99: temp = RCREG;
    626  00D4  1283               	bcf	3,5	;RP0=0, select bank0
    627  00D5  1303               	bcf	3,6	;RP1=0, select bank0
    628  00D6  081A               	movf	26,w	;volatile
@@ -644,19 +644,19 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    630  00D8  0822               	movf	??_clearFramingError,w
    631  00D9  00A0               	movwf	clearFramingError@temp
    632                           
-   633                           ;usart.h: 71: temp = RCREG;
+   633                           ;usart.h: 100: temp = RCREG;
    634  00DA  081A               	movf	26,w	;volatile
    635  00DB  00A2               	movwf	??_clearFramingError
    636  00DC  0822               	movf	??_clearFramingError,w
    637  00DD  00A0               	movwf	clearFramingError@temp
    638                           
-   639                           ;usart.h: 72: SPEN = 0;
+   639                           ;usart.h: 101: SPEN = 0;
    640  00DE  1398               	bcf	24,7	;volatile
    641                           
-   642                           ;usart.h: 73: SPEN = 1;
+   642                           ;usart.h: 102: SPEN = 1;
    643  00DF  1798               	bsf	24,7	;volatile
    644                           
-   645                           ;usart.h: 74: } while (FERR);
+   645                           ;usart.h: 103: } while (FERR);
    646  00E0  1D18               	btfss	24,2	;volatile
    647  00E1  0008               	return
    648  00E2  28D4               	goto	l74
@@ -666,7 +666,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    652  0022                     __ptext6:	
    653 ;; *************** function _isr *****************
    654 ;; Defined at:
-   655 ;;		line 50 in file "ServoController.c"
+   655 ;;		line 52 in file "ServoController.c"
    656 ;; Parameters:    Size  Location     Type
    657 ;;		None
    658 ;; Auto vars:     Size  Location     Type
@@ -697,132 +697,132 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    683                           ;psect for function _isr
    684  0022                     _isr:	
    685                           
-   686                           ;ServoController.c: 51: if (TMR2IF) {
+   686                           ;ServoController.c: 53: if (TMR2IF) {
    687  0022  1C8C               	btfss	12,1	;volatile
    688  0023  284C               	goto	i1l100
    689                           
-   690                           ;ServoController.c: 52: ++sawtoothCounter;
+   690                           ;ServoController.c: 54: ++sawtoothCounter;
    691  0024  3001               	movlw	1
    692  0025  00F5               	movwf	??_isr
    693  0026  0875               	movf	??_isr,w
    694  0027  07FA               	addwf	_sawtoothCounter,f	;volatile
    695                           
-   696                           ;ServoController.c: 53: if (sawtoothCounter >= 180) {
+   696                           ;ServoController.c: 55: if (sawtoothCounter >= 180) {
    697  0028  30B4               	movlw	180
    698  0029  027A               	subwf	_sawtoothCounter,w	;volatile
    699  002A  1C03               	skipc
    700  002B  284B               	goto	i1l101
    701                           
-   702                           ;ServoController.c: 54: if (sawtoothCounter >= 200) {
+   702                           ;ServoController.c: 56: if (sawtoothCounter >= 200) {
    703  002C  30C8               	movlw	200
    704  002D  027A               	subwf	_sawtoothCounter,w	;volatile
    705  002E  1C03               	skipc
    706  002F  2837               	goto	i1l630
    707                           
-   708                           ;ServoController.c: 55: RA0 = 0;
+   708                           ;ServoController.c: 57: RA0 = 0;
    709  0030  1005               	bcf	5,0	;volatile
    710                           
-   711                           ;ServoController.c: 56: RA1 = 0;
+   711                           ;ServoController.c: 58: RA1 = 0;
    712  0031  1085               	bcf	5,1	;volatile
    713                           
-   714                           ;ServoController.c: 57: RA2 = 0;
+   714                           ;ServoController.c: 59: RA2 = 0;
    715  0032  1105               	bcf	5,2	;volatile
    716                           
-   717                           ;ServoController.c: 58: RA3 = 0;
+   717                           ;ServoController.c: 60: RA3 = 0;
    718  0033  1185               	bcf	5,3	;volatile
    719                           
-   720                           ;ServoController.c: 59: RA4 = 0;
+   720                           ;ServoController.c: 61: RA4 = 0;
    721  0034  1205               	bcf	5,4	;volatile
    722                           
-   723                           ;ServoController.c: 61: sawtoothCounter = 0;
+   723                           ;ServoController.c: 63: sawtoothCounter = 0;
    724  0035  01FA               	clrf	_sawtoothCounter	;volatile
    725                           
-   726                           ;ServoController.c: 62: } else {
+   726                           ;ServoController.c: 64: } else {
    727  0036  284B               	goto	i1l101
    728  0037                     i1l630:	
    729                           
-   730                           ;ServoController.c: 63: if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
+   730                           ;ServoController.c: 65: if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
    731  0037  087A               	movf	_sawtoothCounter,w	;volatile
    732  0038  0674               	xorwf	_eyebrowSliderVal,w	;volatile
    733  0039  1903               	btfsc	3,2
    734  003A  1405               	bsf	5,0	;volatile
    735                           
-   736                           ;ServoController.c: 64: if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
+   736                           ;ServoController.c: 66: if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
    737  003B  087A               	movf	_sawtoothCounter,w	;volatile
    738  003C  0673               	xorwf	_leftLipCornerSliderVal,w	;volatile
    739  003D  1903               	btfsc	3,2
    740  003E  1485               	bsf	5,1	;volatile
    741                           
-   742                           ;ServoController.c: 65: if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
+   742                           ;ServoController.c: 67: if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
    743  003F  087A               	movf	_sawtoothCounter,w	;volatile
    744  0040  0672               	xorwf	_rightLipCornerSliderVal,w	;volatile
    745  0041  1903               	btfsc	3,2
    746  0042  1505               	bsf	5,2	;volatile
    747                           
-   748                           ;ServoController.c: 66: if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
+   748                           ;ServoController.c: 68: if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
    749  0043  087A               	movf	_sawtoothCounter,w	;volatile
    750  0044  0671               	xorwf	_lowerJawSliderVal,w	;volatile
    751  0045  1903               	btfsc	3,2
    752  0046  1585               	bsf	5,3	;volatile
    753                           
-   754                           ;ServoController.c: 67: if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
+   754                           ;ServoController.c: 69: if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
    755  0047  087A               	movf	_sawtoothCounter,w	;volatile
    756  0048  0670               	xorwf	_eyelidsSliderVal,w	;volatile
    757  0049  1903               	btfsc	3,2
    758  004A  1605               	bsf	5,4	;volatile
    759  004B                     i1l101:	
    760                           
-   761                           ;ServoController.c: 69: }
-   762                           ;ServoController.c: 70: }
-   763                           ;ServoController.c: 71: TMR2IF = 0;
+   761                           ;ServoController.c: 71: }
+   762                           ;ServoController.c: 72: }
+   763                           ;ServoController.c: 73: TMR2IF = 0;
    764  004B  108C               	bcf	12,1	;volatile
    765  004C                     i1l100:	
    766                           
-   767                           ;ServoController.c: 72: }
-   768                           ;ServoController.c: 73: if (RCIF) {
+   767                           ;ServoController.c: 74: }
+   768                           ;ServoController.c: 75: if (RCIF) {
    769  004C  1E8C               	btfss	12,5	;volatile
    770  004D  28A7               	goto	i1l124
    771                           
-   772                           ;ServoController.c: 74: ++receiveCounter;
+   772                           ;ServoController.c: 76: ++receiveCounter;
    773  004E  3001               	movlw	1
    774  004F  00F5               	movwf	??_isr
    775  0050  0875               	movf	??_isr,w
    776  0051  07FB               	addwf	_receiveCounter,f	;volatile
    777                           
-   778                           ;ServoController.c: 75: switch(receiveCounter) {
+   778                           ;ServoController.c: 77: switch(receiveCounter) {
    779  0052  289C               	goto	i1l678
    780  0053                     i1l652:	
-   781                           ;ServoController.c: 76: case 1:
+   781                           ;ServoController.c: 78: case 1:
    782                           
    783                           
-   784                           ;ServoController.c: 77: RCREG = 0;
+   784                           ;ServoController.c: 79: RCREG = 0;
    785  0053  019A               	clrf	26	;volatile
    786                           
-   787                           ;ServoController.c: 78: break;
+   787                           ;ServoController.c: 80: break;
    788  0054  28A7               	goto	i1l124
    789  0055                     i1l654:	
-   790                           ;ServoController.c: 79: case 2:
+   790                           ;ServoController.c: 81: case 2:
    791                           
    792                           
-   793                           ;ServoController.c: 80: part = RCREG;
+   793                           ;ServoController.c: 82: part = RCREG;
    794  0055  081A               	movf	26,w	;volatile
    795  0056  00F5               	movwf	??_isr
    796  0057  0875               	movf	??_isr,w
    797  0058  00FC               	movwf	_part	;volatile
    798                           
-   799                           ;ServoController.c: 81: break;
+   799                           ;ServoController.c: 83: break;
    800  0059  28A7               	goto	i1l124
    801  005A                     i1l656:	
-   802                           ;ServoController.c: 82: case 3:
+   802                           ;ServoController.c: 84: case 3:
    803                           
    804                           
-   805                           ;ServoController.c: 83: receiveCounter = 0;
+   805                           ;ServoController.c: 85: receiveCounter = 0;
    806  005A  01FB               	clrf	_receiveCounter	;volatile
    807                           
-   808                           ;ServoController.c: 84: switch(part) {
+   808                           ;ServoController.c: 86: switch(part) {
    809  005B  2885               	goto	i1l672
    810  005C                     i1l658:	
-   811                           ;ServoController.c: 85: case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
+   811                           ;ServoController.c: 87: case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
    812                           
    813  005C  081A               	movf	26,w	;volatile
    814  005D  3EB4               	addlw	180
@@ -831,7 +831,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    817  0060  00F4               	movwf	_eyebrowSliderVal	;volatile
    818  0061  28A7               	goto	i1l124
    819  0062                     i1l660:	
-   820                           ;ServoController.c: 86: case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
+   820                           ;ServoController.c: 88: case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
    821                           
    822  0062  081A               	movf	26,w	;volatile
    823  0063  3EB4               	addlw	180
@@ -840,7 +840,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    826  0066  00F3               	movwf	_leftLipCornerSliderVal	;volatile
    827  0067  28A7               	goto	i1l124
    828  0068                     i1l662:	
-   829                           ;ServoController.c: 87: case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
+   829                           ;ServoController.c: 89: case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
    830                           
    831  0068  081A               	movf	26,w	;volatile
    832  0069  3EB4               	addlw	180
@@ -849,7 +849,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    835  006C  00F2               	movwf	_rightLipCornerSliderVal	;volatile
    836  006D  28A7               	goto	i1l124
    837  006E                     i1l664:	
-   838                           ;ServoController.c: 88: case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
+   838                           ;ServoController.c: 90: case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
    839                           
    840  006E  081A               	movf	26,w	;volatile
    841  006F  3EB4               	addlw	180
@@ -858,7 +858,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    844  0072  00F1               	movwf	_lowerJawSliderVal	;volatile
    845  0073  28A7               	goto	i1l124
    846  0074                     i1l666:	
-   847                           ;ServoController.c: 89: case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
+   847                           ;ServoController.c: 91: case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
    848                           
    849  0074  081A               	movf	26,w	;volatile
    850  0075  3EB4               	addlw	180
@@ -867,7 +867,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    853  0078  00F0               	movwf	_eyelidsSliderVal	;volatile
    854  0079  28A7               	goto	i1l124
    855  007A                     i1l668:	
-   856                           ;ServoController.c: 91: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
+   856                           ;ServoController.c: 93: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
    857                           
    858  007A  081A               	movf	26,w	;volatile
    859  007B  1903               	btfsc	3,2
@@ -881,7 +881,7 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    867  0082  1303               	bcf	3,6	;RP1=0, select bank0
    868  0083  1286               	bcf	6,5	;volatile
    869                           
-   870                           ;ServoController.c: 92: }
+   870                           ;ServoController.c: 94: }
    871  0084  28A7               	goto	i1l124
    872  0085                     i1l672:	
    873  0085  087C               	movf	_part,w	;volatile
@@ -914,18 +914,18 @@ Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160
    900  0097  287A               	goto	i1l668
    901  0098  28A7               	goto	i1l124
    902                           
-   903                           ;ServoController.c: 93: break;
+   903                           ;ServoController.c: 95: break;
    904  0099  28A7               	goto	i1l124
    905  009A                     i1l674:	
-   906                           ;ServoController.c: 94: default:
+   906                           ;ServoController.c: 96: default:
    907                           
    908                           
-   909                           ;ServoController.c: 95: receiveCounter = 0;
+   909                           ;ServoController.c: 97: receiveCounter = 0;
    910  009A  01FB               	clrf	_receiveCounter	;volatile
    911                           
-   912                           ;ServoController.c: 97: }
+   912                           ;ServoController.c: 99: }
    913                           
-   914                           ;ServoController.c: 96: break;
+   914                           ;ServoController.c: 98: break;
    915  009B  28A7               	goto	i1l124
    916  009C                     i1l678:	
    917  009C  087B               	movf	_receiveCounter,w	;volatile
@@ -1109,7 +1109,7 @@ EEDATA              80      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V1.45 build -152302408 
-Symbol Table                                                                                   Thu Mar 01 13:52:38 2018
+Symbol Table                                                                                   Thu Mar 01 14:04:33 2018
 
                 __CFG_CP$ON 0000                          l74 00D4                          l67 00C5  
                __CFG_CPD$ON 0000  __size_of_clearFramingError 000F                         l770 00BF  

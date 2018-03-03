@@ -33,24 +33,21 @@
 #define _TMR2_H_
 
 #include <pic.h>
+#include <stdbool.h>
+#include "pins.h"
 
-// Declare constants related to the PIC's Timer 2 interrupts
+#define PR2_INIT        124 
 
-#define MAX_VALUE           200                             // Need 200ms period
-#define COUNTER_RESET       MAX_VALUE                       // Reset sawtoothcounter every 200ms
-#define MIN_SLIDER_VAL      180
-#define MAX_SLIDER_VAL      190
-#define position(velocity)  (MIN_SLIDER_VAL + (velocity))   // Allows for 11 unique angular positions
-#define MIN_VELOCITY_VAL    0
-#define MAX_VELOCITY_VAL    10
-#define PR2_INIT            124 
-#define T2CON_INIT          0b00000101  // Enables Timer 2
-#define ENABLE_INTERRUPTS   0b00100010  // Enable Timer 2 and Receive Interrupts
+#define PWM_PERIOD      200 // Need 200ms PWM period
+#define MIN_SLIDER_VAL  180
+#define MAX_SLIDER_VAL  190
 
 static inline void initTMR2(void) {
-    T2CON   = T2CON_INIT;           // Setup Timer2     
-    PR2     = PR2_INIT;             // Set initial value for Timer2's PR2 register
-    PIE1    = ENABLE_INTERRUPTS;    // Enable Timer2 and Receive interrupts
+    PR2     = PR2_INIT;
+    T2CON   = 0b00000001;   // Set a 1:4 Prescaler value
+    TMR2IF  = CLEAR;
+    TMR2IE  = true;
+    TMR2ON  = true;
 }
 
 #endif

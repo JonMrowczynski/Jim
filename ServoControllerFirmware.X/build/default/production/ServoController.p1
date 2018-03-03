@@ -661,140 +661,140 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 51 ]
 }
 [v F611 `(v ~T0 @X0 1 tf ]
-"50 usart.h
+"65 usart.h
 [v _initUSART `TF611 ~T0 @X0 1 s ]
 {
-[; ;usart.h: 50: static inline void initUSART() {
+[; ;usart.h: 65: static inline void initUSART() {
 [e :U _initUSART ]
 [f ]
-[; ;usart.h: 51: SPBRG = 39;
-"51
+[; ;usart.h: 66: SPBRG = 39;
+"66
 [e = _SPBRG -> -> 39 `i `uc ]
-[; ;usart.h: 52: TRISB1 = 1;
-"52
+[; ;usart.h: 67: TRISB1 = 1;
+"67
 [e = _TRISB1 -> -> 1 `i `b ]
-[; ;usart.h: 53: TXSTA = 0b10100100;
-"53
+[; ;usart.h: 68: TXSTA = 0b10100100;
+"68
 [e = _TXSTA -> -> 164 `i `uc ]
-[; ;usart.h: 54: RCSTA = 0b10010000;
-"54
+[; ;usart.h: 69: RCSTA = 0b10010000;
+"69
 [e = _RCSTA -> -> 144 `i `uc ]
-[; ;usart.h: 55: }
-"55
+[; ;usart.h: 70: }
+"70
 [e :UE 52 ]
 }
 [v F613 `(v ~T0 @X0 1 tf ]
-"57
+"78
 [v _clearOverrunError `TF613 ~T0 @X0 1 s ]
 {
-[; ;usart.h: 57: static inline void clearOverrunError() {
+[; ;usart.h: 78: static inline void clearOverrunError() {
 [e :U _clearOverrunError ]
 [f ]
-"58
+"79
 [v F614 `uc ~T0 @X0 1 s temp ]
 [i F614
 -> -> 0 `i `uc
 ]
-[; ;usart.h: 58: static unsigned char temp = 0;
-[; ;usart.h: 59: do {
-"59
+[; ;usart.h: 79: static unsigned char temp = 0;
+[; ;usart.h: 80: do {
+"80
 [e :U 56 ]
 {
-[; ;usart.h: 60: temp = RCREG;
-"60
+[; ;usart.h: 81: temp = RCREG;
+"81
 [e = F614 _RCREG ]
-[; ;usart.h: 61: temp = RCREG;
-"61
+[; ;usart.h: 82: temp = RCREG;
+"82
 [e = F614 _RCREG ]
-[; ;usart.h: 62: CREN = 0;
-"62
+[; ;usart.h: 83: CREN = 0;
+"83
 [e = _CREN -> -> 0 `i `b ]
-[; ;usart.h: 63: CREN = 1;
-"63
+[; ;usart.h: 84: CREN = 1;
+"84
 [e = _CREN -> -> 1 `i `b ]
-"64
+"85
 }
-[; ;usart.h: 64: } while(OERR);
+[; ;usart.h: 85: } while(OERR);
 [e $ _OERR 56  ]
 [e :U 55 ]
-[; ;usart.h: 65: }
-"65
+[; ;usart.h: 86: }
+"86
 [e :UE 53 ]
 }
 [v F616 `(v ~T0 @X0 1 tf ]
-"67
+"96
 [v _clearFramingError `TF616 ~T0 @X0 1 s ]
 {
-[; ;usart.h: 67: static inline void clearFramingError() {
+[; ;usart.h: 96: static inline void clearFramingError() {
 [e :U _clearFramingError ]
 [f ]
-"68
+"97
 [v F617 `uc ~T0 @X0 1 s temp ]
 [i F617
 -> -> 0 `i `uc
 ]
-[; ;usart.h: 68: static unsigned char temp = 0;
-[; ;usart.h: 69: do {
-"69
+[; ;usart.h: 97: static unsigned char temp = 0;
+[; ;usart.h: 98: do {
+"98
 [e :U 60 ]
 {
-[; ;usart.h: 70: temp = RCREG;
-"70
+[; ;usart.h: 99: temp = RCREG;
+"99
 [e = F617 _RCREG ]
-[; ;usart.h: 71: temp = RCREG;
-"71
+[; ;usart.h: 100: temp = RCREG;
+"100
 [e = F617 _RCREG ]
-[; ;usart.h: 72: SPEN = 0;
-"72
+[; ;usart.h: 101: SPEN = 0;
+"101
 [e = _SPEN -> -> 0 `i `b ]
-[; ;usart.h: 73: SPEN = 1;
-"73
+[; ;usart.h: 102: SPEN = 1;
+"102
 [e = _SPEN -> -> 1 `i `b ]
-"74
+"103
 }
-[; ;usart.h: 74: } while (FERR);
+[; ;usart.h: 103: } while (FERR);
 [e $ _FERR 60  ]
 [e :U 59 ]
-[; ;usart.h: 75: }
-"75
+[; ;usart.h: 104: }
+"104
 [e :UE 57 ]
 }
-[; ;ServoController.h: 61: extern volatile unsigned char part;
-[; ;ServoController.h: 68: extern volatile unsigned char receiveCounter;
-[; ;ServoController.h: 76: extern volatile unsigned char sawtoothCounter;
-[; ;ServoController.h: 78: extern volatile unsigned char eyebrowSliderVal;
-[; ;ServoController.h: 79: extern volatile unsigned char leftLipCornerSliderVal;
-[; ;ServoController.h: 80: extern volatile unsigned char rightLipCornerSliderVal;
-[; ;ServoController.h: 81: extern volatile unsigned char lowerJawSliderVal;
-[; ;ServoController.h: 82: extern volatile unsigned char eyelidsSliderVal;
-[; ;ServoController.h: 83: extern volatile unsigned char servo6SliderVal;
-[v F628 `(v ~T0 @X0 1 tf ]
-"85 ServoController.h
-[v _initServos `TF628 ~T0 @X0 1 s ]
+[; ;ServoController.h: 51: extern volatile unsigned char part;
+[; ;ServoController.h: 58: extern volatile unsigned char receiveCounter;
+[; ;ServoController.h: 66: extern volatile unsigned char sawtoothCounter;
+[; ;ServoController.h: 68: extern volatile unsigned char eyebrowSliderVal;
+[; ;ServoController.h: 69: extern volatile unsigned char leftLipCornerSliderVal;
+[; ;ServoController.h: 70: extern volatile unsigned char rightLipCornerSliderVal;
+[; ;ServoController.h: 71: extern volatile unsigned char lowerJawSliderVal;
+[; ;ServoController.h: 72: extern volatile unsigned char eyelidsSliderVal;
+[; ;ServoController.h: 73: extern volatile unsigned char servo6SliderVal;
+[v F629 `(v ~T0 @X0 1 tf ]
+"80 ServoController.h
+[v _initServos `TF629 ~T0 @X0 1 s ]
 {
-[; ;ServoController.h: 85: static inline void initServos() {
+[; ;ServoController.h: 80: static inline void initServos(void) {
 [e :U _initServos ]
 [f ]
-[; ;ServoController.h: 86: TRISA0 = 0;
-"86
+[; ;ServoController.h: 81: TRISA0 = 0;
+"81
 [e = _TRISA0 -> -> 0 `i `b ]
-[; ;ServoController.h: 87: TRISA1 = 0;
-"87
+[; ;ServoController.h: 82: TRISA1 = 0;
+"82
 [e = _TRISA1 -> -> 0 `i `b ]
-[; ;ServoController.h: 88: TRISA2 = 0;
-"88
+[; ;ServoController.h: 83: TRISA2 = 0;
+"83
 [e = _TRISA2 -> -> 0 `i `b ]
-[; ;ServoController.h: 89: TRISA3 = 0;
-"89
+[; ;ServoController.h: 84: TRISA3 = 0;
+"84
 [e = _TRISA3 -> -> 0 `i `b ]
-[; ;ServoController.h: 90: TRISB0 = 0;
-"90
+[; ;ServoController.h: 85: TRISB0 = 0;
+"85
 [e = _TRISB0 -> -> 0 `i `b ]
-[; ;ServoController.h: 91: TRISB3 = 0;
-"91
+[; ;ServoController.h: 86: TRISB3 = 0;
+"86
 [e = _TRISB3 -> -> 0 `i `b ]
-[; ;ServoController.h: 92: }
-"92
+[; ;ServoController.h: 87: }
+"87
 [e :UE 61 ]
 }
 "36 ServoController.c
@@ -815,197 +815,197 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 [; ;ServoController.c: 38: volatile unsigned char sawtoothCounter = 0;
-"43
+"45
 [v _eyebrowSliderVal `Vuc ~T0 @X0 1 e ]
 [i _eyebrowSliderVal
 -> + -> 180 `i -> 6 `i `uc
 ]
-[; ;ServoController.c: 43: volatile unsigned char eyebrowSliderVal = 180 + 6;
-"44
+[; ;ServoController.c: 45: volatile unsigned char eyebrowSliderVal = 180 + 6;
+"46
 [v _leftLipCornerSliderVal `Vuc ~T0 @X0 1 e ]
 [i _leftLipCornerSliderVal
 -> + -> 180 `i -> 6 `i `uc
 ]
-[; ;ServoController.c: 44: volatile unsigned char leftLipCornerSliderVal = 180 + 6;
-"45
+[; ;ServoController.c: 46: volatile unsigned char leftLipCornerSliderVal = 180 + 6;
+"47
 [v _rightLipCornerSliderVal `Vuc ~T0 @X0 1 e ]
 [i _rightLipCornerSliderVal
 -> + -> 180 `i -> 7 `i `uc
 ]
-[; ;ServoController.c: 45: volatile unsigned char rightLipCornerSliderVal = 180 + 7;
-"46
+[; ;ServoController.c: 47: volatile unsigned char rightLipCornerSliderVal = 180 + 7;
+"48
 [v _lowerJawSliderVal `Vuc ~T0 @X0 1 e ]
 [i _lowerJawSliderVal
 -> + -> 180 `i -> 3 `i `uc
 ]
-[; ;ServoController.c: 46: volatile unsigned char lowerJawSliderVal = 180 + 3;
-"47
+[; ;ServoController.c: 48: volatile unsigned char lowerJawSliderVal = 180 + 3;
+"49
 [v _eyelidsSliderVal `Vuc ~T0 @X0 1 e ]
 [i _eyelidsSliderVal
 -> + -> 180 `i -> 5 `i `uc
 ]
-[; ;ServoController.c: 47: volatile unsigned char eyelidsSliderVal = 180 + 5;
+[; ;ServoController.c: 49: volatile unsigned char eyelidsSliderVal = 180 + 5;
 [v $root$_isr `(v ~T0 @X0 0 e ]
-[v F631 `(v ~T0 @X0 1 tf ]
-"50
-[v _isr `IF631 ~T0 @X0 1 e ]
+[v F632 `(v ~T0 @X0 1 tf ]
+"52
+[v _isr `IF632 ~T0 @X0 1 e ]
 {
-[; ;ServoController.c: 50: void interrupt isr(void) {
+[; ;ServoController.c: 52: void interrupt isr(void) {
 [e :U _isr ]
 [f ]
-[; ;ServoController.c: 51: if (TMR2IF) {
-"51
+[; ;ServoController.c: 53: if (TMR2IF) {
+"53
 [e $ ! _TMR2IF 63  ]
 {
-[; ;ServoController.c: 52: ++sawtoothCounter;
-"52
+[; ;ServoController.c: 54: ++sawtoothCounter;
+"54
 [e =+ _sawtoothCounter -> -> 1 `i `uc ]
-[; ;ServoController.c: 53: if (sawtoothCounter >= 180) {
-"53
+[; ;ServoController.c: 55: if (sawtoothCounter >= 180) {
+"55
 [e $ ! >= -> _sawtoothCounter `i -> 180 `i 64  ]
 {
-[; ;ServoController.c: 54: if (sawtoothCounter >= 200) {
-"54
+[; ;ServoController.c: 56: if (sawtoothCounter >= 200) {
+"56
 [e $ ! >= -> _sawtoothCounter `i -> 200 `i 65  ]
 {
-[; ;ServoController.c: 55: RA0 = 0;
-"55
-[e = _RA0 -> -> 0 `i `b ]
-[; ;ServoController.c: 56: RA1 = 0;
-"56
-[e = _RA1 -> -> 0 `i `b ]
-[; ;ServoController.c: 57: RA2 = 0;
+[; ;ServoController.c: 57: RA0 = 0;
 "57
-[e = _RA2 -> -> 0 `i `b ]
-[; ;ServoController.c: 58: RA3 = 0;
+[e = _RA0 -> -> 0 `i `b ]
+[; ;ServoController.c: 58: RA1 = 0;
 "58
-[e = _RA3 -> -> 0 `i `b ]
-[; ;ServoController.c: 59: RA4 = 0;
+[e = _RA1 -> -> 0 `i `b ]
+[; ;ServoController.c: 59: RA2 = 0;
 "59
-[e = _RA4 -> -> 0 `i `b ]
-[; ;ServoController.c: 61: sawtoothCounter = 0;
+[e = _RA2 -> -> 0 `i `b ]
+[; ;ServoController.c: 60: RA3 = 0;
+"60
+[e = _RA3 -> -> 0 `i `b ]
+[; ;ServoController.c: 61: RA4 = 0;
 "61
+[e = _RA4 -> -> 0 `i `b ]
+[; ;ServoController.c: 63: sawtoothCounter = 0;
+"63
 [e = _sawtoothCounter -> -> 0 `i `uc ]
-"62
+"64
 }
-[; ;ServoController.c: 62: } else {
+[; ;ServoController.c: 64: } else {
 [e $U 66  ]
 [e :U 65 ]
 {
-[; ;ServoController.c: 63: if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
-"63
+[; ;ServoController.c: 65: if (sawtoothCounter == eyebrowSliderVal) RA0 = 1;
+"65
 [e $ ! == -> _sawtoothCounter `i -> _eyebrowSliderVal `i 67  ]
 [e = _RA0 -> -> 1 `i `b ]
 [e :U 67 ]
-[; ;ServoController.c: 64: if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
-"64
+[; ;ServoController.c: 66: if (sawtoothCounter == leftLipCornerSliderVal) RA1 = 1;
+"66
 [e $ ! == -> _sawtoothCounter `i -> _leftLipCornerSliderVal `i 68  ]
 [e = _RA1 -> -> 1 `i `b ]
 [e :U 68 ]
-[; ;ServoController.c: 65: if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
-"65
+[; ;ServoController.c: 67: if (sawtoothCounter == rightLipCornerSliderVal) RA2 = 1;
+"67
 [e $ ! == -> _sawtoothCounter `i -> _rightLipCornerSliderVal `i 69  ]
 [e = _RA2 -> -> 1 `i `b ]
 [e :U 69 ]
-[; ;ServoController.c: 66: if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
-"66
+[; ;ServoController.c: 68: if (sawtoothCounter == lowerJawSliderVal) RA3 = 1;
+"68
 [e $ ! == -> _sawtoothCounter `i -> _lowerJawSliderVal `i 70  ]
 [e = _RA3 -> -> 1 `i `b ]
 [e :U 70 ]
-[; ;ServoController.c: 67: if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
-"67
+[; ;ServoController.c: 69: if (sawtoothCounter == eyelidsSliderVal) RA4 = 1;
+"69
 [e $ ! == -> _sawtoothCounter `i -> _eyelidsSliderVal `i 71  ]
 [e = _RA4 -> -> 1 `i `b ]
 [e :U 71 ]
-"69
+"71
 }
 [e :U 66 ]
-"70
-}
-[e :U 64 ]
-[; ;ServoController.c: 69: }
-[; ;ServoController.c: 70: }
-[; ;ServoController.c: 71: TMR2IF = 0;
-"71
-[e = _TMR2IF -> -> 0 `i `b ]
 "72
 }
-[e :U 63 ]
+[e :U 64 ]
+[; ;ServoController.c: 71: }
 [; ;ServoController.c: 72: }
-[; ;ServoController.c: 73: if (RCIF) {
+[; ;ServoController.c: 73: TMR2IF = 0;
 "73
+[e = _TMR2IF -> -> 0 `i `b ]
+"74
+}
+[e :U 63 ]
+[; ;ServoController.c: 74: }
+[; ;ServoController.c: 75: if (RCIF) {
+"75
 [e $ ! _RCIF 72  ]
 {
-[; ;ServoController.c: 74: ++receiveCounter;
-"74
+[; ;ServoController.c: 76: ++receiveCounter;
+"76
 [e =+ _receiveCounter -> -> 1 `i `uc ]
-[; ;ServoController.c: 75: switch(receiveCounter) {
-"75
+[; ;ServoController.c: 77: switch(receiveCounter) {
+"77
 [e $U 74  ]
 {
-[; ;ServoController.c: 76: case 1:
-"76
-[e :U 75 ]
-[; ;ServoController.c: 77: RCREG = 0;
-"77
-[e = _RCREG -> -> 0 `i `uc ]
-[; ;ServoController.c: 78: break;
+[; ;ServoController.c: 78: case 1:
 "78
-[e $U 73  ]
-[; ;ServoController.c: 79: case 2:
+[e :U 75 ]
+[; ;ServoController.c: 79: RCREG = 0;
 "79
-[e :U 76 ]
-[; ;ServoController.c: 80: part = RCREG;
+[e = _RCREG -> -> 0 `i `uc ]
+[; ;ServoController.c: 80: break;
 "80
-[e = _part _RCREG ]
-[; ;ServoController.c: 81: break;
-"81
 [e $U 73  ]
-[; ;ServoController.c: 82: case 3:
+[; ;ServoController.c: 81: case 2:
+"81
+[e :U 76 ]
+[; ;ServoController.c: 82: part = RCREG;
 "82
-[e :U 77 ]
-[; ;ServoController.c: 83: receiveCounter = 0;
+[e = _part _RCREG ]
+[; ;ServoController.c: 83: break;
 "83
-[e = _receiveCounter -> -> 0 `i `uc ]
-[; ;ServoController.c: 84: switch(part) {
+[e $U 73  ]
+[; ;ServoController.c: 84: case 3:
 "84
+[e :U 77 ]
+[; ;ServoController.c: 85: receiveCounter = 0;
+"85
+[e = _receiveCounter -> -> 0 `i `uc ]
+[; ;ServoController.c: 86: switch(part) {
+"86
 [e $U 79  ]
 {
-[; ;ServoController.c: 85: case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
-"85
+[; ;ServoController.c: 87: case 0x3C: eyebrowSliderVal = (180 + (RCREG)); break;
+"87
 [e :U 80 ]
 [e = _eyebrowSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
 [e $U 78  ]
-[; ;ServoController.c: 86: case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
-"86
+[; ;ServoController.c: 88: case 0x3E: leftLipCornerSliderVal = (180 + (RCREG)); break;
+"88
 [e :U 81 ]
 [e = _leftLipCornerSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
 [e $U 78  ]
-[; ;ServoController.c: 87: case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
-"87
+[; ;ServoController.c: 89: case 0x40: rightLipCornerSliderVal = (180 + (RCREG)); break;
+"89
 [e :U 82 ]
 [e = _rightLipCornerSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
 [e $U 78  ]
-[; ;ServoController.c: 88: case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
-"88
+[; ;ServoController.c: 90: case 0x43: lowerJawSliderVal = (180 + (RCREG)); break;
+"90
 [e :U 83 ]
 [e = _lowerJawSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
 [e $U 78  ]
-[; ;ServoController.c: 89: case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
-"89
+[; ;ServoController.c: 91: case 0x45: eyelidsSliderVal = (180 + (RCREG)); break;
+"91
 [e :U 84 ]
 [e = _eyelidsSliderVal -> + -> 180 `i -> _RCREG `i `uc ]
 [e $U 78  ]
-[; ;ServoController.c: 91: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
-"91
+[; ;ServoController.c: 93: case 0x4A: RB5 = (RCREG > 0) ? 1 : 0; break;
+"93
 [e :U 85 ]
 [e = _RB5 -> ? > -> _RCREG `i -> 0 `i : -> 1 `i -> 0 `i `b ]
 [e $U 78  ]
-"92
+"94
 }
-[; ;ServoController.c: 92: }
+[; ;ServoController.c: 94: }
 [e $U 78  ]
-"84
+"86
 [e :U 79 ]
 [e [\ _part , $ -> -> 60 `i `uc 80
  , $ -> -> 62 `i `uc 81
@@ -1014,88 +1014,88 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -> -> 69 `i `uc 84
  , $ -> -> 74 `i `uc 85
  78 ]
-"92
-[e :U 78 ]
-[; ;ServoController.c: 93: break;
-"93
-[e $U 73  ]
-[; ;ServoController.c: 94: default:
 "94
-[e :U 86 ]
-[; ;ServoController.c: 95: receiveCounter = 0;
+[e :U 78 ]
+[; ;ServoController.c: 95: break;
 "95
-[e = _receiveCounter -> -> 0 `i `uc ]
-[; ;ServoController.c: 96: break;
+[e $U 73  ]
+[; ;ServoController.c: 96: default:
 "96
-[e $U 73  ]
+[e :U 86 ]
+[; ;ServoController.c: 97: receiveCounter = 0;
 "97
-}
-[; ;ServoController.c: 97: }
+[e = _receiveCounter -> -> 0 `i `uc ]
+[; ;ServoController.c: 98: break;
+"98
 [e $U 73  ]
-"75
+"99
+}
+[; ;ServoController.c: 99: }
+[e $U 73  ]
+"77
 [e :U 74 ]
 [e [\ _receiveCounter , $ -> -> 1 `i `uc 75
  , $ -> -> 2 `i `uc 76
  , $ -> -> 3 `i `uc 77
  86 ]
-"97
+"99
 [e :U 73 ]
-"98
+"100
 }
 [e :U 72 ]
-[; ;ServoController.c: 98: }
-[; ;ServoController.c: 99: }
-"99
+[; ;ServoController.c: 100: }
+[; ;ServoController.c: 101: }
+"101
 [e :UE 62 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"101
+"103
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;ServoController.c: 101: void main(void) {
+[; ;ServoController.c: 103: void main(void) {
 [e :U _main ]
 [f ]
-[; ;ServoController.c: 105: initServos();
-"105
-[e ( _initServos ..  ]
-[; ;ServoController.c: 106: initUSART();
-"106
-[e ( _initUSART ..  ]
-[; ;ServoController.c: 107: initTMR2();
+[; ;ServoController.c: 107: initServos();
 "107
-[e ( _initTMR2 ..  ]
-[; ;ServoController.c: 108: PIR1 = 0b00000000;
+[e ( _initServos ..  ]
+[; ;ServoController.c: 108: initUSART();
 "108
-[e = _PIR1 -> -> 0 `i `uc ]
-[; ;ServoController.c: 109: INTCON = 0b11000000;
+[e ( _initUSART ..  ]
+[; ;ServoController.c: 109: initTMR2();
 "109
+[e ( _initTMR2 ..  ]
+[; ;ServoController.c: 110: PIR1 = 0b00000000;
+"110
+[e = _PIR1 -> -> 0 `i `uc ]
+[; ;ServoController.c: 111: INTCON = 0b11000000;
+"111
 [e = _INTCON -> -> 192 `i `uc ]
-[; ;ServoController.c: 115: while(1) {
-"115
+[; ;ServoController.c: 117: while(1) {
+"117
 [e :U 89 ]
 {
-[; ;ServoController.c: 116: if (OERR)
-"116
+[; ;ServoController.c: 118: if (OERR)
+"118
 [e $ ! _OERR 91  ]
-[; ;ServoController.c: 117: clearOverrunError();
-"117
+[; ;ServoController.c: 119: clearOverrunError();
+"119
 [e ( _clearOverrunError ..  ]
 [e :U 91 ]
-[; ;ServoController.c: 118: if(FERR)
-"118
+[; ;ServoController.c: 120: if(FERR)
+"120
 [e $ ! _FERR 92  ]
-[; ;ServoController.c: 119: clearFramingError();
-"119
+[; ;ServoController.c: 121: clearFramingError();
+"121
 [e ( _clearFramingError ..  ]
 [e :U 92 ]
-"120
+"122
 }
 [e :U 88 ]
-"115
+"117
 [e $U 89  ]
 [e :U 90 ]
-[; ;ServoController.c: 120: }
 [; ;ServoController.c: 122: }
-"122
+[; ;ServoController.c: 124: }
+"124
 [e :UE 87 ]
 }
