@@ -16245,12 +16245,8 @@ Source: www.kingbright.com</description>
 <errors>
 <approved hash="113,1,25.4,63.5229,6N138,,,,,"/>
 <approved hash="113,1,63.5,25.4229,PIC16F628A,,,,,"/>
-<approved hash="113,1,27.9188,82.2494,MIDI_PIN-4,,,,,"/>
-<approved hash="113,1,12.2777,49.4817,MIDI_PIN-5,,,,,"/>
-<approved hash="113,1,-29.6053,15.24,GND,,,,,"/>
-<approved hash="113,1,143.51,5.40173,LED1,,,,,"/>
-<approved hash="113,1,143.51,-4.75827,LED2,,,,,"/>
-<approved hash="113,1,-29.0742,38.1,+5V,,,,,"/>
+<approved hash="113,1,143.51,4.75827,LED2,,,,,"/>
+<approved hash="113,1,143.51,-5.40173,LED1,,,,,"/>
 </errors>
 </schematic>
 </drawing>
