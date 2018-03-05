@@ -15749,8 +15749,6 @@ Source: www.kingbright.com</description>
 <part name="GND7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R7" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="0207/12" package3d_urn="urn:adsk.eagle:package:25938/1" value="100"/>
 <part name="GND15" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="LED1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/2"/>
-<part name="LED2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/2"/>
 <part name="T1" library="transistor" library_urn="urn:adsk.eagle:library:402" deviceset="2N3904" device="" package3d_urn="urn:adsk.eagle:package:29893/2"/>
 <part name="C6" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="CPOL-US" device="E5-10.5" package3d_urn="urn:adsk.eagle:package:25854/1" value="1000uF"/>
 <part name="C4" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="CPOL-US" device="E3.5-8" package3d_urn="urn:adsk.eagle:package:25842/1" value="330uF"/>
@@ -15759,6 +15757,8 @@ Source: www.kingbright.com</description>
 <part name="GND" library="DOUBLE_THROUGH_HOLE_PAD" deviceset="DOUBLE_THROUGH_HOLE_PAD" device=""/>
 <part name="MIDI_PIN-4" library="DOUBLE_THROUGH_HOLE_PAD" deviceset="DOUBLE_THROUGH_HOLE_PAD" device=""/>
 <part name="MIDI_PIN-5" library="DOUBLE_THROUGH_HOLE_PAD" deviceset="DOUBLE_THROUGH_HOLE_PAD" device=""/>
+<part name="LED2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/2"/>
+<part name="LED1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/2"/>
 </parts>
 <sheets>
 <sheet>
@@ -15823,8 +15823,6 @@ Source: www.kingbright.com</description>
 <instance part="GND7" gate="1" x="124.46" y="-10.16" rot="R90"/>
 <instance part="R7" gate="G$1" x="109.22" y="0" rot="R180"/>
 <instance part="GND15" gate="1" x="-12.7" y="5.08"/>
-<instance part="LED1" gate="G$1" x="142.24" y="5.08" rot="R90"/>
-<instance part="LED2" gate="G$1" x="142.24" y="-5.08" rot="R90"/>
 <instance part="T1" gate="G1" x="93.98" y="-5.08" smashed="yes">
 <attribute name="NAME" x="86.36" y="-10.16" size="1.778" layer="95"/>
 <attribute name="VALUE" x="88.9" y="-12.7" size="1.778" layer="96"/>
@@ -15838,6 +15836,8 @@ Source: www.kingbright.com</description>
 <instance part="MIDI_PIN-5" gate="G$1" x="12.7" y="48.26" smashed="yes" rot="R270">
 <attribute name="NAME" x="7.366" y="43.942" size="1.778" layer="95"/>
 </instance>
+<instance part="LED2" gate="G$1" x="144.78" y="5.08" rot="R270"/>
+<instance part="LED1" gate="G$1" x="144.78" y="-5.08" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -15922,9 +15922,9 @@ Source: www.kingbright.com</description>
 <wire x1="152.4" y1="-5.08" x2="147.32" y2="-5.08" width="0.1524" layer="91"/>
 <wire x1="152.4" y1="0" x2="160.02" y2="0" width="0.1524" layer="91"/>
 <junction x="152.4" y="0"/>
-<pinref part="LED1" gate="G$1" pin="C"/>
-<pinref part="LED2" gate="G$1" pin="C"/>
 <label x="160.02" y="0" size="1.778" layer="95" xref="yes"/>
+<pinref part="LED2" gate="G$1" pin="A"/>
+<pinref part="LED1" gate="G$1" pin="A"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -16228,8 +16228,8 @@ Source: www.kingbright.com</description>
 <wire x1="132.08" y1="-5.08" x2="139.7" y2="-5.08" width="0.1524" layer="91"/>
 <wire x1="132.08" y1="0" x2="132.08" y2="5.08" width="0.1524" layer="91"/>
 <wire x1="132.08" y1="5.08" x2="139.7" y2="5.08" width="0.1524" layer="91"/>
-<pinref part="LED1" gate="G$1" pin="A"/>
-<pinref part="LED2" gate="G$1" pin="A"/>
+<pinref part="LED2" gate="G$1" pin="C"/>
+<pinref part="LED1" gate="G$1" pin="C"/>
 </segment>
 </net>
 <net name="N$6" class="0">
