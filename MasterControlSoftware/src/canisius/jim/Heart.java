@@ -220,7 +220,7 @@ public class Heart {
 		final int sec_to_ms_factor = 1000;
 		try { RuppetControl.checkSaveFile(emoteSaveFile); } 
 		catch(IOException ex) {ex.printStackTrace();}
-		try (final Scanner reader = new Scanner(new FileReader(RuppetControl.getDataFile(emoteSaveFile, RuppetControl.saveFiles).getName()))) {
+		try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
 			while(reader.hasNext()) {
 
 				/* We want to multiply the time by 1000 because we want the time to be in ms not sec */

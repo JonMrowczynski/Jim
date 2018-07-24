@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -84,7 +83,7 @@ public class Voice implements Runnable {
 	public void readTimingLabels() {
 		try { RuppetControl.checkSaveFile(voiceSaveFile); } 
 		catch(IOException ex) { ex.printStackTrace(); }
-		try (final Scanner reader = new Scanner(new FileReader(RuppetControl.getDataFile(voiceSaveFile, RuppetControl.saveFiles).getName()))) {
+		try (final Scanner reader = new Scanner(new FileReader(voiceSaveFile))) {
 			final int sec_to_ms_factor = 1000;
 			while(reader.hasNext()) {
 				down.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor)); //read starting value
@@ -94,8 +93,7 @@ public class Voice implements Runnable {
 				reader.nextDouble();
 				reader.nextLine();
 			}
-		}
-		catch (FileNotFoundException ex) { ex.printStackTrace(); }
+		} catch (FileNotFoundException e) { e.printStackTrace(); }
 
 		/* These times are in milliseconds in order to make the MidiEvents properly */
 
@@ -111,8 +109,7 @@ public class Voice implements Runnable {
 		timeClose.trimToSize();
 	}
 	
-	/* Uses the data stored in the ArrayLists to create MIDI Tracks with the corresponding	
-	   MIDI events. */
+	/* Uses the data stored in the ArrayLists to create MIDI Tracks with the corresponding MIDI events. */
 
 	public void setupTimings() {
 		final int delay_end_of_seq = 10000;
@@ -120,7 +117,7 @@ public class Voice implements Runnable {
 		final ShortMessage[] mouthUp = mouth.getUpperBoundState();
 		for(int i = 0; i < timeClose.size(); ++i) {
 			mouth.addStateToTrack(voiceTrack, mouthDown, down.get(i));
-			mouth.addStateToTrack(voiceTrack, mouthUp, up.get(i));	
+			mouth.addStateToTrack(voiceTrack, mouthUp, up.get(i));
 		}
 
 		/* Added another two tracks to prevent (a) blip(s) at the end of the presentation. 
@@ -133,17 +130,16 @@ public class Voice implements Runnable {
 	/* Pre-loads the user defined audio file. Currently this has only been tested with a .wav	
 	   file, but other audio files should work as well...*/
 
-	private void openAudioFile(){
+	private void openAudioFile() {
 		try { RuppetControl.checkSaveFile(audioSaveFile); } 
-		catch(IOException ex) { ex.printStackTrace(); }
+		catch(IOException e) { e.printStackTrace(); }
 		try {
 			clip = AudioSystem.getClip();
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(RuppetControl.getDataFile(audioSaveFile, RuppetControl.saveFiles));
-			clip.open(inputStream);
-		} catch (LineUnavailableException | IOException ex) { ex.printStackTrace(); }
-		  catch (UnsupportedAudioFileException ex) {
+			clip.open(AudioSystem.getAudioInputStream(audioSaveFile));
+		} catch (LineUnavailableException | IOException e) { e.printStackTrace(); }
+		  catch (UnsupportedAudioFileException e) {
 			System.out.println("ERROR:");
-			System.out.println("\nFile: " + RuppetControl.getDataFile(audioSaveFile, RuppetControl.saveFiles).getName() + " is not supported!");
+			System.out.println("\nFile: " + audioSaveFile.getName() + " is not supported!");
 			System.out.println("Make sure that you are using a .wav file!");
 			RuppetControl.clearSaveFile(audioSaveFile);
 		}

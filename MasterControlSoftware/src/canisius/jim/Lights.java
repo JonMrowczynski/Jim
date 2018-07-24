@@ -42,7 +42,7 @@ public final class Lights extends Part {
 	 * It also takes a MIDI note which is the note that is associated with the 
 	 * {@code Lights} object which is used to operate the eye lights.  
 	 * <P>
-	 * Lastly it takes as parameters two integer values that represent the lower and 
+	 * Lastly it takes two integer parameters that represent the lower and 
 	 * upper bounds that the states for the lights can take. This is to set some 
 	 * brightness ranges that the lights can have as well as to make sure that 
 	 * the lights do not get overloaded if they are controlled by an analog output 
@@ -133,35 +133,13 @@ public final class Lights extends Part {
 	public final ShortMessage[] getLightsOff() { return getState(minBrightness); }
 	
 	/**
-	 * Returns a {@code String} that contains information about the minimum, maximum and 
-	 * current brightness levels that this {@code Light} object currently has set.
-	 * 
-	 * @return A {@code String} representation of all of the fields of the {@code Light}
-	 */
-	 
-	@Override
-	public final String toString() {
-		String lines = "For the Lights object: \n\n";
-		lines += "maxBrightness: " + maxBrightness + "\n";
-		lines += "minBrightness: " + minBrightness + "\n";
-		lines += "brightness: " + brightness + "\n";
-		lines += "numOfStates: " + numOfStates + "\n";
-		
-		final int numOfLines = lines.length();
-		for (int i = numOfLines; i < numOfStates + numOfLines; ++i) 
-			lines += "Velocity at state " + (i - numOfLines) + ": " +
-					 RuppetControl.getVelocityVal(states[i - numOfLines][0]) + "\n";
-		return lines;
-	}
-	
-	/**
 	 * Makes sure that the passed in brightness value is within a given range of values.
 	 * This range is ultimately determined by the PIC microcontroller firmware and 
 	 * the firmware should be referred to if any modifications to those bounding 
 	 * values need to be changed.
 	 * 
-	 * @param brightness The brightness value that is being checked for validity.
-	 * @return A {@code boolean} representing whether the velocity value is a valid velocity value.
+	 * @param brightness value that is being checked.
+	 * @return A {@code boolean} representing whether the velocity value valid.
 	 */
 
 	private final boolean validBrightness(final byte brightness) { return validVelocity(brightness); }

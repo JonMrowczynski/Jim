@@ -34,6 +34,7 @@ public final class Ruppet {
 	//static { System.loadLibrary("KinectEmotionDeterminer"); }
 
 	public native String getCurrentEmotion();
+	
 	public native boolean hasFace();
 
 	/**
@@ -75,7 +76,7 @@ public final class Ruppet {
 	/* This ArrayList stores wrapper AugmentedTrack classes. Currently there are only 3 AugmentedTracks
 	   that are stored which are the ones listed above */
 
-	private final List<Track> tracks = new ArrayList<>();
+	private final ArrayList<Track> tracks = new ArrayList<>();
 
 	/* An ArrayList of Ruppet Parts. Currently the Parts that our Ruppet uses are the ones that 
 	   are listed below this ArrayList */
@@ -115,16 +116,13 @@ public final class Ruppet {
 	/* This constructor sets everything up in order for the Ruppet to have a successful life. */
 
 	public Ruppet() {
-		
 		lowerJaw.setNeutral( (byte) 8);
 		lipCorners.setNeutral( (byte) 2);
 		eyebrows.setNeutral( (byte) 5);
 		eyelids.setNeutral( (byte) 5);
-
+		
 		RuppetControl.initConnections(); // Setup the USB and Sequencer connections
-
 		try {
-			
 			/* 
 			 * Sequence.PPQ == pulses (ticks) per quarter note
 			 * 160 == 160 pulses per quarter note
@@ -132,11 +130,8 @@ public final class Ruppet {
 			 * such that ticksPerSecond == 160 * (375 / 60) == 1000 
 			 * So we get one tick every 1ms 
 			 */
-
 			actions = new Sequence(Sequence.PPQ, 160);
-
 		} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
-		
 		emotionTrack = actions.createTrack();
 		blinkingTrack = actions.createTrack();
 		voiceTrack = actions.createTrack();
@@ -144,11 +139,7 @@ public final class Ruppet {
 		tracks.add(emotionTrack);
 		tracks.add(blinkingTrack);
 		tracks.add(voiceTrack);
-		( (ArrayList<Track>) tracks).trimToSize();
-
-		/* Get the save files to find where all of the data for movement is kept */
-
-		RuppetControl.initSaveFiles();
+		tracks.trimToSize();
 
 		/* Initialize the Ruppet's Heart and Voice */
 
@@ -167,11 +158,10 @@ public final class Ruppet {
 		try{ MidiConnection.getSequencer().setSequence(actions); } 
 		catch(InvalidMidiDataException ex) { ex.printStackTrace(); }	
 
-		/* Mute all of the tracks so that they are not unintentionally 
-		   all playing at once.  */
+		// Mute all of the tracks so that they are not unintentionally all playing at once
 
-		RuppetControl.MuteAllTracks(tracks);  
-		RuppetControl.DeSoloAll_ExceptEyes(tracks, blinkingTrack);
+		RuppetControl.muteAllTracks(tracks);  
+		RuppetControl.deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
 
 		final ReleaseSoul releaseSoul = new ReleaseSoul();
 		Runtime.getRuntime().addShutdownHook(releaseSoul);
@@ -187,21 +177,12 @@ public final class Ruppet {
 	 */
 
 	public final void live() {
-
 		byte choice = -1;
-		
-		/* Set everything up */
-
 		lights.on();
-		
 		MidiConnection.getSequencer().start();
-
 		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
-
-		do { // live
-
-			RuppetControl.DeSoloAllTracks(tracks); 
-
+		do {
+			RuppetControl.deSoloAllTracks(tracks); 
 			System.out.println("\n\nWould you like me to...");
 			System.out.println("1. Go into manual emotion demo mode");
 			System.out.println("2. Go into manual FAU demo mode");
@@ -209,80 +190,34 @@ public final class Ruppet {
 			System.out.println("4. For mirror mode");
 			System.out.println("5. Or go back to sleep?"); 
 			System.out.print("\tChoice: ");
-
 			try { 
-
 				choice = RuppetControl.reader.nextByte();
-
 				switch(choice) {
-
 					case 1:
 						manualEmotionDemoMode();
 						break;
-
 					case 2:
 						manualFAUDemoMode();
 						break;
-
 					case 3:
 						runSteveScripts();
 						break;
-
 					case 4:
 						mirrorMode();
 						break;
-
 					case 5:
 						goToSleep();
 						break;
-
 					default:
-
 						System.out.println("Sorry, that's not an option.");
 						break;
-
 				} 
-
-			} catch(InputMismatchException ex) { 
+			} catch(InputMismatchException e) { 
 				System.out.println("\nI don't understand that input, make sure you type in an int!");
 				RuppetControl.reader.nextLine();
 			}
-
-		} while(choice != 3); // end of do while loop
-		
+		} while(choice != 3);
 	} // end of live
-	
-	/**
-	 * Gets the {@code Heart} associated with the {@code Ruppet}.
-	 * 
-	 * @return The {Ruppet}'s {@code Heart}.
-	 */
-
-	public final Heart getHeart() { return heart; }
-	
-	/**
-	 * Gets the {@code Voice} associated with the {@code Ruppet}.
-	 * 
-	 * @return The {@code Ruppet}'s {@code Voice}.
-	 */
-	
-	public final Voice getVoice() { return voice; }
-	
-	/**
-	 * Gets the {@code Sequence} which contains and can play all of the stored {@code Tracks}.
-	 * 
-	 * @return The {@code Ruppet}'s {@code Sequence}
-	 */
-	
-	public final Sequence getSequence() { return actions; }
-	
-	/**
-	 * Gets the {@code Track} that contains all of the blinking timings.
-	 * 
-	 * @return The {@code Ruppet}'s {@code Track} that stores blink timing information.
-	 */
-	
-	public final Track getBlinkingTrack() { return blinkingTrack; }
 	
 	/**
 	 * Gets the {@code Track} that contains all of the {@code Emotion} transition timings.
@@ -341,14 +276,6 @@ public final class Ruppet {
 	public final Movable getEyelids() { return eyelids; }
 	
 	/**
-	 * Gets the {@code Lights} of the {@code Ruppet} which are currently only eye lights.
-	 * 
-	 * @return The eye lights of the {@code Ruppet}
-	 */
-	
-	public final Lights getLights() { return lights; }
-	
-	/**
 	 * Gets the {@code ArrayList} that contains all of the {@code Part}s of the {@code Ruppet}.
 	 * 
 	 * @return The {@code ArrayList} that contains all of the {@code Part}s of the {@code Ruppet}
@@ -357,20 +284,14 @@ public final class Ruppet {
 	public final List<Part> getParts() { return parts; }
 		
 	/**
-	 * Allows the user to determine which {@code Emotion} the {@code Ruppet} should display 
-	 * using a CLI.
+	 * Allows the user to determine which {@code Emotion} the {@code Ruppet} should display using a CLI.
 	 * 
 	 * @param heart The {@code Heart} associated with the {@code Ruppet}
 	 */
 
 	private final void manualEmotionDemoMode() {
-
-		final int exitChoice = 9;
-		
 		int emotionChoice = -1;
-		
 		do {
-
 			System.out.println("\n1. Neutral");
 			System.out.println("2. Happy");
 			System.out.println("3. Sad");
@@ -379,16 +300,12 @@ public final class Ruppet {
 			System.out.println("6. Smile");
 			System.out.println("9. To Exit");
 			System.out.print("Choice: ");
-
-			try {
-				emotionChoice = RuppetControl.reader.nextInt();
-			} catch(InputMismatchException ex) { 
+			try { emotionChoice = RuppetControl.reader.nextInt(); } 
+			catch(InputMismatchException e) { 
 				RuppetControl.reader.nextLine();
 				emotionChoice = -1;
 			} 
-			
 			System.out.println();
-
 			switch(emotionChoice) {
 				case 1:
 					heart.feel(heart.getNeutral());
@@ -408,19 +325,16 @@ public final class Ruppet {
 				case 6:
 					heart.feel(heart.getSmile());
 					break;
-				case exitChoice:
+				case 9:
 					System.out.println("Exited manual demo mode");
 					break;
 				default:
 					System.out.println("That is not an option.");
 					break;
 			}
-
-			if (emotionChoice != exitChoice)
+			if (emotionChoice != 9)
 				RuppetControl.pause(); // Display the specified emotion for a couple of seconds
-
-		} while(emotionChoice != 9); // end of do while loop 
-
+		} while(emotionChoice != 9);
 	} // end of manualEmotionDemoMode
 	
 	/**
@@ -429,13 +343,9 @@ public final class Ruppet {
 	 */
 
 	private final void manualFAUDemoMode() {
-		
 		int fauChoice = -1;
-
 		do {
-
-			System.out.println();
-			System.out.println("1. Eyebrow up");
+			System.out.println("\n1. Eyebrow up");
 			System.out.println("2. Eyebrow neutral");
 			System.out.println("3. Eyebrow down");
 			System.out.println("4. Lower Jaw up");
@@ -449,7 +359,6 @@ public final class Ruppet {
 			System.out.println("12. Eyelids down");
 			System.out.println("20. To Go Back");
 			System.out.print("Choice: ");
-			
 			try {
 				fauChoice = RuppetControl.reader.nextInt();
 				switch(fauChoice) {
@@ -493,12 +402,11 @@ public final class Ruppet {
 						System.out.println("That is not an available option");
 						break;
 				} // end of switch
-			} catch (InputMismatchException ex) {
+			} catch (InputMismatchException e) {
 				RuppetControl.reader.nextLine();
 				fauChoice = -1;
 			}
 		} while (fauChoice != 20); 
-
 	} // end of manualFAUMode
 	
 	/**
@@ -512,7 +420,7 @@ public final class Ruppet {
 		MidiConnection.getSequencer().stop();
 		MidiConnection.getSequencer().setMicrosecondPosition(0);
 		voice.givePresentation();
-	} // end of runSteveScript
+	}
 	
 	/**
 	 * Allows the {@code Ruppet} to display the {@code Emotion} that it thinks that the human is displaying.
@@ -538,13 +446,13 @@ public final class Ruppet {
 				default:
 					heart.feel(heart.getNeutral());
 					break;
-			} // end of switch
-		} while(hasFace()); // end of do while loop
-	} // end of mirrorMode
+			} 
+		} while(hasFace());
+	}
 	
 	/**
 	 * Terminates the connections made with the USB MIDI device and {@code Sequencer} while also
-	 * terminating the program. Note that the Shutdown Hookd is always called when the 
+	 * terminating the program. Note that the Shutdown Hook is always called when the 
 	 * program is terminated using System.exit(0);.
 	 */
 
@@ -572,7 +480,7 @@ public final class Ruppet {
 		int next_blink_time;
 		
 		for(int i = 0; i < 500; ++i) {
-			next_blink_time = RuppetControl.randInt(prev_blink_time, prev_blink_time + max_blink_wait);
+			next_blink_time = RuppetControl.getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
 		
 			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
@@ -580,7 +488,7 @@ public final class Ruppet {
 			prev_blink_time = next_blink_time + blink_length;
 		} 
 
-	} // end of fillBlinkTrack
+	}
 
 	/**
 	 *	A ShutdownHook is implemented to prevent the motors from potentially straining themselves. 
@@ -598,7 +506,7 @@ public final class Ruppet {
 
 		public final void run() {
 			System.out.println();
-			RuppetControl.DeSoloAllTracks(tracks);
+			RuppetControl.deSoloAllTracks(tracks);
 			RuppetControl.reader.close();
 			for (Part part : parts) {
 				if (part instanceof Movable)
@@ -610,6 +518,6 @@ public final class Ruppet {
 			MidiConnection.closeSequencer();
 		}
 
-	} // end of ReleaseSoul
+	}
 
 } // end of Ruppet class

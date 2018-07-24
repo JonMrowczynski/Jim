@@ -21,7 +21,6 @@ import javax.sound.midi.Track;
  *	so the only meaningful states would be the first and last elements in the array.
  *
  *	@author Jon Mrowcsynski
- *	@version 1.1
  */
 
 public abstract class Part {
@@ -30,19 +29,19 @@ public abstract class Part {
 	 * The value that represents state that has the highest velocity value that {@code Part} should go to
 	 */
 	
-	protected byte upperBound = -1;
+	protected int upperBound = -1;
 	
 	/**
 	 * The value that represents the state that has the lowest velocity value that the {@code Part} should go to
 	 */
 	
-	protected byte lowerBound = -1;
+	protected int lowerBound = -1;
 	
 	/**
 	 * The total number of states that the {@code Part} is able ot transition to
 	 */
 
-	protected byte numOfStates = -1;
+	protected int numOfStates = -1;
 
 	/**
 	 * The available states that a {@code Part} can go to. 
@@ -63,16 +62,15 @@ public abstract class Part {
 	 * @param midiNote The corresponding MIDI note that is used to operate a given component to a {@code Part}.
 	 */
 
-	public Part(final List<Part> ruppetParts, final byte numOfOutputs, final byte midiNote, final byte lowerBound, final byte upperBound) {
+	public Part(final List<Part> ruppetParts, final int numOfOutputs, final int midiNote, final int lowerBound, final int upperBound) {
 		ruppetParts.add(this);
 		checkAndSetBoundaryValues(lowerBound, upperBound);
-		numOfStates = (byte) ((this.upperBound - this.lowerBound) + 1);
+		numOfStates = (this.upperBound - this.lowerBound) + 1;
 		states = new ShortMessage[numOfStates][numOfOutputs];
 		for(int i = 0; i < numOfStates; ++i) {
 			states[i][0] = new ShortMessage();
-			try {
-				states[i][0].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNote, i + lowerBound);
-			} catch (InvalidMidiDataException ex) { ex.printStackTrace(); }
+			try { states[i][0].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNote, i + lowerBound); } 
+			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		}
 	}
 	
@@ -99,7 +97,7 @@ public abstract class Part {
 	 * @param velocity The {@code velocity} value that is to be converted to a {@code stateIndex}
 	 */
 
-	protected void toState(final byte velocity) {
+	protected void toState(final int velocity) {
 		if (validVelocity(velocity))
 			for (ShortMessage msg : states[velocityToStateIndex(velocity)])
 				MidiConnection.getUsbReceiver().send(msg, -1);
@@ -128,7 +126,7 @@ public abstract class Part {
 	 * @return A boolean value representing of the velocity value is a valid velocity value
 	 */
 
-	protected final boolean validVelocity(final byte velocity) {
+	protected final boolean validVelocity(final int velocity) {
 		if (velocity >= RuppetControl.MIN_VELOCITY && velocity <= RuppetControl.MAX_VELOCITY)
 			return true;
 		else {
@@ -147,7 +145,7 @@ public abstract class Part {
 	 */
 
 	protected final boolean validShortMessages(final ShortMessage[] messages) {
-		ShortMessage[] state = states[velocityToStateIndex(RuppetControl.getVelocityVal(messages[0]))];
+		final ShortMessage[] state = states[velocityToStateIndex(RuppetControl.getVelocityVal(messages[0]))];
 		for (int i = 0; i < state.length; ++i) {
 			if (messages[i].getChannel() != state[i].getChannel()) return false;
 			if (messages[i].getCommand() != state[i].getCommand()) return false;
@@ -165,7 +163,7 @@ public abstract class Part {
 	 * @return The state associated with the given velocity value
 	 */
 
-	protected final ShortMessage[] getState(final byte velocity) {
+	protected final ShortMessage[] getState(final int velocity) {
 		if(validVelocity(velocity))
 			return states[velocityToStateIndex(velocity)];	
 		else
@@ -182,7 +180,7 @@ public abstract class Part {
  	 * @param upperBound The highest velocity value that the {@code Part} can know
 	 */
 
-	private void checkAndSetBoundaryValues(final byte lowerBound, final byte upperBound) {
+	private void checkAndSetBoundaryValues(final int lowerBound, final int upperBound) {
 		if (lowerBound <= upperBound) {
 			if (validVelocity(lowerBound))
 				this.lowerBound = lowerBound;
@@ -206,7 +204,7 @@ public abstract class Part {
 	 * @return The {@code stateIndex}
 	 */
 
-	private final byte velocityToStateIndex(final byte velocity) { return (byte) (velocity - lowerBound); } 
+	private final int velocityToStateIndex(final int velocity) { return velocity - lowerBound; } 
 
 } // end of Part class
 

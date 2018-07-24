@@ -30,14 +30,13 @@ import javax.sound.midi.Track;
  *	notes that are being used to control the servo motors of the robot.
  *	
  *	@author Jon Mrowczynski
- *	@version 1.2
  */
 
-public class RuppetControl {
+public final class RuppetControl {
 	
 	/**
 	 * A {@code byte} that represents the channel number. In our case, we use channel one to
-	 * send MIDI message to the {@code Ruppet}.
+	 * send MIDI messages to the {@code Ruppet}.
 	 */
 	
 	public static final byte CHAN_1 = 0; //For channel 1
@@ -108,12 +107,6 @@ public class RuppetControl {
 	
 	public static final short MIN_SERVO_VAL = 180;
 	
-	/**
-	 * The table that associated a save file with its name.
-	 */
-
-	public static final Hashtable<File, String> saveFiles = new Hashtable<>();
-	
 	public static final Scanner reader = new Scanner(System.in);
 	
 	/**
@@ -141,17 +134,6 @@ public class RuppetControl {
 		MidiConnection.getSequencer().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
 	}
 	
-	/* Makes sure that all of the saves files are there so that data can be read from such
-	   that Midi Events can be created and added to the corresponding Tracks */
-
-	public static final void initSaveFiles() {
-		saveFiles.put(Heart.emoteSaveFile, ".txt");
-		saveFiles.put(Voice.voiceSaveFile, ".txt");
-		saveFiles.put(Voice.audioSaveFile, ".wav");
-	}	
-
-	/* Halts the program for a user defined amount of time in milliseconds */
-	
 	/**
 	 * Halts the program for a user defined amount of time in milliseconds.
 	 * 
@@ -168,20 +150,9 @@ public class RuppetControl {
 	 */
 
 	public static void pause() { pause_ms(2000); }
-		
-	/**
-	 * Halts the program for a user defined amount of time in seconds.
-	 * 
-	 * @param sec The amount of time that the program should pause for in seconds
-	 */
-
-	public static void pause(final double sec){
-		final long ms = (Math.round(sec * 1000));
-		try { Thread.sleep(ms); } 
-		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-	}
 	
 	/**
+	 * 
 	 * 
 	 * @param msg
 	 * @param tick
@@ -200,7 +171,7 @@ public class RuppetControl {
 	public static final byte getMidiNote (final ShortMessage msg) { return (byte) msg.getData1(); }
 	
 	/**
-	 * Gets the velocity value aassociated with the passed in {@code ShortMessage}.
+	 * Gets the velocity value associated with the passed in {@code ShortMessage}.
 	 * 
 	 * @param msg The {@code ShortMessage} whose velocity value will be returned
 	 * @return The velocity value of the {@code ShortMessage}.
@@ -243,7 +214,7 @@ public class RuppetControl {
 	 * @param tracks The {@code Track}s that are to be muted
 	 */
 
-	public static final void MuteAllTracks(final List<Track> tracks) {
+	public static final void muteAllTracks(final List<Track> tracks) {
 		for (final Track track : tracks) 
 			MidiConnection.getSequencer().setTrackMute(tracks.indexOf(track), true); 
 	}
@@ -254,7 +225,7 @@ public class RuppetControl {
 	 * @param tracks The {@code Track}s that are to be set to not soloed.
 	 */
 
-	public static final void DeSoloAllTracks(final List<Track> tracks) {
+	public static final void deSoloAllTracks(final List<Track> tracks) {
 		for (final Track track : tracks) 
 			MidiConnection.getSequencer().setTrackSolo(tracks.indexOf(track), false); 
 	} 
@@ -270,11 +241,10 @@ public class RuppetControl {
 	 * @param soloTrack The one {@code Track} that is to be left alone
 	 */
 
-	public static final void DeSoloAll_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
+	public static final void deSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
 		final int soloTrackIndex = tracks.indexOf(soloTrack);
-		int currentTrackIndex;
 		for(final Track track : tracks) {
-			currentTrackIndex = tracks.indexOf(track);
+			final int currentTrackIndex = tracks.indexOf(track);
 			if (currentTrackIndex == soloTrackIndex) 
 				MidiConnection.getSequencer().setTrackSolo(soloTrackIndex, true); 
 			else 
@@ -294,7 +264,7 @@ public class RuppetControl {
 	 * @return A randomly generated {@code int} value between the values {@code min} and {@code max} inclusive
 	 */
 
-	public static final int randInt(final int min, final int max) { return ( new Random() ).nextInt( (max - min) + 1 ) + min; }
+	public static final int getRandInt(final int min, final int max) { return ( new Random() ).nextInt( (max - min) + 1 ) + min; }
 		
 	/* Checks to see if the save file exists, if it does, read in the information in
 	   the file, otherwise, create the file and ask for a file name to store in the save file */

@@ -15,12 +15,11 @@ import javax.sound.midi.ShortMessage;
 	values will be inversely related.
 	
 	@author Jon Mrowczynski
-	@version 1.2
 */
 
 public final class Movable extends Part {
 	
-	private byte neutral = -1;
+	private int neutral = -1;
 	
 	/**
 	 * If the {@code Movable Part} only requires one servo motor to be operated, then the {@code Movable}
@@ -32,9 +31,9 @@ public final class Movable extends Part {
 	 * @param upperBound The highest angular position that the servo arm should move to 
 	 */
 
-	public Movable(final List<Part> ruppetParts, final byte servo, final byte lowerBound, final byte upperBound) { 
-		super(ruppetParts, (byte) 1, servo, lowerBound, upperBound); 
-		neutral = (byte) ((upperBound + lowerBound) / 2);
+	public Movable(final List<Part> ruppetParts, final int servo, final int lowerBound, final int upperBound) { 
+		super(ruppetParts, 1, servo, lowerBound, upperBound); 
+		neutral = (upperBound + lowerBound) / 2;
 	}
 	
 	/**
@@ -50,9 +49,9 @@ public final class Movable extends Part {
 	 * @param parallelism Represents whether the servo motors are to be operated in parallel or anti-parallel from one another
 	 */
 
-	public Movable(final List<Part> ruppetParts, final byte servo1, final byte lowerBound, final byte upperBound, final byte servo2, final String parallelism) {
-		super(ruppetParts, (byte) 2, servo1, lowerBound, upperBound);
-		neutral = (byte) ((upperBound + lowerBound) / 2);
+	public Movable(final List<Part> ruppetParts, final int servo1, final int lowerBound, final int upperBound, final int servo2, final String parallelism) {
+		super(ruppetParts, 2, servo1, lowerBound, upperBound);
+		neutral = (upperBound + lowerBound) / 2;
 		for(int i = 0; i < numOfStates; ++i) {
 			states[i][1] = new ShortMessage();
 			try {
@@ -72,7 +71,7 @@ public final class Movable extends Part {
 	 * @param newNeutral The new neutral position of the {@code Movable Part}
 	 */
 
-	public final void setNeutral(final byte newNeutral) {
+	public final void setNeutral(final int newNeutral) {
 		if (newNeutral >= lowerBound && newNeutral <= upperBound) 
 			neutral = newNeutral;
 		else
@@ -132,7 +131,7 @@ public final class Movable extends Part {
 	 * @return The integer value that represents the upper bound of the {@code Movable Part}.
 	 */
 
-	public final byte getUpperBound() { return upperBound; }
+	public final int getUpperBound() { return upperBound; }
 	
 	/**
 	 * Gets the lower bound value for the {@code Movable Part}.
@@ -140,7 +139,7 @@ public final class Movable extends Part {
 	 * @return The integer value that represents the lower bound of the {@code Movable Part}.
 	 */
 	
-	public final byte getLowerBound() { return lowerBound; }
+	public final int getLowerBound() { return lowerBound; }
 	
 	/**
 	 * Gets the neutral value for the {@code Movable Part}.
@@ -148,7 +147,7 @@ public final class Movable extends Part {
 	 * @return The integer value that represents the neutral position of the {@code Movable Part}.
 	 */
 	
-	public final byte getNeutral() { return neutral; }
+	public final int getNeutral() { return neutral; }
 	
 	/**
 	 * Gets the state that represents the {@Movable Part}'s neutral position.
@@ -166,29 +165,11 @@ public final class Movable extends Part {
 	 * @return The {@code PartState} that represents the state of the corresponding {@code Ruppet Part}
 	 */
 
-	public final PartState getPartState(final byte velocity) {
+	public final PartState getPartState(final int velocity) {
 		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound)
 			return new PartState(this, getState(velocity));
 		else
 			throw new InvalidParameterException("Cannot retrieve the PartState associated with the velocity value: " + velocity);
 	} 
-	
-	@Override
-	public final String toString() {
-		String lines = "For Movable object: \n\n";
-		lines += "upperBound: " + upperBound + "\n";
-		lines += "lowerBound: " + lowerBound + "\n";
-		lines += "neutral: " + neutral + "\n";
-		lines += "numOfStates: " + numOfStates + "\n";
-		final int numOfMovableParts = states[0].length;
-		for (int i = 1; i <= numOfMovableParts; ++i) {
-			if (numOfMovableParts > 1)
-				lines += "For Movable Part " + i + "\n";
-			for (int j = 0; j < numOfStates; ++j)
-				lines += "Velocity value for state " + j + ": " + 
-						 RuppetControl.getVelocityVal(states[j][0]) + "\n";
-		}
-		return lines;
-	}
 		
 } // end of Movable class
