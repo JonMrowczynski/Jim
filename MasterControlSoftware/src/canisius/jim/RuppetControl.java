@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
@@ -39,18 +36,6 @@ import javax.sound.midi.Track;
 public class RuppetControl {
 	
 	/**
-	 * A {@code byte} representing a note on MIDI message.
-	 */
-	
-	public static final short NOTE_ON = ShortMessage.NOTE_ON; // = 144
-	
-	/**
-	 * A {@code byte} that represents a note off MIDI message.
-	 */
-	
-	public static final short NOTE_OFF = ShortMessage.NOTE_OFF; // = 128
-	
-	/**
 	 * A {@code byte} that represents the channel number. In our case, we use channel one to
 	 * send MIDI message to the {@code Ruppet}.
 	 */
@@ -68,14 +53,6 @@ public class RuppetControl {
 	 */
 	
 	public static final byte MIN_VELOCITY = 0;
-	
-	/**
-	 * A dummy constant that is used for the timestamp parameter which is required for some built in methods.
-	 * This has no effect on the ultimate outcome of the program since our microcontroller does not 
-	 * support timestamps.
-	 */
-	
-	public static final long TIMESTAMP = -1;
 	
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyebrow.
@@ -131,18 +108,6 @@ public class RuppetControl {
 	
 	public static final short MIN_SERVO_VAL = 180;
 	
-	/** 
-	 * The {@code Sequence}'s starting value. It Turns note on at the beginning of the sequence.
-	 */
-
-	public static final byte BEGINNING = 0; 
-	
-	/**
-	 * The {@code Sequence}'s ending value. It turns note off after this specified number of 16th notes @ 120BPM
-	 */
-	
-	public static final int END = Integer.MAX_VALUE; 
-	
 	/**
 	 * The table that associated a save file with its name.
 	 */
@@ -170,23 +135,19 @@ public class RuppetControl {
 	*/
 
 	public static final void initConnections() {
-
-		Connect.setupConnections();
-		Connect.getSequencer().setTempoInBPM(375);
-		Connect.getSequencer().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-		getTransmittedData();
-
+		MidiConnection.establishUsbMidiConnection();
+		MidiConnection.establishSequencerConnection();
+		MidiConnection.getSequencer().setTempoInBPM(375);
+		MidiConnection.getSequencer().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
 	}
 	
 	/* Makes sure that all of the saves files are there so that data can be read from such
 	   that Midi Events can be created and added to the corresponding Tracks */
 
 	public static final void initSaveFiles() {
-
 		saveFiles.put(Heart.emoteSaveFile, ".txt");
 		saveFiles.put(Voice.voiceSaveFile, ".txt");
 		saveFiles.put(Voice.audioSaveFile, ".wav");
-
 	}	
 
 	/* Halts the program for a user defined amount of time in milliseconds */
@@ -198,37 +159,34 @@ public class RuppetControl {
 	 */
 
 	public static final void pause_ms(final int ms) {
-
 		try { Thread.sleep(ms); } 
 		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-
-	} // end of pause_ms
+	}
 	
 	/**
 	 * Halts the program for 2 seconds.
 	 */
 
-	public static void pause() {
-
-		try { Thread.sleep(2000); } 
-		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-
-	} // end of pause
+	public static void pause() { pause_ms(2000); }
 		
 	/**
 	 * Halts the program for a user defined amount of time in seconds.
 	 * 
-	 * @param sec The smount of time that the program should pause for in seconds
+	 * @param sec The amount of time that the program should pause for in seconds
 	 */
 
 	public static void pause(final double sec){
-
 		final long ms = (Math.round(sec * 1000));
-
 		try { Thread.sleep(ms); } 
 		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-
-	} // end of pause
+	}
+	
+	/**
+	 * 
+	 * @param msg
+	 * @param tick
+	 * @return
+	 */
 
 	public static final MidiEvent makeEvent(final ShortMessage msg, final int tick) { return new MidiEvent(msg, tick); }
 	
@@ -262,7 +220,7 @@ public class RuppetControl {
 	 */
 
 	public static final void addStateToList(final List<ShortMessage> states, final ShortMessage[] state) {
-		for (ShortMessage msg : state) states.add(msg);
+		for (final ShortMessage msg : state) states.add(msg);
 	}
 
 	/* Uses a partial sum of a converging series to get the mouth movements closer together. 
@@ -286,10 +244,8 @@ public class RuppetControl {
 	 */
 
 	public static final void MuteAllTracks(final List<Track> tracks) {
-		
-		for (Track track : tracks) 
-			Connect.getSequencer().setTrackMute(tracks.indexOf(track), true); 
-
+		for (final Track track : tracks) 
+			MidiConnection.getSequencer().setTrackMute(tracks.indexOf(track), true); 
 	}
 		
 	/**
@@ -299,10 +255,8 @@ public class RuppetControl {
 	 */
 
 	public static final void DeSoloAllTracks(final List<Track> tracks) {
-		
-		for (Track track : tracks) 
-			Connect.getSequencer().setTrackSolo(tracks.indexOf(track), false); 
-		
+		for (final Track track : tracks) 
+			MidiConnection.getSequencer().setTrackSolo(tracks.indexOf(track), false); 
 	} 
 	
 	/*  Has a similar functionality as the DeSoloAllTracks method, however this method keeps the 
@@ -317,22 +271,16 @@ public class RuppetControl {
 	 */
 
 	public static final void DeSoloAll_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
-
 		final int soloTrackIndex = tracks.indexOf(soloTrack);
 		int currentTrackIndex;
-		
-		for(Track track : tracks) {
-			
+		for(final Track track : tracks) {
 			currentTrackIndex = tracks.indexOf(track);
-
 			if (currentTrackIndex == soloTrackIndex) 
-				Connect.getSequencer().setTrackSolo(soloTrackIndex, true); 
+				MidiConnection.getSequencer().setTrackSolo(soloTrackIndex, true); 
 			else 
-				Connect.getSequencer().setTrackMute(currentTrackIndex, true);
-
+				MidiConnection.getSequencer().setTrackMute(currentTrackIndex, true);
 		}
-
-	} // end of DeSoloAll_ExceptEyes
+	}
 
 	/**
 	 * Creates a random {@code int} based on the given upper and lower bounds. This method is 
@@ -346,202 +294,84 @@ public class RuppetControl {
 	 * @return A randomly generated {@code int} value between the values {@code min} and {@code max} inclusive
 	 */
 
-	public static final int randInt(final int min, final int max) {
+	public static final int randInt(final int min, final int max) { return ( new Random() ).nextInt( (max - min) + 1 ) + min; }
 		
-		return ( new Random() ).nextInt( (max - min) + 1 ) + min; 
-
-	}
-	
-	public static final void getTransmittedData() {
-		
-		// Set the USB to MIDI transmitter to send MIDI messages to the sequencer
-		// such that they are written to the sequencer's current sequence.
-		
-		final Sequencer sequencer = Connect.getSequencer();
-		
-		try { Connect.getUSBTransmitter().setReceiver(sequencer.getReceiver()); } 
-		catch (MidiUnavailableException e) { e.printStackTrace(); }
-
-		Sequence sequence = null;
-		
-		// Set baud rate reception to 38400 baud
-		
-		try { sequence = new Sequence(Sequence.PPQ, 16); } 
-		catch (InvalidMidiDataException e) { e.printStackTrace(); }
-		
-		final Track dataReceiveTrack = sequence.createTrack();
-		
-		try { sequencer.setSequence(sequence); } 
-		catch (InvalidMidiDataException e) { e.printStackTrace(); }
-		
-		sequencer.setTickPosition(0);
-		sequencer.recordEnable(dataReceiveTrack, CHAN_1);
-		
-		while (dataReceiveTrack.size() < 9);
-
-		sequencer.stopRecording();
-
-		byte eyebrow = dataReceiveTrack.get(0).getMessage().getMessage()[0];
-		byte leftLipCorner = dataReceiveTrack.get(1).getMessage().getMessage()[0];	
-		byte rightLipCorner = dataReceiveTrack.get(2).getMessage().getMessage()[0];
-		byte lowerJaw = dataReceiveTrack.get(3).getMessage().getMessage()[0];
-		byte eyelids = dataReceiveTrack.get(4).getMessage().getMessage()[0];
-		byte servo6 = dataReceiveTrack.get(5).getMessage().getMessage()[0];
-		byte lights = dataReceiveTrack.get(6).getMessage().getMessage()[0];
-		byte maxVelocity = dataReceiveTrack.get(7).getMessage().getMessage()[0];
-		byte minVelocity = dataReceiveTrack.get(8).getMessage().getMessage()[0];
-		/*
-		byte[] message1 = dataReceiveTrack.get(9).getMessage().getMessage();
-		short maxServoVal = 0;
-		for (byte i = 0; i < message1.length; ++i) {
-			maxServoVal += message1[i];
-		}
-		
-		byte[] message2 = dataReceiveTrack.get(10).getMessage().getMessage();
-		short minServoVal = 0;
-		for (byte i = 0; i < message2.length; ++i) {
-			minServoVal += message2[i];
-		}
-		*/
-		System.out.println("eyebrow: " + eyebrow);
-		System.out.println("leftLipCorner: " + leftLipCorner);
-		System.out.println("rightLipCorner: " + rightLipCorner);
-		System.out.println("lowerJaw: " + lowerJaw);
-		System.out.println("eyelids: " + eyelids);
-		System.out.println("servo6: " + servo6);
-		System.out.println("lights: " + lights);
-		System.out.println("maxVelocity: " + maxVelocity);
-		System.out.println("minVelocity: " + minVelocity);
-		/*System.out.println("maxServoVal: " + maxServoVal);
-		System.out.println("minServoVal: " + minServoVal);
-		*/
-	}
-	
-/************************************Helper Methods*********************************************/
-	
 	/* Checks to see if the save file exists, if it does, read in the information in
 	   the file, otherwise, create the file and ask for a file name to store in the save file */
 
-	public static final void checkSaveFile(File saveFile) throws IOException {
-
+	public static final void checkSaveFile(final File saveFile) throws IOException {
 		System.out.println();
-		
 		String saveFileName = saveFile.getName();
-
 		if(saveFile.createNewFile()) {
-			
 			System.out.println("Save File: " + saveFileName + " not found...\n");
 			System.out.println("\tCreated new Save File " + saveFileName + ".");
-
 		} else 
 			System.out.println("Save File: " + saveFileName + " found.");
-
-	} // end of checkSaveFile
+	}
 	
 	/* This method currently reads the name of the data file from the save file
 	  or asks the user to input the name of the data file if there is none stored */
 
-	public static final File getDataFile(File saveFile, Hashtable<File, String> saveFiles) {
-
+	public static final File getDataFile(final File saveFile, final Hashtable<File, String> saveFiles) {
 		File dataFile = null;
 		System.out.println();
-
 		if (saveFile.length() == 0) {
-
 			System.out.println("Please enter in the name of the file you wish to store in " + saveFile.getName());
 			System.out.print("\nName of Data File: ");
-						
 			dataFile = new File(reader.next().trim());
-
 		} else {
-
-			Scanner autoReader = null;
-
-			try { autoReader = new Scanner(new FileReader(saveFile)); } 
+			try (final Scanner autoReader = new Scanner(new FileReader(saveFile))) { dataFile = new File(autoReader.next().trim()); }
 			catch (FileNotFoundException ex) { ex.printStackTrace(); }
-
-			dataFile = new File(autoReader.next().trim());
-			autoReader.close();
 		}
-
 		return checkForDataFile(dataFile, saveFile, saveFiles);
-
-	} // end of getDataFile
+	}
 	
-	/* Clears whatever is stored in the save file which is passed in as a parameter */
-
-	public static final void clearSaveFile(File saveFile) {
-
-		PrintWriter writer = null;
-
-		try { writer = new PrintWriter(saveFile.getName()); } 
+	/**
+	 * 
+	 * 
+	 * @param saveFile
+	 */
+	
+	public static final void clearSaveFile(final File saveFile) {
+		try (final PrintWriter writer = new PrintWriter(saveFile.getName())) { writer.print(""); } 
 		catch (FileNotFoundException ex) { ex.printStackTrace(); }
-
-		writer.print("");
-		writer.close();
-
-	} // end of clearSaveFile
+	}
 	
 	/* Checks to see if the data file exists, if so return it, else return the File from another 
 	   call from this method. (Pretty much keep on looping through this method until a File
 	   with the name that the user specified is found and then return that File) */
 
-	private static final File checkForDataFile(File dataFile, File saveFile, Hashtable<File, String> saveFiles) {
-
+	private static final File checkForDataFile(File dataFile, final File saveFile, final Hashtable<File, String> saveFiles) {
 		if(dataFile.exists() && (getFileExtension(dataFile).equals(saveFiles.get(saveFile)))) {
-
 			System.out.println("\tData File: " + dataFile.getName() + " found.");
 			saveDataFile(dataFile, saveFile);
 			return dataFile;
-
 		} else if(dataFile.exists() && (!getFileExtension(dataFile).equals(saveFiles.get(saveFile)))) {
-
-			System.out.println("\n\tData File: " + dataFile.getName() + " found, but the extensions" 
-				+ " don't match.");
-			System.out.println("\nMake sure you are using a file with extension: " 
-				+ saveFiles.get(saveFile));
+			System.out.println("\n\tData File: " + dataFile.getName() + " found, but the extensions" + " don't match.");
+			System.out.println("\nMake sure you are using a file with extension: " + saveFiles.get(saveFile));
 			clearSaveFile(saveFile);
 			return getDataFile(saveFile, saveFiles);
-
 		} else {
-
 			System.out.println("\n\tData File: " + dataFile.getName() + " not found...");
 			System.out.print("\nPlease enter in the name of the Data File: ");
 			dataFile = new File(reader.next().trim());
 			return checkForDataFile(dataFile, saveFile, saveFiles);
-
 		}
-		
-	} // end of checkForDataFile
+	}
 	
 	/* Write the name of the data file to the corresponding save file */
 
-	private static final void saveDataFile(File dataFile, File saveFile) {
-
-		PrintWriter writer = null;
-
-		try { writer = new PrintWriter(saveFile.getName()); } 
+	private static final void saveDataFile(final File dataFile, final File saveFile) {
+		try (final PrintWriter writer = new PrintWriter(saveFile.getName())) { writer.print(dataFile.getName()); }
 		catch (FileNotFoundException ex) { ex.printStackTrace(); }
-
-		writer.print(dataFile.getName());
-		writer.close();
-
-	} // end of saveDateFile
+	}
 	
-	/* Gets the file extension of the file that was passed in as a parameter. (I have found	
-	   that there are some files that don't have an extension that begins with a "." or there 
-	   are files with multiple "." in their name. However, this shouldn't currently present 
-	   a problem for us */
+	/* Gets the file extension of the file. */
 
-	public static final String getFileExtension(File file) {
+	public static final String getFileExtension(final File file) {
+		final String fileName = file.getName();
+		final int i = fileName.lastIndexOf('.');
+		return i > 0 ? fileName.substring(i) : "";
+	}
 
-		String extension = "";
-		int i = file.getName().lastIndexOf('.');
-
-		if (i > 0) extension = file.getName().substring(i); 
-
-		return extension;
-
-	} // end of getFileExtension
-
-} // end of RuppetControl class
+} // end of class RuppetControl

@@ -33,12 +33,9 @@ public final class Movable extends Part {
 	 */
 
 	public Movable(final List<Part> ruppetParts, final byte servo, final byte lowerBound, final byte upperBound) { 
-
 		super(ruppetParts, (byte) 1, servo, lowerBound, upperBound); 
-
 		neutral = (byte) ((upperBound + lowerBound) / 2);
-		
-	} // end of Movable constructor
+	}
 	
 	/**
 	 * If the {@code Movable Part} requires two servo motors to be operated, then it first calls 
@@ -54,29 +51,20 @@ public final class Movable extends Part {
 	 */
 
 	public Movable(final List<Part> ruppetParts, final byte servo1, final byte lowerBound, final byte upperBound, final byte servo2, final String parallelism) {
-
 		super(ruppetParts, (byte) 2, servo1, lowerBound, upperBound);
-
 		neutral = (byte) ((upperBound + lowerBound) / 2);
-
 		for(int i = 0; i < numOfStates; ++i) {
-
 			states[i][1] = new ShortMessage();
-
 			try {
-
 				if (parallelism.toLowerCase().equals("parallel"))
-					states[i][1].setMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, servo2, i + lowerBound);
+					states[i][1].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, servo2, i + lowerBound);
 				else if (parallelism.toLowerCase().equals("antiparallel"))
-					states[i][1].setMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, servo2, ((upperBound + lowerBound) - (i + lowerBound)));
+					states[i][1].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, servo2, ((upperBound + lowerBound) - (i + lowerBound)));
 				else 
 					throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
-
 			} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
-
-		} // end of for loop
-
-	} // end of Movable constructor 
+		}
+	}
 	
 	/**
 	 * Allows the neutral position of the {@code Movable Part} to be dynamically determined.
@@ -85,15 +73,13 @@ public final class Movable extends Part {
 	 */
 
 	public final void setNeutral(final byte newNeutral) {
-
 		if (newNeutral >= lowerBound && newNeutral <= upperBound) 
 			neutral = newNeutral;
 		else
 			throw new InvalidParameterException("Cannot set the neutral state value to: " + newNeutral
 				+ "\nThe provided value is not within the defined acceptable range of values: "
 				+ lowerBound + "-" + upperBound);
-
-	} // end of setNewNeutral
+	}
 	
 	/**
 	 * Moves the {@code Movable} to one of its most extreme angular positions.
@@ -181,22 +167,19 @@ public final class Movable extends Part {
 	 */
 
 	public final PartState getPartState(final byte velocity) {
-
 		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound)
 			return new PartState(this, getState(velocity));
 		else
 			throw new InvalidParameterException("Cannot retrieve the PartState associated with the velocity value: " + velocity);
-
 	} 
 	
+	@Override
 	public final String toString() {
-		
 		String lines = "For Movable object: \n\n";
 		lines += "upperBound: " + upperBound + "\n";
 		lines += "lowerBound: " + lowerBound + "\n";
 		lines += "neutral: " + neutral + "\n";
 		lines += "numOfStates: " + numOfStates + "\n";
-		
 		final int numOfMovableParts = states[0].length;
 		for (int i = 1; i <= numOfMovableParts; ++i) {
 			if (numOfMovableParts > 1)
@@ -205,9 +188,7 @@ public final class Movable extends Part {
 				lines += "Velocity value for state " + j + ": " + 
 						 RuppetControl.getVelocityVal(states[j][0]) + "\n";
 		}
-		
 		return lines;
-		
-	} // end of toString
+	}
 		
 } // end of Movable class

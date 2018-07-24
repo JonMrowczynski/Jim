@@ -61,11 +61,7 @@ public class ManualOperationScene extends Application {
 	public static void main(final String[] args) { launch(args); }
 
 	@Override
-	public void start(final Stage stage) {
-
-		manualOperationSceneSetup(stage);
-		
-	} // end of start
+	public void start(final Stage stage) { manualOperationSceneSetup(stage); }
 	
 	/**
 	 * Setup the manual operation scene, eventually will be public
@@ -87,11 +83,8 @@ public class ManualOperationScene extends Application {
 		catch (InvalidMidiDataException e) { e.printStackTrace(); } // Should never happen
 		
 		servoNumSetup(gridPane);
-		
 		PICPinNumberSetup(gridPane);
-		
 		PICPinNameSetup(gridPane);
-			
 		MIDISelectSetup(gridPane, stage);
 		
 		// This will eventually be returned to the main GUI
@@ -101,7 +94,7 @@ public class ManualOperationScene extends Application {
 		stage.setScene(manualControlScene);
 		stage.sizeToScene();
 		stage.setResizable(false);
-		stage.setOnCloseRequest( windowEvent -> { Connect.closeUSB(); } );
+		stage.setOnCloseRequest( windowEvent -> { MidiConnection.closeUsbMidiDevice(); } );
 		stage.show();
 		
 	} // end of manualOperationSceneSetup
@@ -121,21 +114,21 @@ public class ManualOperationScene extends Application {
 		grid.add(partSelectText, 0, 0);
 		GridPane.setHalignment(partSelectText, HPos.CENTER);
 		
-		final ShortMessage on = new ShortMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, RuppetControl.LIGHTS, 10);
+		final ShortMessage on = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, RuppetControl.LIGHTS, 10);
 		
 		final Button lightsOn = new Button("On");	
 		lightsOn.setVisible(false);
 		lightsOn.setFont(FONT_SIZE);
-		lightsOn.setOnAction( actionEvent -> { Connect.getUSBReceiver().send(on, RuppetControl.TIMESTAMP); } );
+		lightsOn.setOnAction( actionEvent -> { MidiConnection.getUsbReceiver().send(on, -1); } );
 		grid.add(lightsOn, 0, 8);
 		GridPane.setHalignment(lightsOn, HPos.LEFT);
 		
-		final ShortMessage off = new ShortMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, RuppetControl.LIGHTS, 0);
+		final ShortMessage off = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, RuppetControl.LIGHTS, 0);
 		
 		final Button lightsOff = new Button("Off");
 		lightsOff.setVisible(false);
 		lightsOff.setFont(FONT_SIZE);
-		lightsOff.setOnAction( actionEvent -> { Connect.getUSBReceiver().send(off, RuppetControl.TIMESTAMP); } );
+		lightsOff.setOnAction( actionEvent -> { MidiConnection.getUsbReceiver().send(off, -1); } );
 		grid.add(lightsOff, 0, 9);
 		GridPane.setHalignment(lightsOff, HPos.LEFT);
 		
@@ -274,48 +267,15 @@ public class ManualOperationScene extends Application {
 	 */
 	
 	private final void servoNumSetup(final GridPane grid) {
-		
-		final Text servoText = new Text("Servo");
-		servoText.setFont(FONT_SIZE);
-		grid.add(servoText, 1, 0);
-		GridPane.setHalignment(servoText, HPos.CENTER);
-		
-		final Text servo1Text = new Text("1");
-		servo1Text.setFont(FONT_SIZE);
-		grid.add(servo1Text, 1, 1);
-		GridPane.setHalignment(servo1Text, HPos.CENTER);
-		
-		final Text servo2Text = new Text("2");
-		servo2Text.setFont(FONT_SIZE);
-		grid.add(servo2Text, 1, 2);
-		GridPane.setHalignment(servo2Text, HPos.CENTER);
-		
-		final Text servo3Text = new Text("3");
-		servo3Text.setFont(FONT_SIZE);
-		grid.add(servo3Text, 1, 3);
-		GridPane.setHalignment(servo3Text, HPos.CENTER);
-		
-		final Text servo4Text = new Text("4");
-		servo4Text.setFont(FONT_SIZE);
-		grid.add(servo4Text, 1, 4);
-		GridPane.setHalignment(servo4Text, HPos.CENTER);
-		
-		final Text servo5Text = new Text("5");
-		servo5Text.setFont(FONT_SIZE);
-		grid.add(servo5Text, 1, 5);
-		GridPane.setHalignment(servo5Text, HPos.CENTER);
-		
-		final Text lightsText = new Text("-");
-		lightsText.setFont(FONT_SIZE);
-		grid.add(lightsText, 1, 6);
-		GridPane.setHalignment(lightsText, HPos.CENTER);
-		
-		final Text dualServosText = new Text("2 and 3");
-		dualServosText.setFont(FONT_SIZE);
-		grid.add(dualServosText, 1, 7);
-		GridPane.setHalignment(dualServosText, HPos.CENTER);
-		
-	} // end of servoNumSetup
+		setupText(grid, "Servo", 1, 0);
+		setupText(grid, "1", 1, 1);
+		setupText(grid, "2", 1, 2);
+		setupText(grid, "3", 1, 3);
+		setupText(grid, "4", 1, 4);
+		setupText(grid, "5", 1, 5);
+		setupText(grid, "-", 1, 6);
+		setupText(grid, "2 and 3", 1, 7);
+	}
 	
 	/**
 	 * Sets up the {@code Text} that associates the PIC pin number that outputs the 
@@ -325,48 +285,15 @@ public class ManualOperationScene extends Application {
 	 */
 	
 	private final void PICPinNumberSetup(final GridPane grid) {
-		
-		final Text pinNumberText = new Text("PIC Pin Number(s)");
-		pinNumberText.setFont(FONT_SIZE);
-		grid.add(pinNumberText, 2, 0);
-		GridPane.setHalignment(pinNumberText, HPos.CENTER);
-		
-		final Text outputPin1 = new Text("17");
-		outputPin1.setFont(FONT_SIZE);
-		grid.add(outputPin1, 2, 1);
-		GridPane.setHalignment(outputPin1, HPos.CENTER);
-		
-		final Text outputPin2 = new Text("18");
-		outputPin2.setFont(FONT_SIZE);
-		grid.add(outputPin2, 2, 2);
-		GridPane.setHalignment(outputPin2, HPos.CENTER);
-		
-		final Text outputPin3 = new Text("1");
-		outputPin3.setFont(FONT_SIZE);
-		grid.add(outputPin3, 2, 3);
-		GridPane.setHalignment(outputPin3, HPos.CENTER);
-		
-		final Text outputPin4 = new Text("2");
-		outputPin4.setFont(FONT_SIZE);
-		grid.add(outputPin4, 2, 4);
-		GridPane.setHalignment(outputPin4, HPos.CENTER);
-		
-		final Text outputPin5 = new Text("6");
-		outputPin5.setFont(FONT_SIZE);
-		grid.add(outputPin5, 2, 5);
-		GridPane.setHalignment(outputPin5, HPos.CENTER);
-		
-		final Text outputPin6 = new Text("11");
-		outputPin6.setFont(FONT_SIZE);
-		grid.add(outputPin6, 2, 6);
-		GridPane.setHalignment(outputPin6, HPos.CENTER);
-		
-		final Text outputPins = new Text("18 and 1");
-		outputPins.setFont(FONT_SIZE);
-		grid.add(outputPins, 2, 7);
-		GridPane.setHalignment(outputPins, HPos.CENTER);
-		
-	} // end of PICPinNumberSetup
+		setupText(grid, "PIC Pin Number(s)", 2, 0);
+		setupText(grid, "17", 2, 1);
+		setupText(grid, "18", 2, 2);
+		setupText(grid, "1", 2, 3);
+		setupText(grid, "2", 2, 4);
+		setupText(grid, "6", 2, 5);
+		setupText(grid, "11", 2, 6);
+		setupText(grid, "18 and 1", 2, 7);
+	}
 	
 	/**
 	 * Sets up the {@code Text} that associates all of the PIC pin numbers with their 
@@ -376,48 +303,22 @@ public class ManualOperationScene extends Application {
 	 */
 	
 	private final void PICPinNameSetup(final GridPane grid) {
-		
-		final Text pinNameText = new Text("PIC Pin Name(s)");
-		pinNameText.setFont(FONT_SIZE);
-		grid.add(pinNameText, 3, 0);
-		GridPane.setHalignment(pinNameText, HPos.CENTER);
-		
-		final Text outputPin1 = new Text("RA0");
-		outputPin1.setFont(FONT_SIZE);
-		grid.add(outputPin1, 3, 1);
-		GridPane.setHalignment(outputPin1, HPos.CENTER);
-		
-		final Text outputPin2 = new Text("RA1");
-		outputPin2.setFont(FONT_SIZE);
-		grid.add(outputPin2, 3, 2);
-		GridPane.setHalignment(outputPin2, HPos.CENTER);
-		
-		final Text outputPin3 = new Text("RA2");
-		outputPin3.setFont(FONT_SIZE);
-		grid.add(outputPin3, 3, 3);
-		GridPane.setHalignment(outputPin3, HPos.CENTER);
-		
-		final Text outputPin4 = new Text("RA3");
-		outputPin4.setFont(FONT_SIZE);
-		grid.add(outputPin4, 3, 4);
-		GridPane.setHalignment(outputPin4, HPos.CENTER);
-		
-		final Text outputPin5 = new Text("RB0");
-		outputPin5.setFont(FONT_SIZE);
-		grid.add(outputPin5, 3, 5);
-		GridPane.setHalignment(outputPin5, HPos.CENTER);
-		
-		final Text outputPin6 = new Text("RB5");
-		outputPin6.setFont(FONT_SIZE);
-		grid.add(outputPin6, 3, 6);
-		GridPane.setHalignment(outputPin6, HPos.CENTER);
-		
-		final Text outputPins = new Text("RA1 and RA2");
-		outputPins.setFont(FONT_SIZE);
-		grid.add(outputPins, 3, 7);
-		GridPane.setHalignment(outputPins, HPos.CENTER);
-		
-	} // end of PICPinNameSetup
+		setupText(grid, "PIC Pin Name(s)", 3, 0);
+		setupText(grid, "RA0", 3, 1);
+		setupText(grid, "RA1", 3, 2);
+		setupText(grid, "RA2", 3, 3);
+		setupText(grid, "RA3", 3, 4);
+		setupText(grid, "RB0", 3, 5);
+		setupText(grid, "RB5", 3, 6);
+		setupText(grid, "RA1 and RA2", 3, 7);
+	}
+	
+	private final void setupText(final GridPane gridPane, final String label, final int column, final int row) {
+		final Text text = new Text(label);
+		text.setFont(FONT_SIZE);
+		gridPane.add(text, 1, row);
+		GridPane.setHalignment(text, HPos.CENTER);
+	}
 	
 	/**
 	 * Sets up the GUI elements that accept input from that user which constructs the 
@@ -432,7 +333,7 @@ public class ManualOperationScene extends Application {
 	private final void MIDISelectSetup(final GridPane grid, final Stage stage) {
 		
 		final Button sendMIDIBtn = new Button("Send MIDI");
-		sendMIDIBtn.setOnAction( actionListener -> {	
+		sendMIDIBtn.setOnAction(actionListener -> {	
 			if (midiNotes == null) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.initOwner(stage);
@@ -445,7 +346,7 @@ public class ManualOperationScene extends Application {
 			try { 
 				final ShortMessage[] messages = makeMessages(); 
 				for (byte i = 0; i < messages.length; ++i)
-					Connect.getUSBReceiver().send(messages[i], RuppetControl.TIMESTAMP);
+					MidiConnection.getUsbReceiver().send(messages[i], -1);
 			} 
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 			actionListener.consume();
@@ -453,11 +354,7 @@ public class ManualOperationScene extends Application {
 		grid.add(sendMIDIBtn, 0, 9);
 		GridPane.setHalignment(sendMIDIBtn, HPos.RIGHT);
 		
-		final Spinner<Integer> spinner = new Spinner<>(
-			RuppetControl.MIN_VELOCITY, 
-			RuppetControl.MAX_VELOCITY, 
-			RuppetControl.MIN_VELOCITY
-		);
+		final Spinner<Integer> spinner = new Spinner<>(RuppetControl.MIN_VELOCITY, RuppetControl.MAX_VELOCITY, RuppetControl.MIN_VELOCITY);
 		spinner.setEditable(true);
 		spinner.setPrefWidth(75);
 		
@@ -506,10 +403,7 @@ public class ManualOperationScene extends Application {
 			}				
 		});
 			
-		final Tooltip tooltip = new Tooltip(
-			"Min velocity: " + RuppetControl.MIN_VELOCITY + "\n" +
-			"Max velocity: " + RuppetControl.MAX_VELOCITY
-		);
+		final Tooltip tooltip = new Tooltip("Min velocity: " + RuppetControl.MIN_VELOCITY + "\n" + "Max velocity: " + RuppetControl.MAX_VELOCITY);
 		
 		spinner.setTooltip(tooltip);
 		spinner.getEditor().setTooltip(tooltip);
@@ -528,49 +422,37 @@ public class ManualOperationScene extends Application {
 	 */
 	
 	private final ShortMessage[] makeMessages() throws InvalidMidiDataException {
-				
 		final ShortMessage[] messages = new ShortMessage[midiNotes.length];
-		
 		if (midiNotes.length >= 1) 
-			messages[0] = new ShortMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, midiNotes[0], currentVelocity);
-		
+			messages[0] = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNotes[0], currentVelocity);
 		if (midiNotes.length == 2) 
-			messages[1] = new ShortMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, midiNotes[1], RuppetControl.MAX_VELOCITY - currentVelocity);
-		
+			messages[1] = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNotes[1], RuppetControl.MAX_VELOCITY - currentVelocity);
 		return messages;
-		
-	} // end of makeMessages
+	}
 	
 	/*************************** For my purposes only *********************************************/
 	
 	private class FlashLights implements Runnable {
-		
 		private volatile boolean isFlashing = true;
-		
 		private ShortMessage on = null;
 		private ShortMessage off = null;
-		
 		public FlashLights(ShortMessage on, ShortMessage off) {
 			this.on = on;
 			this.off = off;
 		}
-		
 		@Override
 		public void run() {
 			while (isFlashing) {
 				try {
-					Connect.getUSBReceiver().send(on, RuppetControl.TIMESTAMP);
+					MidiConnection.getUsbReceiver().send(on, -1);
 					Thread.sleep(100);
-					Connect.getUSBReceiver().send(off, RuppetControl.TIMESTAMP);
+					MidiConnection.getUsbReceiver().send(off, -1);
 					Thread.sleep(100);
 				} catch (InterruptedException e) { }
 			}
 		}
-		
 		public final void flash() { isFlashing = true; }
-		
 		public final void halt() { isFlashing = false; }
-	
 	}
 	
 	/*********************************************************************************/

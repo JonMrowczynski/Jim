@@ -64,27 +64,17 @@ public abstract class Part {
 	 */
 
 	public Part(final List<Part> ruppetParts, final byte numOfOutputs, final byte midiNote, final byte lowerBound, final byte upperBound) {
-
 		ruppetParts.add(this);
-		
 		checkAndSetBoundaryValues(lowerBound, upperBound);
-		
 		numOfStates = (byte) ((this.upperBound - this.lowerBound) + 1);
 		states = new ShortMessage[numOfStates][numOfOutputs];
-
 		for(int i = 0; i < numOfStates; ++i) {
-
 			states[i][0] = new ShortMessage();
-
 			try {
-
-				states[i][0].setMessage(RuppetControl.NOTE_ON, RuppetControl.CHAN_1, midiNote, i + lowerBound);
-
+				states[i][0].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNote, i + lowerBound);
 			} catch (InvalidMidiDataException ex) { ex.printStackTrace(); }
-
-		} // end of for loop
-
-	} // end of Part constructor
+		}
+	}
 	
 	/**
 	 * This method takes in an array of {@code ShortMessage}s that represent a state of the {@code Part}.
@@ -94,11 +84,9 @@ public abstract class Part {
 	 */
 
 	protected void toState(final ShortMessage[] messages) {
-
 		if (validShortMessages(messages))
 			for (ShortMessage msg : messages)
-				Connect.getUSBReceiver().send(msg, RuppetControl.TIMESTAMP);
-
+				MidiConnection.getUsbReceiver().send(msg, -1);
 	} 
 	
 	/**
@@ -112,11 +100,9 @@ public abstract class Part {
 	 */
 
 	protected void toState(final byte velocity) {
-
 		if (validVelocity(velocity))
 			for (ShortMessage msg : states[velocityToStateIndex(velocity)])
-				Connect.getUSBReceiver().send(msg, RuppetControl.TIMESTAMP);
-
+				MidiConnection.getUsbReceiver().send(msg, -1);
 	}
 	
 	/**
@@ -130,11 +116,9 @@ public abstract class Part {
 	 */
 
 	protected final void addStateToTrack(final Track track, final ShortMessage[] messages, final int tick) {
-
 		if (validShortMessages(messages))
 			for (ShortMessage msg : messages)
 				track.add(RuppetControl.makeEvent(msg, tick));
-
 	} 
 	
 	/**
@@ -145,16 +129,12 @@ public abstract class Part {
 	 */
 
 	protected final boolean validVelocity(final byte velocity) {
-
 		if (velocity >= RuppetControl.MIN_VELOCITY && velocity <= RuppetControl.MAX_VELOCITY)
 			return true;
 		else {
-
 			System.out.println("Invalid velocity value: " + velocity);
 			return false;
-
 		}
-
 	} 
 	
 	/**
@@ -167,21 +147,15 @@ public abstract class Part {
 	 */
 
 	protected final boolean validShortMessages(final ShortMessage[] messages) {
-
 		ShortMessage[] state = states[velocityToStateIndex(RuppetControl.getVelocityVal(messages[0]))];
-
 		for (int i = 0; i < state.length; ++i) {
-
 			if (messages[i].getChannel() != state[i].getChannel()) return false;
 			if (messages[i].getCommand() != state[i].getCommand()) return false;
 			if (messages[i].getData1()   != state[i].getData1())   return false;
 			if (messages[i].getData2()   != state[i].getData2())   return false;
-
 		}
-
 		return true;
-
-	} // end of validShortMessage
+	}
 
 	/**
 	 * Returns a {@code Part}'s state based on the velocity value, only if that velocity 
@@ -192,12 +166,10 @@ public abstract class Part {
 	 */
 
 	protected final ShortMessage[] getState(final byte velocity) {
-
 		if(validVelocity(velocity))
 			return states[velocityToStateIndex(velocity)];	
 		else
 			throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned.");
-
 	}
 	
 	
@@ -211,26 +183,21 @@ public abstract class Part {
 	 */
 
 	private void checkAndSetBoundaryValues(final byte lowerBound, final byte upperBound) {
-
 		if (lowerBound <= upperBound) {
-
 			if (validVelocity(lowerBound))
 				this.lowerBound = lowerBound;
 			else
 				throw new InvalidParameterException("for lowerBound. Boundary values could not be set.");
-
 			if (validVelocity(upperBound))
 				this.upperBound = upperBound;
 			else 
 				throw new InvalidParameterException("for upperBound. Boundary values could not be set.");
-			
 		} else
 			throw new InvalidParameterException("Invalid boundary values: " +
 				"\nlowerBound: " + lowerBound +
 				"\nupperBound: " + upperBound +
 				"\nCould not instantiate Movable Part.");
-
-	} // end of checkAndSetBoundaryValues
+	}
 	
 	/**
 	 * Ultimately the conversion from {@code velocity} to {@code stateIndex} for any number of states is:

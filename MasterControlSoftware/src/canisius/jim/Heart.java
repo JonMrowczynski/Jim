@@ -6,9 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
@@ -76,14 +74,14 @@ public class Heart {
 	 * Stores the times at which a specified {@code Emotion} should be expressed.
 	 */
 
-	private final List<Integer> emotionTimes = new ArrayList<>();
+	private final ArrayList<Integer> emotionTimes = new ArrayList<>();
 	
 	/**
 	 * Stores the names of the {@code Emotion}s that are associated with the {@code Emotion}s that 
 	 * are stored in the {@code emotionTimes ArrayList}.
 	 */
 	
-	private final List<String> emotions = new ArrayList<>();
+	private final ArrayList<String> emotions = new ArrayList<>();
 	
 	/* This is the only constructor for the Heart class. It takes a Track as a parameter 
 	   so that the Heart class can setup the emotions Track with MidiEvents whose timings 
@@ -161,10 +159,8 @@ public class Heart {
 	 */
 
 	public final void feel(Emotion emotion) {
-
-		for (ShortMessage msg : emotion.getAttributes())
-			Connect.getUSBReceiver().send(msg, RuppetControl.TIMESTAMP);
-
+		for (final ShortMessage msg : emotion.getAttributes())
+			MidiConnection.getUsbReceiver().send(msg, -1);
 	}
 
 	/**
@@ -221,44 +217,28 @@ public class Heart {
 	 */
 
 	private final void readTimingLabels() {
-
 		final int sec_to_ms_factor = 1000;
-		Scanner reader = null;
+		try { RuppetControl.checkSaveFile(emoteSaveFile); } 
+		catch(IOException ex) {ex.printStackTrace();}
+		try (final Scanner reader = new Scanner(new FileReader(RuppetControl.getDataFile(emoteSaveFile, RuppetControl.saveFiles).getName()))) {
+			while(reader.hasNext()) {
 
-		try {
+				/* We want to multiply the time by 1000 because we want the time to be in ms not sec */
 
-			RuppetControl.checkSaveFile(emoteSaveFile);
-
-		} catch(IOException ex) {ex.printStackTrace();}
-		
-		try {
-
-			reader = new Scanner(new FileReader(RuppetControl.getDataFile(emoteSaveFile, RuppetControl.saveFiles).getName()));
-
+				emotionTimes.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor));
+				emotions.add(reader.nextLine().trim());
+			}
 		} catch (FileNotFoundException ex) {ex.printStackTrace();}
-		
-		while(reader.hasNext()) {
-
-			/* We want to multiply the time by 1000 because we want the time to be in ms not sec */
-
-			emotionTimes.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor));
-			emotions.add(reader.nextLine().trim());
-
-		}
-
-		( (ArrayList<Integer>) emotionTimes).trimToSize();
-		( (ArrayList<String>) emotions).trimToSize();
-
-	} // end of readTimingLabels
+		emotionTimes.trimToSize();
+		emotions.trimToSize();
+	}
 		
 	/**
 	 * Sets up all of the emotional timings for a prerecorded script.
 	 */
 
 	private final void setupTimings() {
-
 		for(short i = 0; i < emotions.size(); i++) {
-
 			if(emotions.get(i).toUpperCase().equals("HAPPY"))
 				happy.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
 			else if (emotions.get(i).toUpperCase().equals("SAD")) 
@@ -272,18 +252,14 @@ public class Heart {
 			else if (emotions.get(i).toUpperCase().equals("SMILE"))
 				smile.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
 			else {
-
 				System.out.println("\nEMOTION DEFINITION ERROR:");
 				System.out.println("\tEmotion: \"" + emotions.get(i) + "\" is not currently defined.");
 				System.out.println("\n\tPlease define what to do for \"" + emotions.get(i) + "\" before operating ruppet.");
 				System.out.println("\nTerminating Program.");
 				System.exit(1); // exit with error
-
 			}
-
-		} // end of for loop
-
-	} // end of setupTimings
+		}
+	}
 
 	/* This method automatically counts how many different emotions Jim will be expressing
 	   in the Emotion Labels Track, by counting the number of different strings labeled in
@@ -298,27 +274,15 @@ public class Heart {
 
 	@SuppressWarnings("unused")
 	private int getNumOfEmotes(){
-
-		int emoteCount = 0;
-		Set<String> Emotes = new HashSet<>();
-
-		if(emotions.size() > 0)
-			for(String emote : emotions)
-				Emotes.add(emote);
-		else {
-
+		if (emotions.size() <= 0) {
 			System.out.println("FATAL ERROR: ArrayList emotions size == 0");
 			System.out.println("Make sure that the emotion timing labels are labeled properly " 
 				+ "and that they were read before calling the getNumOfEmotes method.");
 			System.out.println("Terminating Program.");
 			RuppetControl.pause();
 			System.exit(1);
-
 		}
-
-		emoteCount = (Emotes.size() - 1);
-		return emoteCount;
-
-	} // end of getNumOfEmotes
+		return new HashSet<>(emotions).size();
+	} 
 
 } // end of Heart class

@@ -164,11 +164,8 @@ public final class Ruppet {
 		   otherwise, the MidiEvents will not be stored in the Tracks if they are added 
 		   after setting the Sequence. */
 
-		try{
-
-			Connect.getSequencer().setSequence(actions);
-
-		} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }	
+		try{ MidiConnection.getSequencer().setSequence(actions); } 
+		catch(InvalidMidiDataException ex) { ex.printStackTrace(); }	
 
 		/* Mute all of the tracks so that they are not unintentionally 
 		   all playing at once.  */
@@ -197,7 +194,7 @@ public final class Ruppet {
 
 		lights.on();
 		
-		Connect.getSequencer().start();
+		MidiConnection.getSequencer().start();
 
 		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
 
@@ -247,11 +244,9 @@ public final class Ruppet {
 				} 
 
 			} catch(InputMismatchException ex) { 
-
-					System.out.println("\nI don't understand that input, make sure you type in an int!");
-					RuppetControl.reader.nextLine();
-
-				}
+				System.out.println("\nI don't understand that input, make sure you type in an int!");
+				RuppetControl.reader.nextLine();
+			}
 
 		} while(choice != 3); // end of do while loop
 		
@@ -386,60 +381,40 @@ public final class Ruppet {
 			System.out.print("Choice: ");
 
 			try {
-
 				emotionChoice = RuppetControl.reader.nextInt();
-
 			} catch(InputMismatchException ex) { 
-
 				RuppetControl.reader.nextLine();
 				emotionChoice = -1;
-
 			} 
-				System.out.println();
+			
+			System.out.println();
 
-				switch(emotionChoice) {
-
-					case 1:
-
-						heart.feel(heart.getNeutral());
-						break;
-
-					case 2:
-
-						heart.feel(heart.getHappy());
-						break;
-
-					case 3:
-
-						heart.feel(heart.getSad());
-						break;
-
-					case 4:
-
-						heart.feel(heart.getAngry());
-						break;
-
-					case 5:
-
-						heart.feel(heart.getScared());
-						break;
-
-					case 6:
-
-						heart.feel(heart.getSmile());
-						break;
-
-					case exitChoice:
-
-						System.out.println("Exited manual demo mode");
-						break;
-
-					default:
-
-						System.out.println("That is not an option.");
-						break;
-
-				}
+			switch(emotionChoice) {
+				case 1:
+					heart.feel(heart.getNeutral());
+					break;
+				case 2:
+					heart.feel(heart.getHappy());
+					break;
+				case 3:
+					heart.feel(heart.getSad());
+					break;
+				case 4:
+					heart.feel(heart.getAngry());
+					break;
+				case 5:
+					heart.feel(heart.getScared());
+					break;
+				case 6:
+					heart.feel(heart.getSmile());
+					break;
+				case exitChoice:
+					System.out.println("Exited manual demo mode");
+					break;
+				default:
+					System.out.println("That is not an option.");
+					break;
+			}
 
 			if (emotionChoice != exitChoice)
 				RuppetControl.pause(); // Display the specified emotion for a couple of seconds
@@ -474,74 +449,54 @@ public final class Ruppet {
 			System.out.println("12. Eyelids down");
 			System.out.println("20. To Go Back");
 			System.out.print("Choice: ");
-
+			
 			try {
-
 				fauChoice = RuppetControl.reader.nextInt();
-
 				switch(fauChoice) {
-
 					case 1:
 						eyebrows.toUpperBound();
 						break;
-
 					case 2:
 						eyebrows.toNeutral();
 						break;
-
 					case 3:
 						eyebrows.toLowerBound();
 						break;
-
 					case 4:
 						lowerJaw.toUpperBound();
 						break;
-
 					case 5:
 						lowerJaw.toNeutral();
 						break;
-
 					case 6:
 						lowerJaw.toLowerBound();
 						break;
-
 					case 7:
 						lipCorners.toUpperBound();
 						break;
-
 					case 8:
 						lipCorners.toNeutral();
 						break;
-
 					case 9:
 						lipCorners.toLowerBound();
 						break;
-
 					case 10:
 						eyelids.toLowerBound(); // The LowerBound and UpperBound are switched for the eyelids due to servo orientation.
 						break;
-
 					case 11:
 						eyelids.toNeutral();
 						break;
-
 					case 12:
 						eyelids.toUpperBound();
 						break;
-
 					default:
 						System.out.println("That is not an available option");
 						break;
-
 				} // end of switch
-
 			} catch (InputMismatchException ex) {
-
 				RuppetControl.reader.nextLine();
 				fauChoice = -1;
-
 			}
-
 		} while (fauChoice != 20); 
 
 	} // end of manualFAUMode
@@ -553,12 +508,10 @@ public final class Ruppet {
 	 */
 
 	private final void runSteveScripts() {
-
 		System.out.println();
-		Connect.getSequencer().stop();
-		Connect.getSequencer().setMicrosecondPosition(0);
+		MidiConnection.getSequencer().stop();
+		MidiConnection.getSequencer().setMicrosecondPosition(0);
 		voice.givePresentation();
-
 	} // end of runSteveScript
 	
 	/**
@@ -568,35 +521,25 @@ public final class Ruppet {
 	 */
 
 	private final void mirrorMode() {
-
 		do {
-
 			switch(getCurrentEmotion()) {
-
 				case "NEUTRAL":
 					heart.feel(heart.getNeutral());
 					break;
-
 				case "HAPPY":
 					heart.feel(heart.getHappy());
 					break;
-
 				case "SAD":
 					heart.feel(heart.getSad());
 					break;
-
 				case "ANGRY":
 					heart.feel(heart.getAngry());
 					break;
-
 				default:
 					heart.feel(heart.getNeutral());
 					break;
-
 			} // end of switch
-
 		} while(hasFace()); // end of do while loop
-
 	} // end of mirrorMode
 	
 	/**
@@ -606,11 +549,9 @@ public final class Ruppet {
 	 */
 
 	private final void goToSleep() {
-
 		System.out.println("\nOkay, I was getting tired anyway.");
 		RuppetControl.pause();
 		System.exit(0);
-
 	} 
 	
 	/**
@@ -630,15 +571,13 @@ public final class Ruppet {
 		int prev_blink_time = 0;
 		int next_blink_time;
 		
-		for(int i = 0; i < 500; i++) {
-
+		for(int i = 0; i < 500; ++i) {
 			next_blink_time = RuppetControl.randInt(prev_blink_time, prev_blink_time + max_blink_wait);
 		
 			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
 				
 			prev_blink_time = next_blink_time + blink_length;
-
 		} 
 
 	} // end of fillBlinkTrack
@@ -658,25 +597,18 @@ public final class Ruppet {
 	private final class ReleaseSoul extends Thread {
 
 		public final void run() {
-
 			System.out.println();
-
 			RuppetControl.DeSoloAllTracks(tracks);
-			
 			RuppetControl.reader.close();
-
 			for (Part part : parts) {
-
 				if (part instanceof Movable)
 					( (Movable) part ).toNeutral();
 				else if (part instanceof Lights)
 					( (Lights) part ).off();
-				
 			}
-
-			Connect.closeConnections();
-
-		} // end of run
+			MidiConnection.closeUsbMidiDevice();
+			MidiConnection.closeSequencer();
+		}
 
 	} // end of ReleaseSoul
 

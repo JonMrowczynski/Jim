@@ -55,9 +55,7 @@ public final class Lights extends Part {
 	 */
 
 	public Lights(final List<Part> ruppetParts, final byte midiNote, final byte lowerBound, final byte upperBound) { 
-		
 		super(ruppetParts, (byte) 1, midiNote, lowerBound, upperBound); 
-
 		minBrightness = lowerBound;
 		maxBrightness = upperBound;
 		brightness = minBrightness;
@@ -75,7 +73,6 @@ public final class Lights extends Part {
 	 */
 	
 	public final void setBrightness(final byte newBrightness) {
-
 		if (validBrightness(newBrightness))
 			if (newBrightness >= minBrightness && newBrightness < maxBrightness) 
 				brightness = minBrightness;
@@ -142,8 +139,8 @@ public final class Lights extends Part {
 	 * @return A {@code String} representation of all of the fields of the {@code Light}
 	 */
 	 
+	@Override
 	public final String toString() {
-		
 		String lines = "For the Lights object: \n\n";
 		lines += "maxBrightness: " + maxBrightness + "\n";
 		lines += "minBrightness: " + minBrightness + "\n";
@@ -154,10 +151,8 @@ public final class Lights extends Part {
 		for (int i = numOfLines; i < numOfStates + numOfLines; ++i) 
 			lines += "Velocity at state " + (i - numOfLines) + ": " +
 					 RuppetControl.getVelocityVal(states[i - numOfLines][0]) + "\n";
-			
 		return lines;
-		
-	} // end of toString
+	}
 	
 	/**
 	 * Makes sure that the passed in brightness value is within a given range of values.

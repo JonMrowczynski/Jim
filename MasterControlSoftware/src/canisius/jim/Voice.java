@@ -1,18 +1,10 @@
 package canisius.jim;
-/*
-	Name: Voice.java	
-	Version 1.1.1
-	Author: Jon Mrowczunski
-	Last Date Modified: 8/11/2014
-
-*/
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import javax.sound.midi.ShortMessage;
@@ -23,10 +15,15 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-/* Allows a Ruppet to talk by reading in timing information from a text file and storing the 
-   timing information into a Track with the corresponding MIDI events and plays the
-   Track synced with a .wav audio file. The Voice class implements the use of the lower
-   jaw of the Ruppet to speak rendering it unavailable for emotional expressions */
+
+/**
+ * Allows a {@code Ruppet} to talk by reading the timing information from a text file and storing 
+ * the timing information into a {@code Track} with the corresponding MIDI events and plays the 
+ * {@code Track} synched with a .wav audio file. The {@code Voice} class implements the use of the
+ * lower jaw of the {@code Ruppet} to speak rendering it unavailable for emotional expressions.
+ * 
+ * @author Jon Mrowczynski
+ */
 
 public class Voice implements Runnable {
 
@@ -56,37 +53,27 @@ public class Voice implements Runnable {
 	   The method (RuppetControl.convergeTimes) helps to converge the motor off time closer 
 	   to the motor on time so that it makes the Ruppet's mouth movements seem less robotic */
 
-	private List<Integer> down = new ArrayList<Integer>();
-	private List<Integer> up = new ArrayList<Integer>();
-	private List<Integer> timeOpen = new ArrayList<Integer>();
-	private List<Integer> timeClose = new ArrayList<Integer>();
+	private ArrayList<Integer> down = new ArrayList<>();
+	private ArrayList<Integer> up = new ArrayList<>();
+	private ArrayList<Integer> timeOpen = new ArrayList<>();
+	private ArrayList<Integer> timeClose = new ArrayList<>();
 
 	/* Constructor that calls methods that reads in the lower jaw timing information, stores the 
 		timing information into the voice Track which is passed in as the only parameter 
 		and pre-loads an audio clip to speak later. */
 
 	public Voice (Ruppet ruppet, Track mouthTimings) {
-
 		this.ruppet = ruppet;
 		mouth = ruppet.getLowerJaw();
 		voiceTrack = mouthTimings;
 		readTimingLabels();
 		openAudioFile();
 		setupTimings();
-
-	} // end of Voice constructor
+	}
 	
-	public void run() {
+	public void run() { givePresentation();	}
 
-		givePresentation();
-
-	}
-
-	public void givePresentation() {
-
-		moveMouth();
-
-	}
+	public void givePresentation() { moveMouth(); }
 	
 	/* Reads an array of doubles from a text file, manipulates the timing values into ms
 	   instead of seconds and stores the times into Integer ArrayLists for later use in the 
@@ -95,63 +82,43 @@ public class Voice implements Runnable {
 	   floating point values. */
 
 	public void readTimingLabels() {
-
-		final int sec_to_ms_factor = 1000;
-		Scanner reader = null;
-
-		try {
-
-			RuppetControl.checkSaveFile(voiceSaveFile);
-
-		} catch(IOException ex) {ex.printStackTrace();}
-		
-		try {
-
-			reader = new Scanner(new FileReader(RuppetControl.getDataFile(voiceSaveFile, RuppetControl.saveFiles).getName()));
-
-		} catch (FileNotFoundException ex) {ex.printStackTrace();}
-			
-		while(reader.hasNext()) {
-
-			down.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor)); //read starting value
-			reader.nextDouble();
-			reader.nextLine();
-			up.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor));
-			reader.nextDouble();
-			reader.nextLine();
-
+		try { RuppetControl.checkSaveFile(voiceSaveFile); } 
+		catch(IOException ex) { ex.printStackTrace(); }
+		try (final Scanner reader = new Scanner(new FileReader(RuppetControl.getDataFile(voiceSaveFile, RuppetControl.saveFiles).getName()))) {
+			final int sec_to_ms_factor = 1000;
+			while(reader.hasNext()) {
+				down.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor)); //read starting value
+				reader.nextDouble();
+				reader.nextLine();
+				up.add( (int) Math.round(reader.nextDouble() * sec_to_ms_factor));
+				reader.nextDouble();
+				reader.nextLine();
+			}
 		}
+		catch (FileNotFoundException ex) { ex.printStackTrace(); }
 
 		/* These times are in milliseconds in order to make the MidiEvents properly */
 
-		for(int i = 0; i < down.size(); i++) {
-
+		for(int i = 0; i < down.size(); ++i) {
 			timeOpen.add(up.get(i) - down.get(i));
-
-			if(i + 1 < down.size()) {
-
+			if(i + 1 < down.size())
 				timeClose.add(down.get(i + 1) - up.get(i));
-			}
 		}
-
 		timeClose.add(2000);
-		( (ArrayList<Integer>) down).trimToSize();
-		( (ArrayList<Integer>) up).trimToSize();
-		( (ArrayList<Integer>) timeOpen).trimToSize();
-		( (ArrayList<Integer>) timeClose).trimToSize();
+		down.trimToSize();
+		up.trimToSize();
+		timeOpen.trimToSize();
+		timeClose.trimToSize();
 	}
 	
 	/* Uses the data stored in the ArrayLists to create MIDI Tracks with the corresponding	
 	   MIDI events. */
 
 	public void setupTimings() {
-
 		final int delay_end_of_seq = 10000;
 		final ShortMessage[] mouthDown = mouth.getLowerBoundState();
 		final ShortMessage[] mouthUp = mouth.getUpperBoundState();
-
-		for(int i = 0; i < timeClose.size(); i++) {
-
+		for(int i = 0; i < timeClose.size(); ++i) {
 			mouth.addStateToTrack(voiceTrack, mouthDown, down.get(i));
 			mouth.addStateToTrack(voiceTrack, mouthUp, up.get(i));	
 		}
@@ -167,76 +134,54 @@ public class Voice implements Runnable {
 	   file, but other audio files should work as well...*/
 
 	private void openAudioFile(){
-
+		try { RuppetControl.checkSaveFile(audioSaveFile); } 
+		catch(IOException ex) { ex.printStackTrace(); }
 		try {
-
-			RuppetControl.checkSaveFile(audioSaveFile);
-
-		} catch(IOException ex) {ex.printStackTrace();}
-		
-		try {
-
 			clip = AudioSystem.getClip();
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(RuppetControl.getDataFile(audioSaveFile, RuppetControl.saveFiles));
 			clip.open(inputStream);
-
-		} catch (LineUnavailableException ex) {ex.printStackTrace();}
-
-		  catch (IOException ex) {ex.printStackTrace();}
-
+		} catch (LineUnavailableException | IOException ex) { ex.printStackTrace(); }
 		  catch (UnsupportedAudioFileException ex) {
-
-				System.out.println("ERROR:");
-				System.out.println("\nFile: " + RuppetControl.getDataFile(audioSaveFile,
-					RuppetControl.saveFiles).getName()
-					+ " is not supported!");
-				System.out.println("Make sure that you are using a .wav file!");
-				RuppetControl.clearSaveFile(audioSaveFile);
-			}
-    } // end of openAudioFile
+			System.out.println("ERROR:");
+			System.out.println("\nFile: " + RuppetControl.getDataFile(audioSaveFile, RuppetControl.saveFiles).getName() + " is not supported!");
+			System.out.println("Make sure that you are using a .wav file!");
+			RuppetControl.clearSaveFile(audioSaveFile);
+		}
+    }
 	
 	/* This method plays the emotions and mouth movement Tracks allowing 
 	   the Ruppet to speak. */
 		//Rename this to give presentation since this seems to work more efficiently
 	// Make this method the runnable function.
 	private void moveMouth() {
-
 		final int us_to_ms_factor = 1000;
-
-		Connect.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getEmotionTrack()), true); 
-		Connect.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getVoiceTrack()), true);
-		
+		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getEmotionTrack()), true); 
+		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getVoiceTrack()), true);
 		clip.stop();
-		Connect.getSequencer().stop();
-		clip.setMicrosecondPosition(RuppetControl.BEGINNING);
-		Connect.getSequencer().setMicrosecondPosition(RuppetControl.BEGINNING);
+		MidiConnection.getSequencer().stop();
+		clip.setMicrosecondPosition(0);
+		MidiConnection.getSequencer().setMicrosecondPosition(0);
 		/*
 		clip.start();
 		Connect.getSequencer().start(); 
 		*/
 		( new Thread( new SyncVoiceWithScript(clip) ) ).start();
-		
 		RuppetControl.pause_ms( (int) (clip.getMicrosecondLength() / us_to_ms_factor));
-		
-		Connect.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getEmotionTrack()), false);
-		Connect.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getVoiceTrack()), false);
-
+		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getEmotionTrack()), false);
+		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getVoiceTrack()), false);
 	}
 
 	private class SyncVoiceWithScript extends Thread {
-
-		private  Clip syncClip;
-		
-		public SyncVoiceWithScript(Clip clip) {
-			syncClip = clip;
-		}
+		private final Clip syncClip;
+		public SyncVoiceWithScript(Clip clip) { syncClip = clip; }
 		
 		/* Start both the clip and the sequence of MIDI notes */
 
 		public void run() {
 			syncClip.start();
-			Connect.getSequencer().start(); 
+			MidiConnection.getSequencer().start(); 
 		}
 
-	} // end of class SyncVoiceWithScript
+	}
+	
 } // end of Voice class
