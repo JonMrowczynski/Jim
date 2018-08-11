@@ -1,12 +1,12 @@
 /*
- * File Name       : ServoController.h
- * Version         : 1.0
- * Author          : Jon Mrowczynski
- * Target          : PIC16F628A
- * Compiler        : XC8 v1.45 Free version
- * IDE             : MPLAB X IDE v4.15
- * Programmer      : PICKit3
- * Last Updated    : 3/3/2018
+ * File Name    : ServoController.h
+ * Version      : 1.0
+ * Author       : Jon Mrowczynski
+ * Target       : PIC16F628A
+ * Compiler     : XC8 v2.0 Free version
+ * IDE          : MPLAB X IDE v5.0
+ * Programmer   : PICkit3
+ * Last Updated : 8/10/2018
  */
 
 #ifndef _SERVOCONTROLLER_H_

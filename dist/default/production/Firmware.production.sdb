@@ -1,0 +1,156 @@
+[p LITE_MODE AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F24K40 ]
+[d frameptr 4065 ]
+"98 C:\Users\sleep\Desktop\ProjectJim\Firmware/ServoController.h
+[v _initServos initServos `T(v  1 s 1 initServos ]
+"44 C:\Users\sleep\Desktop\ProjectJim\Firmware/tmr2.h
+[v _initTMR2 initTMR2 `T(v  1 s 1 initTMR2 ]
+"52 C:\Users\sleep\Desktop\ProjectJim\Firmware/usart.h
+[v _initUSART initUSART `T(v  1 s 1 initUSART ]
+"65
+[v _clearOverrunError clearOverrunError `T(v  1 s 1 clearOverrunError ]
+"83
+[v _clearFramingError clearFramingError `T(v  1 s 1 clearFramingError ]
+"4 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"10 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\ServoController.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+"111
+[v _main main `(v  1 e 1 0 ]
+"15580 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
+[v _RCREG RCREG `VEuc  1 e 1 @3993 ]
+"15695
+[v _SPBRG SPBRG `VEuc  1 e 1 @3995 ]
+"19689
+[v _PR2 PR2 `VEuc  1 e 1 @4028 ]
+"19722
+[v _T2CON T2CON `VEuc  1 e 1 @4029 ]
+"25740
+[v _BRGH BRGH `VEb  1 e 0 @31986 ]
+"26199
+[v _CREN CREN `VEb  1 e 0 @31980 ]
+"26610
+[v _FERR FERR `VEb  1 e 0 @31978 ]
+"26649
+[v _GIE GIE `VEb  1 e 0 @32663 ]
+"27804
+[v _OERR OERR `VEb  1 e 0 @31977 ]
+"27876
+[v _PEIE PEIE `VEb  1 e 0 @32662 ]
+"28074
+[v _RA0 RA0 `VEb  1 e 0 @31848 ]
+"28092
+[v _RA1 RA1 `VEb  1 e 0 @31849 ]
+"28110
+[v _RA2 RA2 `VEb  1 e 0 @31850 ]
+"28128
+[v _RA3 RA3 `VEb  1 e 0 @31851 ]
+"28218
+[v _RB0 RB0 `VEb  1 e 0 @31856 ]
+"28308
+[v _RB5 RB5 `VEb  1 e 0 @31861 ]
+"28536
+[v _RCIF RCIF `VEb  1 e 0 @30317 ]
+"29031
+[v _SPEN SPEN `VEb  1 e 0 @31983 ]
+"29967
+[v _TMR2IE TMR2IE `VEb  1 e 0 @30257 ]
+"29970
+[v _TMR2IF TMR2IF `VEb  1 e 0 @30321 ]
+"29979
+[v _TMR2ON TMR2ON `VEb  1 e 0 @32239 ]
+"30255
+[v _TRISA0 TRISA0 `VEb  1 e 0 @31808 ]
+"30258
+[v _TRISA1 TRISA1 `VEb  1 e 0 @31809 ]
+"30261
+[v _TRISA2 TRISA2 `VEb  1 e 0 @31810 ]
+"30264
+[v _TRISA3 TRISA3 `VEb  1 e 0 @31811 ]
+"30279
+[v _TRISB0 TRISB0 `VEb  1 e 0 @31816 ]
+"30282
+[v _TRISB1 TRISB1 `VEb  1 e 0 @31817 ]
+"30288
+[v _TRISB3 TRISB3 `VEb  1 e 0 @31819 ]
+"39 C:\Users\sleep\Desktop\ProjectJim\Firmware\ServoController.c
+[v _partMidiNote partMidiNote `VEuc  1 e 1 0 ]
+"40
+[v _velocity velocity `VEuc  1 e 1 0 ]
+"41
+[v _receiveCounter receiveCounter `VEuc  1 e 1 0 ]
+"42
+[v _sawtoothCounter sawtoothCounter `VEuc  1 e 1 0 ]
+"50
+[v _eyebrowSawtoothThreshold eyebrowSawtoothThreshold `VEuc  1 e 1 0 ]
+"51
+[v _leftLipCornerSawtoothThreshold leftLipCornerSawtoothThreshold `VEuc  1 e 1 0 ]
+"52
+[v _rightLipCornerSawtoothThreshold rightLipCornerSawtoothThreshold `VEuc  1 e 1 0 ]
+"53
+[v _lowerJawSawtoothThreshold lowerJawSawtoothThreshold `VEuc  1 e 1 0 ]
+"54
+[v _eyelidsSawtoothThreshold eyelidsSawtoothThreshold `VEuc  1 e 1 0 ]
+"111
+[v _main main `(v  1 e 1 0 ]
+{
+"133
+} 0
+"52 C:\Users\sleep\Desktop\ProjectJim\Firmware/usart.h
+[v _initUSART initUSART `T(v  1 s 1 initUSART ]
+{
+"58
+} 0
+"44 C:\Users\sleep\Desktop\ProjectJim\Firmware/tmr2.h
+[v _initTMR2 initTMR2 `T(v  1 s 1 initTMR2 ]
+{
+"50
+} 0
+"98 C:\Users\sleep\Desktop\ProjectJim\Firmware/ServoController.h
+[v _initServos initServos `T(v  1 s 1 initServos ]
+{
+"105
+} 0
+"65 C:\Users\sleep\Desktop\ProjectJim\Firmware/usart.h
+[v _clearOverrunError clearOverrunError `T(v  1 s 1 clearOverrunError ]
+{
+"66
+[v clearOverrunError@temp temp `uc  1 s 1 temp ]
+"73
+} 0
+"83
+[v _clearFramingError clearFramingError `T(v  1 s 1 clearFramingError ]
+{
+"84
+[v clearFramingError@temp temp `uc  1 s 1 temp ]
+"91
+} 0
+"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\ServoController.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+{
+"109
+} 0

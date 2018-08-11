@@ -3,10 +3,10 @@
  * Version      : 1.0
  * Author       : Jon Mrowczynski 
  * Target       : PIC16F628A
- * Compiler     : XC8 v1.45 Free version
- * IDE          : MPLAB X IDE v4.15
- * Programmer   : PICKit3
- * Last Updated : 3/3/2018
+ * Compiler     : XC8 v2.0 Free version
+ * IDE          : MPLAB X IDE v5.0
+ * Programmer   : PICkit3
+ * Last Updated : 8/10/2018
  *
  * In order to get the necessary 0.1ms TIMER2 interrupt period resolution 
  * (t_interrupt), the equation below is used to determine the value for the 

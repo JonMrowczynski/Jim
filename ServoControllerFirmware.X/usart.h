@@ -3,10 +3,10 @@
  * Version      : 1.0
  * Author       : Jon Mrowczynski 
  * Target       : PIC16F628A
- * Compiler     : XC8 v1.45 Free version
- * IDE          : MPLAB X IDE v4.15
- * Programmer   : PICKit3
- * Last Updated : 3/3/2018
+ * Compiler     : XC8 v2.0 Free version
+ * IDE          : MPLAB X IDE v5.0
+ * Programmer   : PICkit3
+ * Last Updated : 8/10/2018
  * 
  * We need a baud rate (BRATE) of 31250 to work with MIDI. In order to calculate
  * the value that we need to set the SPBRG register to in order to get a baud 

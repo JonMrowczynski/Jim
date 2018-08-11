@@ -1,12 +1,12 @@
 /*
- * File Name       : ServoController.c
- * Version         : 1.0
- * Author          : Jon Mrowczynski
- * Target          : PIC16F628A
- * Compiler        : XC8 v1.45 Free version
- * IDE             : MPLAB X IDE v4.15
- * Programmer      : PICKit3
- * Last Updated    : 3/3/2018
+ * File Name    : ServoController.c
+ * Version      : 1.0
+ * Author       : Jon Mrowczynski
+ * Target       : PIC16F628A
+ * Compiler     : XC8 v2.0 Free version
+ * IDE          : MPLAB X IDE v5.0
+ * Programmer   : PICkit3
+ * Last Updated : 8/10/2018
  * 
  * This firmware allows a PIC16F628A microcontroller to control up to six 
  * servo motors and two LEDs in parallel. TIMER2 match interrupts are used to 
@@ -54,7 +54,7 @@ volatile unsigned char lowerJawSawtoothThreshold        = LOWER_JAW_NEUTRAL_POSI
 volatile unsigned char eyelidsSawtoothThreshold         = EYELIDS_NEUTRAL_POSITION;
 //volatile unsigned char servo6SawtoothThreshold          = NEUTRAL_POSITION;
 
-void interrupt isr(void) {
+void __interrupt() isr(void) {
     if (TMR2IF) {
         ++sawtoothCounter;
         if (sawtoothCounter >= MIN_SAWTOOTH_THRESHOLD) {
@@ -116,8 +116,8 @@ void main(void) {
     initUSART();
     initTMR2();
     
-    PEIE    = true;  // Enable peripheral interrupts
-    GIE     = true;  // Enable global interrupts
+    PEIE    = true; // Enable peripheral interrupts
+    ei();           // Enable global interrupts
 
     // In case the USART experiences an overrun error and/or a framing error, 
     // fix the encountered error. Otherwise, just wait to perform the interrupt 

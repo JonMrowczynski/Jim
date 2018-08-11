@@ -1,13 +1,14 @@
-Microchip MPLAB XC8 Compiler V1.45 ()
+Microchip MPLAB XC8 Compiler V2.00 ()
 
 Linker command line:
 
---edf=C:\Program Files (x86)\Microchip\xc8\v1.45\dat\en_msgs.txt -cs \
-  -h+dist/default/production\ServoControllerFirmware.X.production.sym \
+-W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v2.00\pic\dat\en_msgs.txt \
+  -cs -h+dist/default/production\ServoControllerFirmware.X.production.sym \
   --cmf=dist/default/production\ServoControllerFirmware.X.production.cmf -z \
-  -Q16F628A -oC:\Users\SLEEPW~1\AppData\Local\Temp\s7qk.2 \
+  -Q16F628A -oC:\Users\sleep\AppData\Local\Temp\sdck.2 \
+  --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/ServoControllerFirmware.X.production.map -E1 \
-  -ver=XC8 -ASTACK=0A0h-0efh -pstack=STACK -ACODE=00h-07FFh \
+  -ver=XC8 --acfsm=1493 -ASTACK=0A0h-0efh -pstack=STACK -ACODE=00h-07FFh \
   -ASTRCODE=00h-07FFh -ASTRING=00h-0FFhx8 -ACONST=00h-0FFhx8 \
   -AENTRY=00h-0FFhx8 -ACOMMON=070h-07Fh -ABANK0=020h-06Fh -ABANK1=0A0h-0EFh \
   -ABANK2=0120h-014Fh -ARAM=020h-06Fh,0A0h-0EFh,0120h-014Fh \
@@ -17,8 +18,8 @@ Linker command line:
   -pfunctab=ENTRY -ACONFIG=02007h-02007h -pconfig=CONFIG -DCONFIG=2 \
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-07Fh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
-  -DENTRY=2 -k C:\Users\SLEEPW~1\AppData\Local\Temp\s7qk.obj \
-  dist/default/production\ServoControllerFirmware.X.production.obj 
+  -DENTRY=2 -k C:\Users\sleep\AppData\Local\Temp\sdck.o \
+  dist/default/production\ServoControllerFirmware.X.production.o 
 
 Object code version is 3.11
 
@@ -27,46 +28,46 @@ Machine type is 16F628A
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\SLEEPW~1\AppData\Local\Temp\s7qk.obj
-                end_init                             10       10        1        8       0
+C:\Users\sleep\AppData\Local\Temp\sdck.o
+                end_init                              C        C        1        8       0
                 reset_vec                             0        0        1        0       0
                 config                             2007     2007        1     400E       0
-dist/default/production\ServoControllerFirmware.X.production.obj
-                cinit                                11       11       12        8       0
-                intentry                              4        4        C        8       0
-                text6                                23       23       9C        8       0
-                text5                                EE       EE        F        8       0
-                text4                                DF       DF        F        8       0
-                text3                               108      108        9        8       0
-                text2                                CF       CF       10        8       0
-                text1                                FD       FD        B        8       0
-                maintext                             BF       BF       10        8       0
+dist/default/production\ServoControllerFirmware.X.production.o
+                cinit                                 D        D       12        8       0
+                intentry                              4        4        8        8       0
+                text6                                1F       1F       AC        8       0
+                text5                                FA       FA        F        8       0
+                text4                                EB       EB        F        8       0
+                text3                               114      114        9        8       0
+                text2                                DB       DB       10        8       0
+                text1                               109      109        B        8       0
+                maintext                             CB       CB       10        8       0
                 cstackBANK0                          23       23        1       20       1
                 cstackCOMMON                         70       70        5       70       1
                 dataBANK0                            22       22        1       20       1
                 bssBANK0                             20       20        2       20       1
                 dataCOMMON                           79       79        4       70       1
                 bssCOMMON                            75       75        4       70       1
-                idataBANK0                          115      115        1        8       0
-                idataCOMMON                         111      111        4        8       0
+                idataBANK0                          121      121        1        8       0
+                idataCOMMON                         11D      11D        4        8       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
 
         CLASS   CODE           
-                end_init                             10       10        1         0
-                cinit                                11       11       12         0
-                intentry                              4        4        C         0
+                end_init                              C        C        1         0
+                cinit                                 D        D       12         0
+                intentry                              4        4        8         0
                 reset_vec                             0        0        1         0
-                text6                                23       23       9C         0
-                text5                                EE       EE        F         0
-                text4                                DF       DF        F         0
-                text3                               108      108        9         0
-                text2                                CF       CF       10         0
-                text1                                FD       FD        B         0
-                maintext                             BF       BF       10         0
-                idataBANK0                          115      115        1         0
-                idataCOMMON                         111      111        4         0
+                text6                                1F       1F       AC         0
+                text5                                FA       FA        F         0
+                text4                                EB       EB        F         0
+                text3                               114      114        9         0
+                text2                                DB       DB       10         0
+                text1                               109      109        B         0
+                maintext                             CB       CB       10         0
+                idataBANK0                          121      121        1         0
+                idataCOMMON                         11D      11D        4         0
 
         CLASS   STRCODE        
 
@@ -117,7 +118,7 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000001  000001         0       0  CODE        2
-                intentry                       000004  000112  000116         8       0  CODE        2
+                intentry                       000004  00011E  000122         8       0  CODE        2
                 bssBANK0                       000020  000004  000024        20       1  BANK0       1
                 cstackCOMMON                   000070  00000D  00007D        70       1  COMMON      1
                 config                         002007  000001  002008      400E       0  CONFIG      2
@@ -130,13 +131,13 @@ UNUSED ADDRESS RANGES
         BANK1            00A0-00EF             50           1
         BANK2            0120-014F             30           1
         CODE             0001-0003              3           2
-                         0116-07FF            6EA
+                         0122-07FF            6DE
         COMMON           007D-007D              1           1
         CONST            0001-0003              3           2
-                         0116-07FF            100
+                         0122-07FF            100
         EEDATA           2100-217F             80           2
         ENTRY            0001-0003              3           2
-                         0116-07FF            100
+                         0122-07FF            100
         IDLOC            2000-2003              4           2
         RAM              0024-006F             4C           1
                          00A0-00EF             50
@@ -147,16 +148,16 @@ UNUSED ADDRESS RANGES
         SFR3             0180-01EF             70           1
         STACK            00A0-00EF             50           1
         STRCODE          0001-0003              3           2
-                         0116-07FF            6EA
+                         0122-07FF            6DE
         STRING           0001-0003              3           2
-                         0116-07FF            100
+                         0122-07FF            100
 
                                   Symbol Table
 
 _BRGH                            (abs)        04C2
 _CREN                            (abs)        00C4
 _FERR                            (abs)        00C2
-_GIE                             (abs)        005F
+_INTCONbits                      (abs)        000B
 _OERR                            (abs)        00C1
 _PEIE                            (abs)        005E
 _PR2                             (abs)        0092
@@ -196,7 +197,7 @@ __Hbank2                         bank2        0000
 __Hbank3                         bank3        0000
 __HbssBANK0                      bssBANK0     0000
 __HbssCOMMON                     bssCOMMON    0000
-__Hcinit                         cinit        0023
+__Hcinit                         cinit        001F
 __Hclrtext                       clrtext      0000
 __Hcode                          code         0000
 __Hcommon                        common       0000
@@ -206,13 +207,13 @@ __HcstackCOMMON                  cstackCOMMON 0000
 __HdataBANK0                     dataBANK0    0000
 __HdataCOMMON                    dataCOMMON   0000
 __Heeprom_data                   eeprom_data  0000
-__Hend_init                      end_init     0011
+__Hend_init                      end_init     000D
 __Hfunctab                       functab      0000
 __HidataBANK0                    idataBANK0   0000
 __HidataCOMMON                   idataCOMMON  0000
 __Hidloc                         idloc        0000
-__Hinit                          init         0010
-__Hintentry                      intentry     0010
+__Hinit                          init         000C
+__Hintentry                      intentry     000C
 __Hmaintext                      maintext     0000
 __Hpowerup                       powerup      0000
 __Hram                           ram          0000
@@ -235,7 +236,7 @@ __Lbank2                         bank2        0000
 __Lbank3                         bank3        0000
 __LbssBANK0                      bssBANK0     0000
 __LbssCOMMON                     bssCOMMON    0000
-__Lcinit                         cinit        0011
+__Lcinit                         cinit        000D
 __Lclrtext                       clrtext      0000
 __Lcode                          code         0000
 __Lcommon                        common       0000
@@ -245,12 +246,12 @@ __LcstackCOMMON                  cstackCOMMON 0000
 __LdataBANK0                     dataBANK0    0000
 __LdataCOMMON                    dataCOMMON   0000
 __Leeprom_data                   eeprom_data  0000
-__Lend_init                      end_init     0010
+__Lend_init                      end_init     000C
 __Lfunctab                       functab      0000
 __LidataBANK0                    idataBANK0   0000
 __LidataCOMMON                   idataCOMMON  0000
 __Lidloc                         idloc        0000
-__Linit                          init         0010
+__Linit                          init         000C
 __Lintentry                      intentry     0004
 __Lmaintext                      maintext     0000
 __Lpowerup                       powerup      0000
@@ -274,31 +275,31 @@ __S3                             (abs)        0000
 ___int_sp                        stack        0000
 ___latbits                       (abs)        0000
 ___sp                            stack        0000
-__end_of__initialization         cinit        0021
-__end_of_clearFramingError       text5        00FD
-__end_of_clearOverrunError       text4        00EE
-__end_of_initServos              text3        0111
-__end_of_initTMR2                text2        00DF
-__end_of_initUSART               text1        0108
-__end_of_isr                     text6        00BF
-__end_of_main                    maintext     00CF
-__initialization                 cinit        0011
+__end_of__initialization         cinit        001D
+__end_of_clearFramingError       text5        0109
+__end_of_clearOverrunError       text4        00FA
+__end_of_initServos              text3        011D
+__end_of_initTMR2                text2        00EB
+__end_of_initUSART               text1        0114
+__end_of_isr                     text6        00CB
+__end_of_main                    maintext     00DB
+__initialization                 cinit        000D
 __pbssBANK0                      bssBANK0     0020
 __pbssCOMMON                     bssCOMMON    0075
 __pcstackBANK0                   cstackBANK0  0023
 __pcstackCOMMON                  cstackCOMMON 0070
 __pdataBANK0                     dataBANK0    0022
 __pdataCOMMON                    dataCOMMON   0079
-__pidataBANK0                    idataBANK0   0115
-__pidataCOMMON                   idataCOMMON  0111
+__pidataBANK0                    idataBANK0   0121
+__pidataCOMMON                   idataCOMMON  011D
 __pintentry                      intentry     0004
-__pmaintext                      maintext     00BF
-__ptext1                         text1        00FD
-__ptext2                         text2        00CF
-__ptext3                         text3        0108
-__ptext4                         text4        00DF
-__ptext5                         text5        00EE
-__ptext6                         text6        0023
+__pmaintext                      maintext     00CB
+__ptext1                         text1        0109
+__ptext2                         text2        00DB
+__ptext3                         text3        0114
+__ptext4                         text4        00EB
+__ptext5                         text5        00FA
+__ptext6                         text6        001F
 __size_of_clearFramingError      (abs)        0000
 __size_of_clearOverrunError      (abs)        0000
 __size_of_initServos             (abs)        0000
@@ -306,17 +307,17 @@ __size_of_initTMR2               (abs)        0000
 __size_of_initUSART              (abs)        0000
 __size_of_isr                    (abs)        0000
 __size_of_main                   (abs)        0000
-_clearFramingError               text5        00EE
-_clearOverrunError               text4        00DF
+_clearFramingError               text5        00FA
+_clearOverrunError               text4        00EB
 _eyebrowSawtoothThreshold        dataCOMMON   007C
 _eyelidsSawtoothThreshold        dataBANK0    0022
-_initServos                      text3        0108
-_initTMR2                        text2        00CF
-_initUSART                       text1        00FD
-_isr                             text6        0023
+_initServos                      text3        0114
+_initTMR2                        text2        00DB
+_initUSART                       text1        0109
+_isr                             text6        001F
 _leftLipCornerSawtoothThreshold  dataCOMMON   007B
 _lowerJawSawtoothThreshold       dataCOMMON   0079
-_main                            maintext     00BF
+_main                            maintext     00CB
 _partMidiNote                    bssCOMMON    0078
 _receiveCounter                  bssCOMMON    0076
 _rightLipCornerSawtoothThreshold dataCOMMON   007A
@@ -325,7 +326,7 @@ _velocity                        bssCOMMON    0077
 btemp                            (abs)        007E
 clearFramingError@temp           bssBANK0     0020
 clearOverrunError@temp           bssBANK0     0021
-end_of_initialization            cinit        0021
+end_of_initialization            cinit        001D
 interrupt_function               intentry     0004
 intlevel0                        functab      0000
 intlevel1                        functab      0000
@@ -337,8 +338,8 @@ reset_vec                        reset_vec    0000
 saved_w                          (abs)        007E
 stackhi                          (abs)        0000
 stacklo                          (abs)        0000
-start                            init         0010
-start_initialization             cinit        0011
+start                            init         000C
+start_initialization             cinit        000D
 wtemp0                           (abs)        007E
 
 
@@ -379,7 +380,7 @@ Total ram usage:        0 bytes
 
  *************** function _initUSART *****************
  Defined at:
-		line 52 in file "usart.h"
+		line 52 in file "./usart.h"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -409,7 +410,7 @@ Total ram usage:        0 bytes
 
  *************** function _initTMR2 *****************
  Defined at:
-		line 44 in file "tmr2.h"
+		line 44 in file "./tmr2.h"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -439,7 +440,7 @@ Total ram usage:        0 bytes
 
  *************** function _initServos *****************
  Defined at:
-		line 98 in file "ServoController.h"
+		line 98 in file "./ServoController.h"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -469,7 +470,7 @@ Total ram usage:        0 bytes
 
  *************** function _clearOverrunError *****************
  Defined at:
-		line 65 in file "usart.h"
+		line 65 in file "./usart.h"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -499,7 +500,7 @@ Total ram usage:        1 bytes
 
  *************** function _clearFramingError *****************
  Defined at:
-		line 83 in file "usart.h"
+		line 83 in file "./usart.h"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -561,30 +562,30 @@ MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 ServoController.c
-		_main          		CODE           	00BF	0000	17
-		_isr           		CODE           	0023	0000	157
+		_main          		CODE           	00CB	0000	17
+		_isr           		CODE           	001F	0000	173
 
-ServoController.c estimated size: 174
-
-ServoController.h
-		_initServos    		CODE           	0108	0000	10
-
-ServoController.h estimated size: 10
-
-usart.h
-		_clearOverrunError		CODE           	00DF	0000	16
-		_clearFramingError		CODE           	00EE	0000	16
-		_initUSART     		CODE           	00FD	0000	12
-
-usart.h estimated size: 44
-
-tmr2.h
-		_initTMR2      		CODE           	00CF	0000	17
-
-tmr2.h estimated size: 17
+ServoController.c estimated size: 190
 
 shared
-		__initialization		CODE           	0011	0000	17
+		__initialization		CODE           	000D	0000	17
 
 shared estimated size: 17
+
+./ServoController.h
+		_initServos    		CODE           	0114	0000	10
+
+./ServoController.h estimated size: 10
+
+./tmr2.h
+		_initTMR2      		CODE           	00DB	0000	17
+
+./tmr2.h estimated size: 17
+
+./usart.h
+		_clearOverrunError		CODE           	00EB	0000	16
+		_clearFramingError		CODE           	00FA	0000	16
+		_initUSART     		CODE           	0109	0000	12
+
+./usart.h estimated size: 44
 
