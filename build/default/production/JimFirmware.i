@@ -1,4 +1,4 @@
-# 1 "ServoController.c"
+# 1 "JimFirmware.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "ServoController.c" 2
-# 32 "ServoController.c"
+# 1 "JimFirmware.c" 2
+# 32 "JimFirmware.c"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -15048,9 +15048,9 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 32 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 33 "ServoController.c" 2
+# 33 "JimFirmware.c" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c99\\stdbool.h" 1 3
-# 34 "ServoController.c" 2
+# 34 "JimFirmware.c" 2
 # 1 "./configuration.h" 1
 # 19 "./configuration.h"
 #pragma config FCMEN = ON
@@ -15099,7 +15099,7 @@ extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 #pragma config EBTRB = ON
 #pragma config EBTR1 = ON
 #pragma config EBTR0 = ON
-# 35 "ServoController.c" 2
+# 35 "JimFirmware.c" 2
 # 1 "./tmr2.h" 1
 # 37 "./tmr2.h"
 # 1 "./pins.h" 1
@@ -15118,7 +15118,7 @@ static __attribute__((inline)) void initTMR2(void) {
     TMR2IE = 1;
     TMR2ON = 1;
 }
-# 36 "ServoController.c" 2
+# 36 "JimFirmware.c" 2
 # 1 "./usart.h" 1
 # 52 "./usart.h"
 static __attribute__((inline)) void initUSART() {
@@ -15153,7 +15153,7 @@ static __attribute__((inline)) void clearFramingError() {
         SPEN = 1;
     } while (FERR);
 }
-# 37 "ServoController.c" 2
+# 37 "JimFirmware.c" 2
 # 1 "./ServoController.h" 1
 # 56 "./ServoController.h"
 extern volatile unsigned char partMidiNote;
@@ -15199,7 +15199,7 @@ static __attribute__((inline)) void initServos(void) {
     TRISB0 = 0;
     TRISB3 = 0;
 }
-# 38 "ServoController.c" 2
+# 38 "JimFirmware.c" 2
 
 volatile unsigned char partMidiNote = 0;
 volatile unsigned char velocity = 0;

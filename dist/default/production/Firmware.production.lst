@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V2.00 build -1524193055 
-                                                                                               Sat Aug 11 02:36:18 2018
+                                                                                               Tue Aug 14 15:25:03 2018
 
 Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 20180527130849
      1  0000                     
@@ -1027,7 +1027,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    933                           psect	idataCOMRAM,class=CODE,space=0,delta=1,noexec
    934                           global __pidataCOMRAM
    935                           __pidataCOMRAM:
-   936  0002F2                     	file	"ServoController.c"
+   936  0002F2                     	file	"JimFirmware.c"
    937                           	line	54
    938                           
    939                           ;initializer for _eyelidsSawtoothThreshold
@@ -1173,7 +1173,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1079                           __CFG_EBTR1$ON equ 0x0
   1080  0000                     global __CFG_EBTRB$ON
   1081                           __CFG_EBTRB$ON equ 0x0
-  1082  0000                     	file	"C:\Users\sleep\AppData\Local\Temp\si1o."
+  1082  0000                     	file	"C:\Users\sleep\AppData\Local\Temp\see8."
   1083                           	line	#
   1084                           psect	cinit,class=CODE,delta=1,reloc=2
   1085                           global __pcinit
@@ -1205,36 +1205,36 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1111  000006                     psect	dataCOMRAM,class=COMRAM,space=1,noexec
   1112                           global __pdataCOMRAM
   1113                           __pdataCOMRAM:
-  1114  000007                     	file	"ServoController.c"
+  1114  000007                     	file	"JimFirmware.c"
   1115                           	line	54
   1116                           	global	_eyelidsSawtoothThreshold
   1117                           _eyelidsSawtoothThreshold:
   1118  000007                            ds      1
   1119  000007                     psect	dataCOMRAM
-  1120                           	file	"ServoController.c"
+  1120                           	file	"JimFirmware.c"
   1121                           	line	53
   1122                           	global	_lowerJawSawtoothThreshold
   1123                           _lowerJawSawtoothThreshold:
   1124  000008                            ds      1
   1125  000008                     psect	dataCOMRAM
-  1126                           	file	"ServoController.c"
+  1126                           	file	"JimFirmware.c"
   1127                           	line	52
   1128                           	global	_rightLipCornerSawtoothThreshold
   1129                           _rightLipCornerSawtoothThreshold:
   1130  000009                            ds      1
   1131  000009                     psect	dataCOMRAM
-  1132                           	file	"ServoController.c"
+  1132                           	file	"JimFirmware.c"
   1133                           	line	51
   1134                           	global	_leftLipCornerSawtoothThreshold
   1135                           _leftLipCornerSawtoothThreshold:
   1136  00000A                            ds      1
   1137  00000A                     psect	dataCOMRAM
-  1138                           	file	"ServoController.c"
+  1138                           	file	"JimFirmware.c"
   1139                           	line	50
   1140                           	global	_eyebrowSawtoothThreshold
   1141                           _eyebrowSawtoothThreshold:
   1142  00000B                            ds      1
-  1143  00000B                     	file	"C:\Users\sleep\AppData\Local\Temp\si1o."
+  1143  00000B                     	file	"C:\Users\sleep\AppData\Local\Temp\see8."
   1144                           	line	#
   1145                           psect	cinit
   1146                           ; Initialize objects allocated to COMRAM (5 bytes)
@@ -1439,7 +1439,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1345                           
   1346 ;; *************** function _main *****************
   1347 ;; Defined at:
-  1348 ;;		line 111 in file "ServoController.c"
+  1348 ;;		line 111 in file "JimFirmware.c"
   1349 ;; Parameters:    Size  Location     Type
   1350 ;;		None
   1351 ;; Auto vars:     Size  Location     Type
@@ -1470,12 +1470,12 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1376 ;; This function uses a non-reentrant model
   1377 ;;
   1378                           psect	text0,class=CODE,space=0,reloc=2,group=0
-  1379                           	file	"ServoController.c"
+  1379                           	file	"JimFirmware.c"
   1380                           	line	111
   1381                           global __ptext0
   1382                           __ptext0:
   1383  0001FE                     psect	text0
-  1384                           	file	"ServoController.c"
+  1384                           	file	"JimFirmware.c"
   1385                           	line	111
   1386                           	global	__size_of_main
   1387                           	__size_of_main	equ	__end_of_main-_main
@@ -1486,37 +1486,37 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1392                           	line	115
   1393                           	
   1394                           l911:
-  1395  0001FE                     ;ServoController.c: 115:     initServos();
+  1395  0001FE                     ;JimFirmware.c: 115:     initServos();
   1396                           	call	_initServos	;wreg free
   1397  0001FE  EC72  F001         	line	116
   1398                           	
   1399                           l913:
-  1400  000202                     ;ServoController.c: 116:     initUSART();
+  1400  000202                     ;JimFirmware.c: 116:     initUSART();
   1401                           	call	_initUSART	;wreg free
   1402  000202  EC6B  F001         	line	117
   1403                           	
   1404                           l915:
-  1405  000206                     ;ServoController.c: 117:     initTMR2();
+  1405  000206                     ;JimFirmware.c: 117:     initTMR2();
   1406                           	call	_initTMR2	;wreg free
   1407  000206  EC62  F001         	line	119
   1408                           	
   1409                           l917:
-  1410  00020A                     ;ServoController.c: 119:     PEIE = 1;
+  1410  00020A                     ;JimFirmware.c: 119:     PEIE = 1;
   1411                           	bsf	c:(32662/8),(32662)&7	;volatile
   1412  00020A  8CF2               	line	120
   1413                           	
   1414                           l919:
-  1415  00020C                     ;ServoController.c: 120:     GIE = 1;
+  1415  00020C                     ;JimFirmware.c: 120:     GIE = 1;
   1416                           	bsf	c:(32663/8),(32663)&7	;volatile
   1417  00020C  8EF2               	goto	l921
   1418  00020E  EF09  F001         	line	126
-  1419                           ;ServoController.c: 126:     while(1) {
+  1419                           ;JimFirmware.c: 126:     while(1) {
   1420                           	
   1421                           l132:
   1422  000212                     	line	127
   1423                           	
   1424                           l921:
-  1425  000212                     ;ServoController.c: 127:         if (OERR)
+  1425  000212                     ;JimFirmware.c: 127:         if (OERR)
   1426                           	btfss	c:(31977/8),(31977)&7	;volatile
   1427  000212  A29D               	goto	u151
   1428  000214  EF0E  F001         	goto	u150
@@ -1526,7 +1526,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1432  000220                     	line	128
   1433                           	
   1434                           l923:
-  1435  000220                     ;ServoController.c: 128:             clearOverrunError();
+  1435  000220                     ;JimFirmware.c: 128:             clearOverrunError();
   1436                           	call	_clearOverrunError	;wreg free
   1437  000220  EC42  F001         	goto	l925
   1438  000224  EF14  F001         	
@@ -1534,7 +1534,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1440  000228                     	line	129
   1441                           	
   1442                           l925:
-  1443  000228                     ;ServoController.c: 129:         if(FERR)
+  1443  000228                     ;JimFirmware.c: 129:         if(FERR)
   1444                           	btfss	c:(31978/8),(31978)&7	;volatile
   1445  000228  A49D               	goto	u161
   1446  00022A  EF19  F001         	goto	u160
@@ -1544,14 +1544,14 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1450  000236                     	line	130
   1451                           	
   1452                           l927:
-  1453  000236                     ;ServoController.c: 130:             clearFramingError();
+  1453  000236                     ;JimFirmware.c: 130:             clearFramingError();
   1454                           	call	_clearFramingError	;wreg free
   1455  000236  EC52  F001         	goto	l921
   1456  00023A  EF09  F001         	
   1457                           l134:
   1458  00023E                     	goto	l921
   1459  00023E  EF09  F001         	line	131
-  1460                           ;ServoController.c: 131:     }
+  1460                           ;JimFirmware.c: 131:     }
   1461                           	
   1462                           l135:
   1463  000242                     	goto	l921
@@ -1964,7 +1964,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1870                           
   1871 ;; *************** function _isr *****************
   1872 ;; Defined at:
-  1873 ;;		line 57 in file "ServoController.c"
+  1873 ;;		line 57 in file "JimFirmware.c"
   1874 ;; Parameters:    Size  Location     Type
   1875 ;;		None
   1876 ;; Auto vars:     Size  Location     Type
@@ -1994,7 +1994,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1900                           global __pintcode
   1901                           __pintcode:
   1902  000008                     psect	intcode
-  1903                           	file	"ServoController.c"
+  1903                           	file	"JimFirmware.c"
   1904                           	line	57
   1905                           	global	__size_of_isr
   1906                           	__size_of_isr	equ	__end_of_isr-_isr
@@ -2006,7 +2006,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1912  000008  820E               	line	58
   1913                           	
   1914                           i2l833:
-  1915  00000A                     ;ServoController.c: 58:     if (TMR2IF) {
+  1915  00000A                     ;JimFirmware.c: 58:     if (TMR2IF) {
   1916                           	movlb	14	; () banked
   1917  00000A  010E               	btfss	(30321/8)&0ffh,(30321)&7	;volatile
   1918  00000C  A3CE               	goto	i2u3_41
@@ -2018,13 +2018,13 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1924                           	
   1925                           i2l835:; BSR set to: 14
   1926  00001A                     
-  1927                           ;ServoController.c: 59:         ++sawtoothCounter;
+  1927                           ;JimFirmware.c: 59:         ++sawtoothCounter;
   1928                           	incf	((c:_sawtoothCounter)),c	;volatile
   1929  00001A  2A01               	line	60
   1930                           	
   1931                           i2l837:; BSR set to: 14
   1932  00001C                     
-  1933                           ;ServoController.c: 60:         if (sawtoothCounter >= 180) {
+  1933                           ;JimFirmware.c: 60:         if (sawtoothCounter >= 180) {
   1934                           		movlw	0B4h-1
   1935  00001C  0EB3               	cpfsgt	((c:_sawtoothCounter)),c	;volatile
   1936  00001E  6401               	goto	i2u4_41
@@ -2037,7 +2037,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1943                           	
   1944                           i2l839:; BSR set to: 14
   1945  00002C                     
-  1946                           ;ServoController.c: 61:             if (sawtoothCounter >= 200) {
+  1946                           ;JimFirmware.c: 61:             if (sawtoothCounter >= 200) {
   1947                           		movlw	0C8h-1
   1948  00002C  0EC7               	cpfsgt	((c:_sawtoothCounter)),c	;volatile
   1949  00002E  6401               	goto	i2u5_41
@@ -2050,29 +2050,29 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1956                           	
   1957                           i2l841:; BSR set to: 14
   1958  00003C                     
-  1959                           ;ServoController.c: 62:                 RA0 = 0;
+  1959                           ;JimFirmware.c: 62:                 RA0 = 0;
   1960                           	bcf	c:(31848/8),(31848)&7	;volatile
   1961  00003C  908D               	line	63
-  1962                           ;ServoController.c: 63:                 RA1 = 0;
+  1962                           ;JimFirmware.c: 63:                 RA1 = 0;
   1963                           	bcf	c:(31849/8),(31849)&7	;volatile
   1964  00003E  928D               	line	64
-  1965                           ;ServoController.c: 64:                 RA2 = 0;
+  1965                           ;JimFirmware.c: 64:                 RA2 = 0;
   1966                           	bcf	c:(31850/8),(31850)&7	;volatile
   1967  000040  948D               	line	65
-  1968                           ;ServoController.c: 65:                 RA3 = 0;
+  1968                           ;JimFirmware.c: 65:                 RA3 = 0;
   1969                           	bcf	c:(31851/8),(31851)&7	;volatile
   1970  000042  968D               	line	66
-  1971                           ;ServoController.c: 66:                 RB0 = 0;
+  1971                           ;JimFirmware.c: 66:                 RB0 = 0;
   1972                           	bcf	c:(31856/8),(31856)&7	;volatile
   1973  000044  908E               	line	68
   1974                           	
   1975                           i2l843:; BSR set to: 14
   1976  000046                     
-  1977                           ;ServoController.c: 68:                 sawtoothCounter = 0;
+  1977                           ;JimFirmware.c: 68:                 sawtoothCounter = 0;
   1978                           	movlw	low(0)
   1979  000046  0E00               	movwf	((c:_sawtoothCounter)),c	;volatile
   1980  000048  6E01               	line	69
-  1981                           ;ServoController.c: 69:             } else {
+  1981                           ;JimFirmware.c: 69:             } else {
   1982                           	goto	i2l103
   1983  00004A  EF65  F000         	
   1984                           i2l104:; BSR set to: 14
@@ -2081,8 +2081,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1987                           	
   1988                           i2l845:; BSR set to: 14
   1989  00004E                     
-  1990                           ;ServoController.c: 70:                 if (sawtoothCounter == eyebrowSawtoothThreshold)
-                                  RA0 = 1;
+  1990                           ;JimFirmware.c: 70:                 if (sawtoothCounter == eyebrowSawtoothThreshold) RA0
+                                  = 1;
   1991                           	movf	((c:_eyebrowSawtoothThreshold)),c,w	;volatile
   1992  00004E  500B               xorwf	((c:_sawtoothCounter)),c,w	;volatile
   1993  000050  1801               	btfss	status,2
@@ -2104,8 +2104,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2009                           	
   2010                           i2l849:; BSR set to: 14
   2011  000066                     
-  2012                           ;ServoController.c: 71:                 if (sawtoothCounter == leftLipCornerSawtoothThre
-                                 shold) RA1 = 1;
+  2012                           ;JimFirmware.c: 71:                 if (sawtoothCounter == leftLipCornerSawtoothThreshol
+                                 d) RA1 = 1;
   2013                           	movf	((c:_leftLipCornerSawtoothThreshold)),c,w	;volatile
   2014  000066  500A               xorwf	((c:_sawtoothCounter)),c,w	;volatile
   2015  000068  1801               	btfss	status,2
@@ -2127,8 +2127,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2031                           	
   2032                           i2l853:; BSR set to: 14
   2033  00007E                     
-  2034                           ;ServoController.c: 72:                 if (sawtoothCounter == rightLipCornerSawtoothThr
-                                 eshold) RA2 = 1;
+  2034                           ;JimFirmware.c: 72:                 if (sawtoothCounter == rightLipCornerSawtoothThresho
+                                 ld) RA2 = 1;
   2035                           	movf	((c:_rightLipCornerSawtoothThreshold)),c,w	;volatile
   2036  00007E  5009               xorwf	((c:_sawtoothCounter)),c,w	;volatile
   2037  000080  1801               	btfss	status,2
@@ -2150,8 +2150,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2053                           	
   2054                           i2l857:; BSR set to: 14
   2055  000096                     
-  2056                           ;ServoController.c: 73:                 if (sawtoothCounter == lowerJawSawtoothThreshold
-                                 ) RA3 = 1;
+  2056                           ;JimFirmware.c: 73:                 if (sawtoothCounter == lowerJawSawtoothThreshold) RA
+                                 3 = 1;
   2057                           	movf	((c:_lowerJawSawtoothThreshold)),c,w	;volatile
   2058  000096  5008               xorwf	((c:_sawtoothCounter)),c,w	;volatile
   2059  000098  1801               	btfss	status,2
@@ -2173,8 +2173,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2075                           	
   2076                           i2l861:; BSR set to: 14
   2077  0000AE                     
-  2078                           ;ServoController.c: 74:                 if (sawtoothCounter == eyelidsSawtoothThreshold)
-                                  RB0 = 1;
+  2078                           ;JimFirmware.c: 74:                 if (sawtoothCounter == eyelidsSawtoothThreshold) RB0
+                                  = 1;
   2079                           	movf	((c:_eyelidsSawtoothThreshold)),c,w	;volatile
   2080  0000AE  5007               xorwf	((c:_sawtoothCounter)),c,w	;volatile
   2081  0000B0  1801               	btfss	status,2
@@ -2194,25 +2194,25 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2095  0000C6                     
   2096                           	goto	i2l103
   2097  0000C6  EF65  F000         	line	76
-  2098                           ;ServoController.c: 76:             }
+  2098                           ;JimFirmware.c: 76:             }
   2099                           	
   2100                           i2l105:; BSR set to: 14
   2101  0000CA                     
   2102                           	line	77
-  2103                           ;ServoController.c: 77:        }
+  2103                           ;JimFirmware.c: 77:        }
   2104                           	
   2105                           i2l103:; BSR set to: 14
   2106  0000CA                     
   2107                           	line	78
-  2108                           ;ServoController.c: 78:         TMR2IF = 0;
+  2108                           ;JimFirmware.c: 78:         TMR2IF = 0;
   2109                           	bcf	(30321/8)&0ffh,(30321)&7	;volatile
   2110  0000CA  93CE               	line	79
-  2111                           ;ServoController.c: 79:     }
+  2111                           ;JimFirmware.c: 79:     }
   2112                           	
   2113                           i2l102:; BSR set to: 14
   2114  0000CC                     
   2115                           	line	80
-  2116                           ;ServoController.c: 80:     if (RCIF) {
+  2116                           ;JimFirmware.c: 80:     if (RCIF) {
   2117                           	btfss	(30317/8)&0ffh,(30317)&7	;volatile
   2118  0000CC  ABCD               	goto	i2u11_41
   2119  0000CE  EF6B  F000         	goto	i2u11_40
@@ -2223,54 +2223,54 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2124                           	
   2125                           i2l865:; BSR set to: 14
   2126  0000DA                     
-  2127                           ;ServoController.c: 81:         ++receiveCounter;
+  2127                           ;JimFirmware.c: 81:         ++receiveCounter;
   2128                           	incf	((c:_receiveCounter)),c	;volatile
   2129  0000DA  2A02               	line	82
-  2130                           ;ServoController.c: 82:         switch(receiveCounter) {
+  2130                           ;JimFirmware.c: 82:         switch(receiveCounter) {
   2131                           	goto	i2l897
   2132  0000DC  EFE0  F000         	line	83
-  2133                           ;ServoController.c: 83:             case 1:
+  2133                           ;JimFirmware.c: 83:             case 1:
   2134                           	
   2135                           i2l113:; BSR set to: 14
   2136  0000E0                     
   2137                           	line	84
   2138                           	
   2139                           i2l867:
-  2140  0000E0                     ;ServoController.c: 84:                 RCREG = 0;
+  2140  0000E0                     ;JimFirmware.c: 84:                 RCREG = 0;
   2141                           	movlw	low(0)
   2142  0000E0  0E00               	movwf	((c:3993)),c	;volatile
   2143  0000E2  6E99               	line	85
-  2144                           ;ServoController.c: 85:                 break;
+  2144                           ;JimFirmware.c: 85:                 break;
   2145                           	goto	i2l127
   2146  0000E4  EFFB  F000         	line	86
-  2147                           ;ServoController.c: 86:             case 2:
+  2147                           ;JimFirmware.c: 86:             case 2:
   2148                           	
   2149                           i2l115:
   2150  0000E8                     	line	87
-  2151                           ;ServoController.c: 87:                 partMidiNote = RCREG;
+  2151                           ;JimFirmware.c: 87:                 partMidiNote = RCREG;
   2152                           	movff	(c:3993),(c:_partMidiNote)	;volatile
   2153  0000E8  CF99 F004          	line	88
-  2154                           ;ServoController.c: 88:                 break;
+  2154                           ;JimFirmware.c: 88:                 break;
   2155                           	goto	i2l127
   2156  0000EC  EFFB  F000         	line	89
-  2157                           ;ServoController.c: 89:             case 3:
+  2157                           ;JimFirmware.c: 89:             case 3:
   2158                           	
   2159                           i2l116:
   2160  0000F0                     	line	90
   2161                           	
   2162                           i2l869:
-  2163  0000F0                     ;ServoController.c: 90:                 receiveCounter = 0;
+  2163  0000F0                     ;JimFirmware.c: 90:                 receiveCounter = 0;
   2164                           	movlw	low(0)
   2165  0000F0  0E00               	movwf	((c:_receiveCounter)),c	;volatile
   2166  0000F2  6E02               	line	91
   2167                           	
   2168                           i2l871:
-  2169  0000F4                     ;ServoController.c: 91:                 velocity = RCREG;
+  2169  0000F4                     ;JimFirmware.c: 91:                 velocity = RCREG;
   2170                           	movff	(c:3993),(c:_velocity)	;volatile
   2171  0000F4  CF99 F003          	line	92
   2172                           	
   2173                           i2l873:
-  2174  0000F8                     ;ServoController.c: 92:                 if (velocity > 10) velocity = 10;
+  2174  0000F8                     ;JimFirmware.c: 92:                 if (velocity > 10) velocity = 10;
   2175                           		movlw	0Bh-1
   2176  0000F8  0E0A               	cpfsgt	((c:_velocity)),c	;volatile
   2177  0000FA  6403               	goto	i2u12_41
@@ -2287,11 +2287,11 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2188  00010C  EFB1  F000         	
   2189                           i2l117:
   2190  000110                     	line	93
-  2191                           ;ServoController.c: 93:                 switch(partMidiNote) {
+  2191                           ;JimFirmware.c: 93:                 switch(partMidiNote) {
   2192                           	goto	i2l891
   2193  000110  EFB1  F000         	line	94
-  2194                           ;ServoController.c: 94:                     case 0x3C: eyebrowSawtoothThreshold = (180 +
-                                  (velocity)); break;
+  2194                           ;JimFirmware.c: 94:                     case 0x3C: eyebrowSawtoothThreshold = (180 + (ve
+                                 locity)); break;
   2195                           	
   2196                           i2l119:
   2197  000114                     	
@@ -2301,8 +2301,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2201  000116  0FB4               	movwf	((c:_eyebrowSawtoothThreshold)),c	;volatile
   2202  000118  6E0B               	goto	i2l127
   2203  00011A  EFFB  F000         	line	95
-  2204                           ;ServoController.c: 95:                     case 0x3E: leftLipCornerSawtoothThreshold = 
-                                 (180 + (velocity)); break;
+  2204                           ;JimFirmware.c: 95:                     case 0x3E: leftLipCornerSawtoothThreshold = (180
+                                  + (velocity)); break;
   2205                           	
   2206                           i2l121:
   2207  00011E                     	
@@ -2312,8 +2312,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2211  000120  0FB4               	movwf	((c:_leftLipCornerSawtoothThreshold)),c	;volatile
   2212  000122  6E0A               	goto	i2l127
   2213  000124  EFFB  F000         	line	96
-  2214                           ;ServoController.c: 96:                     case 0x40: rightLipCornerSawtoothThreshold =
-                                  (180 + (velocity)); break;
+  2214                           ;JimFirmware.c: 96:                     case 0x40: rightLipCornerSawtoothThreshold = (18
+                                 0 + (velocity)); break;
   2215                           	
   2216                           i2l122:
   2217  000128                     	
@@ -2323,8 +2323,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2221  00012A  0FB4               	movwf	((c:_rightLipCornerSawtoothThreshold)),c	;volatile
   2222  00012C  6E09               	goto	i2l127
   2223  00012E  EFFB  F000         	line	97
-  2224                           ;ServoController.c: 97:                     case 0x43: lowerJawSawtoothThreshold = (180 
-                                 + (velocity)); break;
+  2224                           ;JimFirmware.c: 97:                     case 0x43: lowerJawSawtoothThreshold = (180 + (v
+                                 elocity)); break;
   2225                           	
   2226                           i2l123:
   2227  000132                     	
@@ -2334,8 +2334,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2231  000134  0FB4               	movwf	((c:_lowerJawSawtoothThreshold)),c	;volatile
   2232  000136  6E08               	goto	i2l127
   2233  000138  EFFB  F000         	line	98
-  2234                           ;ServoController.c: 98:                     case 0x45: eyelidsSawtoothThreshold = (180 +
-                                  (velocity)); break;
+  2234                           ;JimFirmware.c: 98:                     case 0x45: eyelidsSawtoothThreshold = (180 + (ve
+                                 locity)); break;
   2235                           	
   2236                           i2l124:
   2237  00013C                     	
@@ -2345,8 +2345,8 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2241  00013E  0FB4               	movwf	((c:_eyelidsSawtoothThreshold)),c	;volatile
   2242  000140  6E07               	goto	i2l127
   2243  000142  EFFB  F000         	line	100
-  2244                           ;ServoController.c: 100:                     case 0x4A: RB5 = (velocity > 0) ? 1 : 0; br
-                                 eak;
+  2244                           ;JimFirmware.c: 100:                     case 0x4A: RB5 = (velocity > 0) ? 1 : 0; break;
+                                 
   2245                           	
   2246                           i2l125:
   2247  000146                     	
@@ -2365,7 +2365,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2260  00015A  EFFB  F000         	line	101
   2261                           	
   2262                           i2l889:
-  2263  00015E                     ;ServoController.c: 101:                 }
+  2263  00015E                     ;JimFirmware.c: 101:                 }
   2264                           	goto	i2l127
   2265  00015E  EFFB  F000         	
   2266                           i2l118:
@@ -2422,29 +2422,29 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2316                           	
   2317                           i2l120:
   2318  0001AC                     	line	102
-  2319                           ;ServoController.c: 102:                 break;
+  2319                           ;JimFirmware.c: 102:                 break;
   2320                           	goto	i2l127
   2321  0001AC  EFFB  F000         	line	103
-  2322                           ;ServoController.c: 103:             default:
+  2322                           ;JimFirmware.c: 103:             default:
   2323                           	
   2324                           i2l126:
   2325  0001B0                     	line	104
   2326                           	
   2327                           i2l893:
-  2328  0001B0                     ;ServoController.c: 104:                 receiveCounter = 0;
+  2328  0001B0                     ;JimFirmware.c: 104:                 receiveCounter = 0;
   2329                           	movlw	low(0)
   2330  0001B0  0E00               	movwf	((c:_receiveCounter)),c	;volatile
   2331  0001B2  6E02               	line	105
-  2332                           ;ServoController.c: 105:                 RCREG = 0;
+  2332                           ;JimFirmware.c: 105:                 RCREG = 0;
   2333                           	movlw	low(0)
   2334  0001B4  0E00               	movwf	((c:3993)),c	;volatile
   2335  0001B6  6E99               	line	106
-  2336                           ;ServoController.c: 106:                 break;
+  2336                           ;JimFirmware.c: 106:                 break;
   2337                           	goto	i2l127
   2338  0001B8  EFFB  F000         	line	107
   2339                           	
   2340                           i2l895:
-  2341  0001BC                     ;ServoController.c: 107:         }
+  2341  0001BC                     ;JimFirmware.c: 107:         }
   2342                           	goto	i2l127
   2343  0001BC  EFFB  F000         	
   2344                           i2l112:
@@ -2493,7 +2493,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   2386                           i2l114:
   2387  0001F2                     	goto	i2l127
   2388  0001F2  EFFB  F000         	line	108
-  2389                           ;ServoController.c: 108:     }
+  2389                           ;JimFirmware.c: 108:     }
   2390                           	
   2391                           i2l111:
   2392  0001F6                     	line	109
@@ -2667,7 +2667,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.00 build -1524193055 
-Symbol Table                                                                                   Sat Aug 11 02:36:18 2018
+Symbol Table                                                                                   Tue Aug 14 15:25:03 2018
 
                      __CFG_CP$ON 000000                               l62 02E2  
                              l74 02A4                               l75 02C2  

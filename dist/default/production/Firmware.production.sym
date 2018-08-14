@@ -266,7 +266,7 @@ bssCOMRAM 1 E COMRAM 1 1
 %locals
 dist/default/production\Firmware.production.o
 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
-C:\Users\sleep\AppData\Local\Temp\si1o.
+C:\Users\sleep\AppData\Local\Temp\see8.
 1087 24A 0 CODE 0
 1089 24A 0 CODE 0
 1092 24A 0 CODE 0
@@ -297,7 +297,7 @@ C:\Users\sleep\AppData\Local\Temp\si1o.
 1184 27C 0 CODE 0
 1185 27E 0 CODE 0
 1186 280 0 CODE 0
-ServoController.c
+JimFirmware.c
 111 1FE 0 CODE 0
 115 1FE 0 CODE 0
 116 202 0 CODE 0
@@ -356,7 +356,7 @@ ServoController.c
 91 2C2 0 CODE 0
 ./usart.h
 91 8 0 CODE 0
-ServoController.c
+JimFirmware.c
 57 8 0 CODE 0
 58 A 0 CODE 0
 59 1A 0 CODE 0

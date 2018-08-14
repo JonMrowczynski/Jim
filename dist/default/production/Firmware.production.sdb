@@ -37,7 +37,7 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\ServoController.c
+"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
 [v _isr isr `IIH(v  1 e 1 0 ]
 "111
 [v _main main `(v  1 e 1 0 ]
@@ -97,7 +97,7 @@
 [v _TRISB1 TRISB1 `VEb  1 e 0 @31817 ]
 "30288
 [v _TRISB3 TRISB3 `VEb  1 e 0 @31819 ]
-"39 C:\Users\sleep\Desktop\ProjectJim\Firmware\ServoController.c
+"39 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
 [v _partMidiNote partMidiNote `VEuc  1 e 1 0 ]
 "40
 [v _velocity velocity `VEuc  1 e 1 0 ]
@@ -149,7 +149,7 @@
 [v clearFramingError@temp temp `uc  1 s 1 temp ]
 "91
 } 0
-"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\ServoController.c
+"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
 [v _isr isr `IIH(v  1 e 1 0 ]
 {
 "109
