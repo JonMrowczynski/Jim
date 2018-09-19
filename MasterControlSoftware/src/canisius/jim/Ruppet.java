@@ -15,7 +15,7 @@ import javax.sound.midi.Track;
  *	<P>
  *	Currently we have two modes and a third option: a manual demonstration mode were the user can 
  *	input a number from the keyboard to get the {@code Ruppet} to display a certain emotion that 
- *	corresponds to the number that was inputed. The second mode allows the {@code Ruppet} to run
+ *	corresponds to the number that was inputted. The second mode allows the {@code Ruppet} to run
  *	the script that Steve was able to record where the Ruppet's lowerJaw movements are synchronized with 
  *	Steve's voice. The final option simply puts the {@code Ruppet} to sleep and terminates the program.
  *	<P>
@@ -29,7 +29,7 @@ import javax.sound.midi.Track;
  *	@version 1.2
  */
 
-public final class Ruppet {
+final class Ruppet {
 
 	//static { System.loadLibrary("KinectEmotionDeterminer"); }
 
@@ -41,37 +41,31 @@ public final class Ruppet {
 	 * The emotional center of the {@code Ruppet}.
 	 */
 
-	private Heart heart = null;
+	private final Heart heart;
 	
 	/**
 	 * The vocal center of the {@code Ruppet}.
 	 */
 	
-	private Voice voice = null;
-	
-	/**
-	 * The {@code Sequencer} that stores all of the {@code Track}s which will be played by the system's {@code Sequencer}.
-	 */
-
-	private Sequence actions = null;
+	private final Voice voice;
 	
 	/**
 	 * The {@code Track} that stores all of the randomly generated times for the {@code Ruppet} to blink.
 	 */
 
-	private Track blinkingTrack = null;
+	private Track blinkingTrack;
 	
 	/**
 	 * The {@code Track} that stores all of the {@code Emotion} transition timings.
 	 */
 	
-	private Track emotionTrack = null;
+	private Track emotionTrack;
 	
 	/**
 	 * The {@code Track{ that stores all of the {@code lowerJaw} movements to allow the {@code Ruppet} to talk.
 	 */
 	
-	private Track voiceTrack = null;
+	private Track voiceTrack;
 	
 	/* This ArrayList stores wrapper AugmentedTrack classes. Currently there are only 3 AugmentedTracks
 	   that are stored which are the ones listed above */
@@ -122,6 +116,7 @@ public final class Ruppet {
 		eyelids.setNeutral( (byte) 5);
 		
 		RuppetControl.initConnections(); // Setup the USB and Sequencer connections
+        Sequence actions = null;
 		try {
 			/* 
 			 * Sequence.PPQ == pulses (ticks) per quarter note
@@ -131,10 +126,10 @@ public final class Ruppet {
 			 * So we get one tick every 1ms 
 			 */
 			actions = new Sequence(Sequence.PPQ, 160);
+			emotionTrack = actions.createTrack();
+			blinkingTrack = actions.createTrack();
+			voiceTrack = actions.createTrack();
 		} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
-		emotionTrack = actions.createTrack();
-		blinkingTrack = actions.createTrack();
-		voiceTrack = actions.createTrack();
 		
 		tracks.add(emotionTrack);
 		tracks.add(blinkingTrack);
@@ -171,12 +166,9 @@ public final class Ruppet {
 	/**
 	 * This method allows the {@code Ruppet} tp interact with people by asking
 	 * for user input from the keyboard using a CLI.
-	 * 
-	 * @param heart The {@code Heart} associated with the {@code Ruppet}
-	 * @param voice The {@code Voice} associated with the {@code Ruppet}.
 	 */
 
-	public final void live() {
+	final void live() {
 		byte choice = -1;
 		lights.on();
 		MidiConnection.getSequencer().start();
@@ -225,7 +217,7 @@ public final class Ruppet {
 	 * @return The {@code Ruppet}'s {@code Track} that stores the {@code Emotion} transition timings
 	 */
 	
-	public final Track getEmotionTrack() { return emotionTrack; }
+	final Track getEmotionTrack() { return emotionTrack; }
 	
 	/**
 	 * Gets the {@code Track} that contains all of the {@code lowerJaw} movement timings.
@@ -233,7 +225,7 @@ public final class Ruppet {
 	 * @return the {@code Ruppet}'s {@code Track} that stores the {@code lowerJaw} movement timings
 	 */
 	
-	public final Track getVoiceTrack() { return voiceTrack; }
+	final Track getVoiceTrack() { return voiceTrack; }
 	
 	/**
 	 * Gets the {@code ArrayList} tha contains all of the {@code Track}'s associated with the {@code Ruppet}.
@@ -241,15 +233,15 @@ public final class Ruppet {
 	 * @return An {@code ArrayList} that contains all of the {@code Ruppet}'s {@code Track}'s 
 	 */
 	
-	public final List<Track> getTracks() { return tracks; }
+	final List<Track> getTracks() { return tracks; }
 	
 	/**
-	 * Gets the {@code lowerjaw Part} of the {@code Ruppet}. 
+	 * Gets the {@code lowerJaw Part} of the {@code Ruppet}.
 	 * 
 	 * @return The {@code lowerJaw Part} of the {@code Ruppet}
 	 */
 	
-	public final Movable getLowerJaw() { return lowerJaw; }
+	final Movable getLowerJaw() { return lowerJaw; }
 	
 	/**
 	 * Gets the {@code lipCorners Part} of the {@code Ruppet}. 
@@ -257,7 +249,7 @@ public final class Ruppet {
 	 * @return The {@code lipCorners Part} of the {@code Ruppet}
 	 */
 	
-	public final Movable getLipCorners() { return lipCorners; }
+	final Movable getLipCorners() { return lipCorners; }
 	
 	/**
 	 * Gets the {@code eyebrows Part] of the {@code Ruppet}.
@@ -265,7 +257,7 @@ public final class Ruppet {
 	 * @return The {@code eyebrows Part] of the {@code Ruppet}
 	 */
 	
-	public final Movable getEyebrows() { return eyebrows; }
+	final Movable getEyebrows() { return eyebrows; }
 	
 	/**
 	 * Gets the {@code eyelids Part} of the {@code Ruppet}.
@@ -273,7 +265,7 @@ public final class Ruppet {
 	 * @return The {@code eyelids Part} of the {@code Ruppet}
 	 */
 	
-	public final Movable getEyelids() { return eyelids; }
+	final Movable getEyelids() { return eyelids; }
 	
 	/**
 	 * Gets the {@code ArrayList} that contains all of the {@code Part}s of the {@code Ruppet}.
@@ -281,16 +273,14 @@ public final class Ruppet {
 	 * @return The {@code ArrayList} that contains all of the {@code Part}s of the {@code Ruppet}
 	 */
 	
-	public final List<Part> getParts() { return parts; }
+	final List<Part> getParts() { return parts; }
 		
 	/**
 	 * Allows the user to determine which {@code Emotion} the {@code Ruppet} should display using a CLI.
-	 * 
-	 * @param heart The {@code Heart} associated with the {@code Ruppet}
 	 */
 
-	private final void manualEmotionDemoMode() {
-		int emotionChoice = -1;
+	private void manualEmotionDemoMode() {
+		int emotionChoice;
 		do {
 			System.out.println("\n1. Neutral");
 			System.out.println("2. Happy");
@@ -342,8 +332,8 @@ public final class Ruppet {
 	 * on command using a CLI.
 	 */
 
-	private final void manualFAUDemoMode() {
-		int fauChoice = -1;
+	private void manualFAUDemoMode() {
+		int fauChoice;
 		do {
 			System.out.println("\n1. Eyebrow up");
 			System.out.println("2. Eyebrow neutral");
@@ -411,11 +401,9 @@ public final class Ruppet {
 	
 	/**
 	 * Runs the scripted demo that our friend Steve was so kind to help us with. :)
-	 * 
-	 * @param voice The {@code Voice} object that allows the {@code Ruppet} to talk.
 	 */
 
-	private final void runSteveScripts() {
+	private void runSteveScripts() {
 		System.out.println();
 		MidiConnection.getSequencer().stop();
 		MidiConnection.getSequencer().setMicrosecondPosition(0);
@@ -424,11 +412,9 @@ public final class Ruppet {
 	
 	/**
 	 * Allows the {@code Ruppet} to display the {@code Emotion} that it thinks that the human is displaying.
-	 * 
-	 * @param heart The {@code Heart} associated with the {@code Ruppet}.
 	 */
 
-	private final void mirrorMode() {
+	private void mirrorMode() {
 		do {
 			switch(getCurrentEmotion()) {
 				case "NEUTRAL":
@@ -456,7 +442,7 @@ public final class Ruppet {
 	 * program is terminated using System.exit(0);.
 	 */
 
-	private final void goToSleep() {
+	private void goToSleep() {
 		System.out.println("\nOkay, I was getting tired anyway.");
 		RuppetControl.pause();
 		System.exit(0);
@@ -464,12 +450,12 @@ public final class Ruppet {
 	
 	/**
 	 * Fills the blinking {@code Track} with MIDI data. The blinking effect is currently created by
-	 * turning on and off the two white LED's in the {@Ruppet}'s eyes.
+	 * turning on and off the two white LED's in the {@code Ruppet}'s eyes.
 	 * 
 	 * @param blinkingTrack The {@code Track} that contains the timings for the blinking.
 	 */
 
-	private final void fillBlinkTrack(final Track blinkingTrack) {
+	private void fillBlinkTrack(final Track blinkingTrack) {
 
 		final int blink_length = 200;
 		final int max_blink_wait = 3500;

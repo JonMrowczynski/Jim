@@ -17,9 +17,9 @@ import javax.sound.midi.ShortMessage;
 	@author Jon Mrowczynski
 */
 
-public final class Movable extends Part {
+final class Movable extends Part {
 	
-	private int neutral = -1;
+	private int neutral;
 	
 	/**
 	 * If the {@code Movable Part} only requires one servo motor to be operated, then the {@code Movable}
@@ -31,7 +31,7 @@ public final class Movable extends Part {
 	 * @param upperBound The highest angular position that the servo arm should move to 
 	 */
 
-	public Movable(final List<Part> ruppetParts, final int servo, final int lowerBound, final int upperBound) { 
+	Movable(final List<Part> ruppetParts, final int servo, final int lowerBound, final int upperBound) {
 		super(ruppetParts, 1, servo, lowerBound, upperBound); 
 		neutral = (upperBound + lowerBound) / 2;
 	}
@@ -49,18 +49,22 @@ public final class Movable extends Part {
 	 * @param parallelism Represents whether the servo motors are to be operated in parallel or anti-parallel from one another
 	 */
 
-	public Movable(final List<Part> ruppetParts, final int servo1, final int lowerBound, final int upperBound, final int servo2, final String parallelism) {
+	Movable(final List<Part> ruppetParts, final int servo1, final int lowerBound, final int upperBound, final int servo2, final String parallelism) {
 		super(ruppetParts, 2, servo1, lowerBound, upperBound);
 		neutral = (upperBound + lowerBound) / 2;
 		for(int i = 0; i < numOfStates; ++i) {
 			states[i][1] = new ShortMessage();
 			try {
-				if (parallelism.toLowerCase().equals("parallel"))
-					states[i][1].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, servo2, i + lowerBound);
-				else if (parallelism.toLowerCase().equals("antiparallel"))
-					states[i][1].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, servo2, ((upperBound + lowerBound) - (i + lowerBound)));
-				else 
-					throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
+				switch(parallelism.toLowerCase()) {
+                    case "parallel":
+                        states[i][1].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, servo2, i + lowerBound);
+                        break;
+                    case "antiparallel":
+                        states[i][1].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, servo2, ((upperBound + lowerBound) - (i + lowerBound)));
+                        break;
+                    default:
+                        throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
+                }
 			} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
 		}
 	}
@@ -71,7 +75,7 @@ public final class Movable extends Part {
 	 * @param newNeutral The new neutral position of the {@code Movable Part}
 	 */
 
-	public final void setNeutral(final int newNeutral) {
+	final void setNeutral(final int newNeutral) {
 		if (newNeutral >= lowerBound && newNeutral <= upperBound) 
 			neutral = newNeutral;
 		else
@@ -84,20 +88,20 @@ public final class Movable extends Part {
 	 * Moves the {@code Movable} to one of its most extreme angular positions.
 	 */
 	
-	public final void toUpperBound() { toState(upperBound); }
+	final void toUpperBound() { toState(upperBound); }
 	
 	/**
 	 * Moves the {@code Movable} to its other most extreme angular position that is 
 	 * in the opposite direction.
 	 */
 	
-	public final void toLowerBound() { toState(lowerBound); }
+	final void toLowerBound() { toState(lowerBound); }
 	
 	/**
 	 * Moves the {@code Movable} to its neutral position.
 	 */
 	
-	public final void toNeutral() { toState(neutral); 	}
+	final void toNeutral() { toState(neutral); 	}
 	
 	/**
 	 * Gets the state that represents the maximum position that the {@code Movable Part}
@@ -106,7 +110,7 @@ public final class Movable extends Part {
 	 * @return The state that represents the upper bound of the {@code Movable Part}.
 	 */
 	
-	public final ShortMessage[] getUpperBoundState() { return getState(upperBound); } 
+	final ShortMessage[] getUpperBoundState() { return getState(upperBound); }
 	
 	/**
 	 * Gets the state the represents the maximum position that the {@code Movable}
@@ -115,7 +119,7 @@ public final class Movable extends Part {
 	 * @return The state the represents the lower bound of the {@code Movable Part}.
 	 */
 	
-	public final ShortMessage[] getLowerBoundState() { return getState(lowerBound); }  
+	final ShortMessage[] getLowerBoundState() { return getState(lowerBound); }
 	
 	/**
 	 * Gets the state the represents the neutral position of the {@code Movable Part}.
@@ -123,7 +127,7 @@ public final class Movable extends Part {
 	 * @return The state that represents the neutral position of the {@code Movable Part}.
 	 */
 	
-	public final ShortMessage[] getNeutralState() { return getState(neutral); } 
+	final ShortMessage[] getNeutralState() { return getState(neutral); }
 	
 	/**
 	 * Gets the upper bound value for the {@code Movable Part}.
@@ -131,7 +135,7 @@ public final class Movable extends Part {
 	 * @return The integer value that represents the upper bound of the {@code Movable Part}.
 	 */
 
-	public final int getUpperBound() { return upperBound; }
+	final int getUpperBound() { return upperBound; }
 	
 	/**
 	 * Gets the lower bound value for the {@code Movable Part}.
@@ -139,7 +143,7 @@ public final class Movable extends Part {
 	 * @return The integer value that represents the lower bound of the {@code Movable Part}.
 	 */
 	
-	public final int getLowerBound() { return lowerBound; }
+	final int getLowerBound() { return lowerBound; }
 	
 	/**
 	 * Gets the neutral value for the {@code Movable Part}.
@@ -150,12 +154,12 @@ public final class Movable extends Part {
 	public final int getNeutral() { return neutral; }
 	
 	/**
-	 * Gets the state that represents the {@Movable Part}'s neutral position.
+	 * Gets the state that represents the {@code Movable Part}'s neutral position.
 	 * 
-	 * @return The state that represents the {@Movable Part}'s neutral position.
+	 * @return The state that represents the {@code Movable Part}'s neutral position.
 	 */
 	
-	public final PartState getNeutralPartState() { return new PartState(this, getState(neutral)); }
+	final PartState getNeutralPartState() { return new PartState(this, getState(neutral)); }
 	
 	/**
 	 * Gets the corresponding part state associated with the given velocity value if the velocity 
@@ -165,7 +169,7 @@ public final class Movable extends Part {
 	 * @return The {@code PartState} that represents the state of the corresponding {@code Ruppet Part}
 	 */
 
-	public final PartState getPartState(final int velocity) {
+	final PartState getPartState(final int velocity) {
 		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound)
 			return new PartState(this, getState(velocity));
 		else

@@ -18,23 +18,23 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * Allows a {@code Ruppet} to talk by reading the timing information from a text file and storing 
  * the timing information into a {@code Track} with the corresponding MIDI events and plays the 
- * {@code Track} synched with a .wav audio file. The {@code Voice} class implements the use of the
+ * {@code Track} synced with a .wav audio file. The {@code Voice} class implements the use of the
  * lower jaw of the {@code Ruppet} to speak rendering it unavailable for emotional expressions.
  * 
  * @author Jon Mrowczynski
  */
 
-public class Voice implements Runnable {
+class Voice implements Runnable {
 
 	/* The two save files that store the names of the files that contain the timing information	
 		for the mouth movements and the desired audio file to be played respectively */
-	public static final File voiceSaveFile = new File("VoiceSaveFile.txt");
-	public static final File audioSaveFile = new File("AudioSaveFile.txt");
+	private static final File voiceSaveFile = new File("VoiceSaveFile.txt");
+	private static final File audioSaveFile = new File("AudioSaveFile.txt");
 
 	/* The Ruppet that this voice belongs to as well as it's mouth */
 
-	private Ruppet ruppet = null;
-	private Movable mouth = null;
+	private final Ruppet ruppet;
+	private final Movable mouth;
 	
 	/* We want to pre-load the audio file into a Clip to avoid delays when speaking */
 
@@ -43,7 +43,7 @@ public class Voice implements Runnable {
 	/* The Track that stores the timing information for the Ruppet's mouth movements based 
 	   the timing information gathered from the ArrayLists. */
 
-	private Track voiceTrack = null;
+	private final Track voiceTrack;
 	
 	/* ArrayLists that that store the specific timings for moving the mouth up and down. 
 	   *NOTE*: The timeOpen and timeClose ArrayLists are used to help with making the mouth
@@ -52,16 +52,16 @@ public class Voice implements Runnable {
 	   The method (RuppetControl.convergeTimes) helps to converge the motor off time closer 
 	   to the motor on time so that it makes the Ruppet's mouth movements seem less robotic */
 
-	private ArrayList<Integer> down = new ArrayList<>();
-	private ArrayList<Integer> up = new ArrayList<>();
-	private ArrayList<Integer> timeOpen = new ArrayList<>();
-	private ArrayList<Integer> timeClose = new ArrayList<>();
+	private final ArrayList<Integer> down = new ArrayList<>();
+	private final ArrayList<Integer> up = new ArrayList<>();
+	private final ArrayList<Integer> timeOpen = new ArrayList<>();
+	private final ArrayList<Integer> timeClose = new ArrayList<>();
 
 	/* Constructor that calls methods that reads in the lower jaw timing information, stores the 
 		timing information into the voice Track which is passed in as the only parameter 
 		and pre-loads an audio clip to speak later. */
 
-	public Voice (Ruppet ruppet, Track mouthTimings) {
+	Voice (Ruppet ruppet, Track mouthTimings) {
 		this.ruppet = ruppet;
 		mouth = ruppet.getLowerJaw();
 		voiceTrack = mouthTimings;
@@ -72,7 +72,7 @@ public class Voice implements Runnable {
 	
 	public void run() { givePresentation();	}
 
-	public void givePresentation() { moveMouth(); }
+	void givePresentation() { moveMouth(); }
 	
 	/* Reads an array of doubles from a text file, manipulates the timing values into ms
 	   instead of seconds and stores the times into Integer ArrayLists for later use in the 
@@ -80,7 +80,7 @@ public class Voice implements Runnable {
 	   *NOTE*: Integer ArrayLists because the timings for MidiEvents can NOT be 
 	   floating point values. */
 
-	public void readTimingLabels() {
+	private void readTimingLabels() {
 		try { RuppetControl.checkSaveFile(voiceSaveFile); } 
 		catch(IOException ex) { ex.printStackTrace(); }
 		try (final Scanner reader = new Scanner(new FileReader(voiceSaveFile))) {
@@ -111,7 +111,7 @@ public class Voice implements Runnable {
 	
 	/* Uses the data stored in the ArrayLists to create MIDI Tracks with the corresponding MIDI events. */
 
-	public void setupTimings() {
+	private void setupTimings() {
 		final int delay_end_of_seq = 10000;
 		final ShortMessage[] mouthDown = mouth.getLowerBoundState();
 		final ShortMessage[] mouthUp = mouth.getUpperBoundState();
@@ -169,7 +169,7 @@ public class Voice implements Runnable {
 
 	private class SyncVoiceWithScript extends Thread {
 		private final Clip syncClip;
-		public SyncVoiceWithScript(Clip clip) { syncClip = clip; }
+		SyncVoiceWithScript(Clip clip) { syncClip = clip; }
 		
 		/* Start both the clip and the sequence of MIDI notes */
 

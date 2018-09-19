@@ -20,55 +20,55 @@ import javax.sound.midi.Track;
  *	@version 1.2
  */
 
-public class Heart { 
+class Heart {
 	
 	/**
-	 * The file in which the name of the file for the emotional timing information for expressinf is stored.
+	 * The file in which the name of the file for the emotional timing information for expressing is stored.
 	 */
 
-	public static final File emoteSaveFile = new File("EmotionSaveFile.txt");
+	private static final File emoteSaveFile = new File("EmotionSaveFile.txt");
 
 	/**
 	 * Represents the neutral emotional state of the {@code Ruppet}.
 	 */
 
-	private Emotion neutral = null;
+	private final Emotion neutral;
 	
 	/**
 	 * Represents the happy emotional state of the {@code Ruppet}.
 	 */
 	
-	private Emotion happy = null; 
+	private final Emotion happy;
 	
 	/**
 	 * Represents the sad emotional state of the {@code Ruppet}.
 	 */
 	
-	private Emotion sad = null;
+	private final Emotion sad;
 	
 	/**
 	 * Represents the angry emotional state of the {@code Ruppet}.
 	 */
 	
-	private Emotion angry = null;
+	private final Emotion angry;
 	
 	/**
 	 * Represents the scared emotional state of the {@code Ruppet}.
 	 */
 	
-	private Emotion scared = null;
+	private final Emotion scared;
 	
 	/**
 	 * Represents the smile emotional state of the {@code Ruppet}.
 	 */
 	
-	private Emotion smile = null;
+	private final Emotion smile;
 		
 	/**
 	 * The {@code Track} that stores all of the emotion expression timings.
 	 */
 
-	private Track emotionTrack = null;
+	private final Track emotionTrack;
 	
 	/**
 	 * Stores the times at which a specified {@code Emotion} should be expressed.
@@ -96,7 +96,7 @@ public class Heart {
 	 * @param emotionTrack The {@code Track} that is to store all of the {@code Emotion} transition times.
 	 */
 
-	public Heart(Ruppet ruppet, Track emotionTrack) {
+	Heart(Ruppet ruppet, Track emotionTrack) {
 
 		final Movable lowerJaw   = ruppet.getLowerJaw();
 		final Movable lipCorners = ruppet.getLipCorners();
@@ -158,7 +158,7 @@ public class Heart {
 	 * @param emotion The {@code Emotion} that the {@code Ruppet} is to feel.
 	 */
 
-	public final void feel(Emotion emotion) {
+	final void feel(Emotion emotion) {
 		for (final ShortMessage msg : emotion.getAttributes())
 			MidiConnection.getUsbReceiver().send(msg, -1);
 	}
@@ -169,7 +169,7 @@ public class Heart {
 	 * @return The {@code Ruppet}'s neutral {@code Emotion}
 	 */
 
-	public final Emotion getNeutral() { return neutral; }
+	final Emotion getNeutral() { return neutral; }
 	
 	/**
 	 * Gets the happy {@code Emotion} of the {@code Ruppet}.
@@ -177,7 +177,7 @@ public class Heart {
 	 * @return The {@code Ruppet}'s neutral {@code Emotion}.
 	 */
 	
-	public final Emotion getHappy() { return happy;   }
+	final Emotion getHappy() { return happy;   }
 	
 	/**
 	 * Gets the sad {@code Emotion} of the {@code Ruppet}.
@@ -185,7 +185,7 @@ public class Heart {
 	 * @return The {@code Ruppet}'s sad {@code Emotion}.
 	 */
 	
-	public final Emotion getSad() { return sad; }
+	final Emotion getSad() { return sad; }
 	
 	/**
 	 * Gets the angry {@code Emotion} of the {@code Ruppet}.
@@ -193,7 +193,7 @@ public class Heart {
 	 * @return The {@code Ruppet}'s angry {@code Emotion}.
 	 */
 	
-	public final Emotion getAngry() { return angry; }
+	final Emotion getAngry() { return angry; }
 	
 	/**
 	 * Gets the scared {@code Emotion} of the {@code Ruppet}.
@@ -201,7 +201,7 @@ public class Heart {
 	 * @return The {@code Ruppet}'s angry {@code Emotion}.
 	 */
 	
-	public final Emotion getScared() { return scared; }
+	final Emotion getScared() { return scared; }
 	
 	/**
 	 * Gets the smile {@code Emotion} of the {@code Ruppet}.
@@ -209,14 +209,14 @@ public class Heart {
 	 * @return The {@code Ruppet}'s smile {@code Emotion}.
 	 */
 	
-	public final Emotion getSmile() { return smile; }
+	final Emotion getSmile() { return smile; }
 	
 	/**
 	 * Reads {@code Emotion} transition timings from a text file and stores that data into the 
 	 * corresponding {@code ArrayList}.
 	 */
 
-	private final void readTimingLabels() {
+	private void readTimingLabels() {
 		final int sec_to_ms_factor = 1000;
 		try { RuppetControl.checkSaveFile(emoteSaveFile); } 
 		catch(IOException ex) {ex.printStackTrace();}
@@ -237,27 +237,35 @@ public class Heart {
 	 * Sets up all of the emotional timings for a prerecorded script.
 	 */
 
-	private final void setupTimings() {
+	private void setupTimings() {
 		for(short i = 0; i < emotions.size(); i++) {
-			if(emotions.get(i).toUpperCase().equals("HAPPY"))
-				happy.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
-			else if (emotions.get(i).toUpperCase().equals("SAD")) 
-				sad.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
-			else if (emotions.get(i).toUpperCase().equals("ANGRY"))
-				angry.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
-			else if (emotions.get(i).toUpperCase().equals("SCARED")) 
-				scared.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
-			else if (emotions.get(i).toUpperCase().equals("NEUTRAL"))
-				neutral.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
-			else if (emotions.get(i).toUpperCase().equals("SMILE"))
-				smile.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
-			else {
-				System.out.println("\nEMOTION DEFINITION ERROR:");
-				System.out.println("\tEmotion: \"" + emotions.get(i) + "\" is not currently defined.");
-				System.out.println("\n\tPlease define what to do for \"" + emotions.get(i) + "\" before operating ruppet.");
-				System.out.println("\nTerminating Program.");
-				System.exit(1); // exit with error
-			}
+			switch(emotions.get(i).toUpperCase()) {
+                case "HAPPY":
+                    happy.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
+                    break;
+                case "SAD":
+                    sad.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
+                    break;
+                case "ANGRY":
+                    angry.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
+                    break;
+                case "SCARED":
+                    scared.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
+                    break;
+                case "NEUTRAL":
+                    neutral.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
+                    break;
+                case "SMILE":
+                    smile.addEmotionToTrack(emotionTrack, emotionTimes.get(i));
+                    break;
+                default:
+                    System.out.println("\nEMOTION DEFINITION ERROR:");
+                    System.out.println("\tEmotion: \"" + emotions.get(i) + "\" is not currently defined.");
+                    System.out.println("\n\tPlease define what to do for \"" + emotions.get(i) + "\" before operating ruppet.");
+                    System.out.println("\nTerminating Program.");
+                    System.exit(1);
+                    break;
+            }
 		}
 	}
 
@@ -272,7 +280,6 @@ public class Heart {
 	 * @return The number of unique {@code Emotion}s that will be expressed in a script.
 	 */
 
-	@SuppressWarnings("unused")
 	private int getNumOfEmotes(){
 		if (emotions.size() <= 0) {
 			System.out.println("FATAL ERROR: ArrayList emotions size == 0");

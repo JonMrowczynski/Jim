@@ -23,35 +23,35 @@ import javax.sound.midi.Track;
  *	@author Jon Mrowcsynski
  */
 
-public abstract class Part {
+abstract class Part {
 	
 	/**
 	 * The value that represents state that has the highest velocity value that {@code Part} should go to
 	 */
 	
-	protected int upperBound = -1;
+	int upperBound = -1;
 	
 	/**
 	 * The value that represents the state that has the lowest velocity value that the {@code Part} should go to
 	 */
 	
-	protected int lowerBound = -1;
+	int lowerBound = -1;
 	
 	/**
 	 * The total number of states that the {@code Part} is able ot transition to
 	 */
 
-	protected int numOfStates = -1;
+	final int numOfStates;
 
 	/**
 	 * The available states that a {@code Part} can go to. 
 	 * <P>
-	 * The reasson for the 2D array is to support {@code Part}s that require multiple servo 
+	 * The reason for the 2D array is to support {@code Part}s that require multiple servo
 	 * motors to be operated where each column represents the angular positions that an individual 
 	 * servo motor can go to.
 	 */
 
-	protected ShortMessage states[][] = null;
+	final ShortMessage states[][];
 	
 	/**
 	 * This initializes all of the states that the {@code Part} can go to. It also 
@@ -62,7 +62,7 @@ public abstract class Part {
 	 * @param midiNote The corresponding MIDI note that is used to operate a given component to a {@code Part}.
 	 */
 
-	public Part(final List<Part> ruppetParts, final int numOfOutputs, final int midiNote, final int lowerBound, final int upperBound) {
+	Part(final List<Part> ruppetParts, final int numOfOutputs, final int midiNote, final int lowerBound, final int upperBound) {
 		ruppetParts.add(this);
 		checkAndSetBoundaryValues(lowerBound, upperBound);
 		numOfStates = (this.upperBound - this.lowerBound) + 1;
@@ -97,7 +97,7 @@ public abstract class Part {
 	 * @param velocity The {@code velocity} value that is to be converted to a {@code stateIndex}
 	 */
 
-	protected void toState(final int velocity) {
+	void toState(final int velocity) {
 		if (validVelocity(velocity))
 			for (ShortMessage msg : states[velocityToStateIndex(velocity)])
 				MidiConnection.getUsbReceiver().send(msg, -1);
@@ -108,12 +108,12 @@ public abstract class Part {
 	 * to a given {@code Track} at a specified time (tick). However, this is only done if the passed in
 	 * state is a valid state for the given {@code Part}.
 	 * 
-	 * @param track
-	 * @param messages
-	 * @param tick
+	 * @param track that is to have {@code ShortMessage}s added to it
+	 * @param messages that are to be added to the {@code Track}
+	 * @param tick of the {@code ShortMessage}s
 	 */
 
-	protected final void addStateToTrack(final Track track, final ShortMessage[] messages, final int tick) {
+	final void addStateToTrack(final Track track, final ShortMessage[] messages, final int tick) {
 		if (validShortMessages(messages))
 			for (ShortMessage msg : messages)
 				track.add(RuppetControl.makeEvent(msg, tick));
@@ -126,7 +126,7 @@ public abstract class Part {
 	 * @return A boolean value representing of the velocity value is a valid velocity value
 	 */
 
-	protected final boolean validVelocity(final int velocity) {
+	final boolean validVelocity(final int velocity) {
 		if (velocity >= RuppetControl.MIN_VELOCITY && velocity <= RuppetControl.MAX_VELOCITY)
 			return true;
 		else {
@@ -138,13 +138,13 @@ public abstract class Part {
 	/**
 	 * Determine whether the messages that were passed in are defined in the states of the 2D array for the 
 	 * given {@code Part}. If any of them are not, then the {@code ShortMessage}s are not valid, else, 
-	 * the {@code ShortMesage}s are valid.
+	 * the {@code ShortMessage}s are valid.
 	 * 
 	 * @param messages The array of {@code ShortMessage}s that are to be checked for validity
-	 * @return
+	 * @return a {@code boolean} representing whether the given array of {@code ShortMessage} are a valid group of {@code ShortMessages}
 	 */
 
-	protected final boolean validShortMessages(final ShortMessage[] messages) {
+	private boolean validShortMessages(final ShortMessage[] messages) {
 		final ShortMessage[] state = states[velocityToStateIndex(RuppetControl.getVelocityVal(messages[0]))];
 		for (int i = 0; i < state.length; ++i) {
 			if (messages[i].getChannel() != state[i].getChannel()) return false;
@@ -163,7 +163,7 @@ public abstract class Part {
 	 * @return The state associated with the given velocity value
 	 */
 
-	protected final ShortMessage[] getState(final int velocity) {
+	final ShortMessage[] getState(final int velocity) {
 		if(validVelocity(velocity))
 			return states[velocityToStateIndex(velocity)];	
 		else
@@ -204,7 +204,7 @@ public abstract class Part {
 	 * @return The {@code stateIndex}
 	 */
 
-	private final int velocityToStateIndex(final int velocity) { return velocity - lowerBound; } 
+	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }
 
 } // end of Part class
 

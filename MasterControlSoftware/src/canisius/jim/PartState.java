@@ -13,19 +13,19 @@ import javax.sound.midi.ShortMessage;
  * @author Jon Mrowczynski
  */
 
-public final class PartState {
+final class PartState {
 	
 	/**
 	 * The {@code Part} that is to be paired with a state in this {@code PartState} pair.
 	 */
 
-	private Part part = null;
+	private final Part part;
 	
 	/**
 	 * The state of the part represented by an array of {@code ShortMessage}s.
 	 */
 	
-	private ShortMessage[] state = null;
+	private final ShortMessage[] state;
 	
 	/**
 	 * Pairs together a {@code Part} and an array of {@code ShortMessage}s which represents a state that
@@ -35,7 +35,7 @@ public final class PartState {
 	 * @param state associated with the given {@code Part}
 	 */
 
-	public PartState(final Part part, final ShortMessage[] state) {
+	PartState(final Part part, final ShortMessage[] state) {
 		this.part = part;
 		this.state = state;
 	}
@@ -46,7 +46,7 @@ public final class PartState {
 	 * @return the {@code Part} of the {@code PartState} pair.
 	 */
 
-	public final Part getPart() { return part; }
+	final Part getPart() { return part; }
 	
 	/**
 	 * Gets the {@code ShortMessage} array that represents a state that corresponds to the 
@@ -55,7 +55,7 @@ public final class PartState {
 	 * @return the state of the {@code PartState} pair.
 	 */
 	
-	public final ShortMessage[] getState() { return state; }
+	final ShortMessage[] getState() { return state; }
 
 } // end of PartState class
 

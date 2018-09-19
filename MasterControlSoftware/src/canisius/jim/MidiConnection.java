@@ -28,7 +28,7 @@ import javafx.scene.control.ButtonType;
  * @author Jon Mrowczynski
  */
 
-public final class MidiConnection {
+final class MidiConnection {
 	
 	/**
 	 * The USB MIDI device used to transmit MIDI messages.
@@ -60,7 +60,7 @@ public final class MidiConnection {
 	 * @return The {@code Receiver} to the USB MIDI device
 	 */
 	
-	public static final Receiver getUsbReceiver() { return usbMidiDeviceReceiver;	}
+	static Receiver getUsbReceiver() { return usbMidiDeviceReceiver;	}
 	
 	/**
 	 * Gets the system's default {@code Sequencer}.
@@ -68,7 +68,7 @@ public final class MidiConnection {
 	 * @return The system's default {@code Sequencer}
 	 */
 	
-	public static final Sequencer getSequencer() { return sequencer; }
+	static Sequencer getSequencer() { return sequencer; }
 	
 	/**
 	 * Sets up a connection between the computer and the USB MIDI device's {@code Receiver}.
@@ -78,7 +78,7 @@ public final class MidiConnection {
 	 * device is "External MIDI Port". Otherwise, no MIDI device will be acquired.
 	 */
 	
-	public static final void establishUsbMidiConnection() {
+	static void establishUsbMidiConnection() {
 		do {
 			for (final Info deviceInfo : MidiSystem.getMidiDeviceInfo()) {
 				final boolean isUSBDevice = deviceInfo.getName().contains("USB");
@@ -107,7 +107,7 @@ public final class MidiConnection {
 	 * Closes the USB MIDI device.
 	 */
 	
-	public static final void closeUsbMidiDevice() { 
+	static void closeUsbMidiDevice() {
 		if (usbMidiDevice != null && usbMidiDevice.isOpen()) 
 			usbMidiDevice.close(); 
 	} 
@@ -119,7 +119,7 @@ public final class MidiConnection {
 	 * @throws NullPointerException if a connection has not been established to a USB MidiDevice.
 	 */
 	
-	public static final void establishSequencerConnection() throws NullPointerException {	
+	static void establishSequencerConnection() throws NullPointerException {
 		if (usbMidiDeviceReceiver == null)
 			throw new NullPointerException("Must acquire a USB MIDI device before establishing a connection to the system's default Sequencer");
 		try {
@@ -134,7 +134,7 @@ public final class MidiConnection {
 	 * Closes the system's default {@code Sequencer}.
 	 */
 	
-	public static final void closeSequencer() { 
+	static void closeSequencer() {
 		if (sequencer != null && sequencer.isOpen())
 			sequencer.close();
 	} 
@@ -144,7 +144,7 @@ public final class MidiConnection {
 	 * in order to determine what to do next.
 	 */
 	
-	private static final void errorConnectingToUsbMidiDevice() {
+	private static void errorConnectingToUsbMidiDevice() {
 		final Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error Dialog");
 		alert.setHeaderText("Error Connecting to USB MIDI Device");
@@ -152,7 +152,7 @@ public final class MidiConnection {
 		final ButtonType quitButtonType = new ButtonType("Quit", ButtonData.CANCEL_CLOSE);
 		alert.getButtonTypes().setAll(new ButtonType("Retry"), quitButtonType);
 		final Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == quitButtonType) {
+		if (result.orElse(null) == quitButtonType) {
 			Platform.exit();
 			System.exit(0);
 		}
@@ -163,7 +163,7 @@ public final class MidiConnection {
 	 * in order to determine what to do next.
 	 */
 	
-	private static final void errorOpeningUsbMidiDevice() {
+	private static void errorOpeningUsbMidiDevice() {
 		final Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error Dialog");
 		alert.setHeaderText("Error Opening USB to MIDI Device");
@@ -171,7 +171,7 @@ public final class MidiConnection {
 		final ButtonType quitButtonType = new ButtonType("Quit");
 		alert.getButtonTypes().setAll(new ButtonType("Retry"), quitButtonType);
 		final Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == quitButtonType) {
+		if (result.orElse(null) == quitButtonType) {
 			Platform.exit();
 			System.exit(0);
 		}

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public final class BreathOfLife extends Application {
 	
-	public static final void main(final String[] args) { launch(args); }
+	public static void main(final String[] args) { launch(args); }
 
 	@Override
 	public final void start(final Stage stage) {

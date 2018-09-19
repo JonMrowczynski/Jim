@@ -67,7 +67,7 @@ public class ManualOperationScene extends Application {
 	 * Setup the manual operation scene, eventually will be public
 	 */
 	
-	private final void manualOperationSceneSetup(final Stage stage) {
+	private void manualOperationSceneSetup(final Stage stage) {
 		
 		//Connect.EstablishUSBConnection();
 		
@@ -94,7 +94,7 @@ public class ManualOperationScene extends Application {
 		stage.setScene(manualControlScene);
 		stage.sizeToScene();
 		stage.setResizable(false);
-		stage.setOnCloseRequest( windowEvent -> { MidiConnection.closeUsbMidiDevice(); } );
+		stage.setOnCloseRequest( windowEvent -> MidiConnection.closeUsbMidiDevice() );
 		stage.show();
 		
 	} // end of manualOperationSceneSetup
@@ -104,10 +104,10 @@ public class ManualOperationScene extends Application {
 	 * Ruppet part they would like to manually operate.
 	 * 
 	 * @param grid The {@code GridPane} that contains and lays out all of the GUI elements
-	 * @throws InvalidMidiDataException 
+	 * @throws InvalidMidiDataException if the {@code ShortMessage}s cannot be constructed
 	 */
 	
-	private final void partSelectSetup(final GridPane grid) throws InvalidMidiDataException {
+	private void partSelectSetup(final GridPane grid) throws InvalidMidiDataException {
 		
 		final Text partSelectText = new Text("Part Select");
 		partSelectText.setFont(FONT_SIZE);
@@ -119,7 +119,7 @@ public class ManualOperationScene extends Application {
 		final Button lightsOn = new Button("On");	
 		lightsOn.setVisible(false);
 		lightsOn.setFont(FONT_SIZE);
-		lightsOn.setOnAction( actionEvent -> { MidiConnection.getUsbReceiver().send(on, -1); } );
+		lightsOn.setOnAction( actionEvent -> MidiConnection.getUsbReceiver().send(on, -1) );
 		grid.add(lightsOn, 0, 8);
 		GridPane.setHalignment(lightsOn, HPos.LEFT);
 		
@@ -128,11 +128,11 @@ public class ManualOperationScene extends Application {
 		final Button lightsOff = new Button("Off");
 		lightsOff.setVisible(false);
 		lightsOff.setFont(FONT_SIZE);
-		lightsOff.setOnAction( actionEvent -> { MidiConnection.getUsbReceiver().send(off, -1); } );
+		lightsOff.setOnAction( actionEvent -> MidiConnection.getUsbReceiver().send(off, -1) );
 		grid.add(lightsOff, 0, 9);
 		GridPane.setHalignment(lightsOff, HPos.LEFT);
 		
-		/********************** For my purposes only ********************************/
+		/* ******************** For my purposes only ********************************/
 		
 		final FlashLights flashingLights = new FlashLights(on, off);
 		
@@ -154,7 +154,7 @@ public class ManualOperationScene extends Application {
 		grid.add(flashLights, 3, 9);
 		GridPane.setHalignment(flashLights, HPos.CENTER);
 		
-		/*************************************************************************/
+		/* ************************************************************************/
 		
 		final ToggleGroup partSelected = new ToggleGroup();
 		
@@ -266,7 +266,7 @@ public class ManualOperationScene extends Application {
 	 * @param grid The {@code GridPane} that the text is added to
 	 */
 	
-	private final void servoNumSetup(final GridPane grid) {
+	private void servoNumSetup(final GridPane grid) {
 		setupText(grid, "Servo", 1, 0);
 		setupText(grid, "1", 1, 1);
 		setupText(grid, "2", 1, 2);
@@ -284,7 +284,7 @@ public class ManualOperationScene extends Application {
 	 * @param grid The {@code GridPane} that contains and lays out all of the GUI elements
 	 */
 	
-	private final void PICPinNumberSetup(final GridPane grid) {
+	private void PICPinNumberSetup(final GridPane grid) {
 		setupText(grid, "PIC Pin Number(s)", 2, 0);
 		setupText(grid, "17", 2, 1);
 		setupText(grid, "18", 2, 2);
@@ -302,7 +302,7 @@ public class ManualOperationScene extends Application {
 	 * @param grid The {@code GridPane} that contains and lays out all of the GUi elements
 	 */
 	
-	private final void PICPinNameSetup(final GridPane grid) {
+	private void PICPinNameSetup(final GridPane grid) {
 		setupText(grid, "PIC Pin Name(s)", 3, 0);
 		setupText(grid, "RA0", 3, 1);
 		setupText(grid, "RA1", 3, 2);
@@ -313,10 +313,10 @@ public class ManualOperationScene extends Application {
 		setupText(grid, "RA1 and RA2", 3, 7);
 	}
 	
-	private final void setupText(final GridPane gridPane, final String label, final int column, final int row) {
+	private void setupText(final GridPane gridPane, final String label, final int column, final int row) {
 		final Text text = new Text(label);
 		text.setFont(FONT_SIZE);
-		gridPane.add(text, 1, row);
+		gridPane.add(text, column, row);
 		GridPane.setHalignment(text, HPos.CENTER);
 	}
 	
@@ -330,7 +330,7 @@ public class ManualOperationScene extends Application {
 	 * @param stage The primary {@code Stage} that contains all of the GUI elements
 	 */
 	
-	private final void MIDISelectSetup(final GridPane grid, final Stage stage) {
+	private void MIDISelectSetup(final GridPane grid, final Stage stage) {
 		
 		final Button sendMIDIBtn = new Button("Send MIDI");
 		sendMIDIBtn.setOnAction(actionListener -> {	
@@ -344,9 +344,9 @@ public class ManualOperationScene extends Application {
 				return;
 			}
 			try { 
-				final ShortMessage[] messages = makeMessages(); 
-				for (byte i = 0; i < messages.length; ++i)
-					MidiConnection.getUsbReceiver().send(messages[i], -1);
+				final ShortMessage[] messages = makeMessages();
+				for (final ShortMessage shortMessage : messages)
+					MidiConnection.getUsbReceiver().send(shortMessage, -1);
 			} 
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 			actionListener.consume();
@@ -421,7 +421,7 @@ public class ManualOperationScene extends Application {
 	 * @throws InvalidMidiDataException Thrown if any of the MIDI data is invalid
 	 */
 	
-	private final ShortMessage[] makeMessages() throws InvalidMidiDataException {
+	private ShortMessage[] makeMessages() throws InvalidMidiDataException {
 		final ShortMessage[] messages = new ShortMessage[midiNotes.length];
 		if (midiNotes.length >= 1) 
 			messages[0] = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNotes[0], currentVelocity);
@@ -430,13 +430,13 @@ public class ManualOperationScene extends Application {
 		return messages;
 	}
 	
-	/*************************** For my purposes only *********************************************/
+	/* ************************** For my purposes only *********************************************/
 	
 	private class FlashLights implements Runnable {
 		private volatile boolean isFlashing = true;
-		private ShortMessage on = null;
-		private ShortMessage off = null;
-		public FlashLights(ShortMessage on, ShortMessage off) {
+		private final ShortMessage on;
+		private final ShortMessage off;
+		FlashLights(ShortMessage on, ShortMessage off) {
 			this.on = on;
 			this.off = off;
 		}
@@ -448,14 +448,14 @@ public class ManualOperationScene extends Application {
 					Thread.sleep(100);
 					MidiConnection.getUsbReceiver().send(off, -1);
 					Thread.sleep(100);
-				} catch (InterruptedException e) { }
+				} catch (InterruptedException e) { e.printStackTrace(); }
 			}
 		}
-		public final void flash() { isFlashing = true; }
-		public final void halt() { isFlashing = false; }
+		final void flash() { isFlashing = true; }
+		final void halt() { isFlashing = false; }
 	}
 	
-	/*********************************************************************************/
+	/* ********************************************************************************/
 	
 } // end of class ManualOperationScene
 

@@ -15,25 +15,25 @@ import javax.sound.midi.ShortMessage;
 	@version 1.0
 */
 
-public final class Lights extends Part {
+final class Lights extends Part {
 
 	/**
 	 * The maximum brightness that the eye lights of the {@code Ruppet} should have.
 	 */
 	
-	private byte maxBrightness = -1;
+	private final byte maxBrightness;
 	
 	/**
 	 * The minimum brightness that the eye lights of the {@code Ruppet} should have.
 	 */
 	
-	private byte minBrightness = -1;
+	private final byte minBrightness;
 
 	/**
 	 * Represents the current brightness of the lights.
 	 */
 
-	private byte brightness = -1;
+	private byte brightness;
 
 	/**
 	 * This constructor takes the {@code ArrayList} of {@code Ruppet Part}s that 
@@ -54,7 +54,7 @@ public final class Lights extends Part {
 	 * @param upperBound The maximum value for a state for the {@code Lights} object.
 	 */
 
-	public Lights(final List<Part> ruppetParts, final byte midiNote, final byte lowerBound, final byte upperBound) { 
+	Lights(final List<Part> ruppetParts, final byte midiNote, final byte lowerBound, final byte upperBound) {
 		super(ruppetParts, (byte) 1, midiNote, lowerBound, upperBound); 
 		minBrightness = lowerBound;
 		maxBrightness = upperBound;
@@ -84,13 +84,13 @@ public final class Lights extends Part {
 	 * Turns the {@code Ruppet}'s eye lights on.
 	 */
 
-	public final void on() { toState(maxBrightness); } 
+	final void on() { toState(maxBrightness); }
 	
 	/**
 	 * Turn the {@code Ruppet}'s eye lights off.
 	 */
 	
-	public final void off() { toState(minBrightness); }
+	final void off() { toState(minBrightness); }
 
 	/**
 	 * Gets the current brightness level of the {@code Ruppet}'s eye lights.
@@ -142,7 +142,7 @@ public final class Lights extends Part {
 	 * @return A {@code boolean} representing whether the velocity value valid.
 	 */
 
-	private final boolean validBrightness(final byte brightness) { return validVelocity(brightness); }
+	private boolean validBrightness(final byte brightness) { return validVelocity(brightness); }
 	
 } // end of Light class
 

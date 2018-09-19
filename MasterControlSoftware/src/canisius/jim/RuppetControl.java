@@ -5,10 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.Sequencer;
@@ -32,56 +29,56 @@ import javax.sound.midi.Track;
  *	@author Jon Mrowczynski
  */
 
-public final class RuppetControl {
+final class RuppetControl {
 	
 	/**
 	 * A {@code byte} that represents the channel number. In our case, we use channel one to
 	 * send MIDI messages to the {@code Ruppet}.
 	 */
 	
-	public static final byte CHAN_1 = 0; //For channel 1
+	static final byte CHAN_1 = 0; //For channel 1
 	
 	/**
 	 * The maximum velocity value that the PIC is able to interpret successfully.
 	 */
 	
-	public static final byte MAX_VELOCITY = 10; 
+	static final byte MAX_VELOCITY = 10;
 	
 	/**
 	 * The minimum velocity value that the PIC is able to interpret successfully.
 	 */
 	
-	public static final byte MIN_VELOCITY = 0;
+	static final byte MIN_VELOCITY = 0;
 	
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyebrow.
 	 */
 
-	public static final byte EYEBROW = 0x3C; // Servo 1 C4
+	static final byte EYEBROW = 0x3C; // Servo 1 C4
 	
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s left lip corner.
 	 */
 	
-	public static final byte LEFT_LIP_CORNER = 0x3E; // Servo 2 D4
+	static final byte LEFT_LIP_CORNER = 0x3E; // Servo 2 D4
 	
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s right lip corner.
 	 */
 	
-	public static final byte RIGHT_LIP_CORNER = 0x40; // Servo 3 E4
+	static final byte RIGHT_LIP_CORNER = 0x40; // Servo 3 E4
 	
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s lower jaw.
 	 */
 	
-	public static final byte LOWER_JAW = 0x43; // Servo 4 G4
+	static final byte LOWER_JAW = 0x43; // Servo 4 G4
 	
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyelids.
 	 */
 	
-	public static final byte EYELIDS = 0x45; // Servo 5 A4
+	static final byte EYELIDS = 0x45; // Servo 5 A4
 	
 	/**
 	 * The MIDI note that is associated with the sixth servo motor. Currently this is not used in our {@code Ruppet}.
@@ -93,7 +90,7 @@ public final class RuppetControl {
 	 * The MIDI note that is associated with the eye lights of the {@code Ruppet}.
 	 */
 	
-	public static final byte LIGHTS = 0x4A; // Lights D5
+	static final byte LIGHTS = 0x4A; // Lights D5
 	
 	/**
 	 * The ending point in the PWM period where the PIC is able to set a servo output pin to high.
@@ -107,7 +104,7 @@ public final class RuppetControl {
 	
 	public static final short MIN_SERVO_VAL = 180;
 	
-	public static final Scanner reader = new Scanner(System.in);
+	static final Scanner reader = new Scanner(System.in);
 	
 	/**
 	 * The RuppetControl class in not designed to be instantiated.
@@ -127,7 +124,7 @@ public final class RuppetControl {
 			ticksPerSecond = 160 * (375 / 60.0) = 1,000(ticks/s) = 1(tick/ms)
 	*/
 
-	public static final void initConnections() {
+	static void initConnections() {
 		MidiConnection.establishUsbMidiConnection();
 		MidiConnection.establishSequencerConnection();
 		MidiConnection.getSequencer().setTempoInBPM(375);
@@ -140,7 +137,7 @@ public final class RuppetControl {
 	 * @param ms The amount of time that the program should pause for in milliseconds
 	 */
 
-	public static final void pause_ms(final int ms) {
+	static void pause_ms(final int ms) {
 		try { Thread.sleep(ms); } 
 		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 	}
@@ -149,17 +146,17 @@ public final class RuppetControl {
 	 * Halts the program for 2 seconds.
 	 */
 
-	public static void pause() { pause_ms(2000); }
+	static void pause() { pause_ms(2000); }
 	
 	/**
 	 * 
 	 * 
-	 * @param msg
-	 * @param tick
-	 * @return
+	 * @param msg that is to be made into an event
+	 * @param tick that {@code msg} is to be played at
+	 * @return the constructed {@code MidiEvent}
 	 */
 
-	public static final MidiEvent makeEvent(final ShortMessage msg, final int tick) { return new MidiEvent(msg, tick); }
+	static MidiEvent makeEvent(final ShortMessage msg, final int tick) { return new MidiEvent(msg, tick); }
 	
 	/**
 	 * Gets the MIDI note that is associated with the passed in {@code ShortMessage}.
@@ -168,7 +165,7 @@ public final class RuppetControl {
 	 * @return The MIDI note of the {@code ShortMessage}
 	 */
 
-	public static final byte getMidiNote (final ShortMessage msg) { return (byte) msg.getData1(); }
+	static byte getMidiNote (final ShortMessage msg) { return (byte) msg.getData1(); }
 	
 	/**
 	 * Gets the velocity value associated with the passed in {@code ShortMessage}.
@@ -177,7 +174,7 @@ public final class RuppetControl {
 	 * @return The velocity value of the {@code ShortMessage}.
 	 */
 	
-	public static final byte getVelocityVal (final ShortMessage msg) { return (byte) msg.getData2(); }
+	static byte getVelocityVal (final ShortMessage msg) { return (byte) msg.getData2(); }
 
 	/* Add a state to an array list by adding all of the ShortMessages contained within
 	   the state to the ArrayList */
@@ -190,8 +187,8 @@ public final class RuppetControl {
 	 * @param state The array of {@code ShortMessages} that will be added to the {@code ArrayList}.
 	 */
 
-	public static final void addStateToList(final List<ShortMessage> states, final ShortMessage[] state) {
-		for (final ShortMessage msg : state) states.add(msg);
+	static void addStateToList(final List<ShortMessage> states, final ShortMessage[] state) {
+		states.addAll(Arrays.asList(state));
 	}
 
 	/* Uses a partial sum of a converging series to get the mouth movements closer together. 
@@ -206,7 +203,7 @@ public final class RuppetControl {
 	 * @return The new converged time
 	 */
 
-	public static final int convergeTimes(final int t1, final int t2) { return t1 + (t2 / 2) + (t2 / 4) + (t2 / 8) + (t2 / 16); }
+	public static int convergeTimes(final int t1, final int t2) { return t1 + (t2 / 2) + (t2 / 4) + (t2 / 8) + (t2 / 16); }
 		
 	/**
 	 * Mutes every single {@code Track} that is stored in the {@code Ruppet}'s {@code Sequence}.
@@ -214,7 +211,7 @@ public final class RuppetControl {
 	 * @param tracks The {@code Track}s that are to be muted
 	 */
 
-	public static final void muteAllTracks(final List<Track> tracks) {
+	static void muteAllTracks(final List<Track> tracks) {
 		for (final Track track : tracks) 
 			MidiConnection.getSequencer().setTrackMute(tracks.indexOf(track), true); 
 	}
@@ -225,7 +222,7 @@ public final class RuppetControl {
 	 * @param tracks The {@code Track}s that are to be set to not soloed.
 	 */
 
-	public static final void deSoloAllTracks(final List<Track> tracks) {
+	static void deSoloAllTracks(final List<Track> tracks) {
 		for (final Track track : tracks) 
 			MidiConnection.getSequencer().setTrackSolo(tracks.indexOf(track), false); 
 	} 
@@ -241,7 +238,7 @@ public final class RuppetControl {
 	 * @param soloTrack The one {@code Track} that is to be left alone
 	 */
 
-	public static final void deSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
+	static void deSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
 		final int soloTrackIndex = tracks.indexOf(soloTrack);
 		for(final Track track : tracks) {
 			final int currentTrackIndex = tracks.indexOf(track);
@@ -264,12 +261,12 @@ public final class RuppetControl {
 	 * @return A randomly generated {@code int} value between the values {@code min} and {@code max} inclusive
 	 */
 
-	public static final int getRandInt(final int min, final int max) { return ( new Random() ).nextInt( (max - min) + 1 ) + min; }
+	static int getRandInt(final int min, final int max) { return ( new Random() ).nextInt( (max - min) + 1 ) + min; }
 		
 	/* Checks to see if the save file exists, if it does, read in the information in
 	   the file, otherwise, create the file and ask for a file name to store in the save file */
 
-	public static final void checkSaveFile(final File saveFile) throws IOException {
+	static void checkSaveFile(final File saveFile) throws IOException {
 		System.out.println();
 		String saveFileName = saveFile.getName();
 		if(saveFile.createNewFile()) {
@@ -278,11 +275,22 @@ public final class RuppetControl {
 		} else 
 			System.out.println("Save File: " + saveFileName + " found.");
 	}
+
+    /**
+     *
+     *
+     * @param saveFile that is to be cleared
+     */
+
+    static void clearSaveFile(final File saveFile) {
+        try (final PrintWriter writer = new PrintWriter(saveFile.getName())) { writer.print(""); }
+        catch (FileNotFoundException ex) { ex.printStackTrace(); }
+    }
 	
 	/* This method currently reads the name of the data file from the save file
 	  or asks the user to input the name of the data file if there is none stored */
 
-	public static final File getDataFile(final File saveFile, final Hashtable<File, String> saveFiles) {
+	private static File getDataFile(final File saveFile, final Hashtable<File, String> saveFiles) {
 		File dataFile = null;
 		System.out.println();
 		if (saveFile.length() == 0) {
@@ -296,22 +304,11 @@ public final class RuppetControl {
 		return checkForDataFile(dataFile, saveFile, saveFiles);
 	}
 	
-	/**
-	 * 
-	 * 
-	 * @param saveFile
-	 */
-	
-	public static final void clearSaveFile(final File saveFile) {
-		try (final PrintWriter writer = new PrintWriter(saveFile.getName())) { writer.print(""); } 
-		catch (FileNotFoundException ex) { ex.printStackTrace(); }
-	}
-	
 	/* Checks to see if the data file exists, if so return it, else return the File from another 
 	   call from this method. (Pretty much keep on looping through this method until a File
 	   with the name that the user specified is found and then return that File) */
 
-	private static final File checkForDataFile(File dataFile, final File saveFile, final Hashtable<File, String> saveFiles) {
+	private static File checkForDataFile(File dataFile, final File saveFile, final Hashtable<File, String> saveFiles) {
 		if(dataFile.exists() && (getFileExtension(dataFile).equals(saveFiles.get(saveFile)))) {
 			System.out.println("\tData File: " + dataFile.getName() + " found.");
 			saveDataFile(dataFile, saveFile);
@@ -331,14 +328,14 @@ public final class RuppetControl {
 	
 	/* Write the name of the data file to the corresponding save file */
 
-	private static final void saveDataFile(final File dataFile, final File saveFile) {
+	private static void saveDataFile(final File dataFile, final File saveFile) {
 		try (final PrintWriter writer = new PrintWriter(saveFile.getName())) { writer.print(dataFile.getName()); }
 		catch (FileNotFoundException ex) { ex.printStackTrace(); }
 	}
 	
 	/* Gets the file extension of the file. */
 
-	public static final String getFileExtension(final File file) {
+	private static String getFileExtension(final File file) {
 		final String fileName = file.getName();
 		final int i = fileName.lastIndexOf('.');
 		return i > 0 ? fileName.substring(i) : "";

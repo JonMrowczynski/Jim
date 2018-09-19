@@ -2,6 +2,7 @@ package canisius.jim;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sound.midi.ShortMessage;
@@ -14,7 +15,7 @@ import javax.sound.midi.Track;
 	@version 1.0
 */
 
-public final class Emotion {
+final class Emotion {
 	
 	/**
 	 * Each emotion has a {@code Ruppet} associated with it as well as an {@code ArrayList}
@@ -34,7 +35,7 @@ public final class Emotion {
 	 * @param emotionPartStates The {@code PartStates} that are transitioned to for this {@code Emotion}
 	 */
 
-	public Emotion(final Ruppet ruppet, final PartState... emotionPartStates) {
+	Emotion(final Ruppet ruppet, final PartState... emotionPartStates) {
 		if (emotionPartStates.length > 0) {
 			final List<Part> ruppetParts = new ArrayList<>();
 			for (final Part part : ruppet.getParts())
@@ -46,8 +47,8 @@ public final class Emotion {
 			for (PartState emotionPartState : emotionPartStates) {
 				ruppetParts.remove(emotionPartState.getPart());
 				if (emotionPartState.getPart() instanceof Movable)
-					for (final ShortMessage msg : emotionPartState.getState()) 
-						attributes.add(msg);
+					attributes.addAll(Arrays.asList(emotionPartState.getState()));
+
 			} 
 
 			/* If there are still some Parts left over that are not a part of the current Emotion 
@@ -74,7 +75,7 @@ public final class Emotion {
 	 * @param tick The point in time that the {@code Emotion} should be transitioned to
 	 */
 
-	public final void addEmotionToTrack(final Track track, final int tick) {
+	final void addEmotionToTrack(final Track track, final int tick) {
 		for (final ShortMessage msg : attributes)
 			if (RuppetControl.getMidiNote(msg) != RuppetControl.LOWER_JAW)
 				track.add(RuppetControl.makeEvent(msg, tick));
@@ -88,7 +89,7 @@ public final class Emotion {
 	 * @return The {@code ShortMessages} that are associated with the emotional state
 	 */
 
-	public final List<ShortMessage> getAttributes() { return attributes; }
+	final List<ShortMessage> getAttributes() { return attributes; }
 
 } // end of Emotion class
 
