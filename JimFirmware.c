@@ -4,26 +4,18 @@
  * Author       : Jon Mrowczynski
  * Target       : PIC18F24K40
  * Compiler     : XC8 v2.00 Free version
- * IDE          : MPLAB X IDE v5.00
+ * IDE          : MPLAB X IDE v5.05
  * Programmer   : PICkit3
- * Last Updated : 8/11/2018
+ * Last Updated : 8/31/2018
  * 
- * This firmware allows a PIC16F628A microcontroller to control up to six 
- * servo motors and two LEDs in parallel. TIMER2 match interrupts are used to 
- * create the software PWM signals with a period of 200ms that are necessary to 
- * control up to six servo motors.
+ * This firmware allows for up to six servo motors and two LEDs in parallel. 
+ * TIMER2 match interrupts are used to create the software PWM signals with a 
+ * period of 200ms that are necessary to control up to six servo motors.
  * 
  * For the servo motors that we are using (Tower Pro 9g servo), a full 
  * counterclockwise rotation requires a pulse width of 2.0ms, a full clockwise 
  * rotation requires a pulse width of 1.0ms, and the central or neutral position
  * requires a pulse width of 1.5ms.
- * 
- * MIDI is used as the communication protocol to control the servo motors. The 
- * velocity of the MIDI note is used to determine the angular position of a 
- * corresponding servo motor arm.
- * 
- * The notes that are associated with the motors and the lights match the tones 
- * of a C4 pentatonic scale, which are C4, D4, E4, G4, A4, C5 and D5.
  * 
  * To learn more information about how each module is specifically implemented,
  * check out the corresponding header file.

@@ -1,91 +1,50 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"19689 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 19689: extern volatile unsigned char PR2 __attribute__((address(0xFBC)));
-[v _PR2 `Vuc ~T0 @X0 0 e@4028 ]
-"19722
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 19722: extern volatile unsigned char T2CON __attribute__((address(0xFBD)));
-[v _T2CON `Vuc ~T0 @X0 0 e@4029 ]
-"29970
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 29970: extern volatile __bit TMR2IF __attribute__((address(0x7671)));
-[v _TMR2IF `Vb ~T0 @X0 0 e@30321 ]
-"29967
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 29967: extern volatile __bit TMR2IE __attribute__((address(0x7631)));
-[v _TMR2IE `Vb ~T0 @X0 0 e@30257 ]
-"29979
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 29979: extern volatile __bit TMR2ON __attribute__((address(0x7DEF)));
-[v _TMR2ON `Vb ~T0 @X0 0 e@32239 ]
-"30282
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30282: extern volatile __bit TRISB1 __attribute__((address(0x7C49)));
-[v _TRISB1 `Vb ~T0 @X0 0 e@31817 ]
-"15695
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 15695: extern volatile unsigned char SPBRG __attribute__((address(0xF9B)));
-[v _SPBRG `Vuc ~T0 @X0 0 e@3995 ]
-"25740
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 25740: extern volatile __bit BRGH __attribute__((address(0x7CF2)));
-[v _BRGH `Vb ~T0 @X0 0 e@31986 ]
-"26199
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 26199: extern volatile __bit CREN __attribute__((address(0x7CEC)));
-[v _CREN `Vb ~T0 @X0 0 e@31980 ]
-"29031
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 29031: extern volatile __bit SPEN __attribute__((address(0x7CEF)));
-[v _SPEN `Vb ~T0 @X0 0 e@31983 ]
-"15580
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 15580: extern volatile unsigned char RCREG __attribute__((address(0xF99)));
-[v _RCREG `Vuc ~T0 @X0 0 e@3993 ]
-"27804
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 27804: extern volatile __bit OERR __attribute__((address(0x7CE9)));
-[v _OERR `Vb ~T0 @X0 0 e@31977 ]
-"26610
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 26610: extern volatile __bit FERR __attribute__((address(0x7CEA)));
-[v _FERR `Vb ~T0 @X0 0 e@31978 ]
-"30255
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30255: extern volatile __bit TRISA0 __attribute__((address(0x7C40)));
-[v _TRISA0 `Vb ~T0 @X0 0 e@31808 ]
-"30258
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30258: extern volatile __bit TRISA1 __attribute__((address(0x7C41)));
-[v _TRISA1 `Vb ~T0 @X0 0 e@31809 ]
-"30261
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30261: extern volatile __bit TRISA2 __attribute__((address(0x7C42)));
-[v _TRISA2 `Vb ~T0 @X0 0 e@31810 ]
-"30264
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30264: extern volatile __bit TRISA3 __attribute__((address(0x7C43)));
-[v _TRISA3 `Vb ~T0 @X0 0 e@31811 ]
-"30279
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30279: extern volatile __bit TRISB0 __attribute__((address(0x7C48)));
-[v _TRISB0 `Vb ~T0 @X0 0 e@31816 ]
-"30288
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 30288: extern volatile __bit TRISB3 __attribute__((address(0x7C4B)));
-[v _TRISB3 `Vb ~T0 @X0 0 e@31819 ]
-[t ~ __interrupt . k ]
-[t T1 __interrupt ]
-"28074
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28074: extern volatile __bit RA0 __attribute__((address(0x7C68)));
-[v _RA0 `Vb ~T0 @X0 0 e@31848 ]
-"28092
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28092: extern volatile __bit RA1 __attribute__((address(0x7C69)));
-[v _RA1 `Vb ~T0 @X0 0 e@31849 ]
-"28110
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28110: extern volatile __bit RA2 __attribute__((address(0x7C6A)));
-[v _RA2 `Vb ~T0 @X0 0 e@31850 ]
-"28128
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28128: extern volatile __bit RA3 __attribute__((address(0x7C6B)));
-[v _RA3 `Vb ~T0 @X0 0 e@31851 ]
-"28218
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28218: extern volatile __bit RB0 __attribute__((address(0x7C70)));
-[v _RB0 `Vb ~T0 @X0 0 e@31856 ]
-"28536
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28536: extern volatile __bit RCIF __attribute__((address(0x766D)));
-[v _RCIF `Vb ~T0 @X0 0 e@30317 ]
-"28308
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 28308: extern volatile __bit RB5 __attribute__((address(0x7C75)));
-[v _RB5 `Vb ~T0 @X0 0 e@31861 ]
-[p mainexit ]
-"27876
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 27876: extern volatile __bit PEIE __attribute__((address(0x7F96)));
-[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
-"26649
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 26649: extern volatile __bit GIE __attribute__((address(0x7F97)));
-[v _GIE `Vb ~T0 @X0 0 e@32663 ]
+"13155 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13155: extern volatile unsigned char NVMADRL __attribute__((address(0xF7E)));
+[v _NVMADRL `Vuc ~T0 @X0 0 e@3966 ]
+"13480
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13480:     struct {
+[s S655 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 ]
+[n S655 . RD WR WREN WRERR FREE . NVMREG ]
+"13489
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13489:     struct {
+[s S656 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S656 . . NVMREG0 NVMREG1 ]
+"13479
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13479: typedef union {
+[u S654 `S655 1 `S656 1 ]
+[n S654 . . . ]
+"13495
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13495: extern volatile NVMCON1bits_t NVMCON1bits __attribute__((address(0xF81)));
+[v _NVMCON1bits `VS654 ~T0 @X0 0 e@3969 ]
+"50 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18.h
+[v ___nop `(v ~T0 @X0 0 ef ]
+[p i ___nop ]
+"13404 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13404: extern volatile unsigned char NVMDAT __attribute__((address(0xF80)));
+[v _NVMDAT `Vuc ~T0 @X0 0 e@3968 ]
+"24305
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 24305:     struct {
+[s S1261 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1261 . INT0EDG INT1EDG INT2EDG . IPEN PEIE_GIEL GIE_GIEH ]
+"24314
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 24314:     struct {
+[s S1262 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1262 . . PEIE GIE ]
+"24319
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 24319:     struct {
+[s S1263 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1263 . . GIEL GIEH ]
+"24304
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 24304: typedef union {
+[u S1260 `S1261 1 `S1262 1 `S1263 1 ]
+[n S1260 . . . . ]
+"24325
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 24325: extern volatile INTCONbits_t INTCONbits __attribute__((address(0xFF2)));
+[v _INTCONbits `VS1260 ~T0 @X0 0 e@4082 ]
+"13540
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 13540: extern volatile unsigned char NVMCON2 __attribute__((address(0xF82)));
+[v _NVMCON2 `Vuc ~T0 @X0 0 e@3970 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 54: __asm("PPSLOCK equ 0EA0h");
 [; <" PPSLOCK equ 0EA0h ;# ">
@@ -1304,535 +1263,122 @@ Version 4.0 HI-TECH Software Intermediate Code
 "24748
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h: 24748: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"19 ./configuration.h
-[p x FCMEN    = ON ]
-"20
-[p x CSWEN    = OFF ]
-"21
-[p x CLKOUTEN = OFF ]
-"22
-[p x RSTOSC   = HFINTOSC_64MHZ ]
-"23
-[p x FEXTOSC  = OFF ]
-"27
-[p x XINST    = OFF ]
-"28
-[p x DEBUG    = OFF ]
-"29
-[p x STVREN   = ON ]
-"30
-[p x PPS1WAY  = ON ]
-"31
-[p x ZCD      = OFF ]
-"32
-[p x BORV     = VBOR_285 ]
-"33
-[p x BOREN    = SBORDIS ]
-"34
-[p x LPBOREN  = OFF ]
-"35
-[p x PWRTE    = ON ]
-"36
-[p x MCLRE    = INTMCLR ]
-"40
-[p x WDTCCS   = SC ]
-"41
-[p x WDTCWS   = WDTCWS_7 ]
-"42
-[p x WDTE     = OFF ]
-"43
-[p x WDTCPS   = WDTCPS_31 ]
-"47
-[p x LVP      = OFF ]
-"48
-[p x SCANE    = ON ]
-"49
-[p x WRTD     = ON ]
-"50
-[p x WRTB     = ON ]
-"51
-[p x WRTC     = ON ]
-"52
-[p x WRT1     = ON ]
-"53
-[p x WRT0     = ON ]
-"57
-[p x CPD      = ON ]
-"58
-[p x CP       = ON ]
-"62
-[p x EBTRB    = ON ]
-"63
-[p x EBTR1    = ON ]
-"64
-[p x EBTR0    = ON ]
-[v F8862 `(v ~T0 @X0 1 tf ]
-"44 ./tmr2.h
-[; ;./tmr2.h: 44: static __attribute__((inline)) void initTMR2(void) {
-[v _initTMR2 `TF8862 ~T0 @X0 1 s ]
+"4 eeprom.c
+[; ;eeprom.c: 4: static unsigned char dataEEReadByte(unsigned char address) {
+[v _dataEEReadByte `(uc ~T0 @X0 1 sf1`uc ]
 {
-[e :U _initTMR2 ]
+[e :U _dataEEReadByte ]
+[v _address `uc ~T0 @X0 1 r1 ]
 [f ]
-"45
-[; ;./tmr2.h: 45:     PR2 = 124;
-[e = _PR2 -> -> 124 `i `uc ]
-"46
-[; ;./tmr2.h: 46:     T2CON = 0b00000001;
-[e = _T2CON -> -> 1 `i `uc ]
-"47
-[; ;./tmr2.h: 47:     TMR2IF = 0;
-[e = _TMR2IF -> -> 0 `i `b ]
-"48
-[; ;./tmr2.h: 48:     TMR2IE = 1;
-[e = _TMR2IE -> -> 1 `i `b ]
-"49
-[; ;./tmr2.h: 49:     TMR2ON = 1;
-[e = _TMR2ON -> -> 1 `i `b ]
-"50
-[; ;./tmr2.h: 50: }
+"5
+[; ;eeprom.c: 5:     NVMADRL = (address & 0xFF);
+[e = _NVMADRL -> & -> _address `i -> 255 `i `uc ]
+"6
+[; ;eeprom.c: 6:     NVMCON1bits.NVMREG = 0;
+[e = . . _NVMCON1bits 0 6 -> -> 0 `i `uc ]
+"7
+[; ;eeprom.c: 7:     NVMCON1bits.RD = 1;
+[e = . . _NVMCON1bits 0 0 -> -> 1 `i `uc ]
+"8
+[; ;eeprom.c: 8:     __nop();
+[e ( ___nop ..  ]
+"9
+[; ;eeprom.c: 9:     __nop();
+[e ( ___nop ..  ]
+"10
+[; ;eeprom.c: 10:     return (NVMDAT);
+[e ) _NVMDAT ]
+[e $UE 1291  ]
+"11
+[; ;eeprom.c: 11: }
 [e :UE 1291 ]
 }
-[v F8864 `(v ~T0 @X0 1 tf ]
-"52 ./usart.h
-[; ;./usart.h: 52: static __attribute__((inline)) void initUSART() {
-[v _initUSART `TF8864 ~T0 @X0 1 s ]
+"13
+[; ;eeprom.c: 13: static void dataEEWriteByte(const unsigned char address, const unsigned char value) {
+[v _dataEEWriteByte `(v ~T0 @X0 1 sf2`Cuc`Cuc ]
 {
-[e :U _initUSART ]
+[e :U _dataEEWriteByte ]
+[v _address `Cuc ~T0 @X0 1 r1 ]
+[v _value `Cuc ~T0 @X0 1 r2 ]
 [f ]
-"53
-[; ;./usart.h: 53:     TRISB1 = 1;
-[e = _TRISB1 -> -> 1 `i `b ]
-"54
-[; ;./usart.h: 54:     SPBRG = 39;
-[e = _SPBRG -> -> 39 `i `uc ]
-"55
-[; ;./usart.h: 55:     BRGH = 1;
-[e = _BRGH -> -> 1 `i `b ]
-"56
-[; ;./usart.h: 56:     CREN = 1;
-[e = _CREN -> -> 1 `i `b ]
-"57
-[; ;./usart.h: 57:     SPEN = 1;
-[e = _SPEN -> -> 1 `i `b ]
-"58
-[; ;./usart.h: 58: }
+"14
+[; ;eeprom.c: 14:     unsigned char GIEBitValue = INTCONbits.GIE;
+[v _GIEBitValue `uc ~T0 @X0 1 a ]
+[e = _GIEBitValue . . _INTCONbits 1 2 ]
+"15
+[; ;eeprom.c: 15:     NVMADRL = (address & 0xFF);
+[e = _NVMADRL -> & -> _address `i -> 255 `i `uc ]
+"16
+[; ;eeprom.c: 16:     NVMDAT = value;
+[e = _NVMDAT _value ]
+"17
+[; ;eeprom.c: 17:     NVMCON1bits.NVMREG = 0;
+[e = . . _NVMCON1bits 0 6 -> -> 0 `i `uc ]
+"18
+[; ;eeprom.c: 18:     NVMCON1bits.WREN = 1;
+[e = . . _NVMCON1bits 0 2 -> -> 1 `i `uc ]
+"19
+[; ;eeprom.c: 19:     INTCONbits.GIE = 0;
+[e = . . _INTCONbits 1 2 -> -> 0 `i `uc ]
+"20
+[; ;eeprom.c: 20:     NVMCON2 = 0x55;
+[e = _NVMCON2 -> -> 85 `i `uc ]
+"21
+[; ;eeprom.c: 21:     NVMCON2 = 0xAA;
+[e = _NVMCON2 -> -> 170 `i `uc ]
+"22
+[; ;eeprom.c: 22:     NVMCON1bits.WR = 1;
+[e = . . _NVMCON1bits 0 1 -> -> 1 `i `uc ]
+"24
+[; ;eeprom.c: 24:     while (NVMCON1bits.WR);
+[e $U 1293  ]
+[e :U 1294 ]
+[e :U 1293 ]
+[e $ != -> . . _NVMCON1bits 0 1 `i -> 0 `i 1294  ]
+[e :U 1295 ]
+"25
+[; ;eeprom.c: 25:     NVMCON1bits.WREN = 0;
+[e = . . _NVMCON1bits 0 2 -> -> 0 `i `uc ]
+"26
+[; ;eeprom.c: 26:     INTCONbits.GIE = GIEBitValue;
+[e = . . _INTCONbits 1 2 _GIEBitValue ]
+"27
+[; ;eeprom.c: 27: }
 [e :UE 1292 ]
 }
-[v F8866 `(v ~T0 @X0 1 tf ]
-"65
-[; ;./usart.h: 65: static __attribute__((inline)) void clearOverrunError() {
-[v _clearOverrunError `TF8866 ~T0 @X0 1 s ]
+"29
+[; ;eeprom.c: 29: void saveSetting(const unsigned char address, const unsigned char value) {
+[v _saveSetting `(v ~T0 @X0 1 ef2`Cuc`Cuc ]
 {
-[e :U _clearOverrunError ]
+[e :U _saveSetting ]
+[v _address `Cuc ~T0 @X0 1 r1 ]
+[v _value `Cuc ~T0 @X0 1 r2 ]
 [f ]
-"66
-[; ;./usart.h: 66:     static unsigned char temp = 0;
-[v F8867 `uc ~T0 @X0 1 s temp ]
-[i F8867
--> -> 0 `i `uc
-]
-"67
-[; ;./usart.h: 67:     do {
-[e :U 1296 ]
-{
-"68
-[; ;./usart.h: 68:         temp = RCREG;
-[e = F8867 _RCREG ]
-"69
-[; ;./usart.h: 69:         temp = RCREG;
-[e = F8867 _RCREG ]
-"70
-[; ;./usart.h: 70:         CREN = 0;
-[e = _CREN -> -> 0 `i `b ]
-"71
-[; ;./usart.h: 71:         CREN = 1;
-[e = _CREN -> -> 1 `i `b ]
-"72
-[; ;./usart.h: 72:     } while(OERR);
-}
-[e $ _OERR 1296  ]
-[e :U 1295 ]
-"73
-[; ;./usart.h: 73: }
-[e :UE 1293 ]
-}
-[v F8869 `(v ~T0 @X0 1 tf ]
-"83
-[; ;./usart.h: 83: static __attribute__((inline)) void clearFramingError() {
-[v _clearFramingError `TF8869 ~T0 @X0 1 s ]
-{
-[e :U _clearFramingError ]
-[f ]
-"84
-[; ;./usart.h: 84:     static unsigned char temp = 0;
-[v F8870 `uc ~T0 @X0 1 s temp ]
-[i F8870
--> -> 0 `i `uc
-]
-"85
-[; ;./usart.h: 85:     do {
-[e :U 1300 ]
-{
-"86
-[; ;./usart.h: 86:         temp = RCREG;
-[e = F8870 _RCREG ]
-"87
-[; ;./usart.h: 87:         temp = RCREG;
-[e = F8870 _RCREG ]
-"88
-[; ;./usart.h: 88:         SPEN = 0;
-[e = _SPEN -> -> 0 `i `b ]
-"89
-[; ;./usart.h: 89:         SPEN = 1;
-[e = _SPEN -> -> 1 `i `b ]
-"90
-[; ;./usart.h: 90:     } while (FERR);
-}
-[e $ _FERR 1300  ]
-[e :U 1299 ]
-"91
-[; ;./usart.h: 91: }
-[e :UE 1297 ]
-}
-[v F8881 `(v ~T0 @X0 1 tf ]
-"98 ./ServoController.h
-[; ;./ServoController.h: 98: static __attribute__((inline)) void initServos(void) {
-[v _initServos `TF8881 ~T0 @X0 1 s ]
-{
-[e :U _initServos ]
-[f ]
-"99
-[; ;./ServoController.h: 99:     TRISA0 = 0;
-[e = _TRISA0 -> -> 0 `i `b ]
-"100
-[; ;./ServoController.h: 100:     TRISA1 = 0;
-[e = _TRISA1 -> -> 0 `i `b ]
-"101
-[; ;./ServoController.h: 101:     TRISA2 = 0;
-[e = _TRISA2 -> -> 0 `i `b ]
-"102
-[; ;./ServoController.h: 102:     TRISA3 = 0;
-[e = _TRISA3 -> -> 0 `i `b ]
-"103
-[; ;./ServoController.h: 103:     TRISB0 = 0;
-[e = _TRISB0 -> -> 0 `i `b ]
-"104
-[; ;./ServoController.h: 104:     TRISB3 = 0;
-[e = _TRISB3 -> -> 0 `i `b ]
-"105
-[; ;./ServoController.h: 105: }
-[e :UE 1301 ]
-}
-"31 JimFirmware.c
-[; ;JimFirmware.c: 31: volatile unsigned char partMidiNote = 0;
-[v _partMidiNote `Vuc ~T0 @X0 1 e ]
-[i _partMidiNote
--> -> 0 `i `uc
-]
+"30
+[; ;eeprom.c: 30:     static unsigned char EEPROMValue;
+[v F8875 `uc ~T0 @X0 1 s EEPROMValue ]
+"31
+[; ;eeprom.c: 31:     EEPROMValue = dataEEReadByte(address);
+[e = F8875 ( _dataEEReadByte (1 _address ]
 "32
-[; ;JimFirmware.c: 32: volatile unsigned char velocity = 0;
-[v _velocity `Vuc ~T0 @X0 1 e ]
-[i _velocity
--> -> 0 `i `uc
-]
+[; ;eeprom.c: 32:     if (EEPROMValue != value)
+[e $ ! != -> F8875 `i -> _value `i 1297  ]
 "33
-[; ;JimFirmware.c: 33: volatile unsigned char receiveCounter = 0;
-[v _receiveCounter `Vuc ~T0 @X0 1 e ]
-[i _receiveCounter
--> -> 0 `i `uc
-]
+[; ;eeprom.c: 33:         dataEEWriteByte(address, value);
+[e ( _dataEEWriteByte (2 , _address _value ]
+[e :U 1297 ]
 "34
-[; ;JimFirmware.c: 34: volatile unsigned char sawtoothCounter = 0;
-[v _sawtoothCounter `Vuc ~T0 @X0 1 e ]
-[i _sawtoothCounter
--> -> 0 `i `uc
-]
-"42
-[; ;JimFirmware.c: 42: volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
-[v _eyebrowSawtoothThreshold `Vuc ~T0 @X0 1 e ]
-[i _eyebrowSawtoothThreshold
--> + -> 180 `i -> 6 `i `uc
-]
-"43
-[; ;JimFirmware.c: 43: volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
-[v _leftLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
-[i _leftLipCornerSawtoothThreshold
--> + -> 180 `i -> 6 `i `uc
-]
-"44
-[; ;JimFirmware.c: 44: volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
-[v _rightLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
-[i _rightLipCornerSawtoothThreshold
--> + -> 180 `i -> 7 `i `uc
-]
-"45
-[; ;JimFirmware.c: 45: volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
-[v _lowerJawSawtoothThreshold `Vuc ~T0 @X0 1 e ]
-[i _lowerJawSawtoothThreshold
--> + -> 180 `i -> 3 `i `uc
-]
-"46
-[; ;JimFirmware.c: 46: volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
-[v _eyelidsSawtoothThreshold `Vuc ~T0 @X0 1 e ]
-[i _eyelidsSawtoothThreshold
--> + -> 180 `i -> 5 `i `uc
-]
-[v $root$_isr `(v ~T0 @X0 0 e ]
-"49
-[; ;JimFirmware.c: 49: void __attribute__((picinterrupt(""))) isr(void) {
-[v _isr `(v ~T1 @X0 1 ef ]
+[; ;eeprom.c: 34: }
+[e :UE 1296 ]
+}
+"36
+[; ;eeprom.c: 36: unsigned char loadSettings(const unsigned char address) { return dataEEReadByte(address); }
+[v _loadSettings `(uc ~T0 @X0 1 ef1`Cuc ]
 {
-[e :U _isr ]
+[e :U _loadSettings ]
+[v _address `Cuc ~T0 @X0 1 r1 ]
 [f ]
-"50
-[; ;JimFirmware.c: 50:     if (TMR2IF) {
-[e $ ! _TMR2IF 1303  ]
-{
-"51
-[; ;JimFirmware.c: 51:         ++sawtoothCounter;
-[e =+ _sawtoothCounter -> -> 1 `i `Vuc ]
-"52
-[; ;JimFirmware.c: 52:         if (sawtoothCounter >= 180) {
-[e $ ! >= -> _sawtoothCounter `i -> 180 `i 1304  ]
-{
-"53
-[; ;JimFirmware.c: 53:             if (sawtoothCounter >= 200) {
-[e $ ! >= -> _sawtoothCounter `i -> 200 `i 1305  ]
-{
-"54
-[; ;JimFirmware.c: 54:                 RA0 = 0;
-[e = _RA0 -> -> 0 `i `b ]
-"55
-[; ;JimFirmware.c: 55:                 RA1 = 0;
-[e = _RA1 -> -> 0 `i `b ]
-"56
-[; ;JimFirmware.c: 56:                 RA2 = 0;
-[e = _RA2 -> -> 0 `i `b ]
-"57
-[; ;JimFirmware.c: 57:                 RA3 = 0;
-[e = _RA3 -> -> 0 `i `b ]
-"58
-[; ;JimFirmware.c: 58:                 RB0 = 0;
-[e = _RB0 -> -> 0 `i `b ]
-"60
-[; ;JimFirmware.c: 60:                 sawtoothCounter = 0;
-[e = _sawtoothCounter -> -> 0 `i `uc ]
-"61
-[; ;JimFirmware.c: 61:             } else {
-}
-[e $U 1306  ]
-[e :U 1305 ]
-{
-"62
-[; ;JimFirmware.c: 62:                 if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
-[e $ ! == -> _sawtoothCounter `i -> _eyebrowSawtoothThreshold `i 1307  ]
-[e = _RA0 -> -> 1 `i `b ]
-[e :U 1307 ]
-"63
-[; ;JimFirmware.c: 63:                 if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
-[e $ ! == -> _sawtoothCounter `i -> _leftLipCornerSawtoothThreshold `i 1308  ]
-[e = _RA1 -> -> 1 `i `b ]
-[e :U 1308 ]
-"64
-[; ;JimFirmware.c: 64:                 if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
-[e $ ! == -> _sawtoothCounter `i -> _rightLipCornerSawtoothThreshold `i 1309  ]
-[e = _RA2 -> -> 1 `i `b ]
-[e :U 1309 ]
-"65
-[; ;JimFirmware.c: 65:                 if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
-[e $ ! == -> _sawtoothCounter `i -> _lowerJawSawtoothThreshold `i 1310  ]
-[e = _RA3 -> -> 1 `i `b ]
-[e :U 1310 ]
-"66
-[; ;JimFirmware.c: 66:                 if (sawtoothCounter == eyelidsSawtoothThreshold) RB0 = 1;
-[e $ ! == -> _sawtoothCounter `i -> _eyelidsSawtoothThreshold `i 1311  ]
-[e = _RB0 -> -> 1 `i `b ]
-[e :U 1311 ]
-"68
-[; ;JimFirmware.c: 68:             }
-}
-[e :U 1306 ]
-"69
-[; ;JimFirmware.c: 69:        }
-}
-[e :U 1304 ]
-"70
-[; ;JimFirmware.c: 70:         TMR2IF = 0;
-[e = _TMR2IF -> -> 0 `i `b ]
-"71
-[; ;JimFirmware.c: 71:     }
-}
-[e :U 1303 ]
-"72
-[; ;JimFirmware.c: 72:     if (RCIF) {
-[e $ ! _RCIF 1312  ]
-{
-"73
-[; ;JimFirmware.c: 73:         ++receiveCounter;
-[e =+ _receiveCounter -> -> 1 `i `Vuc ]
-"74
-[; ;JimFirmware.c: 74:         switch(receiveCounter) {
-[e $U 1314  ]
-{
-"75
-[; ;JimFirmware.c: 75:             case 1:
-[e :U 1315 ]
-"76
-[; ;JimFirmware.c: 76:                 RCREG = 0;
-[e = _RCREG -> -> 0 `i `uc ]
-"77
-[; ;JimFirmware.c: 77:                 break;
-[e $U 1313  ]
-"78
-[; ;JimFirmware.c: 78:             case 2:
-[e :U 1316 ]
-"79
-[; ;JimFirmware.c: 79:                 partMidiNote = RCREG;
-[e = _partMidiNote _RCREG ]
-"80
-[; ;JimFirmware.c: 80:                 break;
-[e $U 1313  ]
-"81
-[; ;JimFirmware.c: 81:             case 3:
-[e :U 1317 ]
-"82
-[; ;JimFirmware.c: 82:                 receiveCounter = 0;
-[e = _receiveCounter -> -> 0 `i `uc ]
-"83
-[; ;JimFirmware.c: 83:                 velocity = RCREG;
-[e = _velocity _RCREG ]
-"84
-[; ;JimFirmware.c: 84:                 if (velocity > 10) velocity = 10;
-[e $ ! > -> _velocity `i -> 10 `i 1318  ]
-[e = _velocity -> -> 10 `i `uc ]
-[e :U 1318 ]
-"85
-[; ;JimFirmware.c: 85:                 switch(partMidiNote) {
-[e $U 1320  ]
-{
-"86
-[; ;JimFirmware.c: 86:                     case 0x3C: eyebrowSawtoothThreshold = (180 + (velocity)); break;
-[e :U 1321 ]
-[e = _eyebrowSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
-[e $U 1319  ]
-"87
-[; ;JimFirmware.c: 87:                     case 0x3E: leftLipCornerSawtoothThreshold = (180 + (velocity)); break;
-[e :U 1322 ]
-[e = _leftLipCornerSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
-[e $U 1319  ]
-"88
-[; ;JimFirmware.c: 88:                     case 0x40: rightLipCornerSawtoothThreshold = (180 + (velocity)); break;
-[e :U 1323 ]
-[e = _rightLipCornerSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
-[e $U 1319  ]
-"89
-[; ;JimFirmware.c: 89:                     case 0x43: lowerJawSawtoothThreshold = (180 + (velocity)); break;
-[e :U 1324 ]
-[e = _lowerJawSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
-[e $U 1319  ]
-"90
-[; ;JimFirmware.c: 90:                     case 0x45: eyelidsSawtoothThreshold = (180 + (velocity)); break;
-[e :U 1325 ]
-[e = _eyelidsSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
-[e $U 1319  ]
-"92
-[; ;JimFirmware.c: 92:                     case 0x4A: RB5 = (velocity > 0) ? 1 : 0; break;
-[e :U 1326 ]
-[e = _RB5 -> ? > -> _velocity `i -> 0 `i : -> 1 `i -> 0 `i `b ]
-[e $U 1319  ]
-"93
-[; ;JimFirmware.c: 93:                 }
-}
-[e $U 1319  ]
-[e :U 1320 ]
-[e [\ -> _partMidiNote `i , $ -> 60 `i 1321
- , $ -> 62 `i 1322
- , $ -> 64 `i 1323
- , $ -> 67 `i 1324
- , $ -> 69 `i 1325
- , $ -> 74 `i 1326
- 1319 ]
-[e :U 1319 ]
-"94
-[; ;JimFirmware.c: 94:                 break;
-[e $U 1313  ]
-"95
-[; ;JimFirmware.c: 95:             default:
-[e :U 1327 ]
-"96
-[; ;JimFirmware.c: 96:                 receiveCounter = 0;
-[e = _receiveCounter -> -> 0 `i `uc ]
-"97
-[; ;JimFirmware.c: 97:                 RCREG = 0;
-[e = _RCREG -> -> 0 `i `uc ]
-"98
-[; ;JimFirmware.c: 98:                 break;
-[e $U 1313  ]
-"99
-[; ;JimFirmware.c: 99:         }
-}
-[e $U 1313  ]
-[e :U 1314 ]
-[e [\ -> _receiveCounter `i , $ -> 1 `i 1315
- , $ -> 2 `i 1316
- , $ -> 3 `i 1317
- 1327 ]
-[e :U 1313 ]
-"100
-[; ;JimFirmware.c: 100:     }
-}
-[e :U 1312 ]
-"101
-[; ;JimFirmware.c: 101: }
-[e :UE 1302 ]
-}
-[v $root$_main `(v ~T0 @X0 0 e ]
-"103
-[; ;JimFirmware.c: 103: void main(void) {
-[v _main `(v ~T0 @X0 1 ef ]
-{
-[e :U _main ]
-[f ]
-"107
-[; ;JimFirmware.c: 107:     initServos();
-[e ( _initServos ..  ]
-"108
-[; ;JimFirmware.c: 108:     initUSART();
-[e ( _initUSART ..  ]
-"109
-[; ;JimFirmware.c: 109:     initTMR2();
-[e ( _initTMR2 ..  ]
-"111
-[; ;JimFirmware.c: 111:     PEIE = 1;
-[e = _PEIE -> -> 1 `i `b ]
-"112
-[; ;JimFirmware.c: 112:     GIE = 1;
-[e = _GIE -> -> 1 `i `b ]
-"118
-[; ;JimFirmware.c: 118:     while(1) {
-[e :U 1330 ]
-{
-"119
-[; ;JimFirmware.c: 119:         if (OERR)
-[e $ ! _OERR 1332  ]
-"120
-[; ;JimFirmware.c: 120:             clearOverrunError();
-[e ( _clearOverrunError ..  ]
-[e :U 1332 ]
-"121
-[; ;JimFirmware.c: 121:         if(FERR)
-[e $ ! _FERR 1333  ]
-"122
-[; ;JimFirmware.c: 122:             clearFramingError();
-[e ( _clearFramingError ..  ]
-[e :U 1333 ]
-"123
-[; ;JimFirmware.c: 123:     }
-}
-[e :U 1329 ]
-[e $U 1330  ]
-[e :U 1331 ]
-"125
-[; ;JimFirmware.c: 125: }
-[e :UE 1328 ]
+[e ) ( _dataEEReadByte (1 _address ]
+[e $UE 1298  ]
+[e :UE 1298 ]
 }

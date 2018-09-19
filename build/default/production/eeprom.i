@@ -1,4 +1,4 @@
-# 1 "JimFirmware.c"
+# 1 "eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "JimFirmware.c" 2
-# 24 "JimFirmware.c"
+# 1 "eeprom.c" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -15048,251 +15047,45 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 32 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 25 "JimFirmware.c" 2
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c99\\stdbool.h" 1 3
-# 26 "JimFirmware.c" 2
-# 1 "./configuration.h" 1
-# 19 "./configuration.h"
-#pragma config FCMEN = ON
-#pragma config CSWEN = OFF
-#pragma config CLKOUTEN = OFF
-#pragma config RSTOSC = HFINTOSC_64MHZ
-#pragma config FEXTOSC = OFF
+# 1 "eeprom.c" 2
+
+# 1 "./eeprom.h" 1
+# 69 "./eeprom.h"
+extern void saveSetting(const unsigned char address, const unsigned char value);
+extern unsigned char loadSetting(const unsigned char address);
+# 2 "eeprom.c" 2
 
 
-
-#pragma config XINST = OFF
-#pragma config DEBUG = OFF
-#pragma config STVREN = ON
-#pragma config PPS1WAY = ON
-#pragma config ZCD = OFF
-#pragma config BORV = VBOR_285
-#pragma config BOREN = SBORDIS
-#pragma config LPBOREN = OFF
-#pragma config PWRTE = ON
-#pragma config MCLRE = INTMCLR
-
-
-
-#pragma config WDTCCS = SC
-#pragma config WDTCWS = WDTCWS_7
-#pragma config WDTE = OFF
-#pragma config WDTCPS = WDTCPS_31
-
-
-
-#pragma config LVP = OFF
-#pragma config SCANE = ON
-#pragma config WRTD = ON
-#pragma config WRTB = ON
-#pragma config WRTC = ON
-#pragma config WRT1 = ON
-#pragma config WRT0 = ON
-
-
-
-#pragma config CPD = ON
-#pragma config CP = ON
-
-
-
-#pragma config EBTRB = ON
-#pragma config EBTR1 = ON
-#pragma config EBTR0 = ON
-# 27 "JimFirmware.c" 2
-# 1 "./tmr2.h" 1
-# 37 "./tmr2.h"
-# 1 "./pins.h" 1
-# 37 "./tmr2.h" 2
-
-
-
-
-
-
-
-static __attribute__((inline)) void initTMR2(void) {
-    PR2 = 124;
-    T2CON = 0b00000001;
-    TMR2IF = 0;
-    TMR2IE = 1;
-    TMR2ON = 1;
-}
-# 28 "JimFirmware.c" 2
-# 1 "./usart.h" 1
-# 52 "./usart.h"
-static __attribute__((inline)) void initUSART() {
-    TRISB1 = 1;
-    SPBRG = 39;
-    BRGH = 1;
-    CREN = 1;
-    SPEN = 1;
+static unsigned char dataEEReadByte(unsigned char address) {
+    NVMADRL = (address & 0xFF);
+    NVMCON1bits.NVMREG = 0;
+    NVMCON1bits.RD = 1;
+    __nop();
+    __nop();
+    return (NVMDAT);
 }
 
+static void dataEEWriteByte(const unsigned char address, const unsigned char value) {
+    unsigned char GIEBitValue = INTCONbits.GIE;
+    NVMADRL = (address & 0xFF);
+    NVMDAT = value;
+    NVMCON1bits.NVMREG = 0;
+    NVMCON1bits.WREN = 1;
+    INTCONbits.GIE = 0;
+    NVMCON2 = 0x55;
+    NVMCON2 = 0xAA;
+    NVMCON1bits.WR = 1;
 
-
-
-
-
-static __attribute__((inline)) void clearOverrunError() {
-    static unsigned char temp = 0;
-    do {
-        temp = RCREG;
-        temp = RCREG;
-        CREN = 0;
-        CREN = 1;
-    } while(OERR);
-}
-# 83 "./usart.h"
-static __attribute__((inline)) void clearFramingError() {
-    static unsigned char temp = 0;
-    do {
-        temp = RCREG;
-        temp = RCREG;
-        SPEN = 0;
-        SPEN = 1;
-    } while (FERR);
-}
-# 29 "JimFirmware.c" 2
-# 1 "./ServoController.h" 1
-# 56 "./ServoController.h"
-extern volatile unsigned char partMidiNote;
-
-
-
-
-
-extern volatile unsigned char velocity;
-
-
-
-
-
-
-extern volatile unsigned char receiveCounter;
-# 78 "./ServoController.h"
-extern volatile unsigned char sawtoothCounter;
-
-
-
-
-
-
-
-extern volatile unsigned char eyebrowSawtoothThreshold;
-extern volatile unsigned char leftLipCornerSawtoothThreshold;
-extern volatile unsigned char rightLipCornerSawtoothThreshold;
-extern volatile unsigned char lowerJawSawtoothThreshold;
-extern volatile unsigned char eyelidsSawtoothThreshold;
-
-
-
-
-
-
-
-static __attribute__((inline)) void initServos(void) {
-    TRISA0 = 0;
-    TRISA1 = 0;
-    TRISA2 = 0;
-    TRISA3 = 0;
-    TRISB0 = 0;
-    TRISB3 = 0;
-}
-# 30 "JimFirmware.c" 2
-
-volatile unsigned char partMidiNote = 0;
-volatile unsigned char velocity = 0;
-volatile unsigned char receiveCounter = 0;
-volatile unsigned char sawtoothCounter = 0;
-
-
-
-
-
-
-
-volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
-volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
-volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
-volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
-volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
-
-
-void __attribute__((picinterrupt(""))) isr(void) {
-    if (TMR2IF) {
-        ++sawtoothCounter;
-        if (sawtoothCounter >= 180) {
-            if (sawtoothCounter >= 200) {
-                RA0 = 0;
-                RA1 = 0;
-                RA2 = 0;
-                RA3 = 0;
-                RB0 = 0;
-
-                sawtoothCounter = 0;
-            } else {
-                if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
-                if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
-                if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
-                if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
-                if (sawtoothCounter == eyelidsSawtoothThreshold) RB0 = 1;
-
-            }
-       }
-        TMR2IF = 0;
-    }
-    if (RCIF) {
-        ++receiveCounter;
-        switch(receiveCounter) {
-            case 1:
-                RCREG = 0;
-                break;
-            case 2:
-                partMidiNote = RCREG;
-                break;
-            case 3:
-                receiveCounter = 0;
-                velocity = RCREG;
-                if (velocity > 10) velocity = 10;
-                switch(partMidiNote) {
-                    case 0x3C: eyebrowSawtoothThreshold = (180 + (velocity)); break;
-                    case 0x3E: leftLipCornerSawtoothThreshold = (180 + (velocity)); break;
-                    case 0x40: rightLipCornerSawtoothThreshold = (180 + (velocity)); break;
-                    case 0x43: lowerJawSawtoothThreshold = (180 + (velocity)); break;
-                    case 0x45: eyelidsSawtoothThreshold = (180 + (velocity)); break;
-
-                    case 0x4A: RB5 = (velocity > 0) ? 1 : 0; break;
-                }
-                break;
-            default:
-                receiveCounter = 0;
-                RCREG = 0;
-                break;
-        }
-    }
+    while (NVMCON1bits.WR);
+    NVMCON1bits.WREN = 0;
+    INTCONbits.GIE = GIEBitValue;
 }
 
-void main(void) {
-
-
-
-    initServos();
-    initUSART();
-    initTMR2();
-
-    PEIE = 1;
-    GIE = 1;
-
-
-
-
-
-    while(1) {
-        if (OERR)
-            clearOverrunError();
-        if(FERR)
-            clearFramingError();
-    }
-
+void saveSetting(const unsigned char address, const unsigned char value) {
+    static unsigned char EEPROMValue;
+    EEPROMValue = dataEEReadByte(address);
+    if (EEPROMValue != value)
+        dataEEWriteByte(address, value);
 }
+
+unsigned char loadSettings(const unsigned char address) { return dataEEReadByte(address); }
