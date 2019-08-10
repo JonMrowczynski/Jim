@@ -1,0 +1,16 @@
+0.171777	happy 
+6.758886	neutral
+43.028303	angry
+46.393723	neutral
+49.885347	happy
+57.688915	neutral
+58.418090	sad
+74.470444	neutral
+74.509006	scared
+103.505083	neutral
+103.511218	angry
+111.956320	neutral
+117.228812	happy
+131.321510	neutral
+134.336366	smile
+135.521275	neutral

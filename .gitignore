@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 nul 
+=======
+*.class
+MasterControlSoftware/.idea/*
+>>>>>>> MasterControlSoftware/master
