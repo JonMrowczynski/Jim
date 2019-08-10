@@ -1,0 +1,558 @@
+  Microsoft.Kinect.Face.Resources.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly Microsoft.Kinect.Face, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Struct Microsoft.Kinect.Face.FaceAlignmentQuality: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceAlignmentQuality High = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceAlignmentQuality Low = 1 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus GoodFrameCapture = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus OtherViewsNeeded = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus LostFaceTrack = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus FaceTooFar = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus FaceTooNear = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus MovingTooFast = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus SystemError = 6 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus Complete = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus MoreFramesNeeded = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus FrontViewFramesNeeded = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus LeftViewsNeeded = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus RightViewsNeeded = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus TiltedUpViewsNeeded = 16 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.FaceShapeAnimations: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceShapeAnimations JawOpen = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipPucker = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations JawSlideRight = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipStretcherRight = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipStretcherLeft = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipCornerPullerLeft = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipCornerPullerRight = 6 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipCornerDepressorLeft = 7 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LipCornerDepressorRight = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LeftcheekPuff = 9 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations RightcheekPuff = 10 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LefteyeClosed = 11 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations RighteyeClosed = 12 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations RighteyebrowLowerer = 13 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LefteyebrowLowerer = 14 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LowerlipDepressorLeft = 15 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations LowerlipDepressorRight = 16 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeAnimations Count = 17 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.FaceShapeDeformations: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA01 = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA02 = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA03 = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA04 = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA05 = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA06 = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA07 = 6 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA08 = 7 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA09 = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations PCA10 = 9 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Chin03 = 10 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Forehead00 = 11 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks02 = 12 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks01 = 13 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag01 = 14 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag02 = 15 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes02 = 16 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag03 = 17 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Forehead04 = 18 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose00 = 19 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose01 = 20 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose02 = 21 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag06 = 22 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag05 = 23 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks00 = 24 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask03 = 25 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes03 = 26 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose03 = 27 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes08 = 28 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag07 = 29 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes00 = 30 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose04 = 31 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask04 = 32 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Chin04 = 33 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Forehead05 = 34 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes06 = 35 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes11 = 36 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose05 = 37 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth07 = 38 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks08 = 39 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes09 = 40 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask10 = 41 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth09 = 42 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose07 = 43 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose08 = 44 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks07 = 45 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask07 = 46 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag09 = 47 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose06 = 48 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Chin02 = 49 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes07 = 50 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks10 = 51 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Rim20 = 52 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask22 = 53 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag15 = 54 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Chin01 = 55 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks04 = 56 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes17 = 57 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks13 = 58 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth02 = 59 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag12 = 60 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask19 = 61 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask20 = 62 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Forehead06 = 63 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth13 = 64 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask25 = 65 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Chin05 = 66 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks20 = 67 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose09 = 68 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose10 = 69 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag27 = 70 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth11 = 71 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks14 = 72 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes16 = 73 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mask29 = 74 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose15 = 75 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks11 = 76 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth16 = 77 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Eyes19 = 78 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth17 = 79 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations MouthBag36 = 80 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth15 = 81 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks25 = 82 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks16 = 83 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks18 = 84 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Rim07 = 85 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose13 = 86 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth18 = 87 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Cheeks19 = 88 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Rim21 = 89 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Mouth22 = 90 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose18 = 91 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Nose16 = 92 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Rim22 = 93 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceShapeDeformations Count = 94 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.HighDetailFacePoints: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    UInt32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyeInnercorner = 210 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyeOutercorner = 469 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyeMidtop = 241 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyeMidbottom = 1104 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyeInnercorner = 843 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyeOutercorner = 1117 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyeMidtop = 731 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyeMidbottom = 1090 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyebrowInner = 346 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyebrowOuter = 140 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LefteyebrowCenter = 222 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyebrowInner = 803 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyebrowOuter = 758 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RighteyebrowCenter = 849 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints MouthLeftcorner = 91 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints MouthRightcorner = 687 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints MouthUpperlipMidtop = 19 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints MouthUpperlipMidbottom = 1072 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints MouthLowerlipMidtop = 10 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints MouthLowerlipMidbottom = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseTip = 18 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseBottom = 14 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseBottomleft = 156 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseBottomright = 783 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseTop = 24 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseTopleft = 151 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints NoseTopright = 772 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints ForeheadCenter = 28 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LeftcheekCenter = 412 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints RightcheekCenter = 933 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints Leftcheekbone = 458 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints Rightcheekbone = 674 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints ChinCenter = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LowerjawLeftend = 1307 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.HighDetailFacePoints LowerjawRightend = 1327 : Public, Static, Literal, HasDefault
+Class Microsoft.Kinect.Face.FaceAlignment: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Kinect.Face.FaceAlignmentQuality Quality 'get ' : 
+    System.Collections.Generic.IReadOnlyDictionary`2[Microsoft.Kinect.Face.FaceShapeAnimations,System.Single] AnimationUnits 'get ' : 
+    Microsoft.Kinect.CameraSpacePoint HeadPivotPoint 'get set' : 
+    Microsoft.Kinect.Vector4 FaceOrientation 'get set' : 
+  Methods:
+    get_FaceOrientation(): PrivateScope, Public, HideBySig, SpecialName
+    set_FaceOrientation(Vector4): PrivateScope, Public, HideBySig, SpecialName
+    get_HeadPivotPoint(): PrivateScope, Public, HideBySig, SpecialName
+    set_HeadPivotPoint(CameraSpacePoint): PrivateScope, Public, HideBySig, SpecialName
+    get_AnimationUnits(): PrivateScope, Public, HideBySig, SpecialName
+    get_Quality(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceFrame: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean IsTrackingIdValid 'get ' : 
+    UInt64 TrackingId 'get ' : 
+    Microsoft.Kinect.Face.FaceFrameResult FaceFrameResult 'get ' : 
+    Microsoft.Kinect.Face.FaceFrameSource FaceFrameSource 'get ' : 
+    Microsoft.Kinect.InfraredFrameReference InfraredFrameReference 'get ' : 
+    Microsoft.Kinect.DepthFrameReference DepthFrameReference 'get ' : 
+    Microsoft.Kinect.ColorFrameReference ColorFrameReference 'get ' : 
+    Microsoft.Kinect.BodyFrameReference BodyFrameReference 'get ' : 
+    System.TimeSpan RelativeTime 'get ' : 
+  Methods:
+    get_RelativeTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_BodyFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_ColorFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_DepthFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_InfraredFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceFrameSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceFrameResult(): PrivateScope, Public, HideBySig, SpecialName
+    get_TrackingId(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsTrackingIdValid(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Struct Microsoft.Kinect.Face.RectI: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Interfaces:
+    System.IEquatable`1[Microsoft.Kinect.Face.RectI]
+  Fields:
+    Int32 Left : Public
+    Int32 Top : Public
+    Int32 Right : Public
+    Int32 Bottom : Public
+  Methods:
+    Equals(RectI): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Equals(Object): PrivateScope, Public, Final, Virtual, HideBySig
+    op_Equality(RectI, RectI): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(RectI, RectI): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceFrameResult: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Properties:
+    System.Collections.Generic.IReadOnlyDictionary`2[Microsoft.Kinect.Face.FaceProperty,Microsoft.Kinect.DetectionResult] FaceProperties 'get ' : 
+    System.Collections.Generic.IReadOnlyDictionary`2[Microsoft.Kinect.Face.FacePointType,Microsoft.Kinect.PointF] FacePointsInInfraredSpace 'get ' : 
+    System.Collections.Generic.IReadOnlyDictionary`2[Microsoft.Kinect.Face.FacePointType,Microsoft.Kinect.PointF] FacePointsInColorSpace 'get ' : 
+    Microsoft.Kinect.Face.RectI FaceBoundingBoxInInfraredSpace 'get ' : 
+    Microsoft.Kinect.Face.RectI FaceBoundingBoxInColorSpace 'get ' : 
+    Microsoft.Kinect.Vector4 FaceRotationQuaternion 'get ' : 
+    UInt64 TrackingId 'get ' : 
+    Microsoft.Kinect.Face.FaceFrameFeatures FaceFrameFeatures 'get ' : 
+    System.TimeSpan RelativeTime 'get ' : 
+  Methods:
+    get_RelativeTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceFrameFeatures(): PrivateScope, Public, HideBySig, SpecialName
+    get_TrackingId(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceRotationQuaternion(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceBoundingBoxInColorSpace(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceBoundingBoxInInfraredSpace(): PrivateScope, Public, HideBySig, SpecialName
+    get_FacePointsInColorSpace(): PrivateScope, Public, HideBySig, SpecialName
+    get_FacePointsInInfraredSpace(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceProperties(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.TrackingIdLostEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    UInt64 TrackingId 'get ' : 
+  Methods:
+    get_TrackingId(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceFrameSource: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(Microsoft.Kinect.KinectSensor, UInt64, Microsoft.Kinect.Face.FaceFrameFeatures): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.ComponentModel.INotifyPropertyChanged
+    System.IDisposable
+  Properties:
+    UInt64 TrackingId 'get set' : 
+    Microsoft.Kinect.KinectSensor KinectSensor 'get ' : 
+    Boolean IsTrackingIdValid 'get ' : 
+    Boolean IsActive 'get ' : 
+    Microsoft.Kinect.Face.FaceFrameFeatures FaceFrameFeatures 'get set' : 
+    Microsoft.Kinect.MultiSourceFrame CurrentFrame 'get ' : 
+  Events:
+    System.EventHandler`1[Microsoft.Kinect.Face.TrackingIdLostEventArgs] TrackingIdLost: SpecialName
+    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: SpecialName
+  Methods:
+    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_TrackingIdLost(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_TrackingIdLost(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentFrame(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceFrameFeatures(): PrivateScope, Public, HideBySig, SpecialName
+    set_FaceFrameFeatures(FaceFrameFeatures): PrivateScope, Public, HideBySig, SpecialName
+    get_IsActive(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsTrackingIdValid(): PrivateScope, Public, HideBySig, SpecialName
+    get_KinectSensor(): PrivateScope, Public, HideBySig, SpecialName
+    get_TrackingId(): PrivateScope, Public, HideBySig, SpecialName
+    set_TrackingId(UInt64 IsConst): PrivateScope, Public, HideBySig, SpecialName
+    OpenReader(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Struct Microsoft.Kinect.Face.FaceFrameFeatures: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceFrameFeatures None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures BoundingBoxInInfraredSpace = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures PointsInInfraredSpace = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures BoundingBoxInColorSpace = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures PointsInColorSpace = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures RotationOrientation = 16 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures Happy = 32 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures RightEyeClosed = 64 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures LeftEyeClosed = 128 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures MouthOpen = 256 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures MouthMoved = 512 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures LookingAway = 1024 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures Glasses = 2048 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceFrameFeatures FaceEngagement = 4096 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.FacePointType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FacePointType None = -1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FacePointType EyeLeft = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FacePointType EyeRight = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FacePointType Nose = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FacePointType MouthCornerLeft = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FacePointType MouthCornerRight = 4 : Public, Static, Literal, HasDefault
+Struct Microsoft.Kinect.Face.FaceProperty: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceProperty Happy = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty Engaged = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty WearingGlasses = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty LeftEyeClosed = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty RightEyeClosed = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty MouthOpen = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty MouthMoved = 6 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceProperty LookingAway = 7 : Public, Static, Literal, HasDefault
+Class Microsoft.Kinect.Face.FaceFrameArrivedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    Microsoft.Kinect.Face.FaceFrameReference FrameReference 'get ' : 
+  Methods:
+    get_FrameReference(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceFrameReference: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Properties:
+    System.TimeSpan RelativeTime 'get ' : 
+  Methods:
+    get_RelativeTime(): PrivateScope, Public, HideBySig, SpecialName
+    AcquireFrame(): PrivateScope, Public, HideBySig
+Class Microsoft.Kinect.Face.FaceFrameReader: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.ComponentModel.INotifyPropertyChanged
+    System.IDisposable
+  Properties:
+    Microsoft.Kinect.Face.FaceFrameSource FaceFrameSource 'get ' : 
+    Boolean IsPaused 'get set' : 
+  Events:
+    System.EventHandler`1[Microsoft.Kinect.Face.FaceFrameArrivedEventArgs] FrameArrived: SpecialName
+    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: SpecialName
+  Methods:
+    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_FrameArrived(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_FrameArrived(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    get_IsPaused(): PrivateScope, Public, HideBySig, SpecialName
+    set_IsPaused(Boolean(HasFieldMarshal) IsConst): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceFrameSource(): PrivateScope, Public, HideBySig, SpecialName
+    AcquireLatestFrame(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Kinect.Face.FaceModel: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(Single, System.Collections.Generic.IReadOnlyDictionary`2[Microsoft.Kinect.Face.FaceShapeDeformations,System.Single]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.Collections.Generic.IReadOnlyDictionary`2[Microsoft.Kinect.Face.FaceShapeDeformations,System.Single] FaceShapeDeformations 'get ' : 
+    UInt32 HairColor 'get ' : 
+    UInt32 SkinColor 'get ' : 
+    Single Scale 'get ' : 
+    System.Collections.Generic.IReadOnlyList`1[System.UInt32] TriangleIndices 'get ' : 
+    UInt32 TriangleCount 'get ' : 
+    UInt32 VertexCount 'get ' : 
+  Methods:
+    get_VertexCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TriangleCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TriangleIndices(): PrivateScope, Public, HideBySig, SpecialName
+    get_Scale(): PrivateScope, Public, HideBySig, SpecialName
+    get_SkinColor(): PrivateScope, Public, HideBySig, SpecialName
+    get_HairColor(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceShapeDeformations(): PrivateScope, Public, HideBySig, SpecialName
+    CalculateVerticesForAlignment(FaceAlignment): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Kinect.Face.FaceModelBuilderCollectionCompletedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    Microsoft.Kinect.Face.FaceModelData ModelData 'get ' : 
+  Methods:
+    get_ModelData(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.HighDefinitionFaceFrameArrivedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    Microsoft.Kinect.Face.HighDefinitionFaceFrameReference FrameReference 'get ' : 
+  Methods:
+    get_FrameReference(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceModelBuilderCollectionStatusChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus PreviousCollectionStatus 'get ' : 
+  Methods:
+    get_PreviousCollectionStatus(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceModelBuilderCaptureStatusChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus PreviousCaptureStatus 'get ' : 
+  Methods:
+    get_PreviousCaptureStatus(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Kinect.Face.FaceModelBuilder: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.ComponentModel.INotifyPropertyChanged
+    System.IDisposable
+  Properties:
+    Microsoft.Kinect.Face.FaceModelBuilderCaptureStatus CaptureStatus 'get ' : 
+    Microsoft.Kinect.Face.FaceModelBuilderCollectionStatus CollectionStatus 'get ' : 
+  Events:
+    System.EventHandler`1[Microsoft.Kinect.Face.FaceModelBuilderCaptureStatusChangedEventArgs] CaptureStatusChanged: SpecialName
+    System.EventHandler`1[Microsoft.Kinect.Face.FaceModelBuilderCollectionStatusChangedEventArgs] CollectionStatusChanged: SpecialName
+    System.EventHandler`1[Microsoft.Kinect.Face.FaceModelBuilderCollectionCompletedEventArgs] CollectionCompleted: SpecialName
+    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: SpecialName
+  Methods:
+    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_CollectionCompleted(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_CollectionCompleted(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    add_CollectionStatusChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_CollectionStatusChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    add_CaptureStatusChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_CaptureStatusChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    get_CollectionStatus(): PrivateScope, Public, HideBySig, SpecialName
+    get_CaptureStatus(): PrivateScope, Public, HideBySig, SpecialName
+    BeginFaceDataCollection(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Kinect.Face.FaceModelData: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Methods:
+    ProduceFaceModel(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Kinect.Face.HighDefinitionFaceFrameReader: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.ComponentModel.INotifyPropertyChanged
+    System.IDisposable
+  Properties:
+    Microsoft.Kinect.Face.HighDefinitionFaceFrameSource HighDefinitionFaceFrameSource 'get ' : 
+    Boolean IsPaused 'get set' : 
+  Events:
+    System.EventHandler`1[Microsoft.Kinect.Face.HighDefinitionFaceFrameArrivedEventArgs] FrameArrived: SpecialName
+    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: SpecialName
+  Methods:
+    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_FrameArrived(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_FrameArrived(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    get_IsPaused(): PrivateScope, Public, HideBySig, SpecialName
+    set_IsPaused(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_HighDefinitionFaceFrameSource(): PrivateScope, Public, HideBySig, SpecialName
+    AcquireLatestFrame(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Kinect.Face.HighDefinitionFaceFrameReference: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Properties:
+    System.TimeSpan RelativeTime 'get ' : 
+  Methods:
+    get_RelativeTime(): PrivateScope, Public, HideBySig, SpecialName
+    AcquireFrame(): PrivateScope, Public, HideBySig
+Class Microsoft.Kinect.Face.HighDefinitionFaceFrame: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Microsoft.Kinect.Face.FaceAlignmentQuality FaceAlignmentQuality 'get ' : 
+    Microsoft.Kinect.Face.FaceModel FaceModel 'get ' : 
+    UInt64 TrackingId 'get ' : 
+    Boolean IsFaceTracked 'get ' : 
+    Boolean IsTrackingIdValid 'get ' : 
+    Microsoft.Kinect.InfraredFrameReference InfraredFrameReference 'get ' : 
+    Microsoft.Kinect.DepthFrameReference DepthFrameReference 'get ' : 
+    Microsoft.Kinect.ColorFrameReference ColorFrameReference 'get ' : 
+    Microsoft.Kinect.BodyFrameReference BodyFrameReference 'get ' : 
+    Microsoft.Kinect.Face.HighDefinitionFaceFrameSource HighDefinitionFaceFrameSource 'get ' : 
+    System.TimeSpan RelativeTime 'get ' : 
+  Methods:
+    get_RelativeTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_HighDefinitionFaceFrameSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_BodyFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_ColorFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_DepthFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_InfraredFrameReference(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsTrackingIdValid(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsFaceTracked(): PrivateScope, Public, HideBySig, SpecialName
+    get_TrackingId(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceModel(): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceAlignmentQuality(): PrivateScope, Public, HideBySig, SpecialName
+    GetAndRefreshFaceAlignmentResult(FaceAlignment): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Kinect.Face.HighDefinitionFaceFrameSource: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(Microsoft.Kinect.KinectSensor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.ComponentModel.INotifyPropertyChanged
+  Properties:
+    Microsoft.Kinect.KinectSensor KinectSensor 'get ' : 
+    Microsoft.Kinect.Face.FaceModel FaceModel 'get set' : 
+    Microsoft.Kinect.Face.FaceAlignmentQuality TrackingQuality 'get set' : 
+    Boolean IsTrackingIdValid 'get ' : 
+    UInt64 TrackingId 'get set' : 
+    Boolean IsActive 'get ' : 
+    Boolean IsOnline 'get set' : 
+  Events:
+    System.EventHandler`1[Microsoft.Kinect.Face.TrackingIdLostEventArgs] TrackingIdLost: SpecialName
+    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: SpecialName
+  Methods:
+    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_TrackingIdLost(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_TrackingIdLost(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    get_IsOnline(): PrivateScope, Public, HideBySig, SpecialName
+    set_IsOnline(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_IsActive(): PrivateScope, Public, HideBySig, SpecialName
+    get_TrackingId(): PrivateScope, Public, HideBySig, SpecialName
+    set_TrackingId(UInt64): PrivateScope, Public, HideBySig, SpecialName
+    get_IsTrackingIdValid(): PrivateScope, Public, HideBySig, SpecialName
+    get_TrackingQuality(): PrivateScope, Public, HideBySig, SpecialName
+    set_TrackingQuality(FaceAlignmentQuality): PrivateScope, Public, HideBySig, SpecialName
+    get_FaceModel(): PrivateScope, Public, HideBySig, SpecialName
+    set_FaceModel(FaceModel): PrivateScope, Public, HideBySig, SpecialName
+    get_KinectSensor(): PrivateScope, Public, HideBySig, SpecialName
+    OpenReader(): PrivateScope, Public, HideBySig
+    OpenModelBuilder(FaceModelBuilderAttributes): PrivateScope, Public, HideBySig
+    FeedAndCalculateFrameData(Body, KinectBuffer, KinectBuffer, KinectBuffer): PrivateScope, Public, HideBySig
+Struct Microsoft.Kinect.Face.FaceModelBuilderAttributes: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Kinect.Face.FaceModelBuilderAttributes None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderAttributes SkinColor = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Kinect.Face.FaceModelBuilderAttributes HairColor = 2 : Public, Static, Literal, HasDefault

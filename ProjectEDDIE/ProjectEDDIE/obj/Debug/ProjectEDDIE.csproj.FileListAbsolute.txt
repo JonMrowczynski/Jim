@@ -1,0 +1,8 @@
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\ProjectEDDIE.csprojResolveAssemblyReference.cache
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\MainWindow.baml
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\MainWindow.g.cs
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\App.g.cs
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\ProjectEDDIE_MarkupCompile.cache
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\ProjectEDDIE.g.resources
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\ProjectEDDIE.Properties.Resources.resources
+C:\Users\chris\Desktop\EDDIE\ProjectEDDIE\ProjectEDDIE\obj\Debug\ProjectEDDIE.csproj.GenerateResource.Cache
