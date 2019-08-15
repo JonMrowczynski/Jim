@@ -16056,13 +16056,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </sheet>
 </sheets>
 <errors>
-<approved hash="104,1,25.4,55.88,U$1,VDD,+5V,,,"/>
-<approved hash="104,1,25.4,5.08,U$1,VSS_2,GND,,,"/>
-<approved hash="104,1,25.4,2.54,U$1,VSS,GND,,,"/>
-<approved hash="104,1,167.64,53.34,XB1,VCC,+3.3V,,,"/>
-<approved hash="202,1,167.64,50.8,XB1,!RESET,,,,"/>
-<approved hash="202,1,167.64,2.54,XB1,VREF,,,,"/>
-<approved hash="204,1,40.64,91.44,J1,SHIELD,,,,"/>
+<approved hash="113,1,63.5,25.4229,PIC16F628A,,,,,"/>
 </errors>
 </schematic>
 </drawing>
