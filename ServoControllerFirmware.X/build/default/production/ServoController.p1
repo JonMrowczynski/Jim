@@ -1,0 +1,697 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"1137 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1137: extern volatile unsigned char PR2 __attribute__((address(0x092)));
+[v _PR2 `Vuc ~T0 @X0 0 e@146 ]
+"532
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 532: extern volatile unsigned char T2CON __attribute__((address(0x012)));
+[v _T2CON `Vuc ~T0 @X0 0 e@18 ]
+"1590
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1590: extern volatile __bit TMR2IF __attribute__((address(0x61)));
+[v _TMR2IF `Vb ~T0 @X0 0 e@97 ]
+"1587
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1587: extern volatile __bit TMR2IE __attribute__((address(0x461)));
+[v _TMR2IE `Vb ~T0 @X0 0 e@1121 ]
+"1593
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1593: extern volatile __bit TMR2ON __attribute__((address(0x92)));
+[v _TMR2ON `Vb ~T0 @X0 0 e@146 ]
+"1635
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1635: extern volatile __bit TRISB1 __attribute__((address(0x431)));
+[v _TRISB1 `Vb ~T0 @X0 0 e@1073 ]
+"1201
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1201: extern volatile unsigned char SPBRG __attribute__((address(0x099)));
+[v _SPBRG `Vuc ~T0 @X0 0 e@153 ]
+"1344
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1344: extern volatile __bit BRGH __attribute__((address(0x4C2)));
+[v _BRGH `Vb ~T0 @X0 0 e@1218 ]
+"1404
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1404: extern volatile __bit CREN __attribute__((address(0xC4)));
+[v _CREN `Vb ~T0 @X0 0 e@196 ]
+"1533
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1533: extern volatile __bit SPEN __attribute__((address(0xC7)));
+[v _SPEN `Vb ~T0 @X0 0 e@199 ]
+"760
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 760: extern volatile unsigned char RCREG __attribute__((address(0x01A)));
+[v _RCREG `Vuc ~T0 @X0 0 e@26 ]
+"1437
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1437: extern volatile __bit OERR __attribute__((address(0xC1)));
+[v _OERR `Vb ~T0 @X0 0 e@193 ]
+"1419
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1419: extern volatile __bit FERR __attribute__((address(0xC2)));
+[v _FERR `Vb ~T0 @X0 0 e@194 ]
+"1608
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1608: extern volatile __bit TRISA0 __attribute__((address(0x428)));
+[v _TRISA0 `Vb ~T0 @X0 0 e@1064 ]
+"1611
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1611: extern volatile __bit TRISA1 __attribute__((address(0x429)));
+[v _TRISA1 `Vb ~T0 @X0 0 e@1065 ]
+"1614
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1614: extern volatile __bit TRISA2 __attribute__((address(0x42A)));
+[v _TRISA2 `Vb ~T0 @X0 0 e@1066 ]
+"1617
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1617: extern volatile __bit TRISA3 __attribute__((address(0x42B)));
+[v _TRISA3 `Vb ~T0 @X0 0 e@1067 ]
+"1632
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1632: extern volatile __bit TRISB0 __attribute__((address(0x430)));
+[v _TRISB0 `Vb ~T0 @X0 0 e@1072 ]
+"1641
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1641: extern volatile __bit TRISB3 __attribute__((address(0x433)));
+[v _TRISB3 `Vb ~T0 @X0 0 e@1075 ]
+[t ~ __interrupt . k ]
+[t T1 __interrupt ]
+"1458
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1458: extern volatile __bit RA0 __attribute__((address(0x28)));
+[v _RA0 `Vb ~T0 @X0 0 e@40 ]
+"1461
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1461: extern volatile __bit RA1 __attribute__((address(0x29)));
+[v _RA1 `Vb ~T0 @X0 0 e@41 ]
+"1464
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1464: extern volatile __bit RA2 __attribute__((address(0x2A)));
+[v _RA2 `Vb ~T0 @X0 0 e@42 ]
+"1467
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1467: extern volatile __bit RA3 __attribute__((address(0x2B)));
+[v _RA3 `Vb ~T0 @X0 0 e@43 ]
+"1482
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1482: extern volatile __bit RB0 __attribute__((address(0x30)));
+[v _RB0 `Vb ~T0 @X0 0 e@48 ]
+"1515
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1515: extern volatile __bit RCIF __attribute__((address(0x65)));
+[v _RCIF `Vb ~T0 @X0 0 e@101 ]
+"1497
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1497: extern volatile __bit RB5 __attribute__((address(0x35)));
+[v _RB5 `Vb ~T0 @X0 0 e@53 ]
+[p mainexit ]
+"1443
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1443: extern volatile __bit PEIE __attribute__((address(0x5E)));
+[v _PEIE `Vb ~T0 @X0 0 e@94 ]
+"316
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 316:     struct {
+[s S12 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S12 . RBIF INTF T0IF RBIE INTE T0IE PEIE GIE ]
+"326
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 326:     struct {
+[s S13 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S13 . . TMR0IF . TMR0IE ]
+"315
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 315: typedef union {
+[u S11 `S12 1 `S13 1 ]
+[n S11 . . . ]
+"333
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 333: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
+[v _INTCONbits `VS11 ~T0 @X0 0 e@11 ]
+"54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 54: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"61
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 61: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"68
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 68: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"75
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 75: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"161
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 161: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"168
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 168: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"230
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 230: __asm("PORTB equ 06h");
+[; <" PORTB equ 06h ;# ">
+"292
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 292: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"312
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 312: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"390
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 390: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"447
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 447: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"454
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 454: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"461
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 461: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"468
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 468: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"527
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 527: __asm("TMR2 equ 011h");
+[; <" TMR2 equ 011h ;# ">
+"534
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 534: __asm("T2CON equ 012h");
+[; <" T2CON equ 012h ;# ">
+"605
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 605: __asm("CCPR1 equ 015h");
+[; <" CCPR1 equ 015h ;# ">
+"612
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 612: __asm("CCPR1L equ 015h");
+[; <" CCPR1L equ 015h ;# ">
+"619
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 619: __asm("CCPR1H equ 016h");
+[; <" CCPR1H equ 016h ;# ">
+"626
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 626: __asm("CCP1CON equ 017h");
+[; <" CCP1CON equ 017h ;# ">
+"684
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 684: __asm("RCSTA equ 018h");
+[; <" RCSTA equ 018h ;# ">
+"755
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 755: __asm("TXREG equ 019h");
+[; <" TXREG equ 019h ;# ">
+"762
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 762: __asm("RCREG equ 01Ah");
+[; <" RCREG equ 01Ah ;# ">
+"769
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 769: __asm("CMCON equ 01Fh");
+[; <" CMCON equ 01Fh ;# ">
+"839
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 839: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"909
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 909: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"971
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 971: __asm("TRISB equ 086h");
+[; <" TRISB equ 086h ;# ">
+"1033
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1033: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"1090
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1090: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"1139
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1139: __asm("PR2 equ 092h");
+[; <" PR2 equ 092h ;# ">
+"1146
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1146: __asm("TXSTA equ 098h");
+[; <" TXSTA equ 098h ;# ">
+"1203
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1203: __asm("SPBRG equ 099h");
+[; <" SPBRG equ 099h ;# ">
+"1210
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1210: __asm("EEDATA equ 09Ah");
+[; <" EEDATA equ 09Ah ;# ">
+"1217
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1217: __asm("EEADR equ 09Bh");
+[; <" EEADR equ 09Bh ;# ">
+"1224
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1224: __asm("EECON1 equ 09Ch");
+[; <" EECON1 equ 09Ch ;# ">
+"1262
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1262: __asm("EECON2 equ 09Dh");
+[; <" EECON2 equ 09Dh ;# ">
+"1269
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f628a.h: 1269: __asm("VRCON equ 09Fh");
+[; <" VRCON equ 09Fh ;# ">
+"17 ./configuration.h
+[p x CP       = ON ]
+"18
+[p x CPD      = ON ]
+"19
+[p x LVP      = OFF ]
+"20
+[p x BOREN    = ON ]
+"21
+[p x MCLRE    = OFF ]
+"22
+[p x PWRTE    = ON ]
+"23
+[p x WDTE     = OFF ]
+"24
+[p x FOSC     = HS ]
+[v F470 `(v ~T0 @X0 1 tf ]
+"44 ./tmr2.h
+[; ;./tmr2.h: 44: static __attribute__((inline)) void initTMR2(void) {
+[v _initTMR2 `TF470 ~T0 @X0 1 s ]
+{
+[e :U _initTMR2 ]
+[f ]
+"45
+[; ;./tmr2.h: 45:     PR2 = 124;
+[e = _PR2 -> -> 124 `i `uc ]
+"46
+[; ;./tmr2.h: 46:     T2CON = 0b00000001;
+[e = _T2CON -> -> 1 `i `uc ]
+"47
+[; ;./tmr2.h: 47:     TMR2IF = 0;
+[e = _TMR2IF -> -> 0 `i `b ]
+"48
+[; ;./tmr2.h: 48:     TMR2IE = 1;
+[e = _TMR2IE -> -> 1 `i `b ]
+"49
+[; ;./tmr2.h: 49:     TMR2ON = 1;
+[e = _TMR2ON -> -> 1 `i `b ]
+"50
+[; ;./tmr2.h: 50: }
+[e :UE 51 ]
+}
+[v F472 `(v ~T0 @X0 1 tf ]
+"52 ./usart.h
+[; ;./usart.h: 52: static __attribute__((inline)) void initUSART() {
+[v _initUSART `TF472 ~T0 @X0 1 s ]
+{
+[e :U _initUSART ]
+[f ]
+"53
+[; ;./usart.h: 53:     TRISB1 = 1;
+[e = _TRISB1 -> -> 1 `i `b ]
+"54
+[; ;./usart.h: 54:     SPBRG = 39;
+[e = _SPBRG -> -> 39 `i `uc ]
+"55
+[; ;./usart.h: 55:     BRGH = 1;
+[e = _BRGH -> -> 1 `i `b ]
+"56
+[; ;./usart.h: 56:     CREN = 1;
+[e = _CREN -> -> 1 `i `b ]
+"57
+[; ;./usart.h: 57:     SPEN = 1;
+[e = _SPEN -> -> 1 `i `b ]
+"58
+[; ;./usart.h: 58: }
+[e :UE 52 ]
+}
+[v F474 `(v ~T0 @X0 1 tf ]
+"65
+[; ;./usart.h: 65: static __attribute__((inline)) void clearOverrunError() {
+[v _clearOverrunError `TF474 ~T0 @X0 1 s ]
+{
+[e :U _clearOverrunError ]
+[f ]
+"66
+[; ;./usart.h: 66:     static unsigned char temp = 0;
+[v F475 `uc ~T0 @X0 1 s temp ]
+[i F475
+-> -> 0 `i `uc
+]
+"67
+[; ;./usart.h: 67:     do {
+[e :U 56 ]
+{
+"68
+[; ;./usart.h: 68:         temp = RCREG;
+[e = F475 _RCREG ]
+"69
+[; ;./usart.h: 69:         temp = RCREG;
+[e = F475 _RCREG ]
+"70
+[; ;./usart.h: 70:         CREN = 0;
+[e = _CREN -> -> 0 `i `b ]
+"71
+[; ;./usart.h: 71:         CREN = 1;
+[e = _CREN -> -> 1 `i `b ]
+"72
+[; ;./usart.h: 72:     } while(OERR);
+}
+[e $ _OERR 56  ]
+[e :U 55 ]
+"73
+[; ;./usart.h: 73: }
+[e :UE 53 ]
+}
+[v F477 `(v ~T0 @X0 1 tf ]
+"83
+[; ;./usart.h: 83: static __attribute__((inline)) void clearFramingError() {
+[v _clearFramingError `TF477 ~T0 @X0 1 s ]
+{
+[e :U _clearFramingError ]
+[f ]
+"84
+[; ;./usart.h: 84:     static unsigned char temp = 0;
+[v F478 `uc ~T0 @X0 1 s temp ]
+[i F478
+-> -> 0 `i `uc
+]
+"85
+[; ;./usart.h: 85:     do {
+[e :U 60 ]
+{
+"86
+[; ;./usart.h: 86:         temp = RCREG;
+[e = F478 _RCREG ]
+"87
+[; ;./usart.h: 87:         temp = RCREG;
+[e = F478 _RCREG ]
+"88
+[; ;./usart.h: 88:         SPEN = 0;
+[e = _SPEN -> -> 0 `i `b ]
+"89
+[; ;./usart.h: 89:         SPEN = 1;
+[e = _SPEN -> -> 1 `i `b ]
+"90
+[; ;./usart.h: 90:     } while (FERR);
+}
+[e $ _FERR 60  ]
+[e :U 59 ]
+"91
+[; ;./usart.h: 91: }
+[e :UE 57 ]
+}
+[v F489 `(v ~T0 @X0 1 tf ]
+"98 ./ServoController.h
+[; ;./ServoController.h: 98: static __attribute__((inline)) void initServos(void) {
+[v _initServos `TF489 ~T0 @X0 1 s ]
+{
+[e :U _initServos ]
+[f ]
+"99
+[; ;./ServoController.h: 99:     TRISA0 = 0;
+[e = _TRISA0 -> -> 0 `i `b ]
+"100
+[; ;./ServoController.h: 100:     TRISA1 = 0;
+[e = _TRISA1 -> -> 0 `i `b ]
+"101
+[; ;./ServoController.h: 101:     TRISA2 = 0;
+[e = _TRISA2 -> -> 0 `i `b ]
+"102
+[; ;./ServoController.h: 102:     TRISA3 = 0;
+[e = _TRISA3 -> -> 0 `i `b ]
+"103
+[; ;./ServoController.h: 103:     TRISB0 = 0;
+[e = _TRISB0 -> -> 0 `i `b ]
+"104
+[; ;./ServoController.h: 104:     TRISB3 = 0;
+[e = _TRISB3 -> -> 0 `i `b ]
+"105
+[; ;./ServoController.h: 105: }
+[e :UE 61 ]
+}
+"39 ServoController.c
+[; ;ServoController.c: 39: volatile unsigned char partMidiNote = 0;
+[v _partMidiNote `Vuc ~T0 @X0 1 e ]
+[i _partMidiNote
+-> -> 0 `i `uc
+]
+"40
+[; ;ServoController.c: 40: volatile unsigned char velocity = 0;
+[v _velocity `Vuc ~T0 @X0 1 e ]
+[i _velocity
+-> -> 0 `i `uc
+]
+"41
+[; ;ServoController.c: 41: volatile unsigned char receiveCounter = 0;
+[v _receiveCounter `Vuc ~T0 @X0 1 e ]
+[i _receiveCounter
+-> -> 0 `i `uc
+]
+"42
+[; ;ServoController.c: 42: volatile unsigned char sawtoothCounter = 0;
+[v _sawtoothCounter `Vuc ~T0 @X0 1 e ]
+[i _sawtoothCounter
+-> -> 0 `i `uc
+]
+"50
+[; ;ServoController.c: 50: volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
+[v _eyebrowSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _eyebrowSawtoothThreshold
+-> + -> 180 `i -> 6 `i `uc
+]
+"51
+[; ;ServoController.c: 51: volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
+[v _leftLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _leftLipCornerSawtoothThreshold
+-> + -> 180 `i -> 6 `i `uc
+]
+"52
+[; ;ServoController.c: 52: volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
+[v _rightLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _rightLipCornerSawtoothThreshold
+-> + -> 180 `i -> 7 `i `uc
+]
+"53
+[; ;ServoController.c: 53: volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
+[v _lowerJawSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _lowerJawSawtoothThreshold
+-> + -> 180 `i -> 3 `i `uc
+]
+"54
+[; ;ServoController.c: 54: volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
+[v _eyelidsSawtoothThreshold `Vuc ~T0 @X0 1 e ]
+[i _eyelidsSawtoothThreshold
+-> + -> 180 `i -> 5 `i `uc
+]
+[v $root$_isr `(v ~T0 @X0 0 e ]
+"57
+[; ;ServoController.c: 57: void __attribute__((picinterrupt(""))) isr(void) {
+[v _isr `(v ~T1 @X0 1 ef ]
+{
+[e :U _isr ]
+[f ]
+"58
+[; ;ServoController.c: 58:     if (TMR2IF) {
+[e $ ! _TMR2IF 63  ]
+{
+"59
+[; ;ServoController.c: 59:         ++sawtoothCounter;
+[e =+ _sawtoothCounter -> -> 1 `i `Vuc ]
+"60
+[; ;ServoController.c: 60:         if (sawtoothCounter >= 180) {
+[e $ ! >= -> _sawtoothCounter `i -> 180 `i 64  ]
+{
+"61
+[; ;ServoController.c: 61:             if (sawtoothCounter >= 200) {
+[e $ ! >= -> _sawtoothCounter `i -> 200 `i 65  ]
+{
+"62
+[; ;ServoController.c: 62:                 RA0 = 0;
+[e = _RA0 -> -> 0 `i `b ]
+"63
+[; ;ServoController.c: 63:                 RA1 = 0;
+[e = _RA1 -> -> 0 `i `b ]
+"64
+[; ;ServoController.c: 64:                 RA2 = 0;
+[e = _RA2 -> -> 0 `i `b ]
+"65
+[; ;ServoController.c: 65:                 RA3 = 0;
+[e = _RA3 -> -> 0 `i `b ]
+"66
+[; ;ServoController.c: 66:                 RB0 = 0;
+[e = _RB0 -> -> 0 `i `b ]
+"68
+[; ;ServoController.c: 68:                 sawtoothCounter = 0;
+[e = _sawtoothCounter -> -> 0 `i `uc ]
+"69
+[; ;ServoController.c: 69:             } else {
+}
+[e $U 66  ]
+[e :U 65 ]
+{
+"70
+[; ;ServoController.c: 70:                 if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
+[e $ ! == -> _sawtoothCounter `i -> _eyebrowSawtoothThreshold `i 67  ]
+[e = _RA0 -> -> 1 `i `b ]
+[e :U 67 ]
+"71
+[; ;ServoController.c: 71:                 if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
+[e $ ! == -> _sawtoothCounter `i -> _leftLipCornerSawtoothThreshold `i 68  ]
+[e = _RA1 -> -> 1 `i `b ]
+[e :U 68 ]
+"72
+[; ;ServoController.c: 72:                 if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
+[e $ ! == -> _sawtoothCounter `i -> _rightLipCornerSawtoothThreshold `i 69  ]
+[e = _RA2 -> -> 1 `i `b ]
+[e :U 69 ]
+"73
+[; ;ServoController.c: 73:                 if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
+[e $ ! == -> _sawtoothCounter `i -> _lowerJawSawtoothThreshold `i 70  ]
+[e = _RA3 -> -> 1 `i `b ]
+[e :U 70 ]
+"74
+[; ;ServoController.c: 74:                 if (sawtoothCounter == eyelidsSawtoothThreshold) RB0 = 1;
+[e $ ! == -> _sawtoothCounter `i -> _eyelidsSawtoothThreshold `i 71  ]
+[e = _RB0 -> -> 1 `i `b ]
+[e :U 71 ]
+"76
+[; ;ServoController.c: 76:             }
+}
+[e :U 66 ]
+"77
+[; ;ServoController.c: 77:        }
+}
+[e :U 64 ]
+"78
+[; ;ServoController.c: 78:         TMR2IF = 0;
+[e = _TMR2IF -> -> 0 `i `b ]
+"79
+[; ;ServoController.c: 79:     }
+}
+[e :U 63 ]
+"80
+[; ;ServoController.c: 80:     if (RCIF) {
+[e $ ! _RCIF 72  ]
+{
+"81
+[; ;ServoController.c: 81:         ++receiveCounter;
+[e =+ _receiveCounter -> -> 1 `i `Vuc ]
+"82
+[; ;ServoController.c: 82:         switch(receiveCounter) {
+[e $U 74  ]
+{
+"83
+[; ;ServoController.c: 83:             case 1:
+[e :U 75 ]
+"84
+[; ;ServoController.c: 84:                 RCREG = 0;
+[e = _RCREG -> -> 0 `i `uc ]
+"85
+[; ;ServoController.c: 85:                 break;
+[e $U 73  ]
+"86
+[; ;ServoController.c: 86:             case 2:
+[e :U 76 ]
+"87
+[; ;ServoController.c: 87:                 partMidiNote = RCREG;
+[e = _partMidiNote _RCREG ]
+"88
+[; ;ServoController.c: 88:                 break;
+[e $U 73  ]
+"89
+[; ;ServoController.c: 89:             case 3:
+[e :U 77 ]
+"90
+[; ;ServoController.c: 90:                 receiveCounter = 0;
+[e = _receiveCounter -> -> 0 `i `uc ]
+"91
+[; ;ServoController.c: 91:                 velocity = RCREG;
+[e = _velocity _RCREG ]
+"92
+[; ;ServoController.c: 92:                 if (velocity > 10) velocity = 10;
+[e $ ! > -> _velocity `i -> 10 `i 78  ]
+[e = _velocity -> -> 10 `i `uc ]
+[e :U 78 ]
+"93
+[; ;ServoController.c: 93:                 switch(partMidiNote) {
+[e $U 80  ]
+{
+"94
+[; ;ServoController.c: 94:                     case 0x3C: eyebrowSawtoothThreshold = (180 + (velocity)); break;
+[e :U 81 ]
+[e = _eyebrowSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
+[e $U 79  ]
+"95
+[; ;ServoController.c: 95:                     case 0x3E: leftLipCornerSawtoothThreshold = (180 + (velocity)); break;
+[e :U 82 ]
+[e = _leftLipCornerSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
+[e $U 79  ]
+"96
+[; ;ServoController.c: 96:                     case 0x40: rightLipCornerSawtoothThreshold = (180 + (velocity)); break;
+[e :U 83 ]
+[e = _rightLipCornerSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
+[e $U 79  ]
+"97
+[; ;ServoController.c: 97:                     case 0x43: lowerJawSawtoothThreshold = (180 + (velocity)); break;
+[e :U 84 ]
+[e = _lowerJawSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
+[e $U 79  ]
+"98
+[; ;ServoController.c: 98:                     case 0x45: eyelidsSawtoothThreshold = (180 + (velocity)); break;
+[e :U 85 ]
+[e = _eyelidsSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
+[e $U 79  ]
+"100
+[; ;ServoController.c: 100:                     case 0x4A: RB5 = (velocity > 0) ? 1 : 0; break;
+[e :U 86 ]
+[e = _RB5 -> ? > -> _velocity `i -> 0 `i : -> 1 `i -> 0 `i `b ]
+[e $U 79  ]
+"101
+[; ;ServoController.c: 101:                 }
+}
+[e $U 79  ]
+[e :U 80 ]
+[e [\ -> _partMidiNote `i , $ -> 60 `i 81
+ , $ -> 62 `i 82
+ , $ -> 64 `i 83
+ , $ -> 67 `i 84
+ , $ -> 69 `i 85
+ , $ -> 74 `i 86
+ 79 ]
+[e :U 79 ]
+"102
+[; ;ServoController.c: 102:                 break;
+[e $U 73  ]
+"103
+[; ;ServoController.c: 103:             default:
+[e :U 87 ]
+"104
+[; ;ServoController.c: 104:                 receiveCounter = 0;
+[e = _receiveCounter -> -> 0 `i `uc ]
+"105
+[; ;ServoController.c: 105:                 RCREG = 0;
+[e = _RCREG -> -> 0 `i `uc ]
+"106
+[; ;ServoController.c: 106:                 break;
+[e $U 73  ]
+"107
+[; ;ServoController.c: 107:         }
+}
+[e $U 73  ]
+[e :U 74 ]
+[e [\ -> _receiveCounter `i , $ -> 1 `i 75
+ , $ -> 2 `i 76
+ , $ -> 3 `i 77
+ 87 ]
+[e :U 73 ]
+"108
+[; ;ServoController.c: 108:     }
+}
+[e :U 72 ]
+"109
+[; ;ServoController.c: 109: }
+[e :UE 62 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"111
+[; ;ServoController.c: 111: void main(void) {
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[e :U _main ]
+[f ]
+"115
+[; ;ServoController.c: 115:     initServos();
+[e ( _initServos ..  ]
+"116
+[; ;ServoController.c: 116:     initUSART();
+[e ( _initUSART ..  ]
+"117
+[; ;ServoController.c: 117:     initTMR2();
+[e ( _initTMR2 ..  ]
+"119
+[; ;ServoController.c: 119:     PEIE = 1;
+[e = _PEIE -> -> 1 `i `b ]
+"120
+[; ;ServoController.c: 120:     (INTCONbits.GIE = 1);
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+"126
+[; ;ServoController.c: 126:     while(1) {
+[e :U 90 ]
+{
+"127
+[; ;ServoController.c: 127:         if (OERR)
+[e $ ! _OERR 92  ]
+"128
+[; ;ServoController.c: 128:             clearOverrunError();
+[e ( _clearOverrunError ..  ]
+[e :U 92 ]
+"129
+[; ;ServoController.c: 129:         if(FERR)
+[e $ ! _FERR 93  ]
+"130
+[; ;ServoController.c: 130:             clearFramingError();
+[e ( _clearFramingError ..  ]
+[e :U 93 ]
+"131
+[; ;ServoController.c: 131:     }
+}
+[e :U 89 ]
+[e $U 90  ]
+[e :U 91 ]
+"133
+[; ;ServoController.c: 133: }
+[e :UE 88 ]
+}

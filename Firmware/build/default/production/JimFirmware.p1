@@ -1523,225 +1523,225 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./ServoController.h: 105: }
 [e :UE 1301 ]
 }
-"31 JimFirmware.c
-[; ;JimFirmware.c: 31: volatile unsigned char partMidiNote = 0;
+"39 JimFirmware.c
+[; ;JimFirmware.c: 39: volatile unsigned char partMidiNote = 0;
 [v _partMidiNote `Vuc ~T0 @X0 1 e ]
 [i _partMidiNote
 -> -> 0 `i `uc
 ]
-"32
-[; ;JimFirmware.c: 32: volatile unsigned char velocity = 0;
+"40
+[; ;JimFirmware.c: 40: volatile unsigned char velocity = 0;
 [v _velocity `Vuc ~T0 @X0 1 e ]
 [i _velocity
 -> -> 0 `i `uc
 ]
-"33
-[; ;JimFirmware.c: 33: volatile unsigned char receiveCounter = 0;
+"41
+[; ;JimFirmware.c: 41: volatile unsigned char receiveCounter = 0;
 [v _receiveCounter `Vuc ~T0 @X0 1 e ]
 [i _receiveCounter
 -> -> 0 `i `uc
 ]
-"34
-[; ;JimFirmware.c: 34: volatile unsigned char sawtoothCounter = 0;
+"42
+[; ;JimFirmware.c: 42: volatile unsigned char sawtoothCounter = 0;
 [v _sawtoothCounter `Vuc ~T0 @X0 1 e ]
 [i _sawtoothCounter
 -> -> 0 `i `uc
 ]
-"42
-[; ;JimFirmware.c: 42: volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
+"50
+[; ;JimFirmware.c: 50: volatile unsigned char eyebrowSawtoothThreshold = 180 + 6;
 [v _eyebrowSawtoothThreshold `Vuc ~T0 @X0 1 e ]
 [i _eyebrowSawtoothThreshold
 -> + -> 180 `i -> 6 `i `uc
 ]
-"43
-[; ;JimFirmware.c: 43: volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
+"51
+[; ;JimFirmware.c: 51: volatile unsigned char leftLipCornerSawtoothThreshold = 180 + 6;
 [v _leftLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
 [i _leftLipCornerSawtoothThreshold
 -> + -> 180 `i -> 6 `i `uc
 ]
-"44
-[; ;JimFirmware.c: 44: volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
+"52
+[; ;JimFirmware.c: 52: volatile unsigned char rightLipCornerSawtoothThreshold = 180 + 7;
 [v _rightLipCornerSawtoothThreshold `Vuc ~T0 @X0 1 e ]
 [i _rightLipCornerSawtoothThreshold
 -> + -> 180 `i -> 7 `i `uc
 ]
-"45
-[; ;JimFirmware.c: 45: volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
+"53
+[; ;JimFirmware.c: 53: volatile unsigned char lowerJawSawtoothThreshold = 180 + 3;
 [v _lowerJawSawtoothThreshold `Vuc ~T0 @X0 1 e ]
 [i _lowerJawSawtoothThreshold
 -> + -> 180 `i -> 3 `i `uc
 ]
-"46
-[; ;JimFirmware.c: 46: volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
+"54
+[; ;JimFirmware.c: 54: volatile unsigned char eyelidsSawtoothThreshold = 180 + 5;
 [v _eyelidsSawtoothThreshold `Vuc ~T0 @X0 1 e ]
 [i _eyelidsSawtoothThreshold
 -> + -> 180 `i -> 5 `i `uc
 ]
 [v $root$_isr `(v ~T0 @X0 0 e ]
-"49
-[; ;JimFirmware.c: 49: void __attribute__((picinterrupt(""))) isr(void) {
+"57
+[; ;JimFirmware.c: 57: void __attribute__((picinterrupt(""))) isr(void) {
 [v _isr `(v ~T1 @X0 1 ef ]
 {
 [e :U _isr ]
 [f ]
-"50
-[; ;JimFirmware.c: 50:     if (TMR2IF) {
+"58
+[; ;JimFirmware.c: 58:     if (TMR2IF) {
 [e $ ! _TMR2IF 1303  ]
 {
-"51
-[; ;JimFirmware.c: 51:         ++sawtoothCounter;
+"59
+[; ;JimFirmware.c: 59:         ++sawtoothCounter;
 [e =+ _sawtoothCounter -> -> 1 `i `Vuc ]
-"52
-[; ;JimFirmware.c: 52:         if (sawtoothCounter >= 180) {
+"60
+[; ;JimFirmware.c: 60:         if (sawtoothCounter >= 180) {
 [e $ ! >= -> _sawtoothCounter `i -> 180 `i 1304  ]
 {
-"53
-[; ;JimFirmware.c: 53:             if (sawtoothCounter >= 200) {
+"61
+[; ;JimFirmware.c: 61:             if (sawtoothCounter >= 200) {
 [e $ ! >= -> _sawtoothCounter `i -> 200 `i 1305  ]
 {
-"54
-[; ;JimFirmware.c: 54:                 RA0 = 0;
+"62
+[; ;JimFirmware.c: 62:                 RA0 = 0;
 [e = _RA0 -> -> 0 `i `b ]
-"55
-[; ;JimFirmware.c: 55:                 RA1 = 0;
+"63
+[; ;JimFirmware.c: 63:                 RA1 = 0;
 [e = _RA1 -> -> 0 `i `b ]
-"56
-[; ;JimFirmware.c: 56:                 RA2 = 0;
+"64
+[; ;JimFirmware.c: 64:                 RA2 = 0;
 [e = _RA2 -> -> 0 `i `b ]
-"57
-[; ;JimFirmware.c: 57:                 RA3 = 0;
+"65
+[; ;JimFirmware.c: 65:                 RA3 = 0;
 [e = _RA3 -> -> 0 `i `b ]
-"58
-[; ;JimFirmware.c: 58:                 RB0 = 0;
+"66
+[; ;JimFirmware.c: 66:                 RB0 = 0;
 [e = _RB0 -> -> 0 `i `b ]
-"60
-[; ;JimFirmware.c: 60:                 sawtoothCounter = 0;
+"68
+[; ;JimFirmware.c: 68:                 sawtoothCounter = 0;
 [e = _sawtoothCounter -> -> 0 `i `uc ]
-"61
-[; ;JimFirmware.c: 61:             } else {
+"69
+[; ;JimFirmware.c: 69:             } else {
 }
 [e $U 1306  ]
 [e :U 1305 ]
 {
-"62
-[; ;JimFirmware.c: 62:                 if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
+"70
+[; ;JimFirmware.c: 70:                 if (sawtoothCounter == eyebrowSawtoothThreshold) RA0 = 1;
 [e $ ! == -> _sawtoothCounter `i -> _eyebrowSawtoothThreshold `i 1307  ]
 [e = _RA0 -> -> 1 `i `b ]
 [e :U 1307 ]
-"63
-[; ;JimFirmware.c: 63:                 if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
+"71
+[; ;JimFirmware.c: 71:                 if (sawtoothCounter == leftLipCornerSawtoothThreshold) RA1 = 1;
 [e $ ! == -> _sawtoothCounter `i -> _leftLipCornerSawtoothThreshold `i 1308  ]
 [e = _RA1 -> -> 1 `i `b ]
 [e :U 1308 ]
-"64
-[; ;JimFirmware.c: 64:                 if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
+"72
+[; ;JimFirmware.c: 72:                 if (sawtoothCounter == rightLipCornerSawtoothThreshold) RA2 = 1;
 [e $ ! == -> _sawtoothCounter `i -> _rightLipCornerSawtoothThreshold `i 1309  ]
 [e = _RA2 -> -> 1 `i `b ]
 [e :U 1309 ]
-"65
-[; ;JimFirmware.c: 65:                 if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
+"73
+[; ;JimFirmware.c: 73:                 if (sawtoothCounter == lowerJawSawtoothThreshold) RA3 = 1;
 [e $ ! == -> _sawtoothCounter `i -> _lowerJawSawtoothThreshold `i 1310  ]
 [e = _RA3 -> -> 1 `i `b ]
 [e :U 1310 ]
-"66
-[; ;JimFirmware.c: 66:                 if (sawtoothCounter == eyelidsSawtoothThreshold) RB0 = 1;
+"74
+[; ;JimFirmware.c: 74:                 if (sawtoothCounter == eyelidsSawtoothThreshold) RB0 = 1;
 [e $ ! == -> _sawtoothCounter `i -> _eyelidsSawtoothThreshold `i 1311  ]
 [e = _RB0 -> -> 1 `i `b ]
 [e :U 1311 ]
-"68
-[; ;JimFirmware.c: 68:             }
+"76
+[; ;JimFirmware.c: 76:             }
 }
 [e :U 1306 ]
-"69
-[; ;JimFirmware.c: 69:        }
+"77
+[; ;JimFirmware.c: 77:        }
 }
 [e :U 1304 ]
-"70
-[; ;JimFirmware.c: 70:         TMR2IF = 0;
+"78
+[; ;JimFirmware.c: 78:         TMR2IF = 0;
 [e = _TMR2IF -> -> 0 `i `b ]
-"71
-[; ;JimFirmware.c: 71:     }
+"79
+[; ;JimFirmware.c: 79:     }
 }
 [e :U 1303 ]
-"72
-[; ;JimFirmware.c: 72:     if (RCIF) {
+"80
+[; ;JimFirmware.c: 80:     if (RCIF) {
 [e $ ! _RCIF 1312  ]
 {
-"73
-[; ;JimFirmware.c: 73:         ++receiveCounter;
+"81
+[; ;JimFirmware.c: 81:         ++receiveCounter;
 [e =+ _receiveCounter -> -> 1 `i `Vuc ]
-"74
-[; ;JimFirmware.c: 74:         switch(receiveCounter) {
+"82
+[; ;JimFirmware.c: 82:         switch(receiveCounter) {
 [e $U 1314  ]
 {
-"75
-[; ;JimFirmware.c: 75:             case 1:
-[e :U 1315 ]
-"76
-[; ;JimFirmware.c: 76:                 RCREG = 0;
-[e = _RCREG -> -> 0 `i `uc ]
-"77
-[; ;JimFirmware.c: 77:                 break;
-[e $U 1313  ]
-"78
-[; ;JimFirmware.c: 78:             case 2:
-[e :U 1316 ]
-"79
-[; ;JimFirmware.c: 79:                 partMidiNote = RCREG;
-[e = _partMidiNote _RCREG ]
-"80
-[; ;JimFirmware.c: 80:                 break;
-[e $U 1313  ]
-"81
-[; ;JimFirmware.c: 81:             case 3:
-[e :U 1317 ]
-"82
-[; ;JimFirmware.c: 82:                 receiveCounter = 0;
-[e = _receiveCounter -> -> 0 `i `uc ]
 "83
-[; ;JimFirmware.c: 83:                 velocity = RCREG;
-[e = _velocity _RCREG ]
+[; ;JimFirmware.c: 83:             case 1:
+[e :U 1315 ]
 "84
-[; ;JimFirmware.c: 84:                 if (velocity > 10) velocity = 10;
+[; ;JimFirmware.c: 84:                 RCREG = 0;
+[e = _RCREG -> -> 0 `i `uc ]
+"85
+[; ;JimFirmware.c: 85:                 break;
+[e $U 1313  ]
+"86
+[; ;JimFirmware.c: 86:             case 2:
+[e :U 1316 ]
+"87
+[; ;JimFirmware.c: 87:                 partMidiNote = RCREG;
+[e = _partMidiNote _RCREG ]
+"88
+[; ;JimFirmware.c: 88:                 break;
+[e $U 1313  ]
+"89
+[; ;JimFirmware.c: 89:             case 3:
+[e :U 1317 ]
+"90
+[; ;JimFirmware.c: 90:                 receiveCounter = 0;
+[e = _receiveCounter -> -> 0 `i `uc ]
+"91
+[; ;JimFirmware.c: 91:                 velocity = RCREG;
+[e = _velocity _RCREG ]
+"92
+[; ;JimFirmware.c: 92:                 if (velocity > 10) velocity = 10;
 [e $ ! > -> _velocity `i -> 10 `i 1318  ]
 [e = _velocity -> -> 10 `i `uc ]
 [e :U 1318 ]
-"85
-[; ;JimFirmware.c: 85:                 switch(partMidiNote) {
+"93
+[; ;JimFirmware.c: 93:                 switch(partMidiNote) {
 [e $U 1320  ]
 {
-"86
-[; ;JimFirmware.c: 86:                     case 0x3C: eyebrowSawtoothThreshold = (180 + (velocity)); break;
+"94
+[; ;JimFirmware.c: 94:                     case 0x3C: eyebrowSawtoothThreshold = (180 + (velocity)); break;
 [e :U 1321 ]
 [e = _eyebrowSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
 [e $U 1319  ]
-"87
-[; ;JimFirmware.c: 87:                     case 0x3E: leftLipCornerSawtoothThreshold = (180 + (velocity)); break;
+"95
+[; ;JimFirmware.c: 95:                     case 0x3E: leftLipCornerSawtoothThreshold = (180 + (velocity)); break;
 [e :U 1322 ]
 [e = _leftLipCornerSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
 [e $U 1319  ]
-"88
-[; ;JimFirmware.c: 88:                     case 0x40: rightLipCornerSawtoothThreshold = (180 + (velocity)); break;
+"96
+[; ;JimFirmware.c: 96:                     case 0x40: rightLipCornerSawtoothThreshold = (180 + (velocity)); break;
 [e :U 1323 ]
 [e = _rightLipCornerSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
 [e $U 1319  ]
-"89
-[; ;JimFirmware.c: 89:                     case 0x43: lowerJawSawtoothThreshold = (180 + (velocity)); break;
+"97
+[; ;JimFirmware.c: 97:                     case 0x43: lowerJawSawtoothThreshold = (180 + (velocity)); break;
 [e :U 1324 ]
 [e = _lowerJawSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
 [e $U 1319  ]
-"90
-[; ;JimFirmware.c: 90:                     case 0x45: eyelidsSawtoothThreshold = (180 + (velocity)); break;
+"98
+[; ;JimFirmware.c: 98:                     case 0x45: eyelidsSawtoothThreshold = (180 + (velocity)); break;
 [e :U 1325 ]
 [e = _eyelidsSawtoothThreshold -> + -> 180 `i -> _velocity `i `uc ]
 [e $U 1319  ]
-"92
-[; ;JimFirmware.c: 92:                     case 0x4A: RB5 = (velocity > 0) ? 1 : 0; break;
+"100
+[; ;JimFirmware.c: 100:                     case 0x4A: RB5 = (velocity > 0) ? 1 : 0; break;
 [e :U 1326 ]
 [e = _RB5 -> ? > -> _velocity `i -> 0 `i : -> 1 `i -> 0 `i `b ]
 [e $U 1319  ]
-"93
-[; ;JimFirmware.c: 93:                 }
+"101
+[; ;JimFirmware.c: 101:                 }
 }
 [e $U 1319  ]
 [e :U 1320 ]
@@ -1753,23 +1753,23 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 74 `i 1326
  1319 ]
 [e :U 1319 ]
-"94
-[; ;JimFirmware.c: 94:                 break;
+"102
+[; ;JimFirmware.c: 102:                 break;
 [e $U 1313  ]
-"95
-[; ;JimFirmware.c: 95:             default:
+"103
+[; ;JimFirmware.c: 103:             default:
 [e :U 1327 ]
-"96
-[; ;JimFirmware.c: 96:                 receiveCounter = 0;
+"104
+[; ;JimFirmware.c: 104:                 receiveCounter = 0;
 [e = _receiveCounter -> -> 0 `i `uc ]
-"97
-[; ;JimFirmware.c: 97:                 RCREG = 0;
+"105
+[; ;JimFirmware.c: 105:                 RCREG = 0;
 [e = _RCREG -> -> 0 `i `uc ]
-"98
-[; ;JimFirmware.c: 98:                 break;
+"106
+[; ;JimFirmware.c: 106:                 break;
 [e $U 1313  ]
-"99
-[; ;JimFirmware.c: 99:         }
+"107
+[; ;JimFirmware.c: 107:         }
 }
 [e $U 1313  ]
 [e :U 1314 ]
@@ -1778,61 +1778,61 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 3 `i 1317
  1327 ]
 [e :U 1313 ]
-"100
-[; ;JimFirmware.c: 100:     }
+"108
+[; ;JimFirmware.c: 108:     }
 }
 [e :U 1312 ]
-"101
-[; ;JimFirmware.c: 101: }
+"109
+[; ;JimFirmware.c: 109: }
 [e :UE 1302 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"103
-[; ;JimFirmware.c: 103: void main(void) {
+"111
+[; ;JimFirmware.c: 111: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"107
-[; ;JimFirmware.c: 107:     initServos();
+"115
+[; ;JimFirmware.c: 115:     initServos();
 [e ( _initServos ..  ]
-"108
-[; ;JimFirmware.c: 108:     initUSART();
+"116
+[; ;JimFirmware.c: 116:     initUSART();
 [e ( _initUSART ..  ]
-"109
-[; ;JimFirmware.c: 109:     initTMR2();
+"117
+[; ;JimFirmware.c: 117:     initTMR2();
 [e ( _initTMR2 ..  ]
-"111
-[; ;JimFirmware.c: 111:     PEIE = 1;
+"119
+[; ;JimFirmware.c: 119:     PEIE = 1;
 [e = _PEIE -> -> 1 `i `b ]
-"112
-[; ;JimFirmware.c: 112:     GIE = 1;
+"120
+[; ;JimFirmware.c: 120:     GIE = 1;
 [e = _GIE -> -> 1 `i `b ]
-"118
-[; ;JimFirmware.c: 118:     while(1) {
+"126
+[; ;JimFirmware.c: 126:     while(1) {
 [e :U 1330 ]
 {
-"119
-[; ;JimFirmware.c: 119:         if (OERR)
+"127
+[; ;JimFirmware.c: 127:         if (OERR)
 [e $ ! _OERR 1332  ]
-"120
-[; ;JimFirmware.c: 120:             clearOverrunError();
+"128
+[; ;JimFirmware.c: 128:             clearOverrunError();
 [e ( _clearOverrunError ..  ]
 [e :U 1332 ]
-"121
-[; ;JimFirmware.c: 121:         if(FERR)
+"129
+[; ;JimFirmware.c: 129:         if(FERR)
 [e $ ! _FERR 1333  ]
-"122
-[; ;JimFirmware.c: 122:             clearFramingError();
+"130
+[; ;JimFirmware.c: 130:             clearFramingError();
 [e ( _clearFramingError ..  ]
 [e :U 1333 ]
-"123
-[; ;JimFirmware.c: 123:     }
+"131
+[; ;JimFirmware.c: 131:     }
 }
 [e :U 1329 ]
 [e $U 1330  ]
 [e :U 1331 ]
-"125
-[; ;JimFirmware.c: 125: }
+"133
+[; ;JimFirmware.c: 133: }
 [e :UE 1328 ]
 }

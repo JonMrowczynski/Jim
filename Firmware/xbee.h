@@ -4,9 +4,9 @@
  * Author       : Jon Mrowczynski
  * Target       : PIC18F24K40
  * Compiler     : XC8 v2.00 Free version
- * IDE          : MPLAB X IDE v5.05
+ * IDE          : MPLAB X IDE v5.00
  * Programmer   : PICkit3
- * Last Updated : 8/31/2018
+ * Last Updated : 8/11/2018
  * 
  * Contains all of the constants required for the microcontroller to 
  * successfully interface with a router XBee in API mode.

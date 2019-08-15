@@ -37,36 +37,11 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"4 C:\Users\sleep\Desktop\ProjectJim\Firmware\eeprom.c
-[v _dataEEReadByte dataEEReadByte `(uc  1 s 1 dataEEReadByte ]
-"13
-[v _dataEEWriteByte dataEEWriteByte `(v  1 s 1 dataEEWriteByte ]
-"49 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
+"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
 [v _isr isr `IIH(v  1 e 1 0 ]
-"103
+"111
 [v _main main `(v  1 e 1 0 ]
-"13155 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
-[v _NVMADRL NVMADRL `VEuc  1 e 1 @3966 ]
-"13404
-[v _NVMDAT NVMDAT `VEuc  1 e 1 @3968 ]
-[s S89 . 1 `uc 1 RD 1 0 :1:0 
-`uc 1 WR 1 0 :1:1 
-`uc 1 WREN 1 0 :1:2 
-`uc 1 WRERR 1 0 :1:3 
-`uc 1 FREE 1 0 :1:4 
-`uc 1 . 1 0 :1:5 
-`uc 1 NVMREG 1 0 :2:6 
-]
-"13495
-[s S97 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 NVMREG0 1 0 :1:6 
-`uc 1 NVMREG1 1 0 :1:7 
-]
-[u S101 . 1 `S89 1 . 1 0 `S97 1 . 1 0 ]
-[v _NVMCON1bits NVMCON1bits `VES101  1 e 1 @3969 ]
-"13540
-[v _NVMCON2 NVMCON2 `VEuc  1 e 1 @3970 ]
-"15580
+"15580 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic18f24k40.h
 [v _RCREG RCREG `VEuc  1 e 1 @3993 ]
 "15695
 [v _SPBRG SPBRG `VEuc  1 e 1 @3995 ]
@@ -74,25 +49,6 @@
 [v _PR2 PR2 `VEuc  1 e 1 @4028 ]
 "19722
 [v _T2CON T2CON `VEuc  1 e 1 @4029 ]
-[s S122 . 1 `uc 1 INT0EDG 1 0 :1:0 
-`uc 1 INT1EDG 1 0 :1:1 
-`uc 1 INT2EDG 1 0 :1:2 
-`uc 1 . 1 0 :2:3 
-`uc 1 IPEN 1 0 :1:5 
-`uc 1 PEIE_GIEL 1 0 :1:6 
-`uc 1 GIE_GIEH 1 0 :1:7 
-]
-"24325
-[s S130 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 PEIE 1 0 :1:6 
-`uc 1 GIE 1 0 :1:7 
-]
-[s S134 . 1 `uc 1 . 1 0 :6:0 
-`uc 1 GIEL 1 0 :1:6 
-`uc 1 GIEH 1 0 :1:7 
-]
-[u S138 . 1 `S122 1 . 1 0 `S130 1 . 1 0 `S134 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES138  1 e 1 @4082 ]
 "25740
 [v _BRGH BRGH `VEb  1 e 0 @31986 ]
 "26199
@@ -141,28 +97,28 @@
 [v _TRISB1 TRISB1 `VEb  1 e 0 @31817 ]
 "30288
 [v _TRISB3 TRISB3 `VEb  1 e 0 @31819 ]
-"31 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
+"39 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
 [v _partMidiNote partMidiNote `VEuc  1 e 1 0 ]
-"32
+"40
 [v _velocity velocity `VEuc  1 e 1 0 ]
-"33
+"41
 [v _receiveCounter receiveCounter `VEuc  1 e 1 0 ]
-"34
-[v _sawtoothCounter sawtoothCounter `VEuc  1 e 1 0 ]
 "42
+[v _sawtoothCounter sawtoothCounter `VEuc  1 e 1 0 ]
+"50
 [v _eyebrowSawtoothThreshold eyebrowSawtoothThreshold `VEuc  1 e 1 0 ]
-"43
+"51
 [v _leftLipCornerSawtoothThreshold leftLipCornerSawtoothThreshold `VEuc  1 e 1 0 ]
-"44
+"52
 [v _rightLipCornerSawtoothThreshold rightLipCornerSawtoothThreshold `VEuc  1 e 1 0 ]
-"45
+"53
 [v _lowerJawSawtoothThreshold lowerJawSawtoothThreshold `VEuc  1 e 1 0 ]
-"46
+"54
 [v _eyelidsSawtoothThreshold eyelidsSawtoothThreshold `VEuc  1 e 1 0 ]
-"103
+"111
 [v _main main `(v  1 e 1 0 ]
 {
-"125
+"133
 } 0
 "52 C:\Users\sleep\Desktop\ProjectJim\Firmware/usart.h
 [v _initUSART initUSART `T(v  1 s 1 initUSART ]
@@ -193,8 +149,8 @@
 [v clearFramingError@temp temp `uc  1 s 1 temp ]
 "91
 } 0
-"49 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
+"57 C:\Users\sleep\Desktop\ProjectJim\Firmware\JimFirmware.c
 [v _isr isr `IIH(v  1 e 1 0 ]
 {
-"101
+"109
 } 0

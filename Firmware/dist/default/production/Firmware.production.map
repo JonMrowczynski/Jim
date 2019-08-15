@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v2.00\pic\dat\en_msgs.txt \
   -cs -h+dist/default/production\Firmware.production.sym \
   --cmf=dist/default/production\Firmware.production.cmf -z -Q18F24K40 \
-  -oC:\Users\sleep\AppData\Local\Temp\sdgg.2 --defsym=__MPLAB_BUILD=1 \
+  -oC:\Users\sleep\AppData\Local\Temp\see8.2 --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/Firmware.production.map -E1 -ver=XC8 \
   --acfsm=1493 -ASTACK=060h-03ffh -pstack=STACK -ACODE=00h-03FFFh \
   -ACONST=00h-03FFFh -ASMALLCONST=0400h-04FFhx60 -AMEDIUMCONST=0400h-03FFFh \
@@ -21,7 +21,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\sleep\AppData\Local\Temp\sdgg.o \
+  C:\Users\sleep\AppData\Local\Temp\see8.o \
   dist/default/production\Firmware.production.o 
 
 Object code version is 3.11
@@ -34,23 +34,23 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\sleep\AppData\Local\Temp\sdgg.o
+C:\Users\sleep\AppData\Local\Temp\see8.o
                 init                                1FA      1FA        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000       10   200000       0
                 config                           300000   300000        C   300000       0
 dist/default/production\Firmware.production.o
                 intcode                               8        8      1F2        4       0
-                temp                                  F        F        1        1       1
+                temp                                  E        E        1        1       1
                 text5                               2A4      2A4       20        4       0
                 text4                               284      284       20        4       0
                 text3                               2E4      2E4        E        4       0
                 text2                               2C4      2C4       12        4       0
                 text1                               2D6      2D6        E        4       0
                 text0                               1FE      1FE       4C        4       0
-                cstackCOMRAM                          D        D        2        1       1
-                dataCOMRAM                            8        8        5        1       1
-                bssCOMRAM                             1        1        7        1       1
+                cstackCOMRAM                          C        C        2        1       1
+                dataCOMRAM                            7        7        5        1       1
+                bssCOMRAM                             1        1        6        1       1
                 cinit                               24A      24A       3A        4       0
                 idataCOMRAM                         2F2      2F2        5        4       0
 
@@ -77,10 +77,10 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   MEDIUMCONST    
 
         CLASS   COMRAM         
-                temp                                  F        F        1         1
-                cstackCOMRAM                          D        D        2         1
-                dataCOMRAM                            8        8        5         1
-                bssCOMRAM                             1        1        7         1
+                temp                                  E        E        1         1
+                cstackCOMRAM                          C        C        2         1
+                dataCOMRAM                            7        7        5         1
+                bssCOMRAM                             1        1        6         1
 
         CLASS   ABS1           
 
@@ -113,7 +113,7 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
 
                 reset_vec                      000000  000004  000004         0       0  CODE    
-                bssCOMRAM                      000001  00000F  000010         1       1  COMRAM  
+                bssCOMRAM                      000001  00000E  00000F         1       1  COMRAM  
                 intcode                        000008  0002EF  0002F7         4       0  CODE    
                 idloc                          200000  000010  200010    200000       0  IDLOC   
                 config                         300000  00000C  30000C    300000       0  CONFIG  
@@ -126,10 +126,10 @@ UNUSED ADDRESS RANGES
         BANK1            000100-0001FF              100
         BANK2            000200-0002FF              100
         BANK3            000300-0003FF              100
-        BIGRAM           000010-0003FF              3F0
+        BIGRAM           00000F-0003FF              3F1
         CODE             000004-000007                4
                          0002F7-003FFF             3D09
-        COMRAM           000010-00005F               50
+        COMRAM           00000F-00005F               51
         CONST            000004-000007                4
                          0002F7-003FFF             3D09
         EEDATA           310000-3100FF              100
@@ -145,11 +145,6 @@ _BRGH                            (abs)        007CF2
 _CREN                            (abs)        007CEC
 _FERR                            (abs)        007CEA
 _GIE                             (abs)        007F97
-_INTCONbits                      (abs)        000FF2
-_NVMADRL                         (abs)        000F7E
-_NVMCON1bits                     (abs)        000F81
-_NVMCON2                         (abs)        000F82
-_NVMDAT                          (abs)        000F80
 _OERR                            (abs)        007CE9
 _PEIE                            (abs)        007F96
 _PR2                             (abs)        000FBC
@@ -256,11 +251,11 @@ __Hrparam                        rparam       000000
 __Hsfr                           sfr          000000
 __Hsmallconst                    smallconst   000000
 __Hspace_0                       (abs)        30000C
-__Hspace_1                       (abs)        000010
+__Hspace_1                       (abs)        00000F
 __Hspace_2                       (abs)        000000
 __Hstack                         stack        000000
 __Hstruct                        struct       000000
-__Htemp                          temp         000010
+__Htemp                          temp         00000F
 __Htext                          text         000000
 __Htext0                         text0        000000
 __Htext1                         text1        000000
@@ -323,7 +318,7 @@ __Lspace_1                       (abs)        000000
 __Lspace_2                       (abs)        000000
 __Lstack                         stack        000000
 __Lstruct                        struct       000000
-__Ltemp                          temp         00000F
+__Ltemp                          temp         00000E
 __Ltext                          text         000000
 __Ltext0                         text0        000000
 __Ltext1                         text1        000000
@@ -332,7 +327,7 @@ __Ltext3                         text3        000000
 __Ltext4                         text4        000000
 __Ltext5                         text5        000000
 __S0                             (abs)        30000C
-__S1                             (abs)        000010
+__S1                             (abs)        00000F
 __S2                             (abs)        000000
 ___inthi_sp                      stack        000000
 ___intlo_sp                      stack        000000
@@ -353,8 +348,8 @@ __initialization                 cinit        00024A
 __mediumconst                    mediumconst  000000
 __pbssCOMRAM                     bssCOMRAM    000001
 __pcinit                         cinit        00024A
-__pcstackCOMRAM                  cstackCOMRAM 00000D
-__pdataCOMRAM                    dataCOMRAM   000008
+__pcstackCOMRAM                  cstackCOMRAM 00000C
+__pdataCOMRAM                    dataCOMRAM   000007
 __pidataCOMRAM                   idataCOMRAM  0002F2
 __pintcode                       intcode      000008
 __ptext0                         text0        0001FE
@@ -374,45 +369,44 @@ __size_of_main                   (abs)        000000
 __smallconst                     smallconst   000000
 _clearFramingError               text5        0002A4
 _clearOverrunError               text4        000284
-_eyebrowSawtoothThreshold        dataCOMRAM   00000C
-_eyelidsSawtoothThreshold        dataCOMRAM   000008
+_eyebrowSawtoothThreshold        dataCOMRAM   00000B
+_eyelidsSawtoothThreshold        dataCOMRAM   000007
 _initServos                      text3        0002E4
 _initTMR2                        text2        0002C4
 _initUSART                       text1        0002D6
 _isr                             intcode      000008
-_leftLipCornerSawtoothThreshold  dataCOMRAM   00000B
-_lowerJawSawtoothThreshold       dataCOMRAM   000009
+_leftLipCornerSawtoothThreshold  dataCOMRAM   00000A
+_lowerJawSawtoothThreshold       dataCOMRAM   000008
 _main                            text0        0001FE
-_partMidiNote                    bssCOMRAM    000005
-_receiveCounter                  bssCOMRAM    000003
-_rightLipCornerSawtoothThreshold dataCOMRAM   00000A
-_sawtoothCounter                 bssCOMRAM    000002
-_velocity                        bssCOMRAM    000004
-btemp                            temp         00000F
-clearFramingError@temp           bssCOMRAM    000006
-clearOverrunError@temp           bssCOMRAM    000007
+_partMidiNote                    bssCOMRAM    000004
+_receiveCounter                  bssCOMRAM    000002
+_rightLipCornerSawtoothThreshold dataCOMRAM   000009
+_sawtoothCounter                 bssCOMRAM    000001
+_velocity                        bssCOMRAM    000003
+btemp                            temp         00000E
+clearFramingError@temp           bssCOMRAM    000005
+clearOverrunError@temp           bssCOMRAM    000006
 end_of_initialization            cinit        000276
-int$flags                        temp         00000F
+int$flags                        temp         00000E
 intlevel0                        text         000000
 intlevel1                        text         000000
 intlevel2                        text         000000
 intlevel3                        text         000000
-saveSetting@EEPROMValue          bssCOMRAM    000001
 stackhi                          (abs)        0003FF
 stacklo                          (abs)        000060
 start                            init         0001FA
 start_initialization             cinit        00024A
-ttemp5                           temp         000010
-ttemp6                           temp         000013
-ttemp7                           temp         000017
-wtemp8                           temp         000010
+ttemp5                           temp         00000F
+ttemp6                           temp         000012
+ttemp7                           temp         000016
+wtemp8                           temp         00000F
 
 
 FUNCTION INFORMATION:
 
  *************** function _main *****************
  Defined at:
-		line 103 in file "JimFirmware.c"
+		line 111 in file "JimFirmware.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -595,7 +589,7 @@ Total ram usage:        0 bytes
 
  *************** function _isr *****************
  Defined at:
-		line 49 in file "JimFirmware.c"
+		line 57 in file "JimFirmware.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
