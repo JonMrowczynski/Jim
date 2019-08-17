@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.6.3">
+<eagle version="9.4.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="50" unitdist="mil" unit="mm" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -60,8 +60,8 @@
 <library>
 <packages>
 <package name="DOUBLE_THROUGH_HOLE_PAD">
-<pad name="P$1" x="-2" y="0" drill="0.8"/>
-<hole x="2" y="0" drill="1.5"/>
+<pad name="P$1" x="-2" y="0" drill="1.5"/>
+<hole x="2" y="0" drill="2"/>
 <text x="-3.81" y="2.54" size="1.778" layer="21">&gt;NAME</text>
 </package>
 </packages>
