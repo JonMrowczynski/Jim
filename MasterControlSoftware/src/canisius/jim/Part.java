@@ -1,11 +1,11 @@
 package canisius.jim;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
+import java.security.InvalidParameterException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *	This class provides the framework for the components of the Ruppet that are operated by the microcontroller.
@@ -51,7 +51,7 @@ abstract class Part {
 	 * servo motor can go to.
 	 */
 
-	final ShortMessage states[][];
+	final ShortMessage[][] states;
 	
 	/**
 	 * This initializes all of the states that the {@code Part} can go to. It also 
@@ -82,9 +82,7 @@ abstract class Part {
 	 */
 
 	protected void toState(final ShortMessage[] messages) {
-		if (validShortMessages(messages))
-			for (ShortMessage msg : messages)
-				MidiConnection.getUsbReceiver().send(msg, -1);
+		if (validShortMessages(messages)) { Arrays.stream(messages).forEach(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
 	} 
 	
 	/**
@@ -98,9 +96,7 @@ abstract class Part {
 	 */
 
 	void toState(final int velocity) {
-		if (validVelocity(velocity))
-			for (ShortMessage msg : states[velocityToStateIndex(velocity)])
-				MidiConnection.getUsbReceiver().send(msg, -1);
+		if (validVelocity(velocity)) { Arrays.stream(states[velocityToStateIndex(velocity)]).forEach(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
 	}
 	
 	/**
@@ -114,9 +110,7 @@ abstract class Part {
 	 */
 
 	final void addStateToTrack(final Track track, final ShortMessage[] messages, final int tick) {
-		if (validShortMessages(messages))
-			for (ShortMessage msg : messages)
-				track.add(RuppetControl.makeEvent(msg, tick));
+		if (validShortMessages(messages)) { Arrays.stream(messages).forEach(msg -> track.add(RuppetControl.makeEvent(msg, tick))); }
 	} 
 	
 	/**
@@ -127,8 +121,7 @@ abstract class Part {
 	 */
 
 	final boolean validVelocity(final int velocity) {
-		if (velocity >= RuppetControl.MIN_VELOCITY && velocity <= RuppetControl.MAX_VELOCITY)
-			return true;
+		if (velocity >= RuppetControl.MIN_VELOCITY && velocity <= RuppetControl.MAX_VELOCITY) { return true; }
 		else {
 			System.out.println("Invalid velocity value: " + velocity);
 			return false;
@@ -147,10 +140,10 @@ abstract class Part {
 	private boolean validShortMessages(final ShortMessage[] messages) {
 		final ShortMessage[] state = states[velocityToStateIndex(RuppetControl.getVelocityVal(messages[0]))];
 		for (int i = 0; i < state.length; ++i) {
-			if (messages[i].getChannel() != state[i].getChannel()) return false;
-			if (messages[i].getCommand() != state[i].getCommand()) return false;
-			if (messages[i].getData1()   != state[i].getData1())   return false;
-			if (messages[i].getData2()   != state[i].getData2())   return false;
+			if (messages[i].getChannel() != state[i].getChannel()) { return false; }
+			if (messages[i].getCommand() != state[i].getCommand()) { return false; }
+			if (messages[i].getData1()   != state[i].getData1())   { return false; }
+			if (messages[i].getData2()   != state[i].getData2())   { return false; }
 		}
 		return true;
 	}
@@ -164,10 +157,8 @@ abstract class Part {
 	 */
 
 	final ShortMessage[] getState(final int velocity) {
-		if(validVelocity(velocity))
-			return states[velocityToStateIndex(velocity)];	
-		else
-			throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned.");
+		if (validVelocity(velocity)) { return states[velocityToStateIndex(velocity)]; }
+		else { throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned."); }
 	}
 	
 	
@@ -182,26 +173,21 @@ abstract class Part {
 
 	private void checkAndSetBoundaryValues(final int lowerBound, final int upperBound) {
 		if (lowerBound <= upperBound) {
-			if (validVelocity(lowerBound))
-				this.lowerBound = lowerBound;
-			else
-				throw new InvalidParameterException("for lowerBound. Boundary values could not be set.");
-			if (validVelocity(upperBound))
-				this.upperBound = upperBound;
-			else 
-				throw new InvalidParameterException("for upperBound. Boundary values could not be set.");
-		} else
-			throw new InvalidParameterException("Invalid boundary values: " +
+			if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
+			else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
+			if (validVelocity(upperBound)) { this.upperBound = upperBound; }
+			else { throw new InvalidParameterException("for upperBound. Boundary values could not be set."); }
+		} else { throw new InvalidParameterException("Invalid boundary values: " +
 				"\nlowerBound: " + lowerBound +
 				"\nupperBound: " + upperBound +
-				"\nCould not instantiate Movable Part.");
+				"\nCould not instantiate Movable Part."); }
 	}
 	
 	/**
 	 * Ultimately the conversion from {@code velocity} to {@code stateIndex} for any number of states is:
 	 *  
 	 * @param velocity The velocity value that is to be converted to a {@code stateIndex}
-	 * @return The {@code stateIndex}
+	 * @return The {@code stateIndex}.
 	 */
 
 	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }

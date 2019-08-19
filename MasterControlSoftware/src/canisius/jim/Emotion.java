@@ -1,95 +1,101 @@
 package canisius.jim;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
+import java.security.InvalidParameterException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
-	This class represents the emotional states that a Ruppet can express.
-	
-	@author Jon Mrowczynski
-	@version 1.0
-*/
+ * An {@code Emotion} is a set of {@code ShortMessage}s that, when sent to the control electronics, sets servo motor
+ * states such that a {@code Ruppet} expresses the corresponding emotion.
+ *
+ *  @author Jon Mrowczynski
+ */
 
 final class Emotion {
-	
+
 	/**
-	 * Each emotion has a {@code Ruppet} associated with it as well as an {@code ArrayList}
-	 * that represents the states that the {@code Ruppet} goes to in order to express that emotion.
+	 * Contains the {@code ShortMessage}s that are to be sent to the control electronics to make the {@code Ruppet}
+	 * express an emotion.
 	 */
 
-	private final List<ShortMessage> attributes = new ArrayList<>();
+	private final Set<ShortMessage> attributes = new HashSet<>();
 	
 	/**
-	 * Takes a {@code Ruppet} that the emotion  is associated with as well as a variable amount of 
-	 * {@code PartState}s which the associated {@code ShortMessage}s of the {@code PartState} gets 
-	 * added to the {@code Emotion} attributes {@code ArrayList}
-	 * <P>
-	 * *NOTE*: That currently, only {@code Movable Part}s are meaningful in emotional states.
+	 * Takes a {@code Ruppet} that the emotion is associated with as well as a variable amount of {@code PartState}s
+	 * which the associated {@code ShortMessage}s of the {@code PartState} gets added to the {@code Emotion} attributes
+	 * {@code ArrayList}.
+	 *
+	 * Currently, only {@code Movable Part}s are meaningful in emotional states.
 	 * 
-	 * @param ruppet The {@code Ruppet} that the {@code Emotion} is associated with
-	 * @param emotionPartStates The {@code PartStates} that are transitioned to for this {@code Emotion}
+	 * @param ruppet that the {@code Emotion} belongs to.
+	 * @param emotionPartStates that are transitioned to for this {@code Emotion}.
 	 */
 
 	Emotion(final Ruppet ruppet, final PartState... emotionPartStates) {
 		if (emotionPartStates.length > 0) {
 			final List<Part> ruppetParts = new ArrayList<>();
-			for (final Part part : ruppet.getParts())
-				if (part instanceof Movable) ruppetParts.add(part);
-
-			/* For every PartState that was passed into the Emotion constructor add its state 
-			   to the Emotion's attribute ArrayList */
-
-			for (PartState emotionPartState : emotionPartStates) {
-				ruppetParts.remove(emotionPartState.getPart());
-				if (emotionPartState.getPart() instanceof Movable)
-					attributes.addAll(Arrays.asList(emotionPartState.getState()));
-
-			} 
-
-			/* If there are still some Parts left over that are not a part of the current Emotion 
-			   then add their neutral positions to the current Emotion's ArrayList so that a given 
-			   state does not carry over from one emotion to another */
-
-			for (final Part ruppetPart : ruppetParts)
-				if (ruppetPart instanceof Movable)
-					RuppetControl.addStateToList(attributes, ( (Movable) ruppetPart).getNeutralState());
-		} else
-			throw new InvalidParameterException("emotionPartStates.length == 0. Please make sure that"
-				+ " you passed in part states so that this emotion can be defined.");
-
-	} // end of Emotion constructor 
+			ruppet.getParts().stream().filter(part -> part instanceof Movable).forEach(ruppetParts::add);
+			addEmotionPartStates(emotionPartStates);
+			/*
+			 * If there are Parts that are not part of the current Emotion then add their neutral positions to this
+			 * Emotion's attributes so that a given state does not carry over from one Emotion to another.
+			 */
+			ruppetParts.removeAll(Arrays.stream(emotionPartStates).map(PartState::getPart).collect(Collectors.toList()));
+			addNeutralPositions(ruppetParts);
+		} else { throw new InvalidParameterException("emotionPartStates.length cannot = 0."); }
+	}
 	
 	/**
-	 * Creates a {@code Track} that can be added to a {@code Sequence} such that an {@code Emotion}
-	 * can be synchronized with other emotional transitions, mouth movements, etc.
-	 * <P>
-	 * *NOTE*: That the lower jaw of the {@code Ruppet} is disabled to prevent interference between the 
-	 * {@code Emotion} and the {@code Ruppet} talking.
+	 * Adds this {@code Emotion} to the given {@code track} at the given {@code tick} so that when it is added to a
+	 * {@code Sequence} the {@code Emotion} can be synchronized and/or sequenced with other emotional transitions, mouth
+	 * movements, etc.
+	 *
+	 * The lower jaw of the {@code Ruppet} is disabled to prevent interference between the {@code Emotion} and the
+	 * {@code Ruppet} talking.
 	 * 
-	 * @param track The {@code Track} that the {@code Emotion} is to be added to
-	 * @param tick The point in time that the {@code Emotion} should be transitioned to
+	 * @param track that the {@code Emotion} is to be added to.
+	 * @param tick that the {@code Emotion} should be transitioned to.
 	 */
 
 	final void addEmotionToTrack(final Track track, final int tick) {
-		for (final ShortMessage msg : attributes)
-			if (RuppetControl.getMidiNote(msg) != RuppetControl.LOWER_JAW)
-				track.add(RuppetControl.makeEvent(msg, tick));
+		attributes.stream().filter(msg -> RuppetControl.getMidiNote(msg) != RuppetControl.LOWER_JAW)
+				.forEach(msg -> track.add(RuppetControl.makeEvent(msg, tick)));
 	}
 
 	/**
-	 * Returns an {@code ArrayList} that contains a collection of {@code ShortMessage}s that represent
-	 * the states that need to be transitioned to in order for the {@code Ruppet} to express the corresponding
-	 * {@code Emotion}.
-	 * 
-	 * @return The {@code ShortMessages} that are associated with the emotional state
+	 * For every {@code PartState} in {@code emotionPartStates} add its {@code State} to this {@code Emotion}'s
+	 * {@code attributes} iff the {@code PartState}'s corresponding {@code Part} is a {@code Movable}. Simultaneously,
+	 * remove the corresponding {@code Part} from {@code ruppetParts} iff i
+	 *
+	 * @param emotionPartStates whose states are to be added to {@code attributes}.
 	 */
 
-	final List<ShortMessage> getAttributes() { return attributes; }
+	private void addEmotionPartStates(final PartState[] emotionPartStates) {
+		Arrays.stream(emotionPartStates).filter(emotionPartState -> emotionPartState.getPart() instanceof Movable)
+				.map(PartState::getState).forEach(state -> attributes.addAll(Arrays.asList(state)));
+	}
+
+	/**
+	 * Adds the neutral states all of {@code Part}s in {@code ruppetParts} to this {@code Emotion}'s {@code attributes}.
+	 *
+	 * @param ruppetParts whose neutral state is to be added to this {@code Emotion}'s {@code attributes}.
+	 */
+
+	private void addNeutralPositions(final List<Part> ruppetParts) {
+		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable)
+				.forEach(ruppetPart -> RuppetControl.addStateToList(attributes, ((Movable) ruppetPart).getNeutralState()));
+	}
+
+	/**
+	 * Returns an {@code Iterator} of the {@code ShortMessage}s that need to be transitioned to the control electronics
+	 * in order for the {@code Ruppet} to express the corresponding {@code Emotion}.
+	 * 
+	 * @return The {@code ShortMessages} that are associated with the emotional state.
+	 */
+
+	final Iterator<ShortMessage> getAttributes() { return attributes.iterator(); }
 
 } // end of Emotion class
 

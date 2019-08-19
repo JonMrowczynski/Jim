@@ -1,19 +1,17 @@
 package canisius.jim;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Allows a {@code Ruppet} to talk by reading the timing information from a text file and storing 
@@ -24,7 +22,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Jon Mrowczynski
  */
 
-class Voice implements Runnable {
+final class Voice implements Runnable {
 
 	/* The two save files that store the names of the files that contain the timing information	
 		for the mouth movements and the desired audio file to be played respectively */

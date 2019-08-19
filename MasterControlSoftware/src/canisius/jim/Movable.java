@@ -1,21 +1,20 @@
 package canisius.jim;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.ShortMessage;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.ShortMessage;
-
 /**
-	This class represents all of the parts of the {@code Ruppet} that are controlled by one or 
-	more servo motors. If the {@code Movable Part} requires two servo motors to be operated, then
-	the states for the second servo motor depends on whether their motion will be in parallel 
-	or antiparallel with one another. If their motion is in parallel, then the velocity values 
-	will be the same as the first servo motors'. If the motion is antiparallel, then the velocity 
-	values will be inversely related.
-	
-	@author Jon Mrowczynski
-*/
+ * 	This class represents all of the parts of the {@code Ruppet} that are controlled by one or
+ * 	more servo motors. If the {@code Movable Part} requires two servo motors to be operated, then
+ * 	the states for the second servo motor depends on whether their motion will be in parallel
+ * 	or antiparallel with one another. If their motion is in parallel, then the velocity values
+ * 	will be the same as the first servo motors'. If the motion is antiparallel, then the velocity
+ * 	values will be inversely related.
+ *
+ *  @author Jon Mrowczynski
+ */
 
 final class Movable extends Part {
 	
@@ -76,12 +75,10 @@ final class Movable extends Part {
 	 */
 
 	final void setNeutral(final int newNeutral) {
-		if (newNeutral >= lowerBound && newNeutral <= upperBound) 
-			neutral = newNeutral;
-		else
-			throw new InvalidParameterException("Cannot set the neutral state value to: " + newNeutral
+		if (newNeutral >= lowerBound && newNeutral <= upperBound) { neutral = newNeutral; }
+		else { throw new InvalidParameterException("Cannot set the neutral state value to: " + newNeutral
 				+ "\nThe provided value is not within the defined acceptable range of values: "
-				+ lowerBound + "-" + upperBound);
+				+ lowerBound + "-" + upperBound); }
 	}
 	
 	/**
@@ -135,23 +132,15 @@ final class Movable extends Part {
 	 * @return The integer value that represents the upper bound of the {@code Movable Part}.
 	 */
 
-	final int getUpperBound() { return upperBound; }
-	
+	final PartState getUpperBoundPartState() { return getPartState(upperBound); }
+
 	/**
 	 * Gets the lower bound value for the {@code Movable Part}.
-	 * 
+	 *
 	 * @return The integer value that represents the lower bound of the {@code Movable Part}.
 	 */
-	
-	final int getLowerBound() { return lowerBound; }
-	
-	/**
-	 * Gets the neutral value for the {@code Movable Part}.
-	 * 
-	 * @return The integer value that represents the neutral position of the {@code Movable Part}.
-	 */
-	
-	public final int getNeutral() { return neutral; }
+
+	final PartState getLowerBoundPartState() { return getPartState(lowerBound); }
 	
 	/**
 	 * Gets the state that represents the {@code Movable Part}'s neutral position.
@@ -169,11 +158,9 @@ final class Movable extends Part {
 	 * @return The {@code PartState} that represents the state of the corresponding {@code Ruppet Part}
 	 */
 
-	final PartState getPartState(final int velocity) {
-		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound)
-			return new PartState(this, getState(velocity));
-		else
-			throw new InvalidParameterException("Cannot retrieve the PartState associated with the velocity value: " + velocity);
+	private PartState getPartState(final int velocity) {
+		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound) { return new PartState(this, getState(velocity)); }
+		else { throw new InvalidParameterException("Cannot retrieve the PartState associated with the velocity value: " + velocity); }
 	} 
 		
 } // end of Movable class

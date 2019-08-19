@@ -1,16 +1,11 @@
 package canisius.jim;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.*;
-
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
+import java.io.*;
+import java.util.*;
 
 /**
  *	This class contains the constants that are required to make the MidiEvents that fill the 
@@ -125,8 +120,7 @@ final class RuppetControl {
 	*/
 
 	static void initConnections() {
-		MidiConnection.establishUsbMidiConnection();
-		MidiConnection.establishSequencerConnection();
+		MidiConnection.establishConnection();
 		MidiConnection.getSequencer().setTempoInBPM(375);
 		MidiConnection.getSequencer().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
 	}
@@ -187,7 +181,7 @@ final class RuppetControl {
 	 * @param state The array of {@code ShortMessages} that will be added to the {@code ArrayList}.
 	 */
 
-	static void addStateToList(final List<ShortMessage> states, final ShortMessage[] state) {
+	static void addStateToList(final Set<ShortMessage> states, final ShortMessage[] state) {
 		states.addAll(Arrays.asList(state));
 	}
 

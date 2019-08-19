@@ -1,13 +1,12 @@
 package canisius.jim;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  *	This class holds all of the pertinent information that directly deals with the {@code Ruppet}.
@@ -26,7 +25,6 @@ import javax.sound.midi.Track;
  *	program is terminated unexpectedly. 
  *	
  *	@author Jon Mrowczynski
- *	@version 1.2
  */
 
 final class Ruppet {
@@ -105,7 +103,7 @@ final class Ruppet {
 	 * The eye lights of the {@code Ruppet} which is a {@code Lights Part}
 	 */
 	
-	private final Lights lights = new Lights(parts, RuppetControl.LIGHTS, (byte) 0, (byte) 10); 
+	private final Lights lights = new Lights(parts, RuppetControl.LIGHTS);
 	
 	/* This constructor sets everything up in order for the Ruppet to have a successful life. */
 
@@ -185,24 +183,12 @@ final class Ruppet {
 			try { 
 				choice = RuppetControl.reader.nextByte();
 				switch(choice) {
-					case 1:
-						manualEmotionDemoMode();
-						break;
-					case 2:
-						manualFAUDemoMode();
-						break;
-					case 3:
-						runSteveScripts();
-						break;
-					case 4:
-						mirrorMode();
-						break;
-					case 5:
-						goToSleep();
-						break;
-					default:
-						System.out.println("Sorry, that's not an option.");
-						break;
+					case 1: manualEmotionDemoMode();								break;
+					case 2: manualFAUDemoMode();									break;
+					case 3: runSteveScripts();										break;
+					case 4: mirrorMode();											break;
+					case 5: goToSleep();											break;
+					default: System.out.println("Sorry, that's not an option.");	break;
 				} 
 			} catch(InputMismatchException e) { 
 				System.out.println("\nI don't understand that input, make sure you type in an int!");
@@ -297,39 +283,22 @@ final class Ruppet {
 			} 
 			System.out.println();
 			switch(emotionChoice) {
-				case 1:
-					heart.feel(heart.getNeutral());
-					break;
-				case 2:
-					heart.feel(heart.getHappy());
-					break;
-				case 3:
-					heart.feel(heart.getSad());
-					break;
-				case 4:
-					heart.feel(heart.getAngry());
-					break;
-				case 5:
-					heart.feel(heart.getScared());
-					break;
-				case 6:
-					heart.feel(heart.getSmile());
-					break;
-				case 9:
-					System.out.println("Exited manual demo mode");
-					break;
-				default:
-					System.out.println("That is not an option.");
-					break;
+				case 1: heart.feel(heart.getNeutral()); 				break;
+				case 2: heart.feel(heart.getHappy());					break;
+				case 3: heart.feel(heart.getSad());						break;
+				case 4: heart.feel(heart.getAngry());					break;
+				case 5: heart.feel(heart.getScared());					break;
+				case 6: heart.feel(heart.getSmile());					break;
+				case 9: System.out.println("Exited manual demo mode"); 	break;
+				default: System.out.println("That is not an option.");	break;
 			}
-			if (emotionChoice != 9)
-				RuppetControl.pause(); // Display the specified emotion for a couple of seconds
+			// Display the specified emotion for a couple of seconds.
+			if (emotionChoice != 9) { RuppetControl.pause(); }
 		} while(emotionChoice != 9);
 	} // end of manualEmotionDemoMode
 	
 	/**
-	 * Allows the user to determine which FAU they would like the {@code Ruppet} to display 
-	 * on command using a CLI.
+	 * Allows the user to determine which FAU they would like the {@code Ruppet} to display on command using a CLI.
 	 */
 
 	private void manualFAUDemoMode() {
@@ -352,45 +321,20 @@ final class Ruppet {
 			try {
 				fauChoice = RuppetControl.reader.nextInt();
 				switch(fauChoice) {
-					case 1:
-						eyebrows.toUpperBound();
-						break;
-					case 2:
-						eyebrows.toNeutral();
-						break;
-					case 3:
-						eyebrows.toLowerBound();
-						break;
-					case 4:
-						lowerJaw.toUpperBound();
-						break;
-					case 5:
-						lowerJaw.toNeutral();
-						break;
-					case 6:
-						lowerJaw.toLowerBound();
-						break;
-					case 7:
-						lipCorners.toUpperBound();
-						break;
-					case 8:
-						lipCorners.toNeutral();
-						break;
-					case 9:
-						lipCorners.toLowerBound();
-						break;
-					case 10:
-						eyelids.toLowerBound(); // The LowerBound and UpperBound are switched for the eyelids due to servo orientation.
-						break;
-					case 11:
-						eyelids.toNeutral();
-						break;
-					case 12:
-						eyelids.toUpperBound();
-						break;
-					default:
-						System.out.println("That is not an available option");
-						break;
+					case 1: eyebrows.toUpperBound();								break;
+					case 2: eyebrows.toNeutral();									break;
+					case 3: eyebrows.toLowerBound();								break;
+					case 4: lowerJaw.toUpperBound();								break;
+					case 5: lowerJaw.toNeutral();									break;
+					case 6: lowerJaw.toLowerBound();								break;
+					case 7: lipCorners.toUpperBound();								break;
+					case 8: lipCorners.toNeutral();									break;
+					case 9: lipCorners.toLowerBound();								break;
+					// The LowerBound and UpperBound are switched for the eyelids due to servo orientation.
+					case 10: eyelids.toLowerBound();								break;
+					case 11: eyelids.toNeutral();									break;
+					case 12: eyelids.toUpperBound();								break;
+					default: System.out.println("That is not an available option");	break;
 				} // end of switch
 			} catch (InputMismatchException e) {
 				RuppetControl.reader.nextLine();
@@ -417,21 +361,10 @@ final class Ruppet {
 	private void mirrorMode() {
 		do {
 			switch(getCurrentEmotion()) {
-				case "NEUTRAL":
-					heart.feel(heart.getNeutral());
-					break;
-				case "HAPPY":
-					heart.feel(heart.getHappy());
-					break;
-				case "SAD":
-					heart.feel(heart.getSad());
-					break;
-				case "ANGRY":
-					heart.feel(heart.getAngry());
-					break;
-				default:
-					heart.feel(heart.getNeutral());
-					break;
+				case "HAPPY":	heart.feel(heart.getHappy());	break;
+				case "SAD": 	heart.feel(heart.getSad());		break;
+				case "ANGRY": 	heart.feel(heart.getAngry());	break;
+				default: 		heart.feel(heart.getNeutral());	break;
 			} 
 		} while(hasFace());
 	}
@@ -495,13 +428,10 @@ final class Ruppet {
 			RuppetControl.deSoloAllTracks(tracks);
 			RuppetControl.reader.close();
 			for (Part part : parts) {
-				if (part instanceof Movable)
-					( (Movable) part ).toNeutral();
-				else if (part instanceof Lights)
-					( (Lights) part ).off();
+				if (part instanceof Movable) { ((Movable) part).toNeutral(); }
+				else if (part instanceof Lights) { ((Lights) part).off(); }
 			}
-			MidiConnection.closeUsbMidiDevice();
-			MidiConnection.closeSequencer();
+			MidiConnection.closeConnection();
 		}
 
 	}
