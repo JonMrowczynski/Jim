@@ -69,9 +69,9 @@ final class Movable extends Part {
 	}
 	
 	/**
-	 * Allows the neutral position of the {@code Movable Part} to be dynamically determined.
-	 * 
-	 * @param newNeutral The new neutral position of the {@code Movable Part}
+	 * Sets the neutral position of this {@code Movable Part}.
+	 *
+	 * @param newNeutral position of this {@code Movable Part}.
 	 */
 
 	final void setNeutral(final int newNeutral) {
@@ -88,14 +88,13 @@ final class Movable extends Part {
 	final void toUpperBound() { toState(upperBound); }
 	
 	/**
-	 * Moves the {@code Movable} to its other most extreme angular position that is 
-	 * in the opposite direction.
+	 * Moves the {@code Movable} to its other most extreme angular position that is in the opposite direction.
 	 */
 	
 	final void toLowerBound() { toState(lowerBound); }
 	
 	/**
-	 * Moves the {@code Movable} to its neutral position.
+	 * Moves the {@code Movable} to its neutral angular position.
 	 */
 	
 	final void toNeutral() { toState(neutral); 	}

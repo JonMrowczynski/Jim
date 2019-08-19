@@ -1,5 +1,6 @@
 package canisius.jim;
 
+import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -78,11 +79,11 @@ final class Heart {
      * {@code Heart} class can setup the emotions {@code Track} with {@code MidiEvent}s whose timings are set from the
      * {@code emotionTimes ArrayList}.
 	 * 
-	 * @param ruppet The {@code Ruppet} that this {@code Heart} object belongs to.
-	 * @param emotionTrack The {@code Track} that is to store all of the {@code Emotion} transition times.
+	 * @param ruppet that this {@code Heart} object belongs to.
+	 * @param actions that is used to create a {@code Track} to store all of the {@code Emotion} expression timings.
 	 */
 
-	Heart(Ruppet ruppet, Track emotionTrack) {
+	Heart(final Ruppet ruppet, final Sequence actions) {
 		final Movable lowerJaw   = ruppet.getLowerJaw();
 		final Movable lipCorners = ruppet.getLipCorners();
 		final Movable eyebrow 	 = ruppet.getEyebrows();
@@ -95,7 +96,7 @@ final class Heart {
 		scared = new Emotion(ruppet, lowerJaw.getUpperBoundPartState(), lipCorners.getLowerBoundPartState(), eyebrow.getLowerBoundPartState());
 		smile = new Emotion(ruppet, lipCorners.getUpperBoundPartState());
 
-		this.emotionTrack = emotionTrack;
+		emotionTrack = actions.createTrack();
 		readTimingLabels();
 		setupTimings();
 	}
@@ -163,7 +164,7 @@ final class Heart {
 
 	private void readTimingLabels() {
 		try {
-		    RuppetControl.checkSaveFile(emoteSaveFile);
+		    RuppetControl.checkFileExistence(emoteSaveFile);
             try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
                 while(reader.hasNext()) { emotionTimingsMap.put((int) Math.round(reader.nextDouble() * 1000), reader.nextLine().trim()); }
             } catch (FileNotFoundException ex) {ex.printStackTrace();}
@@ -196,5 +197,13 @@ final class Heart {
             }
         }
 	}
+
+	/**
+	 * Gets the {@code Track} that contains all of the {@code Emotion} transition timings.
+	 *
+	 * @return The {@code Track} that stores the {@code Emotion} transition timings.
+	 */
+
+	final Track getEmotionTrack() { return emotionTrack; }
 
 } // end of Heart class

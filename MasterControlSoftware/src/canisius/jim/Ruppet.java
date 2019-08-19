@@ -1,9 +1,6 @@
 package canisius.jim;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Track;
+import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -35,139 +32,108 @@ final class Ruppet {
 	
 	public native boolean hasFace();
 
+    /**
+     * Stores all of the {@code Ruppet}'s {@code Part}s. Each {@code Part} is added when it is initialized.
+     */
+
+    private final List<Part> parts = new ArrayList<>();
+
+    /**
+     * Stores all of the {@code Ruppet}'s {@code Track}'s that are used to sequence commands to the {@code Ruppet}.
+     */
+
+    private final List<Track> tracks = new ArrayList<>();
+
+    /**
+     * The lower jaw of the {@code Ruppet} which is a {@code Movable Part}
+     */
+
+    private final Movable lowerJaw = new Movable(parts, RuppetControl.LOWER_JAW, (byte) 3, (byte) 8);
+
+    /**
+     * The right and left lip corners of the {@code Ruppet} which is a {@code Movable Part}
+     */
+
+    private final Movable lipCorners = new Movable(parts, RuppetControl.LEFT_LIP_CORNER, (byte) 1, (byte) 4, RuppetControl.RIGHT_LIP_CORNER, "antiparallel");
+
+    /**
+     * The eyebrows of the {@code Ruppet} which is a {@code Movable Part}
+     */
+
+    private final Movable eyebrows = new Movable(parts, RuppetControl.EYEBROW, (byte) 4, (byte) 7);
+
+    /**
+     * The eyelids of the {@code Ruppet} which is a {@code Movable Part}
+     */
+
+    private final Movable eyelids = new Movable(parts, RuppetControl.EYELIDS, (byte) 3, (byte) 7);
+
+    /**
+     * The eye lights of the {@code Ruppet} which is a {@code Lights Part}
+     */
+
+    private final Lights lights = new Lights(parts, RuppetControl.LIGHTS);
+
 	/**
-	 * The emotional center of the {@code Ruppet}.
+	 * The component of the {@code Ruppet} that allows it to feel.
 	 */
 
-	private final Heart heart;
+	private Heart heart;
 	
 	/**
-	 * The vocal center of the {@code Ruppet}.
+	 * The component of the {@code Ruppet} that allows it to speak.
 	 */
 	
-	private final Voice voice;
-	
-	/**
-	 * The {@code Track} that stores all of the randomly generated times for the {@code Ruppet} to blink.
-	 */
+	private Voice voice;
 
-	private Track blinkingTrack;
-	
-	/**
-	 * The {@code Track} that stores all of the {@code Emotion} transition timings.
-	 */
-	
-	private Track emotionTrack;
-	
-	/**
-	 * The {@code Track{ that stores all of the {@code lowerJaw} movements to allow the {@code Ruppet} to talk.
-	 */
-	
-	private Track voiceTrack;
-	
-	/* This ArrayList stores wrapper AugmentedTrack classes. Currently there are only 3 AugmentedTracks
-	   that are stored which are the ones listed above */
+    /**
+     * Set everything up so that the {@code Ruppet} can have a successful life.
+     */
 
-	private final ArrayList<Track> tracks = new ArrayList<>();
-
-	/* An ArrayList of Ruppet Parts. Currently the Parts that our Ruppet uses are the ones that 
-	   are listed below this ArrayList */
-
-	private final List<Part> parts = new ArrayList<>();
-
-	/**
-	 * The lower jaw of the {@code Ruppet} which is a {@code Movable Part}
-	 */
-	
-	private final Movable lowerJaw = new Movable(parts, RuppetControl.LOWER_JAW, (byte) 3, (byte) 8);
-	
-	/**
-	 * The right and left lip corners of the {@code Ruppet} which is a {@code Movable Part}
-	 */
-	
-	private final Movable lipCorners = new Movable(parts, RuppetControl.LEFT_LIP_CORNER, (byte) 1, (byte) 4, RuppetControl.RIGHT_LIP_CORNER, "antiparallel");
-	
-	/**
-	 * The eyebrows of the {@code Ruppet} which is a {@code Movable Part}
-	 */
-	
-	private final Movable eyebrows = new Movable(parts, RuppetControl.EYEBROW, (byte) 4, (byte) 7);
-	
-	/**
-	 * The eyelids of the {@code Ruppet} which is a {@code Movable Part}
-	 */
-	
-	private final Movable eyelids = new Movable(parts, RuppetControl.EYELIDS, (byte) 3, (byte) 7);
-	
-	/**
-	 * The eye lights of the {@code Ruppet} which is a {@code Lights Part}
-	 */
-	
-	private final Lights lights = new Lights(parts, RuppetControl.LIGHTS);
-	
-	/* This constructor sets everything up in order for the Ruppet to have a successful life. */
-
-	public Ruppet() {
-		lowerJaw.setNeutral( (byte) 8);
-		lipCorners.setNeutral( (byte) 2);
-		eyebrows.setNeutral( (byte) 5);
-		eyelids.setNeutral( (byte) 5);
-		
-		RuppetControl.initConnections(); // Setup the USB and Sequencer connections
-        Sequence actions = null;
+    public Ruppet() {
+		lowerJaw.setNeutral(8);
+		lipCorners.setNeutral(2);
+		eyebrows.setNeutral(5);
+		eyelids.setNeutral(5);
+		/*
+		 * The values Sequence.PPQ, 160, and 375 were chosen based on the formula:
+		 * ticksPerSecond = resolution * (currentTempoInBeatsPerMinute / 60.0)
+		 * such that we would get 1 tick per ms.
+		 * ticksPerSecond = 160 * (375 / 60.0) = 1,000[ticks/s] = 1[tick/ms]
+		 */
+        MidiConnection.establishConnection();
+        MidiConnection.getSequencer().setTempoInBPM(375);
+        MidiConnection.getSequencer().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+        Sequence actions;
 		try {
-			/* 
-			 * Sequence.PPQ == pulses (ticks) per quarter note
-			 * 160 == 160 pulses per quarter note
-			 * Tempo in beats per minute: 375 (From RuppetControl)
-			 * such that ticksPerSecond == 160 * (375 / 60) == 1000 
-			 * So we get one tick every 1ms 
-			 */
 			actions = new Sequence(Sequence.PPQ, 160);
-			emotionTrack = actions.createTrack();
-			blinkingTrack = actions.createTrack();
-			voiceTrack = actions.createTrack();
-		} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
-		
-		tracks.add(emotionTrack);
-		tracks.add(blinkingTrack);
-		tracks.add(voiceTrack);
-		tracks.trimToSize();
-
-		/* Initialize the Ruppet's Heart and Voice */
-
-		heart = new Heart(this, emotionTrack);
-		voice = new Voice(this, voiceTrack);
-
-		/* Fill the blinkingTrack with events that have been randomly chosen to give 
-		   more of a random blinking effect */
-
-		fillBlinkTrack(blinkingTrack);
-
-		/* Want to set the Sequence after all the MidiEvents have been stored in the Tracks, 
-		   otherwise, the MidiEvents will not be stored in the Tracks if they are added 
-		   after setting the Sequence. */
-
-		try{ MidiConnection.getSequencer().setSequence(actions); } 
-		catch(InvalidMidiDataException ex) { ex.printStackTrace(); }	
-
-		// Mute all of the tracks so that they are not unintentionally all playing at once
-
-		RuppetControl.muteAllTracks(tracks);  
-		RuppetControl.deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
-
+            heart = new Heart(this, actions);
+            voice = new Voice(this, actions);
+            final Track blinkingTrack = actions.createTrack();
+            tracks.add(heart.getEmotionTrack());
+            tracks.add(voice.getVoiceTrack());
+            tracks.add(blinkingTrack);
+            // Fill blinkingTrack with events that have been randomly chosen to give more of a "real" blinking effect.
+            fillBlinkTrack(blinkingTrack);
+            /*
+             * Now that all of the Sequence's Tracks have been filled with MidiEvents, add the Sequence to the
+             * Sequencer, otherwise, MidiEvents will not be stored in the Tracks.
+             */
+            MidiConnection.getSequencer().setSequence(actions);
+            // Mute all of the tracks so that they are not unintentionally all playing at once
+            RuppetControl.muteAllTracks(tracks);
+            RuppetControl.deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
+        } catch(InvalidMidiDataException e) { e.printStackTrace();}
 		final ReleaseSoul releaseSoul = new ReleaseSoul();
 		Runtime.getRuntime().addShutdownHook(releaseSoul);
-
 	} // end of Ruppet constructor
 	
 	/**
-	 * This method allows the {@code Ruppet} tp interact with people by asking
-	 * for user input from the keyboard using a CLI.
+	 * Allows the {@code Ruppet} to interact with people by asking for user input from the keyboard using a CLI.
 	 */
 
 	final void live() {
-		byte choice = -1;
+		int choice = -1;
 		lights.on();
 		MidiConnection.getSequencer().start();
 		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
@@ -181,7 +147,7 @@ final class Ruppet {
 			System.out.println("5. Or go back to sleep?"); 
 			System.out.print("\tChoice: ");
 			try { 
-				choice = RuppetControl.reader.nextByte();
+				choice = RuppetControl.reader.nextInt();
 				switch(choice) {
 					case 1: manualEmotionDemoMode();								break;
 					case 2: manualFAUDemoMode();									break;
@@ -195,36 +161,28 @@ final class Ruppet {
 				RuppetControl.reader.nextLine();
 			}
 		} while(choice != 3);
-	} // end of live
-	
+	}
+
 	/**
-	 * Gets the {@code Track} that contains all of the {@code Emotion} transition timings.
+	 * Gets the {@code List} that contains all of the {@code Ruppet}'s {@code Track}'s.
 	 * 
-	 * @return The {@code Ruppet}'s {@code Track} that stores the {@code Emotion} transition timings
-	 */
-	
-	final Track getEmotionTrack() { return emotionTrack; }
-	
-	/**
-	 * Gets the {@code Track} that contains all of the {@code lowerJaw} movement timings.
-	 * 
-	 * @return the {@code Ruppet}'s {@code Track} that stores the {@code lowerJaw} movement timings
-	 */
-	
-	final Track getVoiceTrack() { return voiceTrack; }
-	
-	/**
-	 * Gets the {@code ArrayList} tha contains all of the {@code Track}'s associated with the {@code Ruppet}.
-	 * 
-	 * @return An {@code ArrayList} that contains all of the {@code Ruppet}'s {@code Track}'s 
+	 * @return The {@code List} that contains all of the {@code Ruppet}'s {@code Track}'s
 	 */
 	
 	final List<Track> getTracks() { return tracks; }
+
+    /**
+     * Returns the {@code Heart} of this {@code Ruppet}.
+     *
+     * @return the {@code Heart} of this {@code Ruppet}.
+     */
+
+	final Heart getHeart() { return heart; }
 	
 	/**
 	 * Gets the {@code lowerJaw Part} of the {@code Ruppet}.
 	 * 
-	 * @return The {@code lowerJaw Part} of the {@code Ruppet}
+	 * @return The {@code lowerJaw Part} of the {@code Ruppet}.
 	 */
 	
 	final Movable getLowerJaw() { return lowerJaw; }
@@ -232,7 +190,7 @@ final class Ruppet {
 	/**
 	 * Gets the {@code lipCorners Part} of the {@code Ruppet}. 
 	 * 
-	 * @return The {@code lipCorners Part} of the {@code Ruppet}
+	 * @return The {@code lipCorners Part} of the {@code Ruppet}.
 	 */
 	
 	final Movable getLipCorners() { return lipCorners; }
@@ -240,7 +198,7 @@ final class Ruppet {
 	/**
 	 * Gets the {@code eyebrows Part] of the {@code Ruppet}.
 	 * 
-	 * @return The {@code eyebrows Part] of the {@code Ruppet}
+	 * @return The {@code eyebrows Part] of the {@code Ruppet}.
 	 */
 	
 	final Movable getEyebrows() { return eyebrows; }
@@ -248,15 +206,15 @@ final class Ruppet {
 	/**
 	 * Gets the {@code eyelids Part} of the {@code Ruppet}.
 	 * 
-	 * @return The {@code eyelids Part} of the {@code Ruppet}
+	 * @return The {@code eyelids Part} of the {@code Ruppet}.
 	 */
 	
 	final Movable getEyelids() { return eyelids; }
 	
 	/**
-	 * Gets the {@code ArrayList} that contains all of the {@code Part}s of the {@code Ruppet}.
+	 * Gets the {@code List} that contains all of the {@code Part}s of the {@code Ruppet}.
 	 * 
-	 * @return The {@code ArrayList} that contains all of the {@code Part}s of the {@code Ruppet}
+	 * @return The {@code List} that contains all of the {@code Part}s of the {@code Ruppet}.
 	 */
 	
 	final List<Part> getParts() { return parts; }
@@ -330,7 +288,6 @@ final class Ruppet {
 					case 7: lipCorners.toUpperBound();								break;
 					case 8: lipCorners.toNeutral();									break;
 					case 9: lipCorners.toLowerBound();								break;
-					// The LowerBound and UpperBound are switched for the eyelids due to servo orientation.
 					case 10: eyelids.toLowerBound();								break;
 					case 11: eyelids.toNeutral();									break;
 					case 12: eyelids.toUpperBound();								break;
@@ -355,7 +312,7 @@ final class Ruppet {
 	}
 	
 	/**
-	 * Allows the {@code Ruppet} to display the {@code Emotion} that it thinks that the human is displaying.
+	 * Allows the {@code Ruppet} to display the {@code Emotion} that it thinks that the human is emoting.
 	 */
 
 	private void mirrorMode() {
@@ -370,9 +327,8 @@ final class Ruppet {
 	}
 	
 	/**
-	 * Terminates the connections made with the USB MIDI device and {@code Sequencer} while also
-	 * terminating the program. Note that the Shutdown Hook is always called when the 
-	 * program is terminated using System.exit(0);.
+	 * Terminates the connections made with the USB {@code MidiDevice} and {@code Sequencer} while also terminating the
+     * program. The Shutdown Hook is always called when the program is terminated using {@code System.exit(0)}.
 	 */
 
 	private void goToSleep() {
@@ -382,14 +338,13 @@ final class Ruppet {
 	} 
 	
 	/**
-	 * Fills the blinking {@code Track} with MIDI data. The blinking effect is currently created by
-	 * turning on and off the two white LED's in the {@code Ruppet}'s eyes.
+	 * Fills the blinking {@code Track} with MIDI data. The blinking effect is created by turning on and off the two
+     * LED's in the {@code Ruppet}'s eyes.
 	 * 
-	 * @param blinkingTrack The {@code Track} that contains the timings for the blinking.
+	 * @param blinkingTrack that contains the timings for the blinking.
 	 */
 
 	private void fillBlinkTrack(final Track blinkingTrack) {
-
 		final int blink_length = 200;
 		final int max_blink_wait = 3500;
 		final ShortMessage[] eyelidsUp = this.eyelids.getUpperBoundState();
@@ -397,43 +352,35 @@ final class Ruppet {
 
 		int prev_blink_time = 0;
 		int next_blink_time;
-		
+
 		for(int i = 0; i < 500; ++i) {
 			next_blink_time = RuppetControl.getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
-		
 			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
-				
 			prev_blink_time = next_blink_time + blink_length;
-		} 
-
+		}
 	}
 
 	/**
-	 *	A ShutdownHook is implemented to prevent the motors from potentially straining themselves. 
-	 *	If one or more of the motors are being operated and the program gets unexpectedly canceled, 
-	 *	there are no note off MIDI messages to shut them off! Therefore they just keep on running until a 
-	 *	note off message is received. This class makes sure that no matter what happens 
-	 *	everything gets shut off when the program ends. 
+     * If the program terminates and one or more motors are being operated, no note off MIDI messages will be sent to
+     * shut off the motors and they can potentially strain themselves depending on their last state! Therefore, a
+     * Shutdown Hook is implemented to prevent this from occurring.
 	 *			
-	 *	*NOTE*: The master reset button for the PIC can be pressed to accomplish the same thing,
-	 *	however	the ShutdownHook prevents the need for that. And why do something yourself when	
-	 *	you can get a computer to do it for you?
+	 *	The master reset button can be pressed to accomplish the same thing. However, why do something yourself when you
+     *	can get a computer to do it for you?
 	*/
 
 	private final class ReleaseSoul extends Thread {
-
 		public final void run() {
 			System.out.println();
 			RuppetControl.deSoloAllTracks(tracks);
 			RuppetControl.reader.close();
-			for (Part part : parts) {
-				if (part instanceof Movable) { ((Movable) part).toNeutral(); }
-				else if (part instanceof Lights) { ((Lights) part).off(); }
-			}
+			parts.forEach(part -> {
+                if (part instanceof Movable) { ((Movable) part).toNeutral(); }
+                else if (part instanceof Lights) { ((Lights) part).off(); }
+            });
 			MidiConnection.closeConnection();
 		}
-
 	}
 
 } // end of Ruppet class
