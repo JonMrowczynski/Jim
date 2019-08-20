@@ -1,5 +1,6 @@
-package canisius.jim;
+package canisius.jim.ruppet;
 
+import canisius.jim.connections.MidiConnection;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

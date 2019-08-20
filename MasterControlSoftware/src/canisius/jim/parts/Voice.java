@@ -1,4 +1,8 @@
-package canisius.jim;
+package canisius.jim.parts;
+
+import canisius.jim.connections.MidiConnection;
+import canisius.jim.ruppet.Ruppet;
+import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
@@ -11,21 +15,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 /**
- * Allows a {@code Ruppet} to talk by reading the timing information from a text file and storing 
- * the timing information into a {@code Track} with the corresponding MIDI events and plays the 
- * {@code Track} synced with a .wav audio file. The {@code Voice} class implements the use of the
- * lower jaw of the {@code Ruppet} to speak rendering it unavailable for emotional expressions.
+ * Allows a {@code Ruppet} to talk by reading timing information from a TXT file and storing that information into a
+ * {@code Track} with the corresponding {@code MidiEvent}s and synchronously plays the {@code Track} with a WAV file.
+ * A {@code Voice} uses the {@code lowerJaw} of the {@code Ruppet} to speak rendering it unavailable for emotional
+ * expressions.
  * 
  * @author Jon Mrowczynski
  */
 
-final class Voice {
+public final class Voice {
 
 	/**
 	 * Stores the name of the {@code File} that contains the timing information for the mouth movements.
@@ -53,41 +57,23 @@ final class Voice {
 	private Clip clip = null;
 
 	/**
-	 * The {@code Track} that stores the timing information for the {@code Ruppet}'s mouth movements based on the
-	 * timing information gathered from the {@code List}s {@code down} and {@code up}.
+	 * The {@code Track} that stores the timing information for the {@code Ruppet}'s mouth movements based on the timing
+     * information gathered from the {@code List}s {@code down} and {@code up}.
 	 */
 
 	private final Track voiceTrack;
-	
-	/* *NOTE*: The timeOpen and timeClose ArrayLists are used to help with making the mouth
-	   movements more continuous and less sudden by determining when to turn the motors off	
-	   before turning them back on to move the mouth up or down. 
-	   The method RuppetUtils.convergeTimes helps to converge the motor off time closer
-	   to the motor on time so that it makes the Ruppet's mouth movements seem less robotic */
 
 	/**
 	 * Stores the timing information in ms for mouth down movements.
 	 */
 
-	private final List<Integer> down = new ArrayList<>();
+	private final List<Integer> mouthDownTimes = new LinkedList<>();
 
 	/**
 	 * Stores the timing information in ms for mouth up movements.
 	 */
 
-	private final List<Integer> up = new ArrayList<>();
-
-	/**
-	 *
-	 */
-
-	private final List<Integer> timeOpen = new ArrayList<>();
-
-	/**
-	 *
-	 */
-
-	private final List<Integer> timeClose = new ArrayList<>();
+	private final List<Integer> mouthUpTimes = new LinkedList<>();
 
 	/**
 	 * Constructs a {@code Voice} that can be used to make a {@code Ruppet} talk.
@@ -96,7 +82,7 @@ final class Voice {
 	 * @param actions {@code Track} that will contain timing information for the mouth movements.
 	 */
 
-	Voice (final Ruppet ruppet, final Sequence actions) {
+    public Voice(final Ruppet ruppet, final Sequence actions) {
 		this.ruppet = ruppet;
 		voiceTrack = actions.createTrack();
 		readTimingInfoFromFile();
@@ -116,20 +102,14 @@ final class Voice {
 		try (final Scanner reader = new Scanner(new FileReader(voiceSaveFile))) {
 			final int sec_to_ms_factor = 1000;
 			while (reader.hasNext()) {
-				down.add((int) Math.round(reader.nextDouble() * sec_to_ms_factor)); // read starting value
+				mouthDownTimes.add((int) Math.round(reader.nextDouble() * sec_to_ms_factor)); // read starting value
 				reader.nextDouble();
 				reader.nextLine();
-				up.add((int) Math.round(reader.nextDouble() * sec_to_ms_factor));
+				mouthUpTimes.add((int) Math.round(reader.nextDouble() * sec_to_ms_factor));
 				reader.nextDouble();
 				reader.nextLine();
 			}
 		} catch (FileNotFoundException e) { e.printStackTrace(); }
-		/* These times are in milliseconds in order to make the MidiEvents properly */
-		for (int i = 0; i < down.size(); ++i) {
-			timeOpen.add(up.get(i) - down.get(i));
-			if (i + 1 < down.size()) { timeClose.add(down.get(i + 1) - up.get(i)); }
-		}
-		timeClose.add(2000);
 	}
 
 	/**
@@ -142,16 +122,14 @@ final class Voice {
 		final int delay_end_of_seq = 10000;
 		final Set<ShortMessage> mouthDown = mouth.getLowerBoundState();
 		final Set<ShortMessage> mouthUp = mouth.getUpperBoundState();
-		for (int i = 0; i < timeClose.size(); ++i) {
-			mouth.addStateToTrack(voiceTrack, mouthDown, down.get(i));
-			mouth.addStateToTrack(voiceTrack, mouthUp, up.get(i));
-		}
+		mouthDownTimes.forEach(time -> mouth.addStateToTrack(voiceTrack, mouthDown, time));
+		mouthUpTimes.forEach(time -> mouth.addStateToTrack(voiceTrack, mouthUp, time));
 		/*
-		 * Add another two tracks to prevent one or more audio/visual blips at the end of the presentation. This
-		 * prevents the sequence from being looped to early.
+		 * Add a buffer to prevent one or more audio/visual blips at the end of the presentation. This prevents the
+		 * sequence from being looped to early.
 		 */
-		mouth.addStateToTrack(voiceTrack, mouthDown, (down.get(down.size() - 1) + delay_end_of_seq));
-		mouth.addStateToTrack(voiceTrack, mouthUp, (down.get(down.size() - 1) + delay_end_of_seq));
+		final int latestTime = mouthUpTimes.get(mouthUpTimes.size() - 1);
+		mouth.addStateToTrack(voiceTrack, mouthUp, latestTime + delay_end_of_seq);
 	}
 
 	/**
@@ -167,7 +145,7 @@ final class Voice {
 		} catch (LineUnavailableException | IOException e) { e.printStackTrace(); }
 		  catch (UnsupportedAudioFileException e) {
 			System.out.println("ERROR:");
-			System.out.println("\nFile: " + audioSaveFile.getName() + " is not supported!");
+			System.out.println("\nFile: \"" + audioSaveFile.getName() + "\" is not supported!");
 			System.out.println("Make sure that you are using a .wav file!");
 			RuppetUtils.clearSaveFile(audioSaveFile);
 		}
@@ -177,7 +155,7 @@ final class Voice {
 	 * Play the emotions and mouth movement {@code Track}s allowing the {@code Ruppet} to speak.
 	 */
 
-	void givePresentation() {
+    public void givePresentation() {
 		final int us_to_ms_factor = 1000;
 		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), true);
 		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), true);
@@ -187,7 +165,7 @@ final class Voice {
 		MidiConnection.getSequencer().setMicrosecondPosition(0);
 		clip.start();
 		MidiConnection.getSequencer().start();
-		RuppetUtils.pause_ms( (int) (clip.getMicrosecondLength() / us_to_ms_factor));
+		RuppetUtils.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
 		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), false);
 		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), false);
 	}
@@ -198,6 +176,6 @@ final class Voice {
 	 * @return The {@code Track} that stores the {@code lowerJaw} movement timings.
 	 */
 
-	final Track getVoiceTrack() { return voiceTrack; }
+	public final Track getVoiceTrack() { return voiceTrack; }
 	
 } // end of Voice class

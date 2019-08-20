@@ -1,4 +1,6 @@
-package canisius.jim;
+package canisius.jim.ruppet;
+
+import canisius.jim.connections.MidiConnection;
 
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.ShortMessage;
@@ -28,25 +30,25 @@ import java.util.Scanner;
  *	@author Jon Mrowczynski
  */
 
-final class RuppetUtils {
+public final class RuppetUtils {
 	
 	/**
 	 * The {@code byte} that represents channel one.
 	 */
 	
-	static final byte CHAN_1 = 0;
+	public static final byte CHAN_1 = 0;
 	
 	/**
 	 * The maximum MIDI velocity value.
 	 */
 	
-	static final byte MAX_VELOCITY = 10;
+	public static final byte MAX_VELOCITY = 10;
 	
 	/**
 	 * The minimum MIDI velocity value.
 	 */
 	
-	static final byte MIN_VELOCITY = 0;
+	public static final byte MIN_VELOCITY = 0;
 
     /**
      * Used to acquire input from the user when they are prompted by the CLI.
@@ -66,7 +68,7 @@ final class RuppetUtils {
 	 * @param ms that the program should pause for.
 	 */
 
-	static void pause_ms(final int ms) {
+	public static void pause_ms(final int ms) {
 		try { Thread.sleep(ms); } 
 		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 	}
@@ -85,7 +87,7 @@ final class RuppetUtils {
 	 * @return the constructed {@code MidiEvent}.
 	 */
 
-	static MidiEvent makeEvent(final ShortMessage msg, final int tick) { return new MidiEvent(msg, tick); }
+	public static MidiEvent makeEvent(final ShortMessage msg, final int tick) { return new MidiEvent(msg, tick); }
 	
 	/**
 	 * Gets the MIDI note that is associated with the given {@code ShortMessage}.
@@ -94,7 +96,7 @@ final class RuppetUtils {
 	 * @return The MIDI note of the {@code ShortMessage}
 	 */
 
-	static byte getMidiNote (final ShortMessage msg) { return (byte) msg.getData1(); }
+	public static byte getMidiNote(final ShortMessage msg) { return (byte) msg.getData1(); }
 	
 	/**
 	 * Gets the velocity value associated with the passed in {@code ShortMessage}.
@@ -103,18 +105,7 @@ final class RuppetUtils {
 	 * @return The velocity value of the {@code ShortMessage}.
 	 */
 	
-	static byte getVelocityVal (final ShortMessage msg) { return (byte) msg.getData2(); }
-	
-	/**
-	 * A partial sum of a converging series is used to get the mouth movements closer together. Converges
-	 * time {@code t1} to {@code t2}.
-	 * 
-	 * @param t1 The time that is to be converged with time {@code t2}.
-	 * @param t2 The time that is to be converged to.
-	 * @return The new converged time.
-	 */
-
-	public static int convergeTimes(final int t1, final int t2) { return t1 + (t2 / 2) + (t2 / 4) + (t2 / 8) + (t2 / 16); }
+	public static byte getVelocityVal(final ShortMessage msg) { return (byte) msg.getData2(); }
 		
 	/**
 	 * Mutes every single {@code Track} that is stored in the {@code Ruppet}'s {@code Sequence}.
@@ -170,7 +161,7 @@ final class RuppetUtils {
      * @throws IOException if creating a new {@code File} failed.
      */
 
-	static void checkFileExistence(final File file) throws IOException {
+	public static void checkFileExistence(final File file) throws IOException {
 		System.out.println();
 		String saveFileName = file.getName();
 		if(file.createNewFile()) {
@@ -185,7 +176,7 @@ final class RuppetUtils {
      * @param file that is to be cleared.
      */
 
-    static void clearSaveFile(final File file) {
+    public static void clearSaveFile(final File file) {
         try { Files.write(file.toPath(), "".getBytes()); }
         catch (IOException e) { e.printStackTrace(); }
     }

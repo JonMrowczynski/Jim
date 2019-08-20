@@ -1,4 +1,7 @@
-package canisius.jim;
+package canisius.jim.ruppet;
+
+import canisius.jim.connections.MidiConnection;
+import canisius.jim.parts.*;
 
 import javax.sound.midi.*;
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ import java.util.Set;
  *	@author Jon Mrowczynski
  */
 
-final class Ruppet {
+public final class Ruppet {
 
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyebrow.
@@ -49,7 +52,7 @@ final class Ruppet {
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s lower jaw.
 	 */
 
-	static final byte LOWER_JAW_MIDI_NOTE = 0x43; // Servo 4 G4
+	public static final byte LOWER_JAW_MIDI_NOTE = 0x43; // Servo 4 G4
 
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyelids.
@@ -187,7 +190,7 @@ final class Ruppet {
 	 * Allows the {@code Ruppet} to interact with people by asking for user input from the keyboard using a CLI.
 	 */
 
-	final void live() {
+	public final void live() {
 		int choice = -1;
 		lights.on();
 		MidiConnection.getSequencer().start();
@@ -345,7 +348,7 @@ final class Ruppet {
 	 * @return all of this {@code Ruppet}'s {@code Track}s.
 	 */
 	
-	final List<Track> getTracks() { return tracks; }
+	public final List<Track> getTracks() { return tracks; }
 
     /**
      * Gets this {@code Ruppet}'s {@code Heart}.
@@ -353,7 +356,7 @@ final class Ruppet {
      * @return This {@code Ruppet}'s {@code Heart}.
      */
 
-	final Heart getHeart() { return heart; }
+	public final Heart getHeart() { return heart; }
 	
 	/**
 	 * Gets this {@code Ruppet}'s {@code lowerJaw}.
@@ -361,7 +364,7 @@ final class Ruppet {
 	 * @return This {@code Ruppet}'s {@code lowerJaw}.
 	 */
 	
-	final Movable getLowerJaw() { return lowerJaw; }
+	public final Movable getLowerJaw() { return lowerJaw; }
 	
 	/**
 	 * Gets this {@code Ruppet}'s {@code lipCorners}.
@@ -369,7 +372,7 @@ final class Ruppet {
 	 * @return This {@code Ruppet}'s {@code lipCorners}.
 	 */
 	
-	final Movable getLipCorners() { return lipCorners; }
+	public final Movable getLipCorners() { return lipCorners; }
 	
 	/**
 	 * Gets this {@code Ruppet's }{@code eyebrows}
@@ -377,7 +380,7 @@ final class Ruppet {
 	 * @return This {@code Ruppet}'s {@code eyebrows}.
 	 */
 	
-	final Movable getEyebrows() { return eyebrows; }
+	public final Movable getEyebrows() { return eyebrows; }
 	
 	/**
 	 * Gets this {@code Ruppet}'s {@code eyelids}.
@@ -385,7 +388,7 @@ final class Ruppet {
 	 * @return This {@code Ruppet}'s {@code eyelids}.
 	 */
 	
-	final Movable getEyelids() { return eyelids; }
+	public final Movable getEyelids() { return eyelids; }
 	
 	/**
 	 * Gets all of this {@code Ruppet}'s {@code Part}s.
@@ -393,7 +396,7 @@ final class Ruppet {
 	 * @return all of this {@code Ruppet}'s {@code Part}s.
 	 */
 	
-	final List<Part> getParts() { return parts; }
+	public final List<Part> getParts() { return parts; }
 	
 	/**
 	 * Fills the blinking {@code Track} with MIDI data. The blinking effect is created by turning on and off the two
@@ -433,10 +436,7 @@ final class Ruppet {
 			System.out.println();
 			RuppetUtils.deSoloAllTracks(tracks);
 			RuppetUtils.reader.close();
-			parts.forEach(part -> {
-                if (part instanceof Movable) { ((Movable) part).toNeutral(); }
-                else if (part instanceof Lights) { ((Lights) part).off(); }
-            });
+			parts.forEach(Part::toNeutral);
 			MidiConnection.closeConnection();
 		}
 	}

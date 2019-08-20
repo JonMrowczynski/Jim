@@ -1,4 +1,6 @@
-package canisius.jim;
+package canisius.jim.parts;
+
+import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
@@ -15,7 +17,7 @@ import java.util.List;
  *  @author Jon Mrowczynski
  */
 
-final class Movable extends Part {
+public final class Movable extends Part {
 	
 	/**
 	 * If the {@code Movable} only requires one servo motor to be operated, then the {@code Movable} constructor calls
@@ -29,7 +31,7 @@ final class Movable extends Part {
 	 * @see Part#Part(List, int, int, int)
 	 */
 
-	Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) {
+    public Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) {
 		super(ruppetParts, midiNote, lowerBound, upperBound);
 	}
 	
@@ -47,7 +49,7 @@ final class Movable extends Part {
 	 * @see Part#Part(List, int, int, int)
 	 */
 
-	Movable(final List<Part> ruppetParts, final int midiNote1, final int lowerBound, final int upperBound, final int midiNote2, final String parallelism)
+    public Movable(final List<Part> ruppetParts, final int midiNote1, final int lowerBound, final int upperBound, final int midiNote2, final String parallelism)
 			throws InvalidParameterException {
 	    this(ruppetParts, midiNote1, lowerBound, upperBound);
 		for(int i = 0; i < states.size(); ++i) {

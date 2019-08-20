@@ -1,5 +1,6 @@
 package canisius.jim;
 
+import canisius.jim.ruppet.Ruppet;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

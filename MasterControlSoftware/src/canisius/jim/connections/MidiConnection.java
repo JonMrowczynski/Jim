@@ -1,4 +1,4 @@
-package canisius.jim;
+package canisius.jim.connections;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -21,7 +21,7 @@ import javax.sound.midi.MidiDevice.Info;
  * @author Jon Mrowczynski
  */
 
-final class MidiConnection {
+public final class MidiConnection {
 	
 	/**
 	 * The USB MIDI device used to transmit MIDI messages.
@@ -54,7 +54,7 @@ final class MidiConnection {
 	 * @return The {@code Receiver} to the USB MIDI device.
 	 */
 	
-	static Receiver getUsbReceiver() { return usbMidiDeviceReceiver; }
+	public static Receiver getUsbReceiver() { return usbMidiDeviceReceiver; }
 	
 	/**
 	 * Gets the system's default {@code Sequencer} but only after {@code establishSequencerConnection} has been called.
@@ -62,7 +62,7 @@ final class MidiConnection {
 	 * @return The system's default {@code Sequencer}.
 	 */
 	
-	static Sequencer getSequencer() { return sequencer; }
+	public static Sequencer getSequencer() { return sequencer; }
 
 	/**
 	 * Establish a connection to a USB MIDI device such that MIDI messages can be sent to the electronics to control the
@@ -72,7 +72,7 @@ final class MidiConnection {
 	 * @see #establishSequencerConnection()
 	 */
 
-	static void establishConnection() {
+	public static void establishConnection() {
 		establishUsbMidiConnection();
 		establishSequencerConnection();
 	}
@@ -87,7 +87,7 @@ final class MidiConnection {
 	 * @see #establishConnection()
 	 */
 
-	static void closeConnection() {
+	public static void closeConnection() {
 		closeUsbMidiDevice();
 		closeSequencer();
 	}

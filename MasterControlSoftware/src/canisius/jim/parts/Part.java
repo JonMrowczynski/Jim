@@ -1,4 +1,7 @@
-package canisius.jim;
+package canisius.jim.parts;
+
+import canisius.jim.connections.MidiConnection;
+import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
@@ -21,7 +24,7 @@ import java.util.*;
  *	@author Jon Mrowcsynski
  */
 
-abstract class Part {
+public abstract class Part {
 	
 	/**
 	 * The highest velocity value that this {@code Part} can go to.
@@ -84,7 +87,7 @@ abstract class Part {
      * @throws InvalidParameterException if {@code newNeutral} value is an invalid value for {@code neutral}.
      */
 
-    final void setNeutral(final int newNeutral) throws InvalidParameterException {
+    public final void setNeutral(final int newNeutral) throws InvalidParameterException {
         if (newNeutral >= lowerBound && newNeutral <= upperBound) { neutral = newNeutral; }
         else { throw new InvalidParameterException("Cannot set the neutral state value to: " + newNeutral
                 + "\nThe provided value is not within the defined acceptable range of values: "
@@ -114,7 +117,7 @@ abstract class Part {
 	 * @param tick of the {@code ShortMessage}s.
 	 */
 
-	final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) {
+	public final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) {
 		if (validShortMessages(messages)) { messages.forEach(msg -> track.add(RuppetUtils.makeEvent(msg, tick))); }
 	}
 
@@ -122,19 +125,19 @@ abstract class Part {
      * Moves the {@code Movable} to one of its most extreme angular positions.
      */
 
-    final void toUpperBound() { toState(upperBound); }
+    public final void toUpperBound() { toState(upperBound); }
 
     /**
      * Moves the {@code Movable} to its other most extreme angular position that is in the opposite direction.
      */
 
-    final void toLowerBound() { toState(lowerBound); }
+    public final void toLowerBound() { toState(lowerBound); }
 
     /**
      * Moves the {@code Movable} to its neutral angular position.
      */
 
-    final void toNeutral() { toState(neutral); 	}
+    public void toNeutral() { toState(neutral); 	}
 
     /**
      * Gets the state that represents the maximum position that the {@code Movable} can move to in one direction.
@@ -142,7 +145,7 @@ abstract class Part {
      * @return The state that represents the upper bound of the {@code Movable}.
      */
 
-    final Set<ShortMessage> getUpperBoundState() { return getState(upperBound); }
+    public final Set<ShortMessage> getUpperBoundState() { return getState(upperBound); }
 
     /**
      * Gets the state the represents the maximum position that the {@code Movable} can move to in the other direction.
@@ -150,7 +153,7 @@ abstract class Part {
      * @return The state the represents the lower bound of the {@code Movable}.
      */
 
-    final Set<ShortMessage> getLowerBoundState() { return getState(lowerBound); }
+    public final Set<ShortMessage> getLowerBoundState() { return getState(lowerBound); }
 
     /**
      * Gets the state the represents the neutral position of the {@code Movable}.

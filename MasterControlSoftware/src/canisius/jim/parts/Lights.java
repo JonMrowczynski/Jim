@@ -1,4 +1,4 @@
-package canisius.jim;
+package canisius.jim.parts;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  *  @author Jon Mrowczynski
  */
 
-final class Lights extends Part {
+public final class Lights extends Part {
 
 	/**
 	 * The on value of the {@code Lights}.
@@ -32,13 +32,16 @@ final class Lights extends Part {
 	 * @param midiNote The MIDI note associated with this {@code Lights object}.
 	 */
 
-	Lights(final List<Part> ruppetParts, final byte midiNote) { super(ruppetParts, midiNote, ON, OFF); }
+	public Lights(final List<Part> ruppetParts, final byte midiNote) {
+		super(ruppetParts, midiNote, ON, OFF);
+		setNeutral(OFF);
+	}
 
 	/**
 	 * Turns the {@code Ruppet}'s eye lights on.
 	 */
 
-	final void on() { toState(ON); }
+	public final void on() { toState(ON); }
 	
 	/**
 	 * Turns the {@code Ruppet}'s eye lights off.

@@ -1,4 +1,8 @@
-package canisius.jim;
+package canisius.jim.parts;
+
+import canisius.jim.connections.MidiConnection;
+import canisius.jim.ruppet.Ruppet;
+import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
@@ -17,7 +21,7 @@ import java.util.Scanner;
  *	@author Jon Mrowczynski
  */
 
-final class Heart {
+public final class Heart {
 	
 	/**
 	 * The {@code File} in which the name of the {@code File} for expressing emotions over a period of time is stored.
@@ -83,7 +87,7 @@ final class Heart {
 	 * @param actions that is used to create a {@code Track} to store all of the {@code Emotion} expression timings.
 	 */
 
-	Heart(final Ruppet ruppet, final Sequence actions) {
+    public Heart(final Ruppet ruppet, final Sequence actions) {
 		final Movable lowerJaw   = ruppet.getLowerJaw();
 		final Movable lipCorners = ruppet.getLipCorners();
 		final Movable eyebrow 	 = ruppet.getEyebrows();
@@ -107,7 +111,7 @@ final class Heart {
 	 * @param emotion The {@code Emotion} that the {@code Ruppet} is to feel.
 	 */
 
-	final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
+	public final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
 
 	/**
 	 * Gets the neutral {@code Emotion} of the {@code Ruppet}.
@@ -115,7 +119,7 @@ final class Heart {
 	 * @return The {@code Ruppet}'s neutral {@code Emotion}.
 	 */
 
-	final Emotion getNeutral() { return neutral; }
+	public final Emotion getNeutral() { return neutral; }
 	
 	/**
 	 * Gets the happy {@code Emotion} of the {@code Ruppet}.
@@ -123,7 +127,7 @@ final class Heart {
 	 * @return The {@code Ruppet}'s happy {@code Emotion}.
 	 */
 	
-	final Emotion getHappy() { return happy;   }
+	public final Emotion getHappy() { return happy;   }
 	
 	/**
 	 * Gets the sad {@code Emotion} of the {@code Ruppet}.
@@ -131,7 +135,7 @@ final class Heart {
 	 * @return The {@code Ruppet}'s sad {@code Emotion}.
 	 */
 	
-	final Emotion getSad() { return sad; }
+	public final Emotion getSad() { return sad; }
 	
 	/**
 	 * Gets the angry {@code Emotion} of the {@code Ruppet}.
@@ -139,7 +143,7 @@ final class Heart {
 	 * @return The {@code Ruppet}'s angry {@code Emotion}.
 	 */
 	
-	final Emotion getAngry() { return angry; }
+	public final Emotion getAngry() { return angry; }
 	
 	/**
 	 * Gets the scared {@code Emotion} of the {@code Ruppet}.
@@ -147,7 +151,7 @@ final class Heart {
 	 * @return The {@code Ruppet}'s scared {@code Emotion}.
 	 */
 	
-	final Emotion getScared() { return scared; }
+	public final Emotion getScared() { return scared; }
 	
 	/**
 	 * Gets the smile {@code Emotion} of the {@code Ruppet}.
@@ -155,7 +159,7 @@ final class Heart {
 	 * @return The {@code Ruppet}'s smile {@code Emotion}.
 	 */
 	
-	final Emotion getSmile() { return smile; }
+	public final Emotion getSmile() { return smile; }
 	
 	/**
 	 * Reads {@code Emotion} states and transition timings from a text file and stores that data into
@@ -168,8 +172,7 @@ final class Heart {
             try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
                 while(reader.hasNext()) { emotionTimingsMap.put((int) Math.round(reader.nextDouble() * 1000), reader.nextLine().trim()); }
             } catch (FileNotFoundException ex) {ex.printStackTrace();}
-		}
-		catch(IOException ex) {ex.printStackTrace();}
+		} catch(IOException ex) {ex.printStackTrace();}
 	}
 		
 	/**
@@ -204,6 +207,6 @@ final class Heart {
 	 * @return The {@code Track} that stores the {@code Emotion} transition timings.
 	 */
 
-	final Track getEmotionTrack() { return emotionTrack; }
+	public final Track getEmotionTrack() { return emotionTrack; }
 
 } // end of Heart class
