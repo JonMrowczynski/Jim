@@ -1,6 +1,7 @@
 package canisius.jim;
 
 import javax.sound.midi.ShortMessage;
+import java.util.Set;
 
 /**
  * This is a simple data structure that pairs a {@code Part} with a state that the 
@@ -25,7 +26,7 @@ final class PartState {
 	 * The state of the part represented by an array of {@code ShortMessage}s.
 	 */
 	
-	private final ShortMessage[] state;
+	private final Set<ShortMessage> state;
 	
 	/**
 	 * Pairs together a {@code Part} and an array of {@code ShortMessage}s which represents a state that
@@ -35,7 +36,7 @@ final class PartState {
 	 * @param state associated with the given {@code Part}
 	 */
 
-	PartState(final Part part, final ShortMessage[] state) {
+	PartState(final Part part, final Set<ShortMessage> state) {
 		this.part = part;
 		this.state = state;
 	}
@@ -55,7 +56,7 @@ final class PartState {
 	 * @return the state of the {@code PartState} pair.
 	 */
 	
-	final ShortMessage[] getState() { return state; }
+	final Set<ShortMessage> getState() { return state; }
 
 } // end of PartState class
 

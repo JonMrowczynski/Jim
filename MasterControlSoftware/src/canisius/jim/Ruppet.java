@@ -4,6 +4,7 @@ import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A {@code Ruppet} can be operated in four modes.
@@ -404,8 +405,8 @@ final class Ruppet {
 	private void fillBlinkTrack(final Track blinkingTrack) {
 		final int blink_length = 200;
 		final int max_blink_wait = 3500;
-		final ShortMessage[] eyelidsUp = this.eyelids.getUpperBoundState();
-		final ShortMessage[] eyelidsDown = this.eyelids.getLowerBoundState();
+		final Set<ShortMessage> eyelidsUp = this.eyelids.getUpperBoundState();
+		final Set<ShortMessage> eyelidsDown = this.eyelids.getLowerBoundState();
 
 		int prev_blink_time = 0;
 		int next_blink_time;

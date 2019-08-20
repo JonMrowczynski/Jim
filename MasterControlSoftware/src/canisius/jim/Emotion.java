@@ -74,7 +74,7 @@ final class Emotion {
 
 	private void addEmotionPartStates(final PartState[] emotionPartStates) {
 		Arrays.stream(emotionPartStates).filter(emotionPartState -> emotionPartState.getPart() instanceof Movable)
-				.map(PartState::getState).forEach(state -> attributes.addAll(Arrays.asList(state)));
+				.map(PartState::getState).forEach(attributes::addAll);
 	}
 
 	/**
@@ -84,8 +84,7 @@ final class Emotion {
 	 */
 
 	private void addNeutralPositions(final List<Part> ruppetParts) {
-		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable)
-				.forEach(ruppetPart -> RuppetUtils.addStateToList(attributes, ((Movable) ruppetPart).getNeutralState()));
+		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable).map(Part::getNeutralState).forEach(attributes::addAll);
 	}
 
 	/**

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Allows a {@code Ruppet} to talk by reading the timing information from a text file and storing 
@@ -139,8 +140,8 @@ final class Voice {
 	private void setupTimings() {
 		final Movable mouth = ruppet.getLowerJaw();
 		final int delay_end_of_seq = 10000;
-		final ShortMessage[] mouthDown = mouth.getLowerBoundState();
-		final ShortMessage[] mouthUp = mouth.getUpperBoundState();
+		final Set<ShortMessage> mouthDown = mouth.getLowerBoundState();
+		final Set<ShortMessage> mouthUp = mouth.getUpperBoundState();
 		for (int i = 0; i < timeClose.size(); ++i) {
 			mouth.addStateToTrack(voiceTrack, mouthDown, down.get(i));
 			mouth.addStateToTrack(voiceTrack, mouthUp, up.get(i));

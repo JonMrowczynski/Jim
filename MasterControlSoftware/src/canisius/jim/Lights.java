@@ -32,9 +32,7 @@ final class Lights extends Part {
 	 * @param midiNote The MIDI note associated with this {@code Lights object}.
 	 */
 
-	Lights(final List<Part> ruppetParts, final byte midiNote) {
-		super(ruppetParts, (byte) 1, midiNote, ON, OFF);
-	}
+	Lights(final List<Part> ruppetParts, final byte midiNote) { super(ruppetParts, midiNote, ON, OFF); }
 
 	/**
 	 * Turns the {@code Ruppet}'s eye lights on.

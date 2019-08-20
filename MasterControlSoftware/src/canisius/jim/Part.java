@@ -4,21 +4,19 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.security.InvalidParameterException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
- *	This class provides the framework for the components of the Ruppet that are operated by the microcontroller.
+ * This class provides the framework for the components of the {@code Ruppet} that are operated by the microcontroller.
  *
- *	The two-dimensional array states[][] contain ShortMessages which are MIDI messages that represent a certain 
- *	state for the component. For example, 
+ * The two-dimensional array {@code states} contain {@code ShortMessage}s represent a certain state for the
+ * component.
  *
- *	For the parts that move due to changes in the angular position of one or more servo motors, the two dimensional
- *	array states[][] represent the angular positions of the servo motors. A two dimensional array was implemented 
- *	so that the ShortMessages associated with the certain states 
+ * For the parts that move due to changes in the angular position of one or more servo motors, {@code states} represent
+ * the angular positions of the servo motors.
  *
- *	For the lights, they would represent the brightness levels. Currently the lights are digitally operated though
- *	so the only meaningful states would be the first and last elements in the array.
+ * For the lights, {@code states} represents the brightness levels. Currently the lights are digitally operated
+ * so the only meaningful states would be the first and last elements in the array.
  *
  *	@author Jon Mrowcsynski
  */
@@ -26,22 +24,22 @@ import java.util.List;
 abstract class Part {
 	
 	/**
-	 * The value that represents state that has the highest velocity value that {@code Part} should go to
-	 */
-	
-	int upperBound = -1;
-	
-	/**
-	 * The value that represents the state that has the lowest velocity value that the {@code Part} should go to
-	 */
-	
-	int lowerBound = -1;
-	
-	/**
-	 * The total number of states that the {@code Part} is able ot transition to
+	 * The highest velocity value that this {@code Part} can go to.
 	 */
 
-	final int numOfStates;
+    private final int upperBound;
+	
+	/**
+	 * The lowest velocity value that this {@code Part} can go to.
+	 */
+
+    private final int lowerBound;
+
+    /**
+     * The neutral velocity value of this {@code Part}.
+     */
+
+    private int neutral;
 
 	/**
 	 * The available states that a {@code Part} can go to. 
@@ -51,52 +49,59 @@ abstract class Part {
 	 * servo motor can go to.
 	 */
 
-	final ShortMessage[][] states;
+	final Map<Integer, Set<ShortMessage>> states = new LinkedHashMap<>();
 	
 	/**
 	 * This initializes all of the states that the {@code Part} can go to. It also 
 	 * adds the part to the {@code Ruppet}'s {@code ArrayList}.
 	 * 
 	 * @param ruppetParts The {@code ArrayList} that represents all of the {@code Part}s of a {@code Ruppet}.
-	 * @param numOfOutputs The number of MIDI outputs required to operate a given {@code Part}.
 	 * @param midiNote The corresponding MIDI note that is used to operate a given component to a {@code Part}.
 	 */
 
-	Part(final List<Part> ruppetParts, final int numOfOutputs, final int midiNote, final int lowerBound, final int upperBound) {
-		ruppetParts.add(this);
-		checkAndSetBoundaryValues(lowerBound, upperBound);
-		numOfStates = (this.upperBound - this.lowerBound) + 1;
-		states = new ShortMessage[numOfStates][numOfOutputs];
-		for(int i = 0; i < numOfStates; ++i) {
-			states[i][0] = new ShortMessage();
-			try { states[i][0].setMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote, i + lowerBound); }
+	Part(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) {
+        if (lowerBound <= upperBound) {
+            if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
+            else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
+            if (validVelocity(upperBound)) { this.upperBound = upperBound; }
+            else { throw new InvalidParameterException("for upperBound. Boundary values could not be set."); }
+        } else { throw new InvalidParameterException("Invalid boundary values: " +
+                "\nlowerBound: " + lowerBound +
+                "\nupperBound: " + upperBound +
+                "\nCould not instantiate Movable Part."); }
+        neutral = (upperBound + lowerBound) / 2;
+        for(int i = 0; i < (this.upperBound - this.lowerBound) + 1; ++i) {
+			try { states.put(i, new HashSet<>(Collections.singleton(new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote, i + lowerBound)))); }
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		}
-	}
-	
-	/**
-	 * This method takes in an array of {@code ShortMessage}s that represent a state of the {@code Part}.
-	 * It then moves the {@code Part} to the passed in state only if that state is a valid state for that {@code Part}.
-	 * 
-	 * @param messages The array of {@code ShortMessage}s that represent a state for the {@code Part}
-	 */
+        ruppetParts.add(this);
+    }
 
-	protected void toState(final ShortMessage[] messages) {
-		if (validShortMessages(messages)) { Arrays.stream(messages).forEach(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
-	} 
+    /**
+     * Sets the neutral position of this {@code Movable}.
+     *
+     * @param newNeutral position of this {@code Movable}.
+     * @throws InvalidParameterException if {@code newNeutral} value is an invalid value for {@code neutral}.
+     */
+
+    final void setNeutral(final int newNeutral) throws InvalidParameterException {
+        if (newNeutral >= lowerBound && newNeutral <= upperBound) { neutral = newNeutral; }
+        else { throw new InvalidParameterException("Cannot set the neutral state value to: " + newNeutral
+                + "\nThe provided value is not within the defined acceptable range of values: "
+                + lowerBound + "-" + upperBound); }
+    }
 	
 	/**
-	 * Performs a similar task as the other {@code toState} method, however, it accomplishes
-	 * the task with the {@code velocity} value instead, but only if that {@code velocity}} value
-	 * is a valid {@code velocity} value for the corresponding {@code Part}. The method figures out 
-	 * what state is specified by the passed in {@code velocity} by converting the {@code velocity} value
-	 * to a {@code Part} state by calling the {@code velocityToStateIndex} method.
+	 * Performs a similar task as the other {@code toState} method, however, it accomplishes the task with the
+     * {@code velocity} value instead, but only if that {@code velocity} value is a valid {@code velocity} value for the
+     * corresponding {@code Part}. The method figures out what state is specified by the passed in {@code velocity} by
+     * converting the {@code velocity} value to a {@code Part} state by calling the {@code velocityToStateIndex} method.
 	 * 
 	 * @param velocity The {@code velocity} value that is to be converted to a {@code stateIndex}
 	 */
 
-	void toState(final int velocity) {
-		if (validVelocity(velocity)) { Arrays.stream(states[velocityToStateIndex(velocity)]).forEach(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
+	final void toState(final int velocity) {
+		if (validVelocity(velocity)) { states.get(velocityToStateIndex(velocity)).forEach(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
 	}
 	
 	/**
@@ -109,79 +114,89 @@ abstract class Part {
 	 * @param tick of the {@code ShortMessage}s.
 	 */
 
-	final void addStateToTrack(final Track track, final ShortMessage[] messages, final int tick) {
-		if (validShortMessages(messages)) { Arrays.stream(messages).forEach(msg -> track.add(RuppetUtils.makeEvent(msg, tick))); }
-	} 
-	
-	/**
-	 * Simply checks to see if the passed in velocity value is a valid velocity value for the current {@code Part}.
-	 * 
-	 * @param velocity The velocity value that is to be checked
-	 * @return A boolean value representing of the velocity value is a valid velocity value
-	 */
-
-	final boolean validVelocity(final int velocity) {
-		if (velocity >= RuppetUtils.MIN_VELOCITY && velocity <= RuppetUtils.MAX_VELOCITY) { return true; }
-		else {
-			System.out.println("Invalid velocity value: " + velocity);
-			return false;
-		}
-	} 
-	
-	/**
-	 * Determine whether the messages that were passed in are defined in the states of the 2D array for the 
-	 * given {@code Part}. If any of them are not, then the {@code ShortMessage}s are not valid, else, 
-	 * the {@code ShortMessage}s are valid.
-	 * 
-	 * @param messages The array of {@code ShortMessage}s that are to be checked for validity
-	 * @return a {@code boolean} representing whether the given array of {@code ShortMessage} are a valid group of {@code ShortMessages}
-	 */
-
-	private boolean validShortMessages(final ShortMessage[] messages) {
-		final ShortMessage[] state = states[velocityToStateIndex(RuppetUtils.getVelocityVal(messages[0]))];
-		for (int i = 0; i < state.length; ++i) {
-			if (messages[i].getChannel() != state[i].getChannel()) { return false; }
-			if (messages[i].getCommand() != state[i].getCommand()) { return false; }
-			if (messages[i].getData1()   != state[i].getData1())   { return false; }
-			if (messages[i].getData2()   != state[i].getData2())   { return false; }
-		}
-		return true;
+	final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) {
+		if (validShortMessages(messages)) { messages.forEach(msg -> track.add(RuppetUtils.makeEvent(msg, tick))); }
 	}
 
-	/**
-	 * Returns a {@code Part}'s state based on the velocity value, only if that velocity 
-	 * value is valid for the current {@code Part}.
-	 * 
-	 * @param velocity The velocity value that is to be checked for validity
-	 * @return The state associated with the given velocity value
-	 */
+    /**
+     * Moves the {@code Movable} to one of its most extreme angular positions.
+     */
 
-	final ShortMessage[] getState(final int velocity) {
-		if (validVelocity(velocity)) { return states[velocityToStateIndex(velocity)]; }
-		else { throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned."); }
-	}
-	
-	
-	/**
-	 * Checks to see if the passed in boundary values are valid. If they are, then assign 
-	 * the {@code lowerBound} value to the {@code lowerBound} value of the {@code Part} 
-	 * and do a similar thing for the {@code upperBound} value. Else throw an {@code InvalidParameterException}
- 	 *
- 	 * @param lowerBound The lowest velocity value that the {@code Part} can know
- 	 * @param upperBound The highest velocity value that the {@code Part} can know
-	 */
+    final void toUpperBound() { toState(upperBound); }
 
-	private void checkAndSetBoundaryValues(final int lowerBound, final int upperBound) {
-		if (lowerBound <= upperBound) {
-			if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
-			else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
-			if (validVelocity(upperBound)) { this.upperBound = upperBound; }
-			else { throw new InvalidParameterException("for upperBound. Boundary values could not be set."); }
-		} else { throw new InvalidParameterException("Invalid boundary values: " +
-				"\nlowerBound: " + lowerBound +
-				"\nupperBound: " + upperBound +
-				"\nCould not instantiate Movable Part."); }
-	}
+    /**
+     * Moves the {@code Movable} to its other most extreme angular position that is in the opposite direction.
+     */
+
+    final void toLowerBound() { toState(lowerBound); }
+
+    /**
+     * Moves the {@code Movable} to its neutral angular position.
+     */
+
+    final void toNeutral() { toState(neutral); 	}
+
+    /**
+     * Gets the state that represents the maximum position that the {@code Movable} can move to in one direction.
+     *
+     * @return The state that represents the upper bound of the {@code Movable}.
+     */
+
+    final Set<ShortMessage> getUpperBoundState() { return getState(upperBound); }
+
+    /**
+     * Gets the state the represents the maximum position that the {@code Movable} can move to in the other direction.
+     *
+     * @return The state the represents the lower bound of the {@code Movable}.
+     */
+
+    final Set<ShortMessage> getLowerBoundState() { return getState(lowerBound); }
+
+    /**
+     * Gets the state the represents the neutral position of the {@code Movable}.
+     *
+     * @return The state that represents the neutral position of the {@code Movable}.
+     */
+
+    final Set<ShortMessage> getNeutralState() { return getState(neutral); }
+
+    /**
+     * Gets the upper bound value for the {@code Movable}.
+     *
+     * @return The {@code int} that represents the upper bound of the {@code Movable}.
+     */
+
+    final PartState getUpperBoundPartState() { return getPartState(upperBound); }
+
+    /**
+     * Gets the lower bound value for the {@code Movable}.
+     *
+     * @return The {@code int} that represents the lower bound of the {@code Movable}.
+     */
+
+    final PartState getLowerBoundPartState() { return getPartState(lowerBound); }
+
+    /**
+     * Gets the state that represents the {@code Movable}'s neutral position.
+     *
+     * @return The state that represents the {@code Movable}'s neutral position.
+     */
+
+    final PartState getNeutralPartState() { return new PartState(this, getState(neutral)); }
+
+    /**
+     * Gets the corresponding part state associated with the given velocity value if the velocity value is a valid
+     * velocity value. Otherwise, an {@code InvalidParameterException} is thrown.
+     *
+     * @param velocity The representation of an angular position of a servo arm
+     * @return The {@code PartState} that represents the state of the corresponding {@code Ruppet Part}
+     * @throws InvalidParameterException if {@code velocity} is an invalid velocity value.
+     */
+
+    private PartState getPartState(final int velocity) throws InvalidParameterException {
+        if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound) { return new PartState(this, getState(velocity)); }
+        else { throw new InvalidParameterException("Cannot retrieve the PartState associated with the velocity value: " + velocity); }
+    }
 	
 	/**
 	 * Ultimately the conversion from {@code velocity} to {@code stateIndex} for any number of states is:
@@ -191,6 +206,48 @@ abstract class Part {
 	 */
 
 	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }
+
+    /**
+     * Simply checks to see if the passed in velocity value is a valid velocity value for the current {@code Part}.
+     *
+     * @param velocity The velocity value that is to be checked
+     * @return A boolean value representing of the velocity value is a valid velocity value
+     */
+
+    private boolean validVelocity(final int velocity) {
+        if (velocity >= RuppetUtils.MIN_VELOCITY && velocity <= RuppetUtils.MAX_VELOCITY) { return true; }
+        else {
+            System.out.println("Invalid velocity value: " + velocity);
+            return false;
+        }
+    }
+
+    /**
+     * Determine whether the messages that were passed in are defined in the states of the 2D array for the
+     * given {@code Part}. If any of them are not, then the {@code ShortMessage}s are not valid, else,
+     * the {@code ShortMessage}s are valid.
+     *
+     * @param messages The array of {@code ShortMessage}s that are to be checked for validity
+     * @return a {@code boolean} representing whether the given array of {@code ShortMessage} are a valid group of {@code ShortMessages}
+     */
+
+    private boolean validShortMessages(final Set<ShortMessage> messages) {
+        final Set<ShortMessage> state = states.get(velocityToStateIndex(RuppetUtils.getVelocityVal(messages.stream().findAny().get())));
+        return state.containsAll(messages);
+    }
+
+    /**
+     * Returns a {@code Part}'s state based on the velocity value, only if that velocity
+     * value is valid for the current {@code Part}.
+     *
+     * @param velocity The velocity value that is to be checked for validity
+     * @return The state associated with the given velocity value
+     */
+
+    private Set<ShortMessage> getState(final int velocity) {
+        if (validVelocity(velocity)) { return states.get(velocityToStateIndex(velocity)); }
+        else { throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned."); }
+    }
 
 } // end of Part class
 

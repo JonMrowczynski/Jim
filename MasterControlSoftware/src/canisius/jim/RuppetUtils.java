@@ -6,7 +6,10 @@ import javax.sound.midi.Track;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  *	This class contains the constants that are required to make the MidiEvents that fill the 
@@ -101,18 +104,6 @@ final class RuppetUtils {
 	 */
 	
 	static byte getVelocityVal (final ShortMessage msg) { return (byte) msg.getData2(); }
-	
-	/**
-	 * Adds a state to a {@code List} by adding all of the {@code ShortMessage}s contained 
-	 * within the state to the {@code ArrayList}.
-	 * 
-	 * @param states The {@code ArrayList} that (a) {@code ShortMessage}(s) will be added to
-	 * @param state The array of {@code ShortMessages} that will be added to the {@code ArrayList}.
-	 */
-
-	static void addStateToList(final Set<ShortMessage> states, final ShortMessage[] state) {
-		states.addAll(Arrays.asList(state));
-	}
 	
 	/**
 	 * A partial sum of a converging series is used to get the mouth movements closer together. Converges
