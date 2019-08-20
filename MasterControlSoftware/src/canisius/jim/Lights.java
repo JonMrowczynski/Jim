@@ -3,8 +3,7 @@ package canisius.jim;
 import java.util.List;
 
 /**
- * The {@code Lights Part} represents the digital eye lights of the {@code Ruppet}, which can be turned either on or
- * off.
+ * A {@code Lights} represents the digital eye lights of the {@code Ruppet}, which can be turned either on or off.
  *
  *  @author Jon Mrowczynski
  */
@@ -26,10 +25,10 @@ final class Lights extends Part {
 	/**
 	 * This constructor takes the {@code List} of {@code Ruppet Part}s that the {@code Ruppet} physically possesses.
 	 *
-	 * It also takes a MIDI note which is the note that is associated with the 
-	 * {@code Lights} object which is used to operate the eye lights.
+	 * It also takes a MIDI note which is the note that is associated with the {@code Lights} object which is used to
+	 * operate the eye lights.
 	 * 
-	 * @param ruppetParts The {@code ArrayList} of {@code Part}s of the {@code Ruppet}.
+	 * @param ruppetParts The {@code List} of {@code Part}s of the {@code Ruppet}.
 	 * @param midiNote The MIDI note associated with this {@code Lights object}.
 	 */
 

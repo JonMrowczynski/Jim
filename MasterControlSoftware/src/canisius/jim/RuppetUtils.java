@@ -25,7 +25,7 @@ import java.util.*;
  *	@author Jon Mrowczynski
  */
 
-final class RuppetControl {
+final class RuppetUtils {
 	
 	/**
 	 * The {@code byte} that represents channel one.
@@ -44,48 +44,6 @@ final class RuppetControl {
 	 */
 	
 	static final byte MIN_VELOCITY = 0;
-	
-	/**
-	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyebrow.
-	 */
-
-	static final byte EYEBROW = 0x3C; // Servo 1 C4
-	
-	/**
-	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s left lip corner.
-	 */
-	
-	static final byte LEFT_LIP_CORNER = 0x3E; // Servo 2 D4
-	
-	/**
-	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s right lip corner.
-	 */
-	
-	static final byte RIGHT_LIP_CORNER = 0x40; // Servo 3 E4
-	
-	/**
-	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s lower jaw.
-	 */
-	
-	static final byte LOWER_JAW = 0x43; // Servo 4 G4
-	
-	/**
-	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyelids.
-	 */
-	
-	static final byte EYELIDS = 0x45; // Servo 5 A4
-	
-	/**
-	 * The MIDI note that is associated with the sixth servo motor. Currently this is not used in our {@code Ruppet}.
-	 */
-	
-	public static final byte SERVO6 = 0x48; // Servo 6 C5
-	
-	/**
-	 * The MIDI note that is associated with the eye lights of the {@code Ruppet}.
-	 */
-	
-	static final byte LIGHTS = 0x4A; // Lights D5
 
     /**
      * Used to acquire input from the user when they are prompted by the CLI.
@@ -94,10 +52,10 @@ final class RuppetControl {
     static final Scanner reader = new Scanner(System.in);
 	
 	/**
-	 * {@code RuppetControl} is a utility class.
+	 * {@code RuppetUtils} is a utility class.
 	 */
 
-	private RuppetControl() { throw new AssertionError("Should not instantiate a RuppetControl object"); }
+	private RuppetUtils() { throw new AssertionError("Should not instantiate a RuppetUtils object"); }
 	
 	/**
 	 * Halts the program for a user defined amount of time in milliseconds.
@@ -231,7 +189,7 @@ final class RuppetControl {
 	}
 
     /**
-     * CLears the contents of the given {@code File}.
+     * Clears the contents of the given {@code File}.
      *
      * @param file that is to be cleared.
      */
@@ -322,4 +280,4 @@ final class RuppetControl {
 		return i > 0 ? fileName.substring(i) : "";
 	}
 
-} // end of class RuppetControl
+} // end of class RuppetUtils

@@ -113,13 +113,13 @@ public class RuppetTester extends Application {
 	
 	private void partSelectSetup() {
 		setupText("Part Select", 0, 0);
-		setupRadioButton(false, "Eyebrows", 1, RuppetControl.EYEBROW);
-		setupRadioButton(false, "Left Lip Corner", 2, RuppetControl.LEFT_LIP_CORNER);
-		setupRadioButton(false, "Right Lip Corner", 3, RuppetControl.RIGHT_LIP_CORNER);
-		setupRadioButton(false, "Lower Jaw", 4, RuppetControl.LOWER_JAW);
-		setupRadioButton(false, "EyeLids", 5, RuppetControl.EYELIDS);
-		setupRadioButton(true, "Lights", 6, RuppetControl.LIGHTS);
-		setupRadioButton(false, "Lip Corners", 7, RuppetControl.LEFT_LIP_CORNER, RuppetControl.RIGHT_LIP_CORNER);
+		setupRadioButton(false, "Eyebrows", 1, Ruppet.EYEBROW_MIDI_NOTE);
+		setupRadioButton(false, "Left Lip Corner", 2, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE);
+		setupRadioButton(false, "Right Lip Corner", 3, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE);
+		setupRadioButton(false, "Lower Jaw", 4, Ruppet.LOWER_JAW_MIDI_NOTE);
+		setupRadioButton(false, "EyeLids", 5, Ruppet.EYELIDS_MIDI_NOTE);
+		setupRadioButton(true, "Lights", 6, Ruppet.LIGHTS_MIDI_NOTE);
+		setupRadioButton(false, "Lip Corners", 7, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE);
 	} // end of partSelectSetup
 
 	/**
@@ -138,7 +138,7 @@ public class RuppetTester extends Application {
 		gridPane.add(button, 0, rowIndex);
 		GridPane.setHalignment(button, HPos.LEFT);
 		try {
-			final ShortMessage msg = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, RuppetControl.LIGHTS, velocity);
+			final ShortMessage msg = new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, Ruppet.LIGHTS_MIDI_NOTE, velocity);
 			button.setOnAction(actionEvent -> MidiConnection.getUsbReceiver().send(msg, -1));
 		} catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		return button;
@@ -259,7 +259,7 @@ public class RuppetTester extends Application {
 		gridPane.add(sendMIDIBtn, 0, 9);
 		GridPane.setHalignment(sendMIDIBtn, HPos.RIGHT);
 		
-		final Spinner<Integer> spinner = new Spinner<>(RuppetControl.MIN_VELOCITY, RuppetControl.MAX_VELOCITY, RuppetControl.MIN_VELOCITY);
+		final Spinner<Integer> spinner = new Spinner<>(RuppetUtils.MIN_VELOCITY, RuppetUtils.MAX_VELOCITY, RuppetUtils.MIN_VELOCITY);
 		spinner.setEditable(true);
 		spinner.setPrefWidth(75);
 		
@@ -305,12 +305,12 @@ public class RuppetTester extends Application {
 					return;
 				}
 				final int newValueInt = Integer.parseInt(newValue);
-				if (newValueInt > RuppetControl.MAX_VELOCITY || newValueInt < RuppetControl.MIN_VELOCITY) { spinner.getEditor().setText(oldValue); }
+				if (newValueInt > RuppetUtils.MAX_VELOCITY || newValueInt < RuppetUtils.MIN_VELOCITY) { spinner.getEditor().setText(oldValue); }
 				currentVelocity = (byte) newValueInt;
 			}				
 		});
 			
-		final Tooltip tooltip = new Tooltip("Min velocity: " + RuppetControl.MIN_VELOCITY + "\n" + "Max velocity: " + RuppetControl.MAX_VELOCITY);
+		final Tooltip tooltip = new Tooltip("Min velocity: " + RuppetUtils.MIN_VELOCITY + "\n" + "Max velocity: " + RuppetUtils.MAX_VELOCITY);
 		
 		spinner.setTooltip(tooltip);
 		spinner.getEditor().setTooltip(tooltip);
@@ -330,8 +330,8 @@ public class RuppetTester extends Application {
 	
 	private ShortMessage[] makeMessages() throws InvalidMidiDataException {
 		final ShortMessage[] messages = new ShortMessage[midiNotes.length];
-		if (midiNotes.length >= 1) { messages[0] = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNotes[0], currentVelocity); }
-		if (midiNotes.length == 2) { messages[1] = new ShortMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNotes[1], RuppetControl.MAX_VELOCITY - currentVelocity); }
+		if (midiNotes.length >= 1) { messages[0] = new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNotes[0], currentVelocity); }
+		if (midiNotes.length == 2) { messages[1] = new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNotes[1], RuppetUtils.MAX_VELOCITY - currentVelocity); }
 		return messages;
 	}
 	

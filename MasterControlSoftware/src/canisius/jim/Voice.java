@@ -61,7 +61,7 @@ final class Voice {
 	/* *NOTE*: The timeOpen and timeClose ArrayLists are used to help with making the mouth
 	   movements more continuous and less sudden by determining when to turn the motors off	
 	   before turning them back on to move the mouth up or down. 
-	   The method RuppetControl.convergeTimes helps to converge the motor off time closer
+	   The method RuppetUtils.convergeTimes helps to converge the motor off time closer
 	   to the motor on time so that it makes the Ruppet's mouth movements seem less robotic */
 
 	/**
@@ -110,7 +110,7 @@ final class Voice {
 	 */
 
 	private void readTimingInfoFromFile() {
-		try { RuppetControl.checkFileExistence(voiceSaveFile); }
+		try { RuppetUtils.checkFileExistence(voiceSaveFile); }
 		catch (IOException e) { e.printStackTrace(); }
 		try (final Scanner reader = new Scanner(new FileReader(voiceSaveFile))) {
 			final int sec_to_ms_factor = 1000;
@@ -158,7 +158,7 @@ final class Voice {
 	 */
 
 	private void openAudioFile() {
-		try { RuppetControl.checkFileExistence(audioSaveFile); }
+		try { RuppetUtils.checkFileExistence(audioSaveFile); }
 		catch (IOException e) { e.printStackTrace(); }
 		try {
 			clip = AudioSystem.getClip();
@@ -168,7 +168,7 @@ final class Voice {
 			System.out.println("ERROR:");
 			System.out.println("\nFile: " + audioSaveFile.getName() + " is not supported!");
 			System.out.println("Make sure that you are using a .wav file!");
-			RuppetControl.clearSaveFile(audioSaveFile);
+			RuppetUtils.clearSaveFile(audioSaveFile);
 		}
     }
 
@@ -186,7 +186,7 @@ final class Voice {
 		MidiConnection.getSequencer().setMicrosecondPosition(0);
 		clip.start();
 		MidiConnection.getSequencer().start();
-		RuppetControl.pause_ms( (int) (clip.getMicrosecondLength() / us_to_ms_factor));
+		RuppetUtils.pause_ms( (int) (clip.getMicrosecondLength() / us_to_ms_factor));
 		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), false);
 		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), false);
 	}

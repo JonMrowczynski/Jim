@@ -16,8 +16,8 @@ public final class BreathOfLife extends Application {
 
 	@Override
 	public final void start(final Stage stage) {
-		final Ruppet eddie = new Ruppet();
-		eddie.live();
+		final Ruppet jim = new Ruppet();
+		jim.live();
 	} 
 
 }

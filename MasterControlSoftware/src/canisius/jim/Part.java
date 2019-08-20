@@ -69,7 +69,7 @@ abstract class Part {
 		states = new ShortMessage[numOfStates][numOfOutputs];
 		for(int i = 0; i < numOfStates; ++i) {
 			states[i][0] = new ShortMessage();
-			try { states[i][0].setMessage(ShortMessage.NOTE_ON, RuppetControl.CHAN_1, midiNote, i + lowerBound); } 
+			try { states[i][0].setMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote, i + lowerBound); }
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		}
 	}
@@ -106,11 +106,11 @@ abstract class Part {
 	 * 
 	 * @param track that is to have {@code ShortMessage}s added to it
 	 * @param messages that are to be added to the {@code Track}
-	 * @param tick of the {@code ShortMessage}s
+	 * @param tick of the {@code ShortMessage}s.
 	 */
 
 	final void addStateToTrack(final Track track, final ShortMessage[] messages, final int tick) {
-		if (validShortMessages(messages)) { Arrays.stream(messages).forEach(msg -> track.add(RuppetControl.makeEvent(msg, tick))); }
+		if (validShortMessages(messages)) { Arrays.stream(messages).forEach(msg -> track.add(RuppetUtils.makeEvent(msg, tick))); }
 	} 
 	
 	/**
@@ -121,7 +121,7 @@ abstract class Part {
 	 */
 
 	final boolean validVelocity(final int velocity) {
-		if (velocity >= RuppetControl.MIN_VELOCITY && velocity <= RuppetControl.MAX_VELOCITY) { return true; }
+		if (velocity >= RuppetUtils.MIN_VELOCITY && velocity <= RuppetUtils.MAX_VELOCITY) { return true; }
 		else {
 			System.out.println("Invalid velocity value: " + velocity);
 			return false;
@@ -138,7 +138,7 @@ abstract class Part {
 	 */
 
 	private boolean validShortMessages(final ShortMessage[] messages) {
-		final ShortMessage[] state = states[velocityToStateIndex(RuppetControl.getVelocityVal(messages[0]))];
+		final ShortMessage[] state = states[velocityToStateIndex(RuppetUtils.getVelocityVal(messages[0]))];
 		for (int i = 0; i < state.length; ++i) {
 			if (messages[i].getChannel() != state[i].getChannel()) { return false; }
 			if (messages[i].getCommand() != state[i].getCommand()) { return false; }

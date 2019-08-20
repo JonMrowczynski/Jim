@@ -164,7 +164,7 @@ final class Heart {
 
 	private void readTimingLabels() {
 		try {
-		    RuppetControl.checkFileExistence(emoteSaveFile);
+		    RuppetUtils.checkFileExistence(emoteSaveFile);
             try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
                 while(reader.hasNext()) { emotionTimingsMap.put((int) Math.round(reader.nextDouble() * 1000), reader.nextLine().trim()); }
             } catch (FileNotFoundException ex) {ex.printStackTrace();}
