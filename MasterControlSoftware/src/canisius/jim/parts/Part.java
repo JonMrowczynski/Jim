@@ -12,8 +12,7 @@ import java.util.*;
 /**
  * This class provides the framework for the components of the {@code Ruppet} that are operated by the microcontroller.
  *
- * The two-dimensional array {@code states} contain {@code ShortMessage}s represent a certain state for the
- * component.
+ * The two-dimensional array {@code states} contain {@code ShortMessage}s represent a certain state for the component.
  *
  * For the parts that move due to changes in the angular position of one or more servo motors, {@code states} represent
  * the angular positions of the servo motors.
@@ -74,7 +73,7 @@ public abstract class Part {
                 "\nCould not instantiate Movable Part."); }
         neutral = (upperBound + lowerBound) / 2;
         for(int i = 0; i < (this.upperBound - this.lowerBound) + 1; ++i) {
-			try { states.put(i, new HashSet<>(Collections.singleton(new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote, i + lowerBound)))); }
+			try { states.put(i, new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote, i + lowerBound)))); }
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		}
         ruppetParts.add(this);
@@ -137,7 +136,7 @@ public abstract class Part {
      * Moves the {@code Movable} to its neutral angular position.
      */
 
-    public void toNeutral() { toState(neutral); 	}
+    public void toNeutral() { toState(neutral); }
 
     /**
      * Gets the state that represents the maximum position that the {@code Movable} can move to in one direction.
@@ -202,9 +201,9 @@ public abstract class Part {
     }
 	
 	/**
-	 * Ultimately the conversion from {@code velocity} to {@code stateIndex} for any number of states is:
+	 * Converts {@code velocity} into an index that corresponds to the
 	 *  
-	 * @param velocity The velocity value that is to be converted to a {@code stateIndex}
+	 * @param velocity value that is to be converted to a {@code stateIndex}.
 	 * @return The {@code stateIndex}.
 	 */
 
@@ -230,24 +229,27 @@ public abstract class Part {
      * given {@code Part}. If any of them are not, then the {@code ShortMessage}s are not valid, else,
      * the {@code ShortMessage}s are valid.
      *
-     * @param messages The array of {@code ShortMessage}s that are to be checked for validity
-     * @return a {@code boolean} representing whether the given array of {@code ShortMessage} are a valid group of {@code ShortMessages}
+     * @param messages The {@code Set} of {@code ShortMessage}s that are to be checked for validity.
+     * @return a {@code boolean} representing whether the given {@code Set} of {@code ShortMessage}s is a valid group of
+     *         {@code ShortMessage}s for this {@code Part}.
      */
 
     private boolean validShortMessages(final Set<ShortMessage> messages) {
-        final Set<ShortMessage> state = states.get(velocityToStateIndex(RuppetUtils.getVelocityVal(messages.stream().findAny().get())));
+        final Set<ShortMessage> state = states.get(velocityToStateIndex(RuppetUtils.getVelocityVal(messages.iterator().next())));
         return state.containsAll(messages);
     }
 
     /**
-     * Returns a {@code Part}'s state based on the velocity value, only if that velocity
-     * value is valid for the current {@code Part}.
+     * Returns this {@code Part}'s state based on the velocity value iff that velocity value is valid for this
+     * {@code Part}.
      *
-     * @param velocity The velocity value that is to be checked for validity
-     * @return The state associated with the given velocity value
+     * @param velocity value that is to be checked for validity.
+     * @return A {@code Set} of {@code ShortMessage}s that represents the state associated with the given velocity
+     *         value.
+     * @throws InvalidParameterException if the value of {@code velocity} is invalid.
      */
 
-    private Set<ShortMessage> getState(final int velocity) {
+    private Set<ShortMessage> getState(final int velocity) throws InvalidParameterException {
         if (validVelocity(velocity)) { return states.get(velocityToStateIndex(velocity)); }
         else { throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned."); }
     }

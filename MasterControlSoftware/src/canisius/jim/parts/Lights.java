@@ -33,7 +33,7 @@ public final class Lights extends Part {
 	 */
 
 	public Lights(final List<Part> ruppetParts, final byte midiNote) {
-		super(ruppetParts, midiNote, ON, OFF);
+		super(ruppetParts, midiNote, OFF, ON);
 		setNeutral(OFF);
 	}
 

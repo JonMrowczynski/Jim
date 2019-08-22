@@ -52,7 +52,7 @@ public final class Movable extends Part {
     public Movable(final List<Part> ruppetParts, final int midiNote1, final int lowerBound, final int upperBound, final int midiNote2, final String parallelism)
 			throws InvalidParameterException {
 	    this(ruppetParts, midiNote1, lowerBound, upperBound);
-		for(int i = 0; i < states.size(); ++i) {
+		for (int i = 0; i < states.size(); ++i) {
 			try {
 				switch(parallelism.toLowerCase()) {
                     case "parallel":
