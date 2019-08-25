@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-nul 
-=======
 *.class
 MasterControlSoftware/.idea/*
 
@@ -9,4 +6,3 @@ Firmware/MIDI_Servo_Controller.X/dist/*
 Firmware/MIDI_Servo_Controller.X/nbproject/Makefile-*
 Firmware/MIDI_Servo_Controller.X/nbproject/Package-*
 Firmware/MIDI_Servo_Controller.X/nbproject/private/*
->>>>>>> MasterControlSoftware/master
