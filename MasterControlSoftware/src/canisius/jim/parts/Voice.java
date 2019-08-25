@@ -1,6 +1,6 @@
 package canisius.jim.parts;
 
-import canisius.jim.connections.MidiConnection;
+import canisius.jim.connections.MidiSequencer;
 import canisius.jim.ruppet.Ruppet;
 import canisius.jim.ruppet.RuppetUtils;
 
@@ -157,17 +157,17 @@ public final class Voice {
 
     public void givePresentation() {
 		final int us_to_ms_factor = 1000;
-		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), true);
-		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), true);
+		MidiSequencer.getInstance().getMidiDevice().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), true);
+		MidiSequencer.getInstance().getMidiDevice().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), true);
 		clip.stop();
-		MidiConnection.getSequencer().stop();
+		MidiSequencer.getInstance().getMidiDevice().stop();
 		clip.setMicrosecondPosition(0);
-		MidiConnection.getSequencer().setMicrosecondPosition(0);
+		MidiSequencer.getInstance().getMidiDevice().setMicrosecondPosition(0);
 		clip.start();
-		MidiConnection.getSequencer().start();
+		MidiSequencer.getInstance().getMidiDevice().start();
 		RuppetUtils.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
-		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), false);
-		MidiConnection.getSequencer().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), false);
+		MidiSequencer.getInstance().getMidiDevice().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), false);
+		MidiSequencer.getInstance().getMidiDevice().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), false);
 	}
 
 	/**

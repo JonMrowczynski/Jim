@@ -1,6 +1,6 @@
 package canisius.jim.ruppet;
 
-import canisius.jim.connections.MidiConnection;
+import canisius.jim.connections.MidiSequencer;
 
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.ShortMessage;
@@ -114,7 +114,7 @@ public final class RuppetUtils {
 	 */
 
 	static void muteAllTracks(final List<Track> tracks) {
-	    tracks.forEach(track -> MidiConnection.getSequencer().setTrackMute(tracks.indexOf(track), true));
+	    tracks.forEach(track -> MidiSequencer.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
 	}
 		
 	/**
@@ -124,7 +124,7 @@ public final class RuppetUtils {
 	 */
 
 	static void deSoloAllTracks(final List<Track> tracks) {
-	    tracks.forEach(track -> MidiConnection.getSequencer().setTrackSolo(tracks.indexOf(track), false));
+	    tracks.forEach(track -> MidiSequencer.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
 	}
 	
 	/** 
@@ -139,8 +139,8 @@ public final class RuppetUtils {
 		final int soloTrackIndex = tracks.indexOf(soloTrack);
 		tracks.forEach(track -> {
             final int currentTrackIndex = tracks.indexOf(track);
-            if (currentTrackIndex == soloTrackIndex) { MidiConnection.getSequencer().setTrackSolo(soloTrackIndex, true); }
-            else { MidiConnection.getSequencer().setTrackMute(currentTrackIndex, true); }
+            if (currentTrackIndex == soloTrackIndex) { MidiSequencer.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
+            else { MidiSequencer.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
         });
 	}
 

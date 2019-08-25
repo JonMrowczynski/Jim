@@ -1,6 +1,6 @@
 package canisius.jim.parts;
 
-import canisius.jim.connections.MidiConnection;
+import canisius.jim.connections.UsbMidiDevice;
 import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -103,7 +103,7 @@ public abstract class Part {
 	 */
 
 	final void toState(final int velocity) {
-		if (validVelocity(velocity)) { states.get(velocityToStateIndex(velocity)).forEach(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
+		if (validVelocity(velocity)) { states.get(velocityToStateIndex(velocity)).forEach(msg -> UsbMidiDevice.getInstance().send(msg)); }
 	}
 	
 	/**

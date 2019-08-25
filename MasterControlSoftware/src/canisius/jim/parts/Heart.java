@@ -1,6 +1,6 @@
 package canisius.jim.parts;
 
-import canisius.jim.connections.MidiConnection;
+import canisius.jim.connections.UsbMidiDevice;
 import canisius.jim.ruppet.Ruppet;
 import canisius.jim.ruppet.RuppetUtils;
 
@@ -111,7 +111,7 @@ public final class Heart {
 	 * @param emotion The {@code Emotion} that the {@code Ruppet} is to feel.
 	 */
 
-	public final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> MidiConnection.getUsbReceiver().send(msg, -1)); }
+	public final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> UsbMidiDevice.getInstance().send(msg)); }
 
 	/**
 	 * Gets the neutral {@code Emotion} of the {@code Ruppet}.

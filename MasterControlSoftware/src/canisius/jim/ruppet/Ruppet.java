@@ -1,6 +1,7 @@
 package canisius.jim.ruppet;
 
-import canisius.jim.connections.MidiConnection;
+import canisius.jim.connections.MidiSequencer;
+import canisius.jim.connections.UsbMidiDevice;
 import canisius.jim.parts.*;
 
 import javax.sound.midi.*;
@@ -159,9 +160,9 @@ public final class Ruppet {
 		 * such that we would get 1 tick per ms.
 		 * ticksPerSecond = 160 * (375 / 60.0) = 1,000[ticks/s] = 1[tick/ms]
 		 */
-        MidiConnection.establishConnection();
-        MidiConnection.getSequencer().setTempoInBPM(375);
-        MidiConnection.getSequencer().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+        MidiSequencer.getInstance().setReceiver(UsbMidiDevice.getInstance().getUsbReceiver());
+        MidiSequencer.getInstance().getMidiDevice().setTempoInBPM(375);
+        MidiSequencer.getInstance().getMidiDevice().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
         Sequence actions;
 		try {
 			actions = new Sequence(Sequence.PPQ, 160);
@@ -177,7 +178,7 @@ public final class Ruppet {
              * Now that all of the Sequence's Tracks have been filled with MidiEvents, add the Sequence to the
              * Sequencer, otherwise, MidiEvents will not be stored in the Tracks.
              */
-            MidiConnection.getSequencer().setSequence(actions);
+            MidiSequencer.getInstance().getMidiDevice().setSequence(actions);
             // Mute all of the tracks so that they are not unintentionally all playing at once
             RuppetUtils.muteAllTracks(tracks);
             RuppetUtils.deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
@@ -193,7 +194,7 @@ public final class Ruppet {
 	public final void live() {
 		int choice = -1;
 		lights.on();
-		MidiConnection.getSequencer().start();
+		MidiSequencer.getInstance().getMidiDevice().start();
 		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
 		do {
 			RuppetUtils.deSoloAllTracks(tracks);
@@ -311,8 +312,8 @@ public final class Ruppet {
 
 	private void runSteveScripts() {
 		System.out.println();
-		MidiConnection.getSequencer().stop();
-		MidiConnection.getSequencer().setMicrosecondPosition(0);
+		MidiSequencer.getInstance().getMidiDevice().stop();
+		MidiSequencer.getInstance().getMidiDevice().setMicrosecondPosition(0);
 		voice.givePresentation();
 	}
 
@@ -437,7 +438,8 @@ public final class Ruppet {
 			RuppetUtils.deSoloAllTracks(tracks);
 			RuppetUtils.reader.close();
 			parts.forEach(Part::toNeutral);
-			MidiConnection.closeConnection();
+			UsbMidiDevice.getInstance().disconnect();
+			MidiSequencer.getInstance().disconnect();
 		}
 	}
 
