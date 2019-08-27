@@ -1,7 +1,5 @@
 package canisius.jim.parts;
 
-import canisius.jim.ruppet.RuppetUtils;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import java.security.InvalidParameterException;
@@ -56,10 +54,10 @@ public final class Movable extends Part {
 			try {
 				switch(parallelism.toLowerCase()) {
                     case "parallel":
-                        states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote2, i + lowerBound));
+                        states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, i + lowerBound));
                         break;
                     case "antiparallel":
-                        states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote2, ((upperBound + lowerBound) - (i + lowerBound))));
+                        states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, ((upperBound + lowerBound) - (i + lowerBound))));
                         break;
                     default:
                         throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
@@ -68,4 +66,4 @@ public final class Movable extends Part {
 		}
 	}
 		
-} // end of Movable class
+} // end of Movable

@@ -139,7 +139,7 @@ public class RuppetTester extends Application {
 		gridPane.add(button, 0, rowIndex);
 		GridPane.setHalignment(button, HPos.LEFT);
 		try {
-			final ShortMessage msg = new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, Ruppet.LIGHTS_MIDI_NOTE, velocity);
+			final ShortMessage msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, velocity);
 			button.setOnAction(actionEvent -> UsbMidiDevice.getInstance().send(msg));
 		} catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		return button;
@@ -260,7 +260,7 @@ public class RuppetTester extends Application {
 		gridPane.add(sendMIDIBtn, 0, 9);
 		GridPane.setHalignment(sendMIDIBtn, HPos.RIGHT);
 		
-		final Spinner<Integer> spinner = new Spinner<>(RuppetUtils.MIN_VELOCITY, RuppetUtils.MAX_VELOCITY, RuppetUtils.MIN_VELOCITY);
+		final Spinner<Integer> spinner = new Spinner<>(Ruppet.MIN_VELOCITY, Ruppet.MAX_VELOCITY, Ruppet.MIN_VELOCITY);
 		spinner.setEditable(true);
 		spinner.setPrefWidth(75);
 		
@@ -306,12 +306,12 @@ public class RuppetTester extends Application {
 					return;
 				}
 				final int newValueInt = Integer.parseInt(newValue);
-				if (newValueInt > RuppetUtils.MAX_VELOCITY || newValueInt < RuppetUtils.MIN_VELOCITY) { spinner.getEditor().setText(oldValue); }
+				if (newValueInt > Ruppet.MAX_VELOCITY || newValueInt < Ruppet.MIN_VELOCITY) { spinner.getEditor().setText(oldValue); }
 				currentVelocity = (byte) newValueInt;
 			}				
 		});
 			
-		final Tooltip tooltip = new Tooltip("Min velocity: " + RuppetUtils.MIN_VELOCITY + "\n" + "Max velocity: " + RuppetUtils.MAX_VELOCITY);
+		final Tooltip tooltip = new Tooltip("Min velocity: " + Ruppet.MIN_VELOCITY + "\n" + "Max velocity: " + Ruppet.MAX_VELOCITY);
 		
 		spinner.setTooltip(tooltip);
 		spinner.getEditor().setTooltip(tooltip);
@@ -331,12 +331,12 @@ public class RuppetTester extends Application {
 	
 	private ShortMessage[] makeMessages() throws InvalidMidiDataException {
 		final ShortMessage[] messages = new ShortMessage[midiNotes.length];
-		if (midiNotes.length >= 1) { messages[0] = new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNotes[0], currentVelocity); }
-		if (midiNotes.length == 2) { messages[1] = new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNotes[1], RuppetUtils.MAX_VELOCITY - currentVelocity); }
+		if (midiNotes.length >= 1) { messages[0] = new ShortMessage(ShortMessage.NOTE_ON, 0, midiNotes[0], currentVelocity); }
+		if (midiNotes.length == 2) { messages[1] = new ShortMessage(ShortMessage.NOTE_ON, 0, midiNotes[1], Ruppet.MAX_VELOCITY - currentVelocity); }
 		return messages;
 	}
 	
-} // end of class ManualOperationScene
+} // end of ManualOperationScene
 
 
 

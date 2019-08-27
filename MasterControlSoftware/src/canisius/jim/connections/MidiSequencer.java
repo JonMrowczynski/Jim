@@ -57,4 +57,4 @@ public class MidiSequencer extends MidiDeviceConnection<Sequencer> {
         catch (MidiUnavailableException e) { e.printStackTrace(); }
     }
 
-} // end of class MidiSequencer
+} // end of MidiSequencer

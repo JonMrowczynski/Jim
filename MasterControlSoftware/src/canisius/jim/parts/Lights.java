@@ -49,5 +49,5 @@ public final class Lights extends Part {
 	
 	final void off() { toState(OFF); }
 	
-} // end of Light class
+} // end of Light
 

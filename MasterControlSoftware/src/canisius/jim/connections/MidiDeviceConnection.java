@@ -47,4 +47,4 @@ public abstract class MidiDeviceConnection<T extends MidiDevice> {
 
     public final T getMidiDevice() { return midiDevice; }
 
-} // end of class MidiDeviceConnection
+} // end of MidiDeviceConnection

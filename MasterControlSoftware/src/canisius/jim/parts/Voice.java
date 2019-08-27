@@ -2,7 +2,6 @@ package canisius.jim.parts;
 
 import canisius.jim.connections.MidiSequencer;
 import canisius.jim.ruppet.Ruppet;
-import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
@@ -97,8 +96,6 @@ public final class Voice {
 	 */
 
 	private void readTimingInfoFromFile() {
-		try { RuppetUtils.checkFileExistence(voiceSaveFile); }
-		catch (IOException e) { e.printStackTrace(); }
 		try (final Scanner reader = new Scanner(new FileReader(voiceSaveFile))) {
 			final int sec_to_ms_factor = 1000;
 			while (reader.hasNext()) {
@@ -137,15 +134,13 @@ public final class Voice {
 	 */
 
 	private void openAudioFile() {
-		try { RuppetUtils.checkFileExistence(audioSaveFile); }
-		catch (IOException e) { e.printStackTrace(); }
 		try {
 			clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(audioSaveFile));
 		} catch (LineUnavailableException | IOException e) { e.printStackTrace(); }
 		  catch (UnsupportedAudioFileException e) {
 			System.out.println("ERROR:");
-			System.out.println("\nFile type \"" + RuppetUtils.getFileExtension(audioSaveFile) + "\" is not supported!");
+			System.out.println("\n\"" + audioSaveFile.getName() + "\"'s file type is not supported!");
 			System.out.println("Make sure that you are using a .wav file!");
 		}
     }
@@ -164,7 +159,7 @@ public final class Voice {
 		MidiSequencer.getInstance().getMidiDevice().setMicrosecondPosition(0);
 		clip.start();
 		MidiSequencer.getInstance().getMidiDevice().start();
-		RuppetUtils.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
+		Ruppet.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
 		MidiSequencer.getInstance().getMidiDevice().setTrackSolo(ruppet.getTracks().indexOf(ruppet.getHeart().getEmotionTrack()), false);
 		MidiSequencer.getInstance().getMidiDevice().setTrackSolo(ruppet.getTracks().indexOf(voiceTrack), false);
 	}
@@ -177,4 +172,4 @@ public final class Voice {
 
 	public final Track getVoiceTrack() { return voiceTrack; }
 	
-} // end of Voice class
+} // end of Voice

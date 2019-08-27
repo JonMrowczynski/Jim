@@ -1,8 +1,8 @@
 package canisius.jim.parts;
 
 import canisius.jim.ruppet.Ruppet;
-import canisius.jim.ruppet.RuppetUtils;
 
+import javax.sound.midi.MidiEvent;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.security.InvalidParameterException;
@@ -72,7 +72,7 @@ final class Emotion {
 	 */
 
 	final void addEmotionToTrack(final Track track, final int tick) {
-		attributes.stream().filter(msg -> RuppetUtils.getMidiNote(msg) != Ruppet.LOWER_JAW_MIDI_NOTE).forEach(msg -> track.add(RuppetUtils.makeEvent(msg, tick)));
+		attributes.stream().filter(msg -> getMidiNote(msg) != Ruppet.LOWER_JAW_MIDI_NOTE).forEach(msg -> track.add(new MidiEvent(msg, tick)));
 	}
 
 	/**
@@ -84,6 +84,15 @@ final class Emotion {
 
 	final Iterator<ShortMessage> getAttributes() { return attributes.iterator(); }
 
-} // end of Emotion class
+	/**
+	 * Gets the MIDI note that is associated with the given {@code ShortMessage}.
+	 *
+	 * @param msg The {@code ShortMessage} whose MIDI note will be returned
+	 * @return The MIDI note of the {@code ShortMessage}
+	 */
+
+	private static byte getMidiNote(final ShortMessage msg) { return (byte) msg.getData1(); }
+
+} // end of Emotion
 
 

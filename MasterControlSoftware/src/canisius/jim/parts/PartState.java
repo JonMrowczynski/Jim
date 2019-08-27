@@ -25,13 +25,17 @@ final class PartState {
 	private final Set<ShortMessage> state;
 	
 	/**
-	 * Pairs together a {@code Part} and a state that the {@code Part} can be in, which is a {@code Set} of {@code ShortMessage}s.
+	 * Pairs together a {@code Part} and a state that the {@code Part} can be in where a state is a {@code Set} of
+	 * {@code ShortMessage}s.
 	 * 
 	 * @param part of the {@code Ruppet}.
 	 * @param state that the {@code Part} can be in.
+	 * @throws NullPointerException if {@code part} or {@code state} is {@code null}.
 	 */
 
-	PartState(final Part part, final Set<ShortMessage> state) {
+	PartState(final Part part, final Set<ShortMessage> state) throws NullPointerException {
+		if (part == null) { throw new NullPointerException("part cannot be null"); }
+		if (state == null) { throw new NullPointerException("state cannot be null"); }
 		this.part = part;
 		this.state = state;
 	}
@@ -52,7 +56,7 @@ final class PartState {
 	
 	final Set<ShortMessage> getState() { return state; }
 
-} // end of PartState class
+} // end of PartState
 
 
 

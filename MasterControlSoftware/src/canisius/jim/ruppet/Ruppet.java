@@ -5,10 +5,7 @@ import canisius.jim.connections.UsbMidiDevice;
 import canisius.jim.parts.*;
 
 import javax.sound.midi.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A {@code Ruppet} can be operated in four modes.
@@ -30,6 +27,24 @@ import java.util.Set;
  */
 
 public final class Ruppet {
+
+	/**
+	 * The maximum MIDI velocity value.
+	 */
+
+	public static final byte MAX_VELOCITY = 10;
+
+	/**
+	 * The minimum MIDI velocity value.
+	 */
+
+	public static final byte MIN_VELOCITY = 0;
+
+	/**
+	 * Used to acquire input from the user when they are prompted by the CLI.
+	 */
+
+	private static final Scanner reader = new Scanner(System.in);
 
 	/**
 	 * The MIDI note that is associated with the servo motor that controls the {@code Ruppet}'s eyebrow.
@@ -107,25 +122,25 @@ public final class Ruppet {
      * The lower jaw of the {@code Ruppet}.
      */
 
-    private final Movable lowerJaw = new Movable(parts, Ruppet.LOWER_JAW_MIDI_NOTE, (byte) 3, (byte) 8);
+    private final Movable lowerJaw = new Movable(parts, Ruppet.LOWER_JAW_MIDI_NOTE, 3, 8);
 
     /**
      * The right and left lip corners of the {@code Ruppet}.
      */
 
-    private final Movable lipCorners = new Movable(parts, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, (byte) 1, (byte) 4, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE, "antiparallel");
+    private final Movable lipCorners = new Movable(parts, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, 1, 4, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE, "antiparallel");
 
     /**
      * The eyebrows of the {@code Ruppet}.
      */
 
-    private final Movable eyebrows = new Movable(parts, Ruppet.EYEBROW_MIDI_NOTE, (byte) 4, (byte) 7);
+    private final Movable eyebrows = new Movable(parts, Ruppet.EYEBROW_MIDI_NOTE, 4, 7);
 
     /**
      * The eyelids of the {@code Ruppet}.
      */
 
-    private final Movable eyelids = new Movable(parts, Ruppet.EYELIDS_MIDI_NOTE, (byte) 3, (byte) 7);
+    private final Movable eyelids = new Movable(parts, Ruppet.EYELIDS_MIDI_NOTE, 3, 7);
 
     /**
      * The eye lights of the {@code Ruppet}.
@@ -180,8 +195,8 @@ public final class Ruppet {
              */
             MidiSequencer.getInstance().getMidiDevice().setSequence(actions);
             // Mute all of the tracks so that they are not unintentionally all playing at once
-            RuppetUtils.muteAllTracks(tracks);
-            RuppetUtils.deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
+			tracks.forEach(track -> MidiSequencer.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
+            deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
         } catch(InvalidMidiDataException e) { e.printStackTrace();}
 		final ReleaseSoul releaseSoul = new ReleaseSoul();
 		Runtime.getRuntime().addShutdownHook(releaseSoul);
@@ -197,7 +212,7 @@ public final class Ruppet {
 		MidiSequencer.getInstance().getMidiDevice().start();
 		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
 		do {
-			RuppetUtils.deSoloAllTracks(tracks);
+			deSoloAllTracks(tracks);
 			System.out.println("\n");
 			System.out.println("Would you like me to...");
 			System.out.println("1. Go into manual emotion demo mode");
@@ -207,7 +222,7 @@ public final class Ruppet {
 			System.out.println("5. Or go back to sleep?"); 
 			System.out.print("\tChoice: ");
 			try { 
-				choice = RuppetUtils.reader.nextInt();
+				choice = reader.nextInt();
 				switch(choice) {
 					case 1: manualEmotionDemoMode();								break;
 					case 2: manualFAUDemoMode();									break;
@@ -218,7 +233,7 @@ public final class Ruppet {
 				} 
 			} catch(InputMismatchException e) { 
 				System.out.println("\nI don't understand that input, make sure you type in an int!");
-				RuppetUtils.reader.nextLine();
+				reader.nextLine();
 			}
 		} while(choice != 3);
 	}
@@ -239,9 +254,9 @@ public final class Ruppet {
 			System.out.println("6. Smile");
 			System.out.println("9. To Exit");
 			System.out.print("Choice: ");
-			try { emotionChoice = RuppetUtils.reader.nextInt(); }
+			try { emotionChoice = reader.nextInt(); }
 			catch(InputMismatchException e) {
-				RuppetUtils.reader.nextLine();
+				reader.nextLine();
 				emotionChoice = -1;
 			}
 			System.out.println();
@@ -256,7 +271,7 @@ public final class Ruppet {
 				default: System.out.println("That is not an option.");	break;
 			}
 			// Display the specified emotion for a couple of seconds.
-			if (emotionChoice != 9) { RuppetUtils.pause(); }
+			if (emotionChoice != 9) { pause_ms(2000); }
 		} while(emotionChoice != 9);
 	} // end of manualEmotionDemoMode
 
@@ -283,7 +298,7 @@ public final class Ruppet {
 			System.out.println("20. To Go Back");
 			System.out.print("Choice: ");
 			try {
-				fauChoice = RuppetUtils.reader.nextInt();
+				fauChoice = reader.nextInt();
 				switch(fauChoice) {
 					case 1: eyebrows.toUpperBound();								break;
 					case 2: eyebrows.toNeutral();									break;
@@ -300,7 +315,7 @@ public final class Ruppet {
 					default: System.out.println("That is not an available option");	break;
 				} // end of switch
 			} catch (InputMismatchException e) {
-				RuppetUtils.reader.nextLine();
+				reader.nextLine();
 				fauChoice = -1;
 			}
 		} while (fauChoice != 20);
@@ -339,7 +354,7 @@ public final class Ruppet {
 
 	private void goToSleep() {
 		System.out.println("\nOkay, I was getting tired anyway.");
-		RuppetUtils.pause();
+		pause_ms(2000);
 		System.exit(0);
 	}
 
@@ -416,11 +431,59 @@ public final class Ruppet {
 		int next_blink_time;
 
 		for(int i = 0; i < 500; ++i) {
-			next_blink_time = RuppetUtils.getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
+			next_blink_time = getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
 			prev_blink_time = next_blink_time + blink_length;
 		}
+	}
+
+	/**
+	 * Sets all of the {@code Track}s in the {@code Ruppet}'s {@code Sequence} to not soloed.
+	 *
+	 * @param tracks that are to be not soloed.
+	 */
+
+	private static void deSoloAllTracks(final List<Track> tracks) {
+		tracks.forEach(track -> MidiSequencer.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
+	}
+
+	/**
+	 * Returns a random {@code int} between {@code min} and {@code max} inclusive.
+	 *
+	 * @param min The maximum {@code int} value that can be randomly generated.
+	 * @param max The minimum {@code int} value that can be randomly generated.
+	 * @return A random {@code int} between {@code min} and {@code max} inclusive.
+	 */
+
+	private static int getRandInt(final int min, final int max) { return (new Random()).nextInt((max - min) + 1) + min; }
+
+	/**
+	 * Sets all of the {@code Track}s in the {@code Ruppet}'s {@code Sequence} to not soloed except for the given
+	 * {@code soloTrack}.
+	 *
+	 * @param tracks that are to be set to not soloed.
+	 * @param soloTrack that is to be left alone.
+	 */
+
+	private static void deSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
+		final int soloTrackIndex = tracks.indexOf(soloTrack);
+		tracks.forEach(track -> {
+			final int currentTrackIndex = tracks.indexOf(track);
+			if (currentTrackIndex == soloTrackIndex) { MidiSequencer.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
+			else { MidiSequencer.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
+		});
+	}
+
+	/**
+	 * Halts the program for a user defined amount of time in milliseconds.
+	 *
+	 * @param ms that the program should pause.
+	 */
+
+	public static void pause_ms(final int ms) {
+		try { Thread.sleep(ms); }
+		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
 	}
 
 	/**
@@ -435,12 +498,12 @@ public final class Ruppet {
 	private final class ReleaseSoul extends Thread {
 		public final void run() {
 			System.out.println();
-			RuppetUtils.deSoloAllTracks(tracks);
-			RuppetUtils.reader.close();
+			deSoloAllTracks(tracks);
+			reader.close();
 			parts.forEach(Part::toNeutral);
 			UsbMidiDevice.getInstance().disconnect();
 			MidiSequencer.getInstance().disconnect();
 		}
 	}
 
-} // end of Ruppet class
+} // end of Ruppet

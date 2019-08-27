@@ -126,6 +126,6 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 				}
 			});
 		}
-	} // end of class ErrorAlert
+	} // end of ErrorAlert
 	
-} // end of UsbMidiDevice class
+} // end of UsbMidiDevice

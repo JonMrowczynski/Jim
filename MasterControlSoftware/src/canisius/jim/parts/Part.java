@@ -1,9 +1,10 @@
 package canisius.jim.parts;
 
 import canisius.jim.connections.UsbMidiDevice;
-import canisius.jim.ruppet.RuppetUtils;
+import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiEvent;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.security.InvalidParameterException;
@@ -44,11 +45,8 @@ public abstract class Part {
     private int neutral;
 
 	/**
-	 * The available states that a {@code Part} can go to. 
-	 * <P>
-	 * The reason for the 2D array is to support {@code Part}s that require multiple servo
-	 * motors to be operated where each column represents the angular positions that an individual 
-	 * servo motor can go to.
+	 * The available states that a {@code Part} can go to. If there is a {@code Part} that requires more than one servo
+     * motor to operate properly, then however many {@code ShortMessage}s can be added to the {@code Set} as required.
 	 */
 
 	final Map<Integer, Set<ShortMessage>> states = new LinkedHashMap<>();
@@ -70,10 +68,11 @@ public abstract class Part {
         } else { throw new InvalidParameterException("Invalid boundary values: " +
                 "\nlowerBound: " + lowerBound +
                 "\nupperBound: " + upperBound +
-                "\nCould not instantiate Movable Part."); }
+                "\nCould not instantiate Movable Part.");
+        }
         neutral = (upperBound + lowerBound) / 2;
-        for(int i = 0; i < (this.upperBound - this.lowerBound) + 1; ++i) {
-			try { states.put(i, new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, RuppetUtils.CHAN_1, midiNote, i + lowerBound)))); }
+        for (int i = 0; i < (this.upperBound - this.lowerBound) + 1; ++i) {
+			try { states.put(i, new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound)))); }
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		}
         ruppetParts.add(this);
@@ -117,7 +116,7 @@ public abstract class Part {
 	 */
 
 	public final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) {
-		if (validShortMessages(messages)) { messages.forEach(msg -> track.add(RuppetUtils.makeEvent(msg, tick))); }
+		if (validShortMessages(messages)) { messages.forEach(msg -> track.add(new MidiEvent(msg, tick))); }
 	}
 
     /**
@@ -201,7 +200,7 @@ public abstract class Part {
     }
 	
 	/**
-	 * Converts {@code velocity} into an index that corresponds to the
+	 * Converts {@code velocity} into an index that corresponds to the stat
 	 *  
 	 * @param velocity value that is to be converted to a {@code stateIndex}.
 	 * @return The {@code stateIndex}.
@@ -210,14 +209,14 @@ public abstract class Part {
 	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }
 
     /**
-     * Simply checks to see if the passed in velocity value is a valid velocity value for the current {@code Part}.
+     * Returns a {@code boolean} representing whether {@code velocity} is valid for the current {@code Part}.
      *
-     * @param velocity The velocity value that is to be checked
-     * @return A boolean value representing of the velocity value is a valid velocity value
+     * @param velocity value that is to be checked.
+     * @return A {@code boolean} representing whether {@code velocity} valid.
      */
 
     private boolean validVelocity(final int velocity) {
-        if (velocity >= RuppetUtils.MIN_VELOCITY && velocity <= RuppetUtils.MAX_VELOCITY) { return true; }
+        if (velocity >= Ruppet.MIN_VELOCITY && velocity <= Ruppet.MAX_VELOCITY) { return true; }
         else {
             System.out.println("Invalid velocity value: " + velocity);
             return false;
@@ -235,7 +234,7 @@ public abstract class Part {
      */
 
     private boolean validShortMessages(final Set<ShortMessage> messages) {
-        final Set<ShortMessage> state = states.get(velocityToStateIndex(RuppetUtils.getVelocityVal(messages.iterator().next())));
+        final Set<ShortMessage> state = states.get(velocityToStateIndex(getVelocityVal(messages.iterator().next())));
         return state.containsAll(messages);
     }
 
@@ -254,6 +253,15 @@ public abstract class Part {
         else { throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned."); }
     }
 
-} // end of Part class
+    /**
+     * Gets the velocity value associated with {@code msg}.
+     *
+     * @param msg whose velocity value will be returned.
+     * @return The velocity value of the {@code ShortMessage} as an {@code int}.
+     */
+
+    private static int getVelocityVal(final ShortMessage msg) { return msg.getData2(); }
+
+} // end of Part
 
 

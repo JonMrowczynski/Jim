@@ -2,14 +2,12 @@ package canisius.jim.parts;
 
 import canisius.jim.connections.UsbMidiDevice;
 import canisius.jim.ruppet.Ruppet;
-import canisius.jim.ruppet.RuppetUtils;
 
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -167,12 +165,9 @@ public final class Heart {
 	 */
 
 	private void readTimingLabels() {
-		try {
-		    RuppetUtils.checkFileExistence(emoteSaveFile);
-            try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
-                while(reader.hasNext()) { emotionTimingsMap.put((int) Math.round(reader.nextDouble() * 1000), reader.nextLine().trim()); }
-            } catch (FileNotFoundException ex) {ex.printStackTrace();}
-		} catch(IOException ex) {ex.printStackTrace();}
+		try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
+			while(reader.hasNext()) { emotionTimingsMap.put((int) Math.round(reader.nextDouble() * 1000), reader.nextLine().trim()); }
+		} catch (FileNotFoundException ex) {ex.printStackTrace();}
 	}
 		
 	/**
@@ -209,4 +204,4 @@ public final class Heart {
 
 	public final Track getEmotionTrack() { return emotionTrack; }
 
-} // end of Heart class
+} // end of Heart
