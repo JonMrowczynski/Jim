@@ -1,16 +1,15 @@
 package canisius.jim.parts;
 
-import canisius.jim.connections.UsbMidiDevice;
+import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  *	The {@code Heart} mainly deals with the {@code Emotion}al states of the {@code Ruppet} that can either be expressed
@@ -22,10 +21,11 @@ import java.util.Scanner;
 public final class Heart {
 	
 	/**
-	 * The {@code File} in which the name of the {@code File} for expressing emotions over a period of time is stored.
+	 * The {@code File} that contains the times and {@code String}s that represent the {@code Emotion}s that should be
+	 * transitioned to at the corresponding times.
 	 */
 
-	private static final File emoteSaveFile = new File("EmotionSaveFile.txt");
+	private static final File emotionTransitionTimesFile = new File("EmotionTransitionTimes.txt");
 
 	/**
 	 * The neutral {@code Emotion} state of the {@code Ruppet}.
@@ -58,7 +58,7 @@ public final class Heart {
 	private final Emotion scared;
 	
 	/**
-	 * The smile {@code Emotion} state of the {@code Ruppet}.
+	 * The smile "{@code Emotion}" state of the {@code Ruppet}.
 	 */
 	
 	private final Emotion smile;
@@ -70,19 +70,18 @@ public final class Heart {
 	private final Track emotionTrack;
 
     /**
-     * Maps times in ms to a {@code String} which represents the {@code Emotion} that should be transitioned to at the
-     * corresponding time.
+     * Maps {@code Integer} times in ms to a {@code String} that represents the {@code Emotion} that should be
+	 * transitioned to at the corresponding time.
      */
 
 	private final Map<Integer, String> emotionTimingsMap = new LinkedHashMap<>();
 
 	/**
-	 * This is the only constructor for the {@code Heart} class. It takes a {@code Track} as a parameter so that the
-     * {@code Heart} class can setup the emotions {@code Track} with {@code MidiEvent}s whose timings are set from the
-     * {@code emotionTimes ArrayList}.
+	 * Sets up each {@code Emotion} using the {@code Part}s of {@code ruppet}. {@code emotionTrack} is also setup
+	 * so that {@code Emotion}s can be transitioned to as part of a script.
 	 * 
 	 * @param ruppet that this {@code Heart} object belongs to.
-	 * @param actions that is used to create a {@code Track} to store all of the {@code Emotion} expression timings.
+	 * @param actions that is used to create a {@code Track} that stores all of the {@code Emotion} expression timings.
 	 */
 
     public Heart(final Ruppet ruppet, final Sequence actions) {
@@ -104,15 +103,15 @@ public final class Heart {
 	}
 	
 	/**
-	 * Display an {@code Emotion} on command.
+	 * Display {@code emotion}.
 	 * 
-	 * @param emotion The {@code Emotion} that the {@code Ruppet} is to feel.
+	 * @param emotion that the {@code Ruppet} is to feel.
 	 */
 
-	public final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> UsbMidiDevice.getInstance().send(msg)); }
+	public final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> UsbMidiConnection.getInstance().send(msg)); }
 
 	/**
-	 * Gets the neutral {@code Emotion} of the {@code Ruppet}.
+	 * Returns the {@code Ruppet}'s neutral {@code Emotion}.
 	 * 
 	 * @return The {@code Ruppet}'s neutral {@code Emotion}.
 	 */
@@ -120,7 +119,7 @@ public final class Heart {
 	public final Emotion getNeutral() { return neutral; }
 	
 	/**
-	 * Gets the happy {@code Emotion} of the {@code Ruppet}.
+	 * Returns the {@code Ruppet}'s happy {@code Emotion}.
 	 * 
 	 * @return The {@code Ruppet}'s happy {@code Emotion}.
 	 */
@@ -128,7 +127,7 @@ public final class Heart {
 	public final Emotion getHappy() { return happy;   }
 	
 	/**
-	 * Gets the sad {@code Emotion} of the {@code Ruppet}.
+	 * Returns the {@code Ruppet}'s sad {@code Emotion}.
 	 * 
 	 * @return The {@code Ruppet}'s sad {@code Emotion}.
 	 */
@@ -136,7 +135,7 @@ public final class Heart {
 	public final Emotion getSad() { return sad; }
 	
 	/**
-	 * Gets the angry {@code Emotion} of the {@code Ruppet}.
+	 * Returns the {@code Ruppet}'s angry {@code Emotion}.
 	 * 
 	 * @return The {@code Ruppet}'s angry {@code Emotion}.
 	 */
@@ -144,7 +143,7 @@ public final class Heart {
 	public final Emotion getAngry() { return angry; }
 	
 	/**
-	 * Gets the scared {@code Emotion} of the {@code Ruppet}.
+	 * Returns the {@code Ruppet}'s scared {@code Emotion}.
 	 * 
 	 * @return The {@code Ruppet}'s scared {@code Emotion}.
 	 */
@@ -152,22 +151,23 @@ public final class Heart {
 	public final Emotion getScared() { return scared; }
 	
 	/**
-	 * Gets the smile {@code Emotion} of the {@code Ruppet}.
+	 * Returns the {@code Ruppet}'s smile "{@code Emotion}".
 	 * 
-	 * @return The {@code Ruppet}'s smile {@code Emotion}.
+	 * @return The {@code Ruppet}'s smile "{@code Emotion}".
 	 */
 	
 	public final Emotion getSmile() { return smile; }
 	
 	/**
-	 * Reads {@code Emotion} states and transition timings from a text file and stores that data into
-     * {@code emotionTimingsMap}.
+	 * Reads the {@code Emotion} states and corresponding transition timings from a text file and stores that data in
+	 * {@code emotionTimingsMap}.
 	 */
 
 	private void readTimingLabels() {
-		try (final Scanner reader = new Scanner(new FileReader(emoteSaveFile))) {
-			while(reader.hasNext()) { emotionTimingsMap.put((int) Math.round(reader.nextDouble() * 1000), reader.nextLine().trim()); }
-		} catch (FileNotFoundException ex) {ex.printStackTrace();}
+		try {
+			Files.readAllLines(emotionTransitionTimesFile.toPath()).stream().map(line -> line.split(" "))
+					.forEach(splitLine -> emotionTimingsMap.put((int) Math.round(Double.parseDouble(splitLine[0]) * 1000), splitLine[1].trim()));
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 		
 	/**
@@ -178,7 +178,7 @@ public final class Heart {
 	    for (final Map.Entry<Integer, String> entry : emotionTimingsMap.entrySet()) {
 	        final String emotion = entry.getValue();
 	        final int emotionTransitionTime = entry.getKey();
-            switch(emotion.toUpperCase()) {
+            switch (emotion.toUpperCase()) {
                 case "HAPPY": happy.addEmotionToTrack(emotionTrack, emotionTransitionTime);       break;
                 case "SAD": sad.addEmotionToTrack(emotionTrack, emotionTransitionTime);           break;
                 case "ANGRY": angry.addEmotionToTrack(emotionTrack, emotionTransitionTime);       break;
@@ -197,9 +197,9 @@ public final class Heart {
 	}
 
 	/**
-	 * Gets the {@code Track} that contains all of the {@code Emotion} transition timings.
+	 * Returns the {@code Track} that contains all of the {@code Emotion} transition timings.
 	 *
-	 * @return The {@code Track} that stores the {@code Emotion} transition timings.
+	 * @return The {@code Track} that contains all of the {@code Emotion} transition timings.
 	 */
 
 	public final Track getEmotionTrack() { return emotionTrack; }

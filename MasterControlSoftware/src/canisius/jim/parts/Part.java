@@ -1,6 +1,6 @@
 package canisius.jim.parts;
 
-import canisius.jim.connections.UsbMidiDevice;
+import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -13,13 +13,14 @@ import java.util.*;
 /**
  * This class provides the framework for the components of the {@code Ruppet} that are operated by the microcontroller.
  *
- * The two-dimensional array {@code states} contain {@code ShortMessage}s represent a certain state for the component.
+ * The {@code List} {@code states} contains {@code Set}s of {@code ShortMessage}s where each {@code Set} represents a
+ * state of this {@code Part}.
  *
- * For the parts that move due to changes in the angular position of one or more servo motors, {@code states} represent
- * the angular positions of the servo motors.
+ * For the parts that move due to changes in the angular position of one or more servo motors, or {@code Movable}s,
+ * {@code states} represents the possible angular positions of those servo motors.
  *
- * For the lights, {@code states} represents the brightness levels. Currently the lights are digitally operated
- * so the only meaningful states would be the first and last elements in the array.
+ * For {@code Lights}, {@code states} represents the brightness levels. Currently the lights are digitally operated so
+ * the only meaningful states would be the first and last elements in the {@code List} {@code states}.
  *
  *	@author Jon Mrowcsynski
  */
@@ -27,39 +28,41 @@ import java.util.*;
 public abstract class Part {
 	
 	/**
-	 * The highest velocity value that this {@code Part} can go to.
+	 * The highest velocity value that represents one bounding state for this {@code Part}.
 	 */
 
     private final int upperBound;
 	
 	/**
-	 * The lowest velocity value that this {@code Part} can go to.
+	 * The lowest velocity value that represents the other bounding state for this {@code Part}.
 	 */
 
     private final int lowerBound;
 
     /**
-     * The neutral velocity value of this {@code Part}.
+     * The neutral velocity value that represents a "middle" or "resting" state for this {@code Part}.
      */
 
     private int neutral;
 
 	/**
-	 * The available states that a {@code Part} can go to. If there is a {@code Part} that requires more than one servo
-     * motor to operate properly, then however many {@code ShortMessage}s can be added to the {@code Set} as required.
+	 * The {@code List} that contains the available states that a {@code Part} can go to. If there is a {@code Part}
+     * that requires n servo motors to operate properly, then n {@code ShortMessage}s can be added to the {@code Set}s.
 	 */
 
-	final Map<Integer, Set<ShortMessage>> states = new LinkedHashMap<>();
+	final List<Set<ShortMessage>> states = new ArrayList<>();
 	
 	/**
-	 * This initializes all of the states that the {@code Part} can go to. It also 
-	 * adds the part to the {@code Ruppet}'s {@code ArrayList}.
+	 * Initializes all of the states that this {@code Part} can go to. It also adds this {@code Part} to the
+     * {@code Ruppet}'s {@code Part}'s {@code List} and sets {@code neutral} to the average of {@code lowerBound} and
+     * {@code upperBound}.
 	 * 
-	 * @param ruppetParts The {@code ArrayList} that represents all of the {@code Part}s of a {@code Ruppet}.
-	 * @param midiNote The corresponding MIDI note that is used to operate a given component to a {@code Part}.
+	 * @param ruppetParts of all of the {@code Part}s of a {@code Ruppet} that this {@code Part} is to be added to.
+	 * @param midiNote The corresponding MIDI note that is used to operate this {@code Part}.
+     * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values.
 	 */
 
-	Part(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) {
+	Part(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
         if (lowerBound <= upperBound) {
             if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
             else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
@@ -72,17 +75,17 @@ public abstract class Part {
         }
         neutral = (upperBound + lowerBound) / 2;
         for (int i = 0; i < (this.upperBound - this.lowerBound) + 1; ++i) {
-			try { states.put(i, new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound)))); }
+			try { states.add(new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound)))); }
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		}
         ruppetParts.add(this);
     }
 
     /**
-     * Sets the neutral position of this {@code Movable}.
+     * Sets the neutral velocity value of this {@code Part}.
      *
-     * @param newNeutral position of this {@code Movable}.
-     * @throws InvalidParameterException if {@code newNeutral} value is an invalid value for {@code neutral}.
+     * @param newNeutral velocity value of this {@code Part}.
+     * @throws InvalidParameterException if {@code newNeutral} value is invalid.
      */
 
     public final void setNeutral(final int newNeutral) throws InvalidParameterException {
@@ -93,26 +96,24 @@ public abstract class Part {
     }
 	
 	/**
-	 * Performs a similar task as the other {@code toState} method, however, it accomplishes the task with the
-     * {@code velocity} value instead, but only if that {@code velocity} value is a valid {@code velocity} value for the
-     * corresponding {@code Part}. The method figures out what state is specified by the passed in {@code velocity} by
-     * converting the {@code velocity} value to a {@code Part} state by calling the {@code velocityToStateIndex} method.
+     * Sets the state of this {@code Part} to the state that corresponds to the {@code velocity} value, but only if that
+     * {@code velocity} value is valid for this {@code Part}.
 	 * 
-	 * @param velocity The {@code velocity} value that is to be converted to a {@code stateIndex}
+	 * @param velocity value that is to be converted to a {@code stateIndex}.
+     * @see #velocityToStateIndex(int)
 	 */
 
 	final void toState(final int velocity) {
-		if (validVelocity(velocity)) { states.get(velocityToStateIndex(velocity)).forEach(msg -> UsbMidiDevice.getInstance().send(msg)); }
+		if (validVelocity(velocity)) { states.get(velocityToStateIndex(velocity)).forEach(msg -> UsbMidiConnection.getInstance().send(msg)); }
 	}
 	
 	/**
-	 * Simply adds the passed in state (which is represented by an array of {@code ShortMessage}s)
-	 * to a given {@code Track} at a specified time (tick). However, this is only done if the passed in
-	 * state is a valid state for the given {@code Part}.
+	 * Adds the passed in state (which is represented by a {@code Set} of {@code ShortMessage}s) to {@code track} at a
+     * specified time ({@code tick}). However, this is only done if the passed in state is valid for this {@code Part}.
 	 * 
-	 * @param track that is to have {@code ShortMessage}s added to it
-	 * @param messages that are to be added to the {@code Track}
-	 * @param tick of the {@code ShortMessage}s.
+	 * @param track that is to have {@code ShortMessage}s added to it.
+	 * @param messages that are to be added to the {@code Track}.
+	 * @param tick of that the {@code ShortMessage}s should be played at from the start of the {@code Track}.
 	 */
 
 	public final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) {
@@ -120,78 +121,78 @@ public abstract class Part {
 	}
 
     /**
-     * Moves the {@code Movable} to one of its most extreme angular positions.
+     * Transitions the {@code {Part}} to one of its bounding states.
      */
 
     public final void toUpperBound() { toState(upperBound); }
 
     /**
-     * Moves the {@code Movable} to its other most extreme angular position that is in the opposite direction.
+     * Transitions the {@code Part} to its other bounding state.
      */
 
     public final void toLowerBound() { toState(lowerBound); }
 
     /**
-     * Moves the {@code Movable} to its neutral angular position.
+     * Transitions the {@code Part} to its neutral state.
      */
 
     public void toNeutral() { toState(neutral); }
 
     /**
-     * Gets the state that represents the maximum position that the {@code Movable} can move to in one direction.
+     * Returns the state that represents one bounding state of this {@code Part}.
      *
-     * @return The state that represents the upper bound of the {@code Movable}.
+     * @return The state that represents one bounding state of this {@code Part}.
      */
 
     public final Set<ShortMessage> getUpperBoundState() { return getState(upperBound); }
 
     /**
-     * Gets the state the represents the maximum position that the {@code Movable} can move to in the other direction.
+     * Returns the state the represents the other bounding state of this {@code Part}.
      *
-     * @return The state the represents the lower bound of the {@code Movable}.
+     * @return The state the represents the other bounding state of this {@code Part}.
      */
 
     public final Set<ShortMessage> getLowerBoundState() { return getState(lowerBound); }
 
     /**
-     * Gets the state the represents the neutral position of the {@code Movable}.
+     * Returns the state the represents the neutral state of this {@code Part}.
      *
-     * @return The state that represents the neutral position of the {@code Movable}.
+     * @return The state that represents the neutral state of this {@code Part}.
      */
 
     final Set<ShortMessage> getNeutralState() { return getState(neutral); }
 
     /**
-     * Gets the upper bound value for the {@code Movable}.
+     * Returns the {@code upperBound} {@code PartState} of this {@code Part}.
      *
-     * @return The {@code int} that represents the upper bound of the {@code Movable}.
+     * @return The {@code upperBound} {@code PartState} of this {@code Part}.
      */
 
     final PartState getUpperBoundPartState() { return getPartState(upperBound); }
 
     /**
-     * Gets the lower bound value for the {@code Movable}.
+     * Returns the {@code lowerBound} {@code PartState} of this {@code Part}.
      *
-     * @return The {@code int} that represents the lower bound of the {@code Movable}.
+     * @return The {@code lowerBound} {@code PartState} of this {@code Part}.
      */
 
     final PartState getLowerBoundPartState() { return getPartState(lowerBound); }
 
     /**
-     * Gets the state that represents the {@code Movable}'s neutral position.
+     * Returns the {@code neutral} {@code PartStat} of this {@code Part}.
      *
-     * @return The state that represents the {@code Movable}'s neutral position.
+     * @return The {@code neutral} {@code PartState} of this {@code Part}.
      */
 
     final PartState getNeutralPartState() { return new PartState(this, getState(neutral)); }
 
     /**
-     * Gets the corresponding part state associated with the given velocity value if the velocity value is a valid
-     * velocity value. Otherwise, an {@code InvalidParameterException} is thrown.
+     * Returns the corresponding {@code PartState} associated with the {@code velocity} if {@code velocity} is a valid
+     * value.
      *
-     * @param velocity The representation of an angular position of a servo arm
-     * @return The {@code PartState} that represents the state of the corresponding {@code Ruppet Part}
-     * @throws InvalidParameterException if {@code velocity} is an invalid velocity value.
+     * @param velocity value that maps to the returned {@code PartState}.
+     * @return The {@code PartState} that corresponds to {@code velocity}.
+     * @throws InvalidParameterException if {@code velocity} is a invalid.
      */
 
     private PartState getPartState(final int velocity) throws InvalidParameterException {
@@ -200,19 +201,19 @@ public abstract class Part {
     }
 	
 	/**
-	 * Converts {@code velocity} into an index that corresponds to the stat
+	 * Converts {@code velocity} into an index in {@code states}.
 	 *  
-	 * @param velocity value that is to be converted to a {@code stateIndex}.
-	 * @return The {@code stateIndex}.
+	 * @param velocity value that maps to an index in {@code states}.
+	 * @return An {@code int} representing an index in {@code states}.
 	 */
 
 	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }
 
     /**
-     * Returns a {@code boolean} representing whether {@code velocity} is valid for the current {@code Part}.
+     * Returns a {@code boolean} representing whether {@code velocity} is valid for this {@code Part}.
      *
      * @param velocity value that is to be checked.
-     * @return A {@code boolean} representing whether {@code velocity} valid.
+     * @return A {@code boolean} representing whether {@code velocity} is valid.
      */
 
     private boolean validVelocity(final int velocity) {
@@ -224,9 +225,8 @@ public abstract class Part {
     }
 
     /**
-     * Determine whether the messages that were passed in are defined in the states of the 2D array for the
-     * given {@code Part}. If any of them are not, then the {@code ShortMessage}s are not valid, else,
-     * the {@code ShortMessage}s are valid.
+     * Returns a {@code boolean} representing whether {@code messages} are contained in {@code states} for this
+     * {@code Part}. If any of them are not, then {@code messages} are not valid. Otherwise, {@code messages} are valid.
      *
      * @param messages The {@code Set} of {@code ShortMessage}s that are to be checked for validity.
      * @return a {@code boolean} representing whether the given {@code Set} of {@code ShortMessage}s is a valid group of
@@ -254,10 +254,10 @@ public abstract class Part {
     }
 
     /**
-     * Gets the velocity value associated with {@code msg}.
+     * Returns the velocity value associated with {@code msg}.
      *
      * @param msg whose velocity value will be returned.
-     * @return The velocity value of the {@code ShortMessage} as an {@code int}.
+     * @return The velocity value of {@code msg} as an {@code int}.
      */
 
     private static int getVelocityVal(final ShortMessage msg) { return msg.getData2(); }

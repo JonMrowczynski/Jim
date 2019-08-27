@@ -3,8 +3,8 @@ package canisius.jim.connections;
 import javax.sound.midi.MidiDevice;
 
 /**
- * A {@code MidiDeviceConnection} allows one to connect to and disconnect from an instance of a {@code MidiDevice}. This
- * {@code MidiDevice} should not be instantiated directly, but rather acquired from the {@code MidiSystem}.
+ * A {@code MidiDeviceConnection} allows one to connect to and disconnect from an instance of a {@code MidiDevice} that
+ * is acquired from the {@code MidiSystem}.
  *
  * @author Jon Mrowczynski
  */
@@ -12,7 +12,7 @@ import javax.sound.midi.MidiDevice;
 public abstract class MidiDeviceConnection<T extends MidiDevice> {
 
     /**
-     * The {@code MidiDevice} that a connection has been made to.
+     * The {@code MidiDevice} that has been connected.
      */
 
     T midiDevice;
@@ -42,7 +42,7 @@ public abstract class MidiDeviceConnection<T extends MidiDevice> {
     /**
      * Returns the {@code MidiDevice} if {@code connect} has been called. Otherwise, {@code null} is returned.
      *
-     * @return the {@code MidiDevice} that has been connected to or {@code null}.
+     * @return the connected {@code MidiDevice} or {@code null}.
      */
 
     public final T getMidiDevice() { return midiDevice; }

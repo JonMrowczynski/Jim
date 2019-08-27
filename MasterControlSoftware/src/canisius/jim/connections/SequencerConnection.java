@@ -3,28 +3,28 @@ package canisius.jim.connections;
 import javax.sound.midi.*;
 
 /**
- * {@code MidiSequencer} is a singleton class that allows one to make a connection to the system's default
+ * {@code SequencerConnection} is a singleton class that allows one to make a connection to the system's default
  * {@code Sequencer} in order to store sequenced commands for the {@code Ruppet} in the form of {@code MidiEvent}s.
  * This allows the {@code Ruppet} to automatically run scripts.
  *
  * @author Jon Mrowczynski
  */
 
-public class MidiSequencer extends MidiDeviceConnection<Sequencer> {
+public class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 
     /**
-     * The singleton {@code MidiSequencer} instance.
+     * The singleton {@code SequencerConnection} instance.
      */
 
-    private static final MidiSequencer midiSequencer = new MidiSequencer();
+    private static final SequencerConnection SEQUENCER_CONNECTION = new SequencerConnection();
 
     /**
-     * Returns the singleton {@code MidiSequencer} instance.
+     * Returns the singleton {@code SequencerConnection} instance.
      *
-     * @return the singleton {@code MidiSequencer} instance.
+     * @return the singleton {@code SequencerConnection} instance.
      */
 
-    public static MidiSequencer getInstance() { return midiSequencer; }
+    public static SequencerConnection getInstance() { return SEQUENCER_CONNECTION; }
 
     /**
      * Connects to the system's default {@code Sequencer} and disconnects it from the default {@code Synthesizer}. This
@@ -46,7 +46,7 @@ public class MidiSequencer extends MidiDeviceConnection<Sequencer> {
     /**
      * Sets the {@code Receiver} that should receive the sequenced {@code MidiMessage}s.
      *
-     * @param receiver that should receive {@code MidiMessage}s from this {@code MidiSequencer}.
+     * @param receiver that should receive {@code MidiMessage}s from this {@code SequencerConnection}.
      * @see javax.sound.midi.Transmitter#setReceiver(Receiver)
      */
 
@@ -55,4 +55,4 @@ public class MidiSequencer extends MidiDeviceConnection<Sequencer> {
         catch (MidiUnavailableException e) { e.printStackTrace(); }
     }
 
-} // end of MidiSequencer
+} // end of SequencerConnection

@@ -1,6 +1,6 @@
 package canisius.jim.ruppet;
 
-import canisius.jim.connections.UsbMidiDevice;
+import canisius.jim.connections.UsbMidiConnection;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -102,7 +102,7 @@ public class RuppetTester extends Application {
 		stage.setScene(manualControlScene);
 		stage.sizeToScene();
 		stage.setResizable(false);
-		stage.setOnCloseRequest(windowEvent -> UsbMidiDevice.getInstance().disconnect());
+		stage.setOnCloseRequest(windowEvent -> UsbMidiConnection.getInstance().disconnect());
 		stage.show();
 		
 	} // end of manualOperationSceneSetup
@@ -140,7 +140,7 @@ public class RuppetTester extends Application {
 		GridPane.setHalignment(button, HPos.LEFT);
 		try {
 			final ShortMessage msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, velocity);
-			button.setOnAction(actionEvent -> UsbMidiDevice.getInstance().send(msg));
+			button.setOnAction(actionEvent -> UsbMidiConnection.getInstance().send(msg));
 		} catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		return button;
 	}
@@ -253,7 +253,7 @@ public class RuppetTester extends Application {
 				alert.showAndWait();
 				return;
 			}
-			try { Arrays.stream(makeMessages()).forEach(msg -> UsbMidiDevice.getInstance().send(msg)); }
+			try { Arrays.stream(makeMessages()).forEach(msg -> UsbMidiConnection.getInstance().send(msg)); }
 			catch (InvalidMidiDataException e) { e.printStackTrace(); }
 			actionListener.consume();
 		});

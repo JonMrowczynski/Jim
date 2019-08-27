@@ -4,8 +4,8 @@ import javax.sound.midi.ShortMessage;
 import java.util.Set;
 
 /**
- * A {@code PartState} pairs a {@code Part} with a state that the part can be in. A state state is represented by a
- * {@code Set} of {@code ShortMessage}s that are to be sent to the electronics.
+ * A {@code PartState} pairs a {@code Part} with a state that the part can be in. A state is represented by a
+ * {@code Set} of {@code ShortMessage}s that can be sent to the electronics.
  * 
  * @author Jon Mrowczynski
  */
@@ -41,7 +41,7 @@ final class PartState {
 	}
 
 	/**
-	 * Gets the {@code Part} of the {@code PartState} pair.
+	 * Returns the {@code Part} of the {@code PartState} pair.
 	 * 
 	 * @return The {@code Part} of the {@code PartState} pair.
 	 */
@@ -49,7 +49,7 @@ final class PartState {
 	final Part getPart() { return part; }
 	
 	/**
-	 * Gets the {@code Set} of {@code ShortMessage}s that represents the state of the {@code PartState} pair.
+	 * Returns the {@code Set} of {@code ShortMessage}s that represents the state of the {@code PartState} pair.
 	 * 
 	 * @return The {@code Set} of {@code ShortMessage}s that represents the state of the {@code PartState} pair.
 	 */

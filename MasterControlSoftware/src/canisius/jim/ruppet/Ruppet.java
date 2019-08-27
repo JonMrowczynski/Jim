@@ -1,7 +1,7 @@
 package canisius.jim.ruppet;
 
-import canisius.jim.connections.MidiSequencer;
-import canisius.jim.connections.UsbMidiDevice;
+import canisius.jim.connections.SequencerConnection;
+import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.parts.*;
 
 import javax.sound.midi.*;
@@ -16,8 +16,8 @@ import java.util.*;
  * The second mode is the Facial Action Unit (FAS) mode where the user can input a number from the keyboard to get the
  * {@code Ruppet} to display the FAU that corresponds to the number that was inputted.
  *
- * The third mode allows the {@code Ruppet} to run the script that Steve was able to record where the {@code Ruppet}'s
- * {@code lowerJaw} movements are synchronized with Steve's voice.
+ * The third mode allows the {@code Ruppet} to run Steve's script where the {@code Ruppet}'s {@code lowerJaw} movements
+ * are synchronized with Steve's voice.
  *
  * The fourth mode allows the {@code Ruppet} to mirror the emotion that it thinks the individual is expressing.
  *
@@ -175,9 +175,9 @@ public final class Ruppet {
 		 * such that we would get 1 tick per ms.
 		 * ticksPerSecond = 160 * (375 / 60.0) = 1,000[ticks/s] = 1[tick/ms]
 		 */
-        MidiSequencer.getInstance().setReceiver(UsbMidiDevice.getInstance().getUsbReceiver());
-        MidiSequencer.getInstance().getMidiDevice().setTempoInBPM(375);
-        MidiSequencer.getInstance().getMidiDevice().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+        SequencerConnection.getInstance().setReceiver(UsbMidiConnection.getInstance().getUsbReceiver());
+        SequencerConnection.getInstance().getMidiDevice().setTempoInBPM(375);
+        SequencerConnection.getInstance().getMidiDevice().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
         Sequence actions;
 		try {
 			actions = new Sequence(Sequence.PPQ, 160);
@@ -193,9 +193,9 @@ public final class Ruppet {
              * Now that all of the Sequence's Tracks have been filled with MidiEvents, add the Sequence to the
              * Sequencer, otherwise, MidiEvents will not be stored in the Tracks.
              */
-            MidiSequencer.getInstance().getMidiDevice().setSequence(actions);
+            SequencerConnection.getInstance().getMidiDevice().setSequence(actions);
             // Mute all of the tracks so that they are not unintentionally all playing at once
-			tracks.forEach(track -> MidiSequencer.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
+			tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
             deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
         } catch(InvalidMidiDataException e) { e.printStackTrace();}
 		final ReleaseSoul releaseSoul = new ReleaseSoul();
@@ -209,7 +209,7 @@ public final class Ruppet {
 	public final void live() {
 		int choice = -1;
 		lights.on();
-		MidiSequencer.getInstance().getMidiDevice().start();
+		SequencerConnection.getInstance().getMidiDevice().start();
 		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
 		do {
 			deSoloAllTracks(tracks);
@@ -276,7 +276,7 @@ public final class Ruppet {
 	} // end of manualEmotionDemoMode
 
 	/**
-	 * Allows the user to determine which FAU they would like the {@code Ruppet} to display on command using a CLI.
+	 * Allows the user to determine which FAU they would like the {@code Ruppet} to display using a CLI.
 	 */
 
 	private void manualFAUDemoMode() {
@@ -327,8 +327,8 @@ public final class Ruppet {
 
 	private void runSteveScripts() {
 		System.out.println();
-		MidiSequencer.getInstance().getMidiDevice().stop();
-		MidiSequencer.getInstance().getMidiDevice().setMicrosecondPosition(0);
+		SequencerConnection.getInstance().getMidiDevice().stop();
+		SequencerConnection.getInstance().getMidiDevice().setMicrosecondPosition(0);
 		voice.givePresentation();
 	}
 
@@ -348,8 +348,9 @@ public final class Ruppet {
 	}
 
 	/**
-	 * Terminates the connections made with the USB {@code MidiDevice} and {@code Sequencer} while also terminating the
-	 * program. The Shutdown Hook is always called when the program is terminated using {@code System.exit(0)}.
+	 * Terminates the {@code UsbMidiConnection} and {@code SequencerConnection} if they were made while also terminating
+	 * the program. This is done through the Shutdown Hook since it is always called when the program is terminated
+	 * using {@code System.exit(0)}.
 	 */
 
 	private void goToSleep() {
@@ -359,15 +360,15 @@ public final class Ruppet {
 	}
 
 	/**
-	 * Gets all of this {@code Ruppet}'s {@code Track}s.
+	 * Returns a {@code List} of all of this {@code Ruppet}'s {@code Track}s.
 	 * 
-	 * @return all of this {@code Ruppet}'s {@code Track}s.
+	 * @return A {@code List} of all of this {@code Ruppet}'s {@code Track}s.
 	 */
 	
 	public final List<Track> getTracks() { return tracks; }
 
     /**
-     * Gets this {@code Ruppet}'s {@code Heart}.
+     * Returns this {@code Ruppet}'s {@code Heart}.
      *
      * @return This {@code Ruppet}'s {@code Heart}.
      */
@@ -375,7 +376,7 @@ public final class Ruppet {
 	public final Heart getHeart() { return heart; }
 	
 	/**
-	 * Gets this {@code Ruppet}'s {@code lowerJaw}.
+	 * Returns this {@code Ruppet}'s {@code lowerJaw}.
 	 * 
 	 * @return This {@code Ruppet}'s {@code lowerJaw}.
 	 */
@@ -383,7 +384,7 @@ public final class Ruppet {
 	public final Movable getLowerJaw() { return lowerJaw; }
 	
 	/**
-	 * Gets this {@code Ruppet}'s {@code lipCorners}.
+	 * Returns this {@code Ruppet}'s {@code lipCorners}.
 	 * 
 	 * @return This {@code Ruppet}'s {@code lipCorners}.
 	 */
@@ -391,7 +392,7 @@ public final class Ruppet {
 	public final Movable getLipCorners() { return lipCorners; }
 	
 	/**
-	 * Gets this {@code Ruppet's }{@code eyebrows}
+	 * Returns this {@code Ruppet's }{@code eyebrows}
 	 * 
 	 * @return This {@code Ruppet}'s {@code eyebrows}.
 	 */
@@ -399,7 +400,7 @@ public final class Ruppet {
 	public final Movable getEyebrows() { return eyebrows; }
 	
 	/**
-	 * Gets this {@code Ruppet}'s {@code eyelids}.
+	 * Returns this {@code Ruppet}'s {@code eyelids}.
 	 * 
 	 * @return This {@code Ruppet}'s {@code eyelids}.
 	 */
@@ -407,7 +408,7 @@ public final class Ruppet {
 	public final Movable getEyelids() { return eyelids; }
 	
 	/**
-	 * Gets all of this {@code Ruppet}'s {@code Part}s.
+	 * Returns all of this {@code Ruppet}'s {@code Part}s.
 	 * 
 	 * @return all of this {@code Ruppet}'s {@code Part}s.
 	 */
@@ -415,8 +416,8 @@ public final class Ruppet {
 	public final List<Part> getParts() { return parts; }
 	
 	/**
-	 * Fills the blinking {@code Track} with MIDI data. The blinking effect is created by turning on and off the two
-     * LED's in the {@code Ruppet}'s eyes.
+	 * Fills {@code blinkingTrack} with MIDI data. The blinking effect is created by turning on and off the two LED's in
+	 * the {@code Ruppet}'s eyes.
 	 * 
 	 * @param blinkingTrack that contains the timings for the blinking.
 	 */
@@ -439,13 +440,13 @@ public final class Ruppet {
 	}
 
 	/**
-	 * Sets all of the {@code Track}s in the {@code Ruppet}'s {@code Sequence} to not soloed.
+	 * Sets all {@code track}s to not soloed.
 	 *
 	 * @param tracks that are to be not soloed.
 	 */
 
 	private static void deSoloAllTracks(final List<Track> tracks) {
-		tracks.forEach(track -> MidiSequencer.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
+		tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
 	}
 
 	/**
@@ -459,8 +460,7 @@ public final class Ruppet {
 	private static int getRandInt(final int min, final int max) { return (new Random()).nextInt((max - min) + 1) + min; }
 
 	/**
-	 * Sets all of the {@code Track}s in the {@code Ruppet}'s {@code Sequence} to not soloed except for the given
-	 * {@code soloTrack}.
+	 * Sets all of the {@code track}s to not soloed except for the given {@code soloTrack}.
 	 *
 	 * @param tracks that are to be set to not soloed.
 	 * @param soloTrack that is to be left alone.
@@ -470,15 +470,15 @@ public final class Ruppet {
 		final int soloTrackIndex = tracks.indexOf(soloTrack);
 		tracks.forEach(track -> {
 			final int currentTrackIndex = tracks.indexOf(track);
-			if (currentTrackIndex == soloTrackIndex) { MidiSequencer.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
-			else { MidiSequencer.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
+			if (currentTrackIndex == soloTrackIndex) { SequencerConnection.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
+			else { SequencerConnection.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
 		});
 	}
 
 	/**
-	 * Halts the program for a user defined amount of time in milliseconds.
+	 * Halts the program for {@code ms} milliseconds.
 	 *
-	 * @param ms that the program should pause.
+	 * @param ms that the program should paused.
 	 */
 
 	public static void pause_ms(final int ms) {
@@ -487,9 +487,9 @@ public final class Ruppet {
 	}
 
 	/**
-     * If the program terminates and one or more motors are being operated, no note off MIDI messages will be sent to
-     * shut off the motors and they can potentially strain themselves depending on their last state! Therefore, a
-     * Shutdown Hook is implemented to prevent this from occurring.
+     * If the program terminates and one or more {@code Part}s are being operated, no note off {@code MidiMessage}s will
+	 * be sent to shut off those {@code Part}s and they can potentially strain the {@code Ruppet}'s mechanisms depending
+	 * on their last state! Therefore, a Shutdown Hook is implemented to prevent this from occurring.
 	 *			
 	 * The master reset button can be pressed to accomplish the same thing. However, why do something yourself when you
      * can get a computer to do it for you?
@@ -501,8 +501,8 @@ public final class Ruppet {
 			deSoloAllTracks(tracks);
 			reader.close();
 			parts.forEach(Part::toNeutral);
-			UsbMidiDevice.getInstance().disconnect();
-			MidiSequencer.getInstance().disconnect();
+			UsbMidiConnection.getInstance().disconnect();
+			SequencerConnection.getInstance().disconnect();
 		}
 	}
 

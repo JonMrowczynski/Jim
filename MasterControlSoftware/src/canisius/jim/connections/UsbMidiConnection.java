@@ -9,30 +9,30 @@ import javax.sound.midi.*;
 import javax.sound.midi.MidiDevice.Info;
 
 /**
- * {@code UsbMidiDevice} is a singleton class that allows one to make a connection to a USB {@code MidiDevice} in order
- * to control the {@code Ruppet} by transmitting {@code MidiMessage}s to the electronics.
+ * {@code UsbMidiConnection} is a singleton class that allows one to make a connection to a USB {@code MidiDevice} in
+ * order to control the {@code Ruppet} by transmitting {@code MidiMessage}s to the electronics.
  * 
  * @author Jon Mrowczynski
  */
 
-public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
+public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 
 	/**
-	 * The singleton {@code UsbMidiDevice} instance.
+	 * The singleton {@code UsbMidiConnection} instance.
 	 */
 
-	private static final UsbMidiDevice usbMidiDevice = new UsbMidiDevice();
+	private static final UsbMidiConnection USB_MIDI_CONNECTION = new UsbMidiConnection();
 
 	/**
-	 * Returns the singleton {@code UsbMidiDevice} instance.
+	 * Returns the singleton {@code UsbMidiConnection} instance.
 	 *
-	 * @return the singleton {@code UsbMidiDevice} instance.
+	 * @return the singleton {@code UsbMidiConnection} instance.
 	 */
 
-	public static UsbMidiDevice getInstance() { return usbMidiDevice; }
+	public static UsbMidiConnection getInstance() { return USB_MIDI_CONNECTION; }
 	
 	/**
-	 * The {@code Receiver} of the acquired {@code UsbMidiDevice}.
+	 * The {@code Receiver} of the acquired {@code UsbMidiConnection}.
 	 */
 	
 	private Receiver usbMidiDeviceReceiver;
@@ -58,7 +58,7 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 				}
 			}	
 			if (midiDevice == null) {
-				new ErrorAlert("Error Connecting to USB MIDI Device",
+				new UsbMidiConnectionAlert("Error Connecting to USB MIDI Device",
 					"Make sure that the USB to MIDI cable is plugged in before retrying.");
 			}
 		} while (midiDevice == null);
@@ -66,7 +66,7 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 			if (!midiDevice.isOpen()) {
 				try { midiDevice.open(); }
 				catch (MidiUnavailableException e) {
-					new ErrorAlert("Error opening USB to MIDI device",
+					new UsbMidiConnectionAlert("Error opening USB to MIDI device",
 						"Close any programs that may be using the USB to MIDI device before retrying.");
 				}
 			}
@@ -87,31 +87,31 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 	public final void send(final MidiMessage midiMessage) throws NullPointerException { usbMidiDeviceReceiver.send(midiMessage, -1); }
 
 	/**
-	 * Returns the {@code Receiver} of the {@code usbMidiDevice} after {@code connect} has been called. Otherwise,
+	 * Returns the {@code Receiver} of the {@code USB_MIDI_CONNECTION} after {@code connect} has been called. Otherwise,
 	 * {@code null} is returned.
 	 *
-	 * @return The {@code Receiver} to the {@code usbMidiDevice}.
+	 * @return The {@code Receiver} to the {@code USB_MIDI_CONNECTION} or {@code null}.
 	 */
 
 	public final Receiver getUsbReceiver() { return usbMidiDeviceReceiver; }
 
 	/**
-	 * Presents the user with an {@code AlertType.ERROR Alert Dialog} that allows the user to either retry whatever
-	 * operation was performed or close the program.
+	 * Presents the user with an {@code AlertType.ERROR Alert Dialog} that allows them to either retry to form a
+	 * {@code UsbMidiConnection} or close the program.
 	 *
 	 * @author Jon Mrowczynski
 	 */
 
-	private static final class ErrorAlert extends Alert {
+	private static final class UsbMidiConnectionAlert extends Alert {
 
 		/**
-		 * Constructs a new {@code ErrorAlert} and waits for user input.
+		 * Constructs a new {@code UsbMidiConnectionAlert} and waits for user input.
 		 *
-		 * @param headerText for the {@code ErrorAlert}.
-		 * @param contentText for the {@code ErrorAlert}.
+		 * @param headerText for the {@code UsbMidiConnectionAlert}.
+		 * @param contentText for the {@code UsbMidiConnectionAlert}.
 		 */
 
-		ErrorAlert(final String headerText, final String contentText) {
+		UsbMidiConnectionAlert(final String headerText, final String contentText) {
 			super(AlertType.ERROR);
 			setTitle("Error Dialog");
 			setHeaderText(headerText);
@@ -125,6 +125,6 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 				}
 			});
 		}
-	} // end of ErrorAlert
+	} // end of UsbMidiConnectionAlert
 	
-} // end of UsbMidiDevice
+} // end of UsbMidiConnection

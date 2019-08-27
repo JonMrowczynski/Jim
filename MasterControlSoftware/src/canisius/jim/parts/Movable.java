@@ -6,30 +6,30 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
- * 	A {@code Movable} is a component of the {@code Ruppet} that can be controlled by one or more servo motors. If the
- * 	{@code Movable} requires two servo motors to be operated, then the states for the second servo motor depends on
- * 	whether the motion of the servo motors will be in parallel or antiparallel with one another. If their motion is in
- * 	parallel, then the velocity values will be the same as the first servo motors'. If the motion is antiparallel, then
- * 	the velocity values will be inversely related.
+ * A {@code Movable} is a component of the {@code Ruppet} that can be controlled by one or more servo motors. If the
+ * {@code Movable} requires two servo motors to be operated, then the states for the second servo motor depends on
+ * whether the motion of the servo motors will be in parallel or antiparallel with one another. If their motion is in
+ * parallel, then the velocity values will be the same as the first servo motors'. If the motion is antiparallel, then
+ * the velocity values will be inversely related.
  *
- *  @author Jon Mrowczynski
+ * @author Jon Mrowczynski
  */
 
 public final class Movable extends Part {
 	
 	/**
-	 * If the {@code Movable} only requires one servo motor to be operated, then the {@code Movable} constructor calls
-	 * its superclass's constructor and sets {@code neutral} to the average of the {@code lowerBound} and
-	 * {@code upperBound}.
+	 * If the {@code Movable} only requires one servo motor to be operated, then the superclass's constructor is simply
+	 * called.
 	 * 
-	 * @param ruppetParts of the {@code Ruppet}.
+	 * @param ruppetParts of a {@code Ruppet}.
 	 * @param midiNote associated with the servo(s) that is/are to operate this {@code Movable}.
 	 * @param lowerBound that the servo arm can move to.
 	 * @param upperBound that the servo arm can move to.
 	 * @see Part#Part(List, int, int, int)
+	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values.
 	 */
 
-    public Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) {
+    public Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
 		super(ruppetParts, midiNote, lowerBound, upperBound);
 	}
 	
@@ -37,13 +37,15 @@ public final class Movable extends Part {
 	 * If the {@code Movable} requires two servo motors to be operated, then it first calls the superclass's constructor
 	 * to create the state for the first servo motor and then it creates the state for the second servo motor.
 	 * 
-	 * @param ruppetParts of the {@code Ruppet}.
+	 * @param ruppetParts of a {@code Ruppet}.
 	 * @param midiNote1 that is associated with the first servo motor.
-	 * @param lowerBound that the servo arm can move to.
-	 * @param upperBound that the servo arm can move to.
+	 * @param lowerBound that the servo arms can move to.
+	 * @param upperBound that the servo arms can move to.
 	 * @param midiNote2 that is associated with the second servo motor.
-	 * @param parallelism Represents whether the servo motors are to be operated in parallel or anti-parallel relative to one another.
-	 * @throws InvalidParameterException if {@code parallelism} is not "parallel" or "antiparallel".
+	 * @param parallelism Represents whether the servo motors are to be operated in parallel or anti-parallel relative
+	 *                    to one another.
+	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values or if
+	 * 									 {@code parallelism} is not "parallel" or "antiparallel".
 	 * @see Part#Part(List, int, int, int)
 	 */
 
