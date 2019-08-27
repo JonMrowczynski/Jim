@@ -5,7 +5,7 @@ import javax.sound.midi.*;
 /**
  * {@code MidiSequencer} is a singleton class that allows one to make a connection to the system's default
  * {@code Sequencer} in order to store sequenced commands for the {@code Ruppet} in the form of {@code MidiEvent}s.
- * This allows the {@code Ruppet} to run scripts.
+ * This allows the {@code Ruppet} to automatically run scripts.
  *
  * @author Jon Mrowczynski
  */
@@ -27,10 +27,8 @@ public class MidiSequencer extends MidiDeviceConnection<Sequencer> {
     public static MidiSequencer getInstance() { return midiSequencer; }
 
     /**
-     * {@inheritDoc}
-     *
-     * Also disconnects the system's default {@code Sequencer} from the default device (which is usually the computer's
-     * speakers).
+     * Connects to the system's default {@code Sequencer} and disconnects it from the default {@code Synthesizer}. This
+     * prevents the {@code MidiMessage}s from being played by the system's speakers.
      *
      * @see MidiSystem#getSequencer(boolean)
      * @see MidiDevice#isOpen()

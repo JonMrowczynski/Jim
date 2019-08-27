@@ -9,8 +9,8 @@ import javax.sound.midi.*;
 import javax.sound.midi.MidiDevice.Info;
 
 /**
- * {@code UsbMidiDevice} is a singleton class that allows one to make a connection to a USB MIDI device in order to
- * control the {@code Ruppet} through the transmission of {@code MidiMessage}s to the electronics.
+ * {@code UsbMidiDevice} is a singleton class that allows one to make a connection to a USB {@code MidiDevice} in order
+ * to control the {@code Ruppet} by transmitting {@code MidiMessage}s to the electronics.
  * 
  * @author Jon Mrowczynski
  */
@@ -38,11 +38,10 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 	private Receiver usbMidiDeviceReceiver;
 	
 	/**
-	 * Sets up a connection between the computer and the {@code UsbMidiDevice}'s {@code Receiver}.
-	 * 
-	 * Gets the USB MIDI device that is connected to the computer by checking to see if the name of the device contains
-	 * the {@code String} "USB" and if the description of the device is "External MIDI Port". Otherwise, no
-	 * {@code MidiDevice} will be acquired.
+	 * Sets up a connection between the computer and the USB {@code MidiDevice}'s {@code Receiver} by first acquiring
+	 * the USB {@code MidiDevice}. This is done by acquiring the {@code MidiDevice} whose name contains the
+	 * {@code String} "USB" and whose description is "External MIDI Port". Otherwise, no {@code MidiDevice} or
+	 * {@code Receiver} will be acquired.
 	 */
 
 	@Override
@@ -81,17 +80,17 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 	 * {@code MidiDevice} with a {@code timeStamp} of -1.
 	 *
 	 * @param midiMessage that is to be sent to the {@code Receiver} of the connected {@code MidiDevice}.
-	 * @throws NullPointerException if the {@link #connect()} method of this class has not been called or failed.
+	 * @throws NullPointerException if the {@code connect()} method of this class has not been called or if it failed.
 	 * @see Receiver#send(MidiMessage, long)
 	 */
 
 	public final void send(final MidiMessage midiMessage) throws NullPointerException { usbMidiDeviceReceiver.send(midiMessage, -1); }
 
 	/**
-	 * Returns the {@code Receiver} of the {@code UsbMidiDevice} after {@code connect} has been called. Otherwise,
+	 * Returns the {@code Receiver} of the {@code usbMidiDevice} after {@code connect} has been called. Otherwise,
 	 * {@code null} is returned.
 	 *
-	 * @return The {@code Receiver} to the {@code UsbMidiDevice}.
+	 * @return The {@code Receiver} to the {@code usbMidiDevice}.
 	 */
 
 	public final Receiver getUsbReceiver() { return usbMidiDeviceReceiver; }

@@ -1,4 +1,4 @@
-0.171777	happy 
+0.171777	happy
 6.758886	neutral
 43.028303	angry
 46.393723	neutral
