@@ -145,9 +145,8 @@ public final class Voice {
 		} catch (LineUnavailableException | IOException e) { e.printStackTrace(); }
 		  catch (UnsupportedAudioFileException e) {
 			System.out.println("ERROR:");
-			System.out.println("\nFile: \"" + audioSaveFile.getName() + "\" is not supported!");
+			System.out.println("\nFile type \"" + RuppetUtils.getFileExtension(audioSaveFile) + "\" is not supported!");
 			System.out.println("Make sure that you are using a .wav file!");
-			RuppetUtils.clearSaveFile(audioSaveFile);
 		}
     }
 

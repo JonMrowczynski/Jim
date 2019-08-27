@@ -7,8 +7,6 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -171,92 +169,13 @@ public final class RuppetUtils {
 	}
 
     /**
-     * Clears the contents of the given {@code File}.
-     *
-     * @param file that is to be cleared.
-     */
-
-    public static void clearSaveFile(final File file) {
-        try { Files.write(file.toPath(), "".getBytes()); }
-        catch (IOException e) { e.printStackTrace(); }
-    }
-	
-	/* This method currently reads the name of the data file from the save file
-	  or asks the user to input the name of the data file if there is none stored */
-
-    /**
-     * This method reads the name of a file from
-     *
-     * @param file
-     * @param saveFiles
-     * @return
-     */
-
-	private static File getFile(final File file, final Hashtable<File, String> saveFiles) {
-		File dataFile = null;
-		System.out.println();
-		if (file.length() == 0) {
-			System.out.println("Please enter in the name of the file you wish to store in " + file.getName());
-			System.out.print("\nName of Data File: ");
-			dataFile = new File(reader.next().trim());
-		} else {
-			try { dataFile = new File(Files.readAllLines(file.toPath()).get(0).trim()); }
-			catch (IOException e) { e.printStackTrace(); }
-		}
-		return checkForDataFile(dataFile, file, saveFiles);
-	}
-	
-	/* Checks to see if the data file exists, if so return it, else return the File from another 
-	   call from this method. (Pretty much keep on looping through this method until a File
-	   with the name that the user specified is found and then return that File) */
-
-    /**
-     *
-     *
-     * @param dataFile
-     * @param saveFile
-     * @param saveFiles
-     * @return
-     */
-
-	private static File checkForDataFile(File dataFile, final File saveFile, final Hashtable<File, String> saveFiles) {
-		if (dataFile.exists() && getFileExtension(dataFile).equals(saveFiles.get(saveFile))) {
-			System.out.println("\tData File: " + dataFile.getName() + " found.");
-			saveFile(dataFile, saveFile);
-			return dataFile;
-		} else if (dataFile.exists() && !getFileExtension(dataFile).equals(saveFiles.get(saveFile))) {
-			System.out.println("\n\tData File: " + dataFile.getName() + " found, but the extensions" + " don't match.");
-			System.out.println("\nMake sure you are using a file with extension: " + saveFiles.get(saveFile));
-			clearSaveFile(saveFile);
-			return getFile(saveFile, saveFiles);
-		} else {
-			System.out.println("\n\tData File: " + dataFile.getName() + " not found...");
-			System.out.print("\nPlease enter in the name of the Data File: ");
-			dataFile = new File(reader.next().trim());
-			return checkForDataFile(dataFile, saveFile, saveFiles);
-		}
-	}
-
-    /**
-     * Write the name of {@code file} to {@code saveFile}.
-     *
-     * @param file whose name is to be written to the {@code saveFile}.
-     * @param saveFile who is to contain the name of {@code file}.
-     */
-
-	private static void saveFile(final File file, final File saveFile) {
-        try { Files.write(saveFile.toPath(), file.getName().getBytes()); }
-        catch (IOException e) { e.printStackTrace(); }
-	}
-
-    /**
      * Returns the {@code File}'s extension.
      *
      * @param file whose extension is to be returned.
      * @return a {@code String} of the {@code File}'s extension.
      */
 
-	private static String getFileExtension(final File file) {
+	public static String getFileExtension(final File file) {
 		final String fileName = file.getName();
 		final int i = fileName.lastIndexOf('.');
 		return i > 0 ? fileName.substring(i) : "";

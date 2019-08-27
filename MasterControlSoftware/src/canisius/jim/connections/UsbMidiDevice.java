@@ -2,9 +2,8 @@ package canisius.jim.connections;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 
 import javax.sound.midi.*;
 import javax.sound.midi.MidiDevice.Info;
@@ -31,46 +30,6 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 	 */
 
 	public static UsbMidiDevice getInstance() { return usbMidiDevice; }
-
-	/**
-	 * Presents the user with an {@code Alert} dialog when a connection could not be formed to the
-	 * {@code UsbMidiDevice} in order to determine what the user wants to do next.
-	 */
-
-	private static void errorConnectingToUsbMidiDevice() {
-		final Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error Dialog");
-		alert.setHeaderText("Error Connecting to USB MIDI Device");
-		alert.setContentText("Make sure that the USB to MIDI cable is plugged in before retrying...");
-		final ButtonType quitButtonType = new ButtonType("Quit", ButtonData.CANCEL_CLOSE);
-		alert.getButtonTypes().setAll(new ButtonType("Retry"), quitButtonType);
-		alert.showAndWait().ifPresent(theResult -> {
-			if (theResult == quitButtonType) {
-				Platform.exit();
-				System.exit(0);
-			}
-		});
-	}
-
-	/**
-	 * Presents the user with an {@code Alert} dialog when the {@code UsbMidiDevice} could not be opened in order to
-	 * determine what the user wants to do next.
-	 */
-
-	private static void errorOpeningUsbMidiDevice() {
-		final Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error Dialog");
-		alert.setHeaderText("Error Opening USB to MIDI Device");
-		alert.setContentText("Make sure that you close any programs that may be using the USB to MIDI device before retrying...");
-		final ButtonType quitButtonType = new ButtonType("Quit");
-		alert.getButtonTypes().setAll(new ButtonType("Retry"), quitButtonType);
-		alert.showAndWait().ifPresent(theResult -> {
-			if (theResult == quitButtonType) {
-				Platform.exit();
-				System.exit(0);
-			}
-		});
-	}
 	
 	/**
 	 * The {@code Receiver} of the acquired {@code UsbMidiDevice}.
@@ -99,17 +58,22 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 					} catch (MidiUnavailableException e) { e.printStackTrace(); }
 				}
 			}	
-			if (midiDevice == null) { errorConnectingToUsbMidiDevice(); }
+			if (midiDevice == null) {
+				new ErrorAlert("Error Connecting to USB MIDI Device",
+					"Make sure that the USB to MIDI cable is plugged in before retrying.");
+			}
 		} while (midiDevice == null);
 		do {
 			if (!midiDevice.isOpen()) {
 				try { midiDevice.open(); }
-				catch (MidiUnavailableException e) { errorOpeningUsbMidiDevice(); }
+				catch (MidiUnavailableException e) {
+					new ErrorAlert("Error opening USB to MIDI device",
+						"Close any programs that may be using the USB to MIDI device before retrying.");
+				}
 			}
 		} while (!midiDevice.isOpen());
-		try { 
-			if (usbMidiDeviceReceiver == null) { usbMidiDeviceReceiver = midiDevice.getReceiver(); }
-		} catch (MidiUnavailableException e) { e.printStackTrace(); }
+		try { if (usbMidiDeviceReceiver == null) { usbMidiDeviceReceiver = midiDevice.getReceiver(); } }
+		catch (MidiUnavailableException e) { e.printStackTrace(); }
 	}
 
 	/**
@@ -131,5 +95,37 @@ public final class UsbMidiDevice extends MidiDeviceConnection<MidiDevice> {
 	 */
 
 	public final Receiver getUsbReceiver() { return usbMidiDeviceReceiver; }
+
+	/**
+	 * Presents the user with an {@code AlertType.ERROR Alert Dialog} that allows the user to either retry whatever
+	 * operation was performed or close the program.
+	 *
+	 * @author Jon Mrowczynski
+	 */
+
+	private static final class ErrorAlert extends Alert {
+
+		/**
+		 * Constructs a new {@code ErrorAlert} and waits for user input.
+		 *
+		 * @param headerText for the {@code ErrorAlert}.
+		 * @param contentText for the {@code ErrorAlert}.
+		 */
+
+		ErrorAlert(final String headerText, final String contentText) {
+			super(AlertType.ERROR);
+			setTitle("Error Dialog");
+			setHeaderText(headerText);
+			setContentText(contentText);
+			getButtonTypes().setAll(new ButtonType("Retry"), ButtonType.CLOSE);
+			getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+			showAndWait().ifPresent(theResult -> {
+				if (theResult == ButtonType.CLOSE) {
+					Platform.exit();
+					System.exit(0);
+				}
+			});
+		}
+	} // end of class ErrorAlert
 	
 } // end of UsbMidiDevice class
