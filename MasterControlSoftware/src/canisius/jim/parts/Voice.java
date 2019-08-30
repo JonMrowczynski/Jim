@@ -103,9 +103,9 @@ public final class Voice {
 		try (final Scanner reader = new Scanner(new FileReader(mouthMovementTimesFile))) {
 			final int sec_to_ms_factor = 1000;
 			while (reader.hasNextLine()) {
-				String[] splitLine = reader.nextLine().split(" ");
+				String[] splitLine = reader.nextLine().split("\t");
 				mouthDownTimes.add((int) Math.round(Double.parseDouble(splitLine[0]) * sec_to_ms_factor));
-				splitLine = reader.nextLine().split(" ");
+				splitLine = reader.nextLine().split("\t");
 				mouthUpTimes.add((int) Math.round(Double.parseDouble(splitLine[0]) * sec_to_ms_factor));
 			}
 		} catch (FileNotFoundException e) { e.printStackTrace(); }

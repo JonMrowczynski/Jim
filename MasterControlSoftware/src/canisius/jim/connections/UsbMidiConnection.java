@@ -47,13 +47,14 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	@Override
 	public final void connect() {
 		do {
-			for (final Info deviceInfo : MidiSystem.getMidiDeviceInfo()) {
-				final boolean isUSBDevice = deviceInfo.getName().contains("USB");
-				final boolean isExternalMIDIPort = deviceInfo.getDescription().equals("External MIDI Port");
-				if (isUSBDevice && isExternalMIDIPort) {
+			for (final Info info : MidiSystem.getMidiDeviceInfo()) {
+				if (info.getName().contains("USB") && info.getName().contains("MIDIOUT")) {
 					try {
-						midiDevice = MidiSystem.getMidiDevice(deviceInfo);
-						break;
+						final MidiDevice tempMidiDevice = MidiSystem.getMidiDevice(info);
+						if (tempMidiDevice.getMaxReceivers() != 0) {
+							midiDevice = tempMidiDevice;
+							break;
+						}
 					} catch (MidiUnavailableException e) { e.printStackTrace(); }
 				}
 			}	

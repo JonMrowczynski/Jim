@@ -165,7 +165,7 @@ public final class Heart {
 
 	private void readTimingLabels() {
 		try {
-			Files.readAllLines(emotionTransitionTimesFile.toPath()).stream().map(line -> line.split(" "))
+			Files.readAllLines(emotionTransitionTimesFile.toPath()).stream().map(line -> line.split("\t"))
 					.forEach(splitLine -> emotionTimingsMap.put((int) Math.round(Double.parseDouble(splitLine[0]) * 1000), splitLine[1].trim()));
 		} catch (IOException e) { e.printStackTrace(); }
 	}

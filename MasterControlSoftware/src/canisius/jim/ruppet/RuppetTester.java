@@ -283,7 +283,7 @@ public class RuppetTester extends Application {
 		 * thrown when the user presses enter.
 		 */
 
-		spinner.getEditor().setOnAction( actionEvent -> {
+		spinner.getEditor().setOnAction(actionEvent -> {
 			final TextField editor = spinner.getEditor();
 			final SpinnerValueFactory<Integer> factory = spinner.getValueFactory();
 			final StringConverter<Integer> converter = factory.getConverter();
@@ -297,7 +297,7 @@ public class RuppetTester extends Application {
 		 * velocity value and the maximum velocity value inclusive.
 		 */
 
-		spinner.getEditor().textProperty().addListener( (observable, oldValue, newValue) -> {
+		spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.equals("")) {
 				final boolean isNotNumber = !newValue.matches("\\d*");
 				final boolean isNotValidNumber = (newValue.charAt(0) == '0' && newValue.length() > 1);
@@ -314,8 +314,7 @@ public class RuppetTester extends Application {
 		final Tooltip tooltip = new Tooltip("Min velocity: " + Ruppet.MIN_VELOCITY + "\n" + "Max velocity: " + Ruppet.MAX_VELOCITY);
 		
 		spinner.setTooltip(tooltip);
-		spinner.getEditor().setTooltip(tooltip);
-		
+
 		gridPane.add(spinner, 0, 8);
 		GridPane.setHalignment(spinner, HPos.RIGHT);
 		
