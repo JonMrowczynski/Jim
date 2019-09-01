@@ -12,6 +12,7 @@ namespace Test
     /// <summary>
     /// Interaction logic for Test
     /// </summary>
+    
     public partial class FaceRecognitionTester : Window, INotifyPropertyChanged
     {
         /// <summary>
@@ -25,11 +26,13 @@ namespace Test
         /// </summary>
          
         private const double faceNotTrackedTextFontSize = 100;
+
         /// <summary>
         /// Font size of the face property text.
         /// </summary>
          
         private const double textFontSize = 30;
+
         /// <summary>
         /// The radius of each face point circle.
         /// </summary>
@@ -151,10 +154,10 @@ namespace Test
         private BodyFrameReader bodyFrameReader = null;
 
         /// <summary>
-        /// The 
+        /// The display rectangle.
         /// </summary>
 
-        private Rect displayRect; // Display rectangle
+        private Rect displayRect;
 
         /// <summary>
         /// Current status text to display.
@@ -176,6 +179,7 @@ namespace Test
         /// <summary>
         /// Gets or sets the current status text to display.
         /// </summary>
+        
         public string StatusText
         {
             get => statusText;
@@ -191,8 +195,9 @@ namespace Test
         }
 
         /// <summary>
-        /// Initializes a new instance of the Test class.
+        /// Initializes a new instance of the FaceRecognitionTester class.
         /// </summary>
+        
         public FaceRecognitionTester()
         {
             kinectSensor = KinectSensor.GetDefault();                                           // Get the Kinect sensor
@@ -366,7 +371,7 @@ namespace Test
         /// <summary>
         /// Handles the body frame data arriving from the sensor.
         /// </summary>
-        /// <param name="sender">object sendinf the event</param>
+        /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
 
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -554,7 +559,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Handles the event which the sensor becomes unavailable (e.g. paused, closed, unplugged).
+        /// Handles the event in which the sensor becomes unavailable (e.g. paused, closed, unplugged).
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>

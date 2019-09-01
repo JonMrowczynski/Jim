@@ -1,10 +1,8 @@
-/*
-	Name: KinectEmotionDeterminerWrapper.cpp
-	Date: 2/13/2016
-	Author: Jon Mrowczynski
-	
+/**	
 	This is the main C++ DLL file which will eventually be used to link the 
 	Kinect v2 software to the Java master control software using the JNI
+
+	@author Jon Mrowczynski
 */
 
 #include "stdafx.h"
@@ -16,30 +14,23 @@ using namespace Microsoft::Kinect::Face;
 using namespace System::Threading;
 using namespace KinectEmotionDeterminer;
 
-/* Acquires the number of face shape animations that the Kinect v2 will be keeping 
-   track of. For some reason the sizeof() approach was giving weird results for the 
-   length of MainWindow's faceShapeAnimations array, so a getter method was implemented 
-   which simply returns the value faceShapeAnimations.Length */
+/* Acquires the number of face shape animations that the Kinect v2 will be keeping track of. */
 
 KinectEmotionDeterminerWrapper::KinectEmotionDeterminerWrapper(void) {
-
-	numOfFaceShapeAnimations = this->mainWindow->getFaceShapeAnimationLength();
+	numOfFaceShapeAnimations = mainWindow->GetFaceShapeAnimationLength();
 	averageFaceShapeAnimations = new double[numOfFaceShapeAnimations];
 	guiThread = gcnew Thread(gcnew ThreadStart(this, &KinectEmotionDeterminerWrapper::runKinect));
 	guiThread->SetApartmentState(ApartmentState::STA);
 	guiThread->Start();
-
-} // end of constructor
+}
 
 /* Pretty much the only thing that needs to be cleaned up when KinectEmotionDeterminerWrapper
-   instances are destroyed is the pointer sine everything else is managed. */
+   instances are destroyed is the pointer since everything else is managed. */
 
 KinectEmotionDeterminerWrapper::~KinectEmotionDeterminerWrapper(void) {
-
 	delete[] averageFaceShapeAnimations;
 	averageFaceShapeAnimations = NULL;
-
-} // end of destructor
+}
 
 /* Acquires facial data from the user by collecting data every ten frames per second 
    for 1 second. Note this method communicates with the CollectFaceData method in 
@@ -50,33 +41,20 @@ KinectEmotionDeterminerWrapper::~KinectEmotionDeterminerWrapper(void) {
    Ultimately collects 10 facial data points per second for each tracked FaceShapeAnimation.*/
 
 double* KinectEmotionDeterminerWrapper::getFacialData(void) {
-
 	MainWindow::readyToReadData = true;
-
-	while (!mainWindow->isReadyToPassData());
-
+	while (!mainWindow->IsReadyToPassData());
 	MainWindow::readyToReadData = false;
-
 	double sum = 0;
-
 	for (int faceShapeNum = 0; faceShapeNum < numOfFaceShapeAnimations; ++faceShapeNum) {
-
 		for (int dataElement = 0; dataElement < MainWindow::dataCollectionFramesPerSecond; ++dataElement) {
-
 			sum += MainWindow::faceData[faceShapeNum, dataElement];
 			averageFaceShapeAnimations[faceShapeNum] = sum / MainWindow::dataCollectionFramesPerSecond;
-
 		}
-
 		sum = 0;
-
-	} // end of outer for
-
+	}
 	MainWindow::readyToPassData = false;
-
-	return this->averageFaceShapeAnimations;
-
-} // end of getFacialData
+	return averageFaceShapeAnimations;
+}
 
 /* After facial data has been collected, this method compares all of the animation 
    units' double values to see if they have cleared some threshold. If they have then
@@ -84,58 +62,16 @@ double* KinectEmotionDeterminerWrapper::getFacialData(void) {
    it to false. */
 
 void KinectEmotionDeterminerWrapper::checkFAUs(double* faceShapeData) {
-
-	if (faceShapeData[0] >= this->leftLipCornerPullerNeutral + this->deltaLeftLipCornerPuller) { 
-		
-		this->leftLipCornerPulled = true; 
-
-	} else { this->leftLipCornerPulled = false; }
-
-	if (faceShapeData[1] >= this->rightLipCornerPullerNeutral + this->deltaRightLipCornerPuller) { 
-		
-		this->rightLipCornerPulled = true; 
-	
-	} else { this->rightLipCornerPulled = false; }
-
-	if (faceShapeData[2] >= this->leftLipCornerDepressorNeutral + this->deltaLeftLipCornerDepressor) { 
-		
-		this->leftLipCornerDepressed = true; 
-	
-	} else { leftLipCornerDepressed = false; }
-
-	if (faceShapeData[3] >= this->rightLipCornerDepressorNeutral + this->deltaRightLipCornerDepressor) { 
-		
-		this->rightLipCornerDepressed = true; 
-	
-	} else { this->rightLipCornerDepressed = false; }
-
-	if (faceShapeData[4] >= this->rightEyebrowNeutral + this->deltaRightEyebrowLowerer) {
-		
-		this->rightEyebrowLowered = true;
-	
-	} else { this->rightEyebrowLowered = false; }
-
-	if (faceShapeData[4] <= this->rightEyebrowNeutral - this->deltaRightEyebrowRaiser) { 
-		
-		this->rightEyebrowRaised = true; 
-	
-	} else { this->rightEyebrowRaised = false; }
-		 
-	if (faceShapeData[5] >= this->leftEyebrowNeutral + this->deltaLeftEyebrowLowerer) { 
-		
-		this->leftEyebrowLowered = true;
-	
-	} else { leftEyebrowLowered = false; }
-
-	if (faceShapeData[5] <= this->leftEyebrowNeutral - this->deltaLeftEyebrowRaiser) { 
-		
-		this->leftEyebrowRaised = true; 
-	
-	} else { this->leftEyebrowRaised = false; }
-
-	this->updateMainWindowBooleans();
-
-} // end of checkFAUs
+	leftLipCornerPulled = faceShapeData[0] >= leftLipCornerPullerNeutral + deltaLeftLipCornerPuller ? true : false;
+	rightLipCornerPulled = faceShapeData[1] >= rightLipCornerPullerNeutral + deltaRightLipCornerPuller ? true : false;
+	leftLipCornerDepressed = faceShapeData[2] >= leftLipCornerDepressorNeutral + deltaLeftLipCornerDepressor ? true : false;
+	rightLipCornerDepressed = faceShapeData[3] >= rightLipCornerDepressorNeutral + deltaRightLipCornerDepressor ? true : false;
+	rightEyebrowLowered = faceShapeData[4] >= rightEyebrowNeutral + deltaRightEyebrowLowerer ? true : false;
+	rightEyebrowRaised = faceShapeData[4] <= rightEyebrowNeutral - deltaRightEyebrowRaiser ? true : false;
+	leftEyebrowLowered = faceShapeData[5] >= leftEyebrowNeutral + deltaLeftEyebrowLowerer ? true : false;
+	leftEyebrowRaised = faceShapeData[5] <= leftEyebrowNeutral - deltaLeftEyebrowRaiser ? true : false;
+	updateMainWindowBooleans();
+}
 
 /* Calibraates the face by recording facial data for 3 seconds (which in total means
    that 40 data values will be taken) and then those values are averaged to get the 
@@ -155,43 +91,37 @@ void KinectEmotionDeterminerWrapper::calibrate(void) {
 	cin.ignore();
 
 	do {
-
 		fflush(stdin); // clear the input buffer to get rid of the newlines
-
-		calibrationData = new double[this->numOfFaceShapeAnimations];
-
-		for (int i = 0; i < this->numOfFaceShapeAnimations; ++i) { calibrationData[i] = 0; }
+		calibrationData = new double[numOfFaceShapeAnimations];
+		for (int i = 0; i < numOfFaceShapeAnimations; ++i) { calibrationData[i] = 0; }
 
 		cout << endl << "Calibrating. Make sure that the user keeps their neutral face." << endl << endl;
 
 		for (int i = 0; i < secToCollectData; ++i) {
+			facialData = getFacialData();
+			for (int j = 0; j < numOfFaceShapeAnimations; ++j) { calibrationData[j] += facialData[j]; }
+		}
 
-			facialData = this->getFacialData();
-
-			for (int j = 0; j < this->numOfFaceShapeAnimations; ++j) { calibrationData[j] += facialData[j]; }
-
-		} // end of outer for loop
-
-		this->leftLipCornerPullerNeutral		= calibrationData[0] / secToCollectData;
-		this->rightLipCornerPullerNeutral		= calibrationData[1] / secToCollectData;
-		this->leftLipCornerDepressorNeutral		= calibrationData[2] / secToCollectData;
-		this->rightLipCornerDepressorNeutral	= calibrationData[3] / secToCollectData;
-		this->rightEyebrowNeutral				= calibrationData[4] / secToCollectData;
-		this->leftEyebrowNeutral				= calibrationData[5] / secToCollectData;
+		leftLipCornerPullerNeutral		= calibrationData[0] / secToCollectData;
+		rightLipCornerPullerNeutral		= calibrationData[1] / secToCollectData;
+		leftLipCornerDepressorNeutral	= calibrationData[2] / secToCollectData;
+		rightLipCornerDepressorNeutral	= calibrationData[3] / secToCollectData;
+		rightEyebrowNeutral				= calibrationData[4] / secToCollectData;
+		leftEyebrowNeutral				= calibrationData[5] / secToCollectData;
 
 		cout << "Your Neutral values are: "		<< endl << endl;
-		cout << "LipCornerPullerLeft: "			<< this->leftLipCornerPullerNeutral << endl;
-		cout << "LipCornerPullerRight: "		<< this->rightLipCornerPullerNeutral << endl;
-		cout << "LipCornerDepressorLeft: "		<< this->leftLipCornerDepressorNeutral << endl;
-		cout << "LipCornerDepressorsRight: "	<< this->rightLipCornerDepressorNeutral << endl;
-		cout << "RightEyebrowLowerer: "			<< this->rightEyebrowNeutral << endl;
-		cout << "LeftEyebrowLowerer: "			<< this->leftEyebrowNeutral << endl;
+		cout << "LipCornerPullerLeft: "			<< leftLipCornerPullerNeutral << endl;
+		cout << "LipCornerPullerRight: "		<< rightLipCornerPullerNeutral << endl;
+		cout << "LipCornerDepressorLeft: "		<< leftLipCornerDepressorNeutral << endl;
+		cout << "LipCornerDepressorsRight: "	<< rightLipCornerDepressorNeutral << endl;
+		cout << "RightEyebrowLowerer: "			<< rightEyebrowNeutral << endl;
+		cout << "LeftEyebrowLowerer: "			<< leftEyebrowNeutral << endl;
 
 		cout << endl << "Was this a good calibration run?" << endl;
 		cout << "(Y/N): ";
 		choice = (char) getchar();
 
-	} while ( choice != 'y');
+	} while (choice != 'y');
 
 	delete[] facialData;
 	facialData = NULL;
@@ -207,110 +137,56 @@ void KinectEmotionDeterminerWrapper::calibrate(void) {
    if they are triggering certain FAUs and not triggering other FAUs */
 
 bool KinectEmotionDeterminerWrapper::isHappy(void) {
-
-	bool isHappy = false;
-
-	if (this->leftLipCornerPulled	&&
-		this->rightLipCornerPulled	&&
-		!this->rightEyebrowLowered	&&
-		!this->leftEyebrowLowered) { isHappy = true; }
-
-	return isHappy;
-
-}  // end of isHappy
+	return leftLipCornerPulled && rightLipCornerPulled && !rightEyebrowLowered && !leftEyebrowLowered;
+}
 
 /* Checks to see if the user is sad by seeing if they are triggering
    certain FAUs */
 
 bool KinectEmotionDeterminerWrapper::isSad(void) {
-
-	bool isSad = false;
-
-	if (this->rightEyebrowRaised	 &&
-		this->leftEyebrowRaised		 &&
-		this->leftLipCornerDepressed &&
-		this->rightLipCornerDepressed) { isSad = true; } 
-
-	return isSad;
-
-} // end of isSad
+	return rightEyebrowRaised && leftEyebrowRaised && leftLipCornerDepressed && rightLipCornerDepressed;
+}
 
 /* Checks to see if the user is expressing angry by checking to 
    see if they are triggering certain FAUs and not triggering 
    other FAUs */
 
 bool KinectEmotionDeterminerWrapper::isAngry(void) {
-
-	bool isAngry = false;
-
-	if (this->rightEyebrowLowered	&&
-		this->leftEyebrowLowered	&&
-		!this->leftLipCornerPulled	&&
-		!this->rightLipCornerPulled) { isAngry = true; }
-
-	return isAngry;
-
-} // end of isAngry
+	return rightEyebrowLowered && leftEyebrowLowered && !leftLipCornerPulled && !rightLipCornerPulled;
+}
 
 /* Checks to see if the user is expressing their neutral face by 
    making sure that they are not triggering any FAUs */
 
 bool KinectEmotionDeterminerWrapper::isNeutral(void) {
-
-	bool isNeutral = false;
-
-	if (!this->leftLipCornerPulled		&&
-		!this->rightLipCornerPulled		&&
-		!this->leftLipCornerDepressed	&&
-		!this->rightLipCornerDepressed	&&
-		!this->rightEyebrowLowered		&&
-		!this->leftEyebrowLowered		&&
-		!this->rightEyebrowRaised		&&
-		!this->leftEyebrowRaised) { isNeutral = true; } 
-
-	return isNeutral;
-	
-} // end of isNeutral
+	return !leftLipCornerPulled && !rightLipCornerPulled && !leftLipCornerDepressed && !rightLipCornerDepressed && 
+		!rightEyebrowLowered && !leftEyebrowLowered && !rightEyebrowRaised && !leftEyebrowRaised;
+}
 
 /* Display the MainWindow which includes the textCanvas and the faceCanvas.
    The textCanvas contains the information about the FaceShapeAnimations of the user
    while the faceCanvas contains the high definition facial points */
 
 void KinectEmotionDeterminerWrapper::runKinect(void) {
-
 	mainWindow = gcnew MainWindow();
 	mainWindow->ShowDialog();
-
-} // end of runKinect
+}
 
 /* Allows communication between the KinectEmotionDeterminerWrapper and 
    the MainWindow such that the MainWindow can "see" what FAUs the person
    is triggering and recolor the text accordingly. */
 
 void KinectEmotionDeterminerWrapper::updateMainWindowBooleans(void) {
-
-	MainWindow::leftLipCornerPulled		= this->leftLipCornerPulled;
-	MainWindow::rightLipCornerPulled	= this->rightLipCornerPulled;
-	MainWindow::leftLipCornerDepressed	= this->leftLipCornerDepressed;
-	MainWindow::rightLipCornerDepressed = this->rightLipCornerDepressed;
-	MainWindow::rightEyebrowLowered		= this->rightEyebrowLowered;
-	MainWindow::leftEyebrowLowered		= this->leftEyebrowLowered;
-	MainWindow::rightEyebrowRaised		= this->rightEyebrowRaised;
-	MainWindow::leftEyebrowRaised		= this->rightEyebrowRaised;
-
-} // end of updateMainWindowBooleans
+	MainWindow::leftLipCornerPulled		= leftLipCornerPulled;
+	MainWindow::rightLipCornerPulled	= rightLipCornerPulled;
+	MainWindow::leftLipCornerDepressed	= leftLipCornerDepressed;
+	MainWindow::rightLipCornerDepressed = rightLipCornerDepressed;
+	MainWindow::rightEyebrowLowered		= rightEyebrowLowered;
+	MainWindow::leftEyebrowLowered		= leftEyebrowLowered;
+	MainWindow::rightEyebrowRaised		= rightEyebrowRaised;
+	MainWindow::leftEyebrowRaised		= rightEyebrowRaised;
+}
 
 void KinectEmotionDeterminerWrapper::updateDisplayedEmotionText(String^ emotion) {
-
 	MainWindow::currentEmotionDisplayed = emotion;
-
-} // end of updateDisplayedEmotionText
-
-
-
-
-
-
-
-
-
+}
