@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Test.FaceRecognitionTester"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title=" PROJECT EDDIE" 
+        Title="PROJECT EDDIE" 
         Height="768" Width="1024" 
         Loaded="FaceRecognitionTester_Loaded"
         Closing="FaceRecognitionTester_Closing">

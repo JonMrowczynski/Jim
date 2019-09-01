@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace Test
 {
     /// <summary>
-    /// Interaction logic for FaceRecognitionTester
+    /// Interaction logic for Test
     /// </summary>
     public partial class FaceRecognitionTester : Window, INotifyPropertyChanged
     {
@@ -191,7 +191,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Initializes a new instance of the FaceRecognitionTester class.
+        /// Initializes a new instance of the Test class.
         /// </summary>
         public FaceRecognitionTester()
         {
