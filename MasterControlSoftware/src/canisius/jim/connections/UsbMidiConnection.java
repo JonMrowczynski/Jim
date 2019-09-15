@@ -62,8 +62,7 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	/**
 	 * Sets up a connection between the computer and the USB {@code MidiDevice}'s {@code Receiver} by first acquiring
 	 * the USB {@code MidiDevice}. This is done by acquiring the {@code MidiDevice} whose name contains the
-	 * {@code String} "USB" and whose description is "External MIDI Port". Otherwise, no {@code MidiDevice} or
-	 * {@code Receiver} will be acquired.
+	 * {@code String} "USB" and "MIDIOUT". Otherwise, no {@code MidiDevice} or {@code Receiver} will be acquired.
 	 */
 
 	@Override
