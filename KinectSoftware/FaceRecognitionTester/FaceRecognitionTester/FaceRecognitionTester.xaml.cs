@@ -1,4 +1,16 @@
-﻿using Microsoft.Kinect;
+﻿//------------------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="Microsoft">
+//     Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+//------------------------------------------------------------------------------
+
+/*
+ * This is a cleaned up and simplified version of Microsoft's FaceBasics-WPF Sample from the Kinect v2 SDK.
+ * I have mostly used this to simply test to make sure that the Kinect v2 was functioning properly.
+ * Modifier: Jon Mrowczynski
+ */
+
+using Microsoft.Kinect;
 using Microsoft.Kinect.Face;
 using System;
 using System.Collections.Generic;
@@ -12,163 +24,131 @@ namespace Test
     /// <summary>
     /// Interaction logic for Test
     /// </summary>
-    
     public partial class FaceRecognitionTester : Window, INotifyPropertyChanged
     {
         /// <summary>
         /// Thickness of the rectagle that bounds each face as well as the thickness of the face points.
         /// </summary>
-        
         private const double faceShapeThickness = 8;
 
         /// <summary>
         /// Font size used for the text indicating that a face could not be found.
         /// </summary>
-         
         private const double faceNotTrackedTextFontSize = 100;
 
         /// <summary>
         /// Font size of the face property text.
         /// </summary>
-         
         private const double textFontSize = 30;
 
         /// <summary>
         /// The radius of each face point circle.
         /// </summary>
-         
         private const double facePointRadius = 1.0;
 
         /// <summary>
         /// Text layout x offset.
         /// </summary>
-
         private const float textLayoutXOffset = -0.1f;
 
         /// <summary>
         /// Text layout y offset.
         /// </summary>
-
         private const float textLayoutYOffset = -0.15f;
 
         /// <summary>
         /// Face rotation display angle increment in degrees.
         /// </summary>
-
         private const double FaceRotationIncrementInDegrees = 5.0;
 
         /// <summary>
         /// Formatted text to indicate that there are no bodies/faces tracked in the FOV.
         /// </summary>
-
-        private readonly FormattedText faceNotTrackedText = new FormattedText(
-                        "             No faces are being tracked. :( \n\n" + "  Don't be shy, come on over! I don't byte!",
-                        CultureInfo.GetCultureInfo("en-us"),
-                        FlowDirection.LeftToRight,
-                        new Typeface("Georgia"),
-                        faceNotTrackedTextFontSize,
-                        Brushes.White);
+        private readonly FormattedText faceNotTrackedText;
 
         /// <summary>
         /// The origin for the no face tracked message.
         /// </summary>
-
         private readonly Point faceNotTrackedTextOrigin = new Point(10.0, 400.0);
 
         /// <summary>
         /// Drawing group for body rendering output.
         /// </summary>
-
         private readonly DrawingGroup drawingGroup;
 
         /// <summary>
         /// Drawing image that we will display.
         /// </summary>
-
         private readonly DrawingImage imageSource;
 
         /// <summary>
         /// Coordinate mapper to map one type of point to another.
         /// </summary>
-
         private readonly CoordinateMapper coordinateMapper = null;
 
         /// <summary>
         /// Array to store bodies.
         /// </summary>
-
         private readonly Body[] bodies = null;
 
         /// <summary>
         /// The maximum number of bodies that can be tracked by the Kinect sensor.
         /// </summary>
-
         private readonly int maxBodyCount;
 
         /// <summary>
         /// Array of FaceFrameSources, one for each body.
         /// </summary>
-
         private readonly FaceFrameSource[] faceFrameSources = null;
 
         /// <summary>
         /// Array of FaceFrameReaders, one for each body.
         /// </summary>
-
         private readonly FaceFrameReader[] faceFrameReaders = null;
 
         /// <summary>
         /// Array of FaceFameResults, one for each body.
         /// </summary>
-
         private readonly FaceFrameResult[] faceFrameResults = null;
 
         /// <summary>
         /// The width of the display (color space).
         /// </summary>
-
         private readonly int displayWidth;
 
         /// <summary>
         /// The height of the display (color space).
         /// </summary>
-
         private readonly int displayHeight;
 
         /// <summary>
         /// Array of Burshes to color each tracked face a different color.
         /// </summary>
-
         private readonly Brush[] faceBrush;
 
         /// <summary>
         /// The Kinect sensor.
         /// </summary>
-
         private KinectSensor kinectSensor = null;
 
         /// <summary>
         /// Reader for body frames
         /// </summary>
-
         private BodyFrameReader bodyFrameReader = null;
 
         /// <summary>
         /// The display rectangle.
         /// </summary>
-
         private Rect displayRect;
 
         /// <summary>
         /// Current status text to display.
         /// </summary>
-
         private string statusText = null;
 
         /// <summary>
         /// Event to allow window controls to bind to changeable data.
         /// </summary>
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -179,7 +159,6 @@ namespace Test
         /// <summary>
         /// Gets or sets the current status text to display.
         /// </summary>
-        
         public string StatusText
         {
             get => statusText;
@@ -197,9 +176,17 @@ namespace Test
         /// <summary>
         /// Initializes a new instance of the FaceRecognitionTester class.
         /// </summary>
-        
         public FaceRecognitionTester()
         {
+            faceNotTrackedText = new FormattedText(
+                        "             No faces are being tracked. :( \n\n" + "  Don't be shy, come on over! I don't byte!",
+                        CultureInfo.GetCultureInfo("en-us"),
+                        FlowDirection.LeftToRight,
+                        new Typeface("Georgia"),
+                        faceNotTrackedTextFontSize,
+                        Brushes.White,
+                        VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
             kinectSensor = KinectSensor.GetDefault();                                           // Get the Kinect sensor
             coordinateMapper = kinectSensor.CoordinateMapper;                                   // Get the coordinate mapper
             FrameDescription frameDescription = kinectSensor.ColorFrameSource.FrameDescription; // Get the color frame details
@@ -258,7 +245,6 @@ namespace Test
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void FaceRecognitionTester_Loaded(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < maxBodyCount; i++)
@@ -280,7 +266,6 @@ namespace Test
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void FaceRecognitionTester_Closing(object sender, CancelEventArgs e)
         {
             for (int i = 0; i < maxBodyCount; ++i)
@@ -307,7 +292,6 @@ namespace Test
         /// <param name="pitch">rotation about the x-axis</param>
         /// <param name="yaw">rotation about the y-axis</param>
         /// <param name="roll">rotation about the z-axis</param>
-
         private static void ExtractFaceRotationInDegrees(Vector4 rotQuaternion, out int pitch, out int yaw, out int roll)
         {
             float x = rotQuaternion.X;
@@ -333,7 +317,6 @@ namespace Test
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void Reader_FaceFrameArrived(object sender, FaceFrameArrivedEventArgs e)
         {
             using (FaceFrame faceFrame = e.FrameReference.AcquireFrame())
@@ -353,7 +336,6 @@ namespace Test
         /// </summary>
         /// <param name="faceFrameSource">the face frame source</param>
         /// <returns>the index of the face source in the face source array</returns>
-
         private int GetFaceSourceIndex(FaceFrameSource faceFrameSource)
         {
             int index = -1;
@@ -373,7 +355,6 @@ namespace Test
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame())
@@ -426,7 +407,6 @@ namespace Test
         /// <param name="faceIndex">the index of the face frame corresponding to a specific body in the FOV</param>
         /// <param name="faceResult">container of all face frame results</param>
         /// <param name="drawingContext">drawing context to render to</param>
-
         private void DrawFaceFrameResults(int faceIndex, FaceFrameResult faceResult, DrawingContext drawingContext)
         {
             // Choose the brush based on the face index
@@ -480,7 +460,8 @@ namespace Test
                             FlowDirection.LeftToRight,
                             new Typeface("Georgia"),
                             textFontSize,
-                            drawingBrush),
+                            drawingBrush,
+                            VisualTreeHelper.GetDpi(this).PixelsPerDip),
                         faceTextLayout);
             }
         }
@@ -492,7 +473,6 @@ namespace Test
         /// <param name="faceIndex">the index of the face frame corresponding to a specific body in the FOV</param>
         /// <param name="faceTextLayout">the text layout position in screen space</param>
         /// <returns>a boolean indicating success or failure</returns>
-
         private bool GetFaceTextPositionInColorSpace(int faceIndex, out Point faceTextLayout)
         {
             faceTextLayout = new Point();
@@ -520,7 +500,6 @@ namespace Test
         /// </summary>
         /// <param name="faceResult">the face frame result containing face box and points</param>
         /// <returns>a boolean indicating success or failure</returns>
-
         private bool ValidateFaceBoxAndPoints(FaceFrameResult faceResult)
         {
             bool isFaceValid = faceResult != null;
@@ -563,7 +542,6 @@ namespace Test
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void Sensor_IsAvailableChanged(object sender, IsAvailableChangedEventArgs e)
         {
             if (kinectSensor != null)
