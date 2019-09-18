@@ -247,17 +247,16 @@ namespace Test
         /// <param name="e">event arguments</param>
         private void FaceRecognitionTester_Loaded(object sender, RoutedEventArgs e)
         {
+            if (bodyFrameReader != null)
+            {
+                bodyFrameReader.FrameArrived += Reader_BodyFrameArrived; // Wire handler for body frame arrival
+            }
             for (int i = 0; i < maxBodyCount; i++)
             {
                 if (faceFrameReaders[i] != null)
                 {
                     faceFrameReaders[i].FrameArrived += Reader_FaceFrameArrived; // Wire handler for face frame arrival
                 }
-            }
-
-            if (bodyFrameReader != null)
-            {
-                bodyFrameReader.FrameArrived += Reader_BodyFrameArrived; // Wire handler for body frame arrival
             }
         }
 
@@ -268,18 +267,18 @@ namespace Test
         /// <param name="e">event arguments</param>
         private void FaceRecognitionTester_Closing(object sender, CancelEventArgs e)
         {
+            // BodyFrameReader is IDisposable
+            bodyFrameReader?.Dispose();
+            bodyFrameReader = null;
+
             for (int i = 0; i < maxBodyCount; ++i)
             {
                 // FaceFrameReader and FaceFrameSource are IDisposable
                 faceFrameReaders[i]?.Dispose();
-                faceFrameSources[i]?.Dispose();
                 faceFrameReaders[i] = null;
+                faceFrameSources[i]?.Dispose();
                 faceFrameSources[i] = null;
             }
-
-            // BodyFrameReader is IDisposable
-            bodyFrameReader?.Dispose();
-            bodyFrameReader = null;
 
             kinectSensor?.Close();
             kinectSensor = null;

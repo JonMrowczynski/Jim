@@ -28,79 +28,56 @@ namespace ProjectEDDIE
     /// <summary>
     /// Interaction logic for ProjectEDDIE
     /// </summary>
-
     public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     {
         /// <summary>
+        /// The maximum frames per second of Kinect v2 data.
+        /// </summary>
+        private const int maxFramesPerSecond = 30;
+
+        /// <summary>
+        /// Number of frames per second that the face information should be updated. This is to help with readability.
+        /// </summary>
+        private const int faceInfoFramesPerSecond = 3;
+
+        /// <summary>
         /// Drawing group for displaying face information.
         /// </summary>
-
         private readonly DrawingGroup drawingGroup;
 
         /// <summary>
         /// Drawing image that we will display.
         /// </summary>
-
         private readonly DrawingImage imageSource;
 
         /// <summary>
         /// Allows us to map a 3D point to the 2D window.
         /// </summary>
-
         private readonly CoordinateMapper coordinateMapper = null;
-
-        /// <summary>
-        /// The reference to the Kinect v2 sensor.
-        /// </summary>
-
-        private readonly KinectSensor kinectSensor = null;
-
-        /// <summary>
-        /// Reads the body frame data.
-        /// </summary>
-
-        private readonly BodyFrameReader bodyFrameReader = null;
 
         /// <summary>
         /// Acquires the HD face data.
         /// </summary>
-
         private readonly HighDefinitionFaceFrameSource hdFaceFrameSource = null;
-
-        /// <summary>
-        /// Reads the HD face data.
-        /// </summary>
-
-        private readonly HighDefinitionFaceFrameReader hdFaceFrameReader = null;
-
-        /// <summary>
-        /// Access the face model points.
-        /// </summary>
-
-        private FaceModel faceModel = null;
 
         /// <summary>
         /// Accesses the face verticies.
         /// </summary>
-
         private readonly FaceAlignment faceAlignment = null;
 
         /// <summary>
         /// Used to display all of the facial points in the MainWindow.
         /// </summary>
-
         private readonly List<Ellipse> points = new List<Ellipse>();
 
         /// <summary>
         /// Used to dynamically display the AU values of the tracked face.
         /// </summary>
-
         private readonly TextBlock textBlock = new TextBlock();
 
         /// <summary>
         /// This array contains all of the FaceShapeAnimations that we want to keep track of
         /// </summary>
-
         private readonly FaceShapeAnimations[] faceShapeAnimations = {
             FaceShapeAnimations.JawOpen,
             FaceShapeAnimations.LipPucker,
@@ -122,33 +99,53 @@ namespace ProjectEDDIE
         };
 
         /// <summary>
+        /// A counter that is used to help display the faceShapeAnimation information only faceInfoFramesPerSecond times per second.
+        /// </summary>
+        private int faceInfoDelayCounter = 0;
+
+        /// <summary>
+        /// Reads the body frame data.
+        /// </summary>
+        private BodyFrameReader bodyFrameReader = null;
+
+        /// <summary>
+        /// Reads the HD face data.
+        /// </summary>
+        private HighDefinitionFaceFrameReader hdFaceFrameReader = null;
+
+        /// <summary>
+        /// Access the face model points.
+        /// </summary>
+        private FaceModel faceModel = null;
+
+        /// <summary>
+        /// The reference to the Kinect v2 sensor.
+        /// </summary>
+        private KinectSensor kinectSensor = null;
+
+        /// <summary>
         /// The current status text to display.
         /// </summary>
-
         private string statusText = null;
 
         /// <summary>
         /// Stores the floating point value for each corresponding FaceShapeAnimation.
         /// </summary>
-
         private IReadOnlyDictionary<FaceShapeAnimations, float> animationUnits = null;
 
         /// <summary>
         /// Event to allow window controls to bind to changeable data.
         /// </summary>
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Gets the bitmap to display.
         /// </summary>
-
         public ImageSource ImageSource => imageSource;
 
         /// <summary>
         /// Gets or sets the current status text to display.
         /// </summary>
-
         public string StatusText
         {
             get => statusText;
@@ -166,7 +163,6 @@ namespace ProjectEDDIE
         /// <summary>
         /// Initialize a new instance of the MainWindow class.
         /// </summary>
-
         public MainWindow()
         {
             kinectSensor = KinectSensor.GetDefault(); // The Kinect v2 is the only sensor supported so simply get that
@@ -177,12 +173,10 @@ namespace ProjectEDDIE
 
                 // Listen for the body data
                 bodyFrameReader = kinectSensor.BodyFrameSource.OpenReader();
-                bodyFrameReader.FrameArrived += Reader_BodyFrameArrived;
 
                 // Listen for HD face data.
                 hdFaceFrameSource = new HighDefinitionFaceFrameSource(kinectSensor);
                 hdFaceFrameReader = hdFaceFrameSource.OpenReader();
-                hdFaceFrameReader.FrameArrived += Reader_FaceFrameArrived;
 
                 faceModel = new FaceModel();
                 faceAlignment = new FaceAlignment();
@@ -198,29 +192,78 @@ namespace ProjectEDDIE
             InitializeComponent();
         }
 
-        // Called when this object is no longer needed in the program (when it shutsdown).
+        /// <summary>
+        /// Execute start up tasks.
+        /// </summary>
+        /// <param name="sender">object sending the event</param>
+        /// <param name="e">event arguments</param>
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Setup the textCanvas to display the faceShapeAnimation information
+            textBlock.FontSize = 12;
+            textBlock.TextWrapping = TextWrapping.Wrap;
+            textBlock.Foreground = new SolidColorBrush(Colors.Black);
+            Canvas.SetLeft(textBlock, 0.0);
+            Canvas.SetTop(textBlock, 10.0);
+            textCanvas.Children.Add(textBlock);
+
+            if (bodyFrameReader != null)
+            {
+                bodyFrameReader.FrameArrived += Reader_BodyFrameArrived; // Wire handler for body frame arrival
+            }
+            if (hdFaceFrameReader != null)
+            {
+                hdFaceFrameReader.FrameArrived += Reader_FaceFrameArrived; // Wire handler for face framce arrival
+            }
+        }
+
+        /// <summary>
+        /// Execute shutdown tasks.
+        /// </summary>
+        /// <param name="sender">object sending the event</param>
+        /// <param name="e">event arguments</param>
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            // BodyFrameReader, HighDefinitionFaceFrameReader, and FaceModel are IDisposable 
+            bodyFrameReader?.Dispose();
+            bodyFrameReader = null;
+            hdFaceFrameReader?.Dispose();
+            hdFaceFrameReader = null;
+            faceModel?.Dispose();
+            faceModel = null;
+
+            kinectSensor?.Close();
+            kinectSensor = null;
+        }
+
+        /// <summary>
+        /// Called when disposed of
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Disposed based on whether or not managed or native resources should be freed.
+        /// </summary>
+        /// <param name="disposing">Set to true to free both native and managed resources, false otherwise</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && faceModel != null)
+            if (disposing)
             {
-                faceModel.Dispose();
+                faceModel?.Dispose();
                 faceModel = null;
             }
         }
 
         /// <summary>
         /// Handles the body frame data arriving from the sensor and connects a body to a face by setting the 
-        /// TrackingId property of the Face source.
+        /// TrackingId property of the HighDefinitionFaceFrameSource.
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             using (BodyFrame frame = e.FrameReference.AcquireFrame())
@@ -238,10 +281,6 @@ namespace ProjectEDDIE
             }
         }
 
-        private const int framesPerSecond = 30;
-        private const int wantedFramesPerSecond = 3;
-        private int counter = 0;
-
         /// <summary>
         /// Handles the face frame data arriving from the sensor.
         /// We need to check two conditions in order to access the face point data:
@@ -254,7 +293,6 @@ namespace ProjectEDDIE
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="hde">event arguments</param>
-
         private void Reader_FaceFrameArrived(object sender, HighDefinitionFaceFrameArrivedEventArgs hde)
         {
             using (HighDefinitionFaceFrame frame = hde.FrameReference.AcquireFrame())
@@ -262,14 +300,10 @@ namespace ProjectEDDIE
                 if (frame != null && frame.IsFaceTracked)
                 {
                     frame.GetAndRefreshFaceAlignmentResult(faceAlignment);
-                    if (counter == framesPerSecond / wantedFramesPerSecond)
+                    if (++faceInfoDelayCounter == maxFramesPerSecond / faceInfoFramesPerSecond)
                     {
                         UpdateFaceInformationText();
-                        counter = 0;
-                    }
-                    else
-                    {
-                        ++counter;
+                        faceInfoDelayCounter = 0;
                     }
                     UpdateFacePoints();
                 }
@@ -277,11 +311,28 @@ namespace ProjectEDDIE
         }
 
         /// <summary>
+        /// Updates the faceShapeAnimation information that has been captured.
+        /// </summary>
+        private void UpdateFaceInformationText()
+        {
+            string faceInfoText = string.Empty;
+            if (faceAlignment != null)
+            {
+                animationUnits = faceAlignment.AnimationUnits;
+                foreach (FaceShapeAnimations faceShapeAnimation in faceShapeAnimations)
+                {
+                    faceInfoText += faceShapeAnimation.ToString() + " : ";
+                    faceInfoText += animationUnits[faceShapeAnimation].ToString() + "\n\n";
+                }
+            }
+            textBlock.Text = faceInfoText;
+        }
+
+        /// <summary>
         /// We have a list of CameraSpacePoint objects and a list of Ellipse objects which we will add to the canvas and specify their x and 
         /// y positions. The x, y, and z coordiantes are measured in meters. In order to properly find the corresponding pixel values, we use 
         /// a CoordinateMapper which is a built-in mechanism that converts between 3D space ositions to 2D screen positions.
         /// </summary>
-
         private void UpdateFacePoints()
         {
             if (faceModel == null) return;
@@ -311,33 +362,9 @@ namespace ProjectEDDIE
                     DepthSpacePoint point = coordinateMapper.MapCameraPointToDepthSpace(vertex);
                     if (float.IsInfinity(point.X) || float.IsInfinity(point.Y)) return;
                     Ellipse ellipse = points[i];
-                    Canvas.SetLeft(ellipse, point.X);
-                    Canvas.SetTop(ellipse, point.Y);
+                    Canvas.SetLeft(ellipse, 3 * point.X - faceCanvas.Width);
+                    Canvas.SetTop(ellipse, 3 * point.Y - faceCanvas.Height);
                 }
-            }
-        }
-
-        private void UpdateFaceInformationText()
-        {
-            string faceInfoText = string.Empty;
-            if (faceAlignment != null)
-            {
-                animationUnits = faceAlignment.AnimationUnits;
-                foreach (FaceShapeAnimations faceShapeAnimation in faceShapeAnimations)
-                {
-                    faceInfoText += faceShapeAnimation.ToString() + " : ";
-                    faceInfoText += animationUnits[faceShapeAnimation].ToString() + "\n\n";
-                }
-            }
-            textBlock.Text = faceInfoText;
-            textBlock.FontSize = 11;
-            textBlock.TextWrapping = TextWrapping.Wrap;
-            textBlock.Foreground = new SolidColorBrush(Colors.Black);
-            Canvas.SetLeft(textBlock, 0.0);
-            Canvas.SetTop(textBlock, 10.0);
-            if (!textCanvas.Children.Contains(textBlock))
-            {
-                textCanvas.Children.Add(textBlock);
             }
         }
 
@@ -346,7 +373,6 @@ namespace ProjectEDDIE
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void Sensor_IsAvailableChanged(object sender, IsAvailableChangedEventArgs e)
         {
             if (kinectSensor != null)

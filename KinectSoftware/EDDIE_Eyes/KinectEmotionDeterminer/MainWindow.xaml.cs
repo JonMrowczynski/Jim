@@ -474,7 +474,6 @@ namespace KinectEmotionDeterminer
                     textCanvas.Children.Add(rightEyebrowTextBlock);
                     textCanvas.Children.Add(leftEyebrowTextBlock);
                 }
-                //if (!this.textCanvas.Children.Contains(FAUTextBlock)) { textCanvas.Children.Add(FAUTextBlock); }
             }
         } // end of UpdateFaceInformationText
 

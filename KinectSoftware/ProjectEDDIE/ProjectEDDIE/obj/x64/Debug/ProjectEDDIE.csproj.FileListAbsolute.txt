@@ -20,7 +20,6 @@ C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDD
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\bin\x64\Debug\Microsoft.Kinect.Face.dll
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\bin\x64\Debug\Microsoft.Kinect.xml
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\bin\x64\Debug\Microsoft.Kinect.Face.xml
-C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\ProjectEDDIE.csprojAssemblyReference.cache
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\MainWindow.baml
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\MainWindow.g.cs
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\App.g.cs
@@ -32,3 +31,4 @@ C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDD
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\ProjectEDDIE.csproj.CopyComplete
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\ProjectEDDIE.exe
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\ProjectEDDIE.pdb
+C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\ProjectEDDIE\ProjectEDDIE\obj\x64\Debug\ProjectEDDIE.csprojAssemblyReference.cache
