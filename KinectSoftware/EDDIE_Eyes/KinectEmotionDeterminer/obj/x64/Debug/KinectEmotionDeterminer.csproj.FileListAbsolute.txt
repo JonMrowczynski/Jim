@@ -304,4 +304,3 @@ C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotio
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.csproj.CopyComplete
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.dll
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.pdb
-C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.csprojAssemblyReference.cache
