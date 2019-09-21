@@ -38,16 +38,6 @@ namespace KinectAndFSATesterNS
         private const int faceInfoFramesPerSecond = 3;
 
         /// <summary>
-        /// Drawing group for displaying face information.
-        /// </summary>
-        private readonly DrawingGroup drawingGroup;
-
-        /// <summary>
-        /// Drawing image that we will display.
-        /// </summary>
-        private readonly DrawingImage imageSource;
-
-        /// <summary>
         /// Allows us to map a 3D point to the 2D window.
         /// </summary>
         private readonly CoordinateMapper coordinateMapper = null;
@@ -68,9 +58,9 @@ namespace KinectAndFSATesterNS
         private readonly List<Ellipse> points = new List<Ellipse>();
 
         /// <summary>
-        /// Used to dynamically display the AU values of the tracked face.
+        /// Used to dynamically display the FSA values of the tracked face.
         /// </summary>
-        private readonly TextBlock textBlock = new TextBlock();
+        private readonly TextBlock fsaTextBlock = new TextBlock();
 
         /// <summary>
         /// This array contains all of the FaceShapeAnimations that we want to keep track of
@@ -136,11 +126,6 @@ namespace KinectAndFSATesterNS
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets the bitmap to display.
-        /// </summary>
-        public ImageSource ImageSource => imageSource;
-
-        /// <summary>
         /// Gets or sets the current status text to display.
         /// </summary>
         public string StatusText
@@ -183,8 +168,6 @@ namespace KinectAndFSATesterNS
 
                 StatusText = kinectSensor.IsAvailable ? Properties.Resources.RunningStatusText : Properties.Resources.NoSensorStatusText;
             }
-            drawingGroup = new DrawingGroup();
-            imageSource = new DrawingImage(drawingGroup);
             DataContext = this;
             InitializeComponent();
         }
@@ -197,12 +180,12 @@ namespace KinectAndFSATesterNS
         private void KinectAndFSATester_Loaded(object sender, RoutedEventArgs e)
         {
             // Setup the textCanvas to display the faceShapeAnimation information
-            textBlock.FontSize = 12;
-            textBlock.TextWrapping = TextWrapping.Wrap;
-            textBlock.Foreground = new SolidColorBrush(Colors.Black);
-            Canvas.SetLeft(textBlock, 0.0);
-            Canvas.SetTop(textBlock, 10.0);
-            textCanvas.Children.Add(textBlock);
+            fsaTextBlock.FontSize = 12;
+            fsaTextBlock.TextWrapping = TextWrapping.Wrap;
+            fsaTextBlock.Foreground = new SolidColorBrush(Colors.Black);
+            Canvas.SetLeft(fsaTextBlock, 0.0);
+            Canvas.SetTop(fsaTextBlock, 10.0);
+            textCanvas.Children.Add(fsaTextBlock);
 
             if (bodyFrameReader != null)
             {
@@ -234,7 +217,7 @@ namespace KinectAndFSATesterNS
         }
 
         /// <summary>
-        /// Called when disposed of
+        /// Called when disposed of.
         /// </summary>
         public void Dispose()
         {
@@ -313,16 +296,15 @@ namespace KinectAndFSATesterNS
         private void UpdateFaceInformationText()
         {
             string faceInfoText = string.Empty;
-            if (faceAlignment != null)
+            if (faceAlignment != null) // if there is a face being tracked...
             {
                 animationUnits = faceAlignment.AnimationUnits;
                 foreach (FaceShapeAnimations faceShapeAnimation in faceShapeAnimations)
                 {
-                    faceInfoText += faceShapeAnimation.ToString() + " : ";
-                    faceInfoText += animationUnits[faceShapeAnimation].ToString() + "\n\n";
+                    faceInfoText += faceShapeAnimation.ToString() + " : " + animationUnits[faceShapeAnimation].ToString() + "\n\n";
                 }
             }
-            textBlock.Text = faceInfoText;
+            fsaTextBlock.Text = faceInfoText;
         }
 
         /// <summary>
@@ -359,6 +341,7 @@ namespace KinectAndFSATesterNS
                     DepthSpacePoint point = coordinateMapper.MapCameraPointToDepthSpace(vertex);
                     double scaledX = 3 * point.X - faceCanvas.Width;
                     double scaledY = 3 * point.Y - faceCanvas.Height;
+                    // Put the points on the faceCanvas iff they are on the screen 
                     if (double.IsInfinity(scaledX) || double.IsInfinity(scaledY)) return;
                     Ellipse ellipse = points[i];
                     Canvas.SetLeft(ellipse, scaledX);
