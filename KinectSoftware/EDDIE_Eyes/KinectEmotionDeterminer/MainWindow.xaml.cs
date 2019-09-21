@@ -22,10 +22,11 @@ using System.Windows.Shapes;
 
 namespace KinectEmotionDeterminer
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     {
-
         /// <summary>
         /// The number of of times data is captured per second.
         /// </summary>
@@ -35,11 +36,6 @@ namespace KinectEmotionDeterminer
         /// Displays the face information.
         /// </summary>
         private readonly DrawingGroup drawingGroup;
-
-        /// <summary>
-        /// Draws the image that is displayed.
-        /// </summary>
-        private readonly DrawingImage imageSource;
 
         /// <summary>
         /// This allows us to map 3D point t the 2D window.
@@ -156,7 +152,6 @@ namespace KinectEmotionDeterminer
                 StatusText = kinectSensor.IsAvailable ? Properties.Resources.RunningStatusText : Properties.Resources.NoSensorStatusText;
             }
             drawingGroup = new DrawingGroup();
-            imageSource = new DrawingImage(drawingGroup);
             DataContext = this;
             InitializeComponent();
         }
@@ -166,7 +161,6 @@ namespace KinectEmotionDeterminer
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             fsaTextBlock.FontSize = 14;
@@ -192,7 +186,6 @@ namespace KinectEmotionDeterminer
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             // BodyFrameReader, HighDefinitionFaceFrameReader, and FaceModel are IDisposable 
