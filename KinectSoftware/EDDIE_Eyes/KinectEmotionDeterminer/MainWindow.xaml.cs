@@ -28,14 +28,16 @@ namespace KinectEmotionDeterminer
     public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     {
         /// <summary>
-        /// The number of of times data is captured per second.
+        /// This array contains all of the FaceShapeAnimations that we want to keep track of.
         /// </summary>
-        public const int dataCollectionFramesPerSecond = 10;
-
-        /// <summary>
-        /// Displays the face information.
-        /// </summary>
-        private readonly DrawingGroup drawingGroup;
+        public static readonly FaceShapeAnimations[] faceShapeAnimations = {
+            FaceShapeAnimations.LipCornerPullerLeft,
+            FaceShapeAnimations.LipCornerPullerRight,
+            FaceShapeAnimations.LipCornerDepressorLeft,
+            FaceShapeAnimations.LipCornerDepressorRight,
+            FaceShapeAnimations.RighteyebrowLowerer,
+            FaceShapeAnimations.LefteyebrowLowerer,
+        };
 
         /// <summary>
         /// This allows us to map 3D point t the 2D window.
@@ -58,21 +60,19 @@ namespace KinectEmotionDeterminer
         private readonly List<Ellipse> points = new List<Ellipse>();
 
         /// <summary>
-        /// Used to dynamically display FSA values of the tracked face.
+        /// Dynamically displays the FSA values of the tracked face.
         /// </summary>
         private readonly TextBlock fsaTextBlock = new TextBlock();
 
         /// <summary>
-        /// This array contains all of the FaceShapeAnimations that we want to keep track of.
+        /// Dynamically displays the human's displayed emotion.
         /// </summary>
-        public static FaceShapeAnimations[] faceShapeAnimations = {
-            FaceShapeAnimations.LipCornerPullerLeft,
-            FaceShapeAnimations.LipCornerPullerRight,
-            FaceShapeAnimations.LipCornerDepressorLeft,
-            FaceShapeAnimations.LipCornerDepressorRight,
-            FaceShapeAnimations.RighteyebrowLowerer,
-            FaceShapeAnimations.LefteyebrowLowerer,
-        };
+        private readonly TextBlock emotionTextBlock = new TextBlock();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double[] faceData;
 
         /// <summary>
         /// Acquire and reads the body frame data.
@@ -95,11 +95,6 @@ namespace KinectEmotionDeterminer
         private KinectSensor kinectSensor = null;
 
         /// <summary>
-        /// The current status text to display.
-        /// </summary>
-        private string statusText = null;
-
-        /// <summary>
         /// Stores the floating point value for each corresponding FaceShapeAnimation.
         /// </summary>
         private IReadOnlyDictionary<FaceShapeAnimations, float> animationUnits = null;
@@ -108,6 +103,11 @@ namespace KinectEmotionDeterminer
         /// The event that allows the window controls to bind to changeable data.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// The current status text to display.
+        /// </summary>
+        private string statusText = null;
 
         /// <summary>
         /// Gets or sets the current status text to display.
@@ -124,6 +124,47 @@ namespace KinectEmotionDeterminer
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StatusText"));
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the current displayed emotion.
+        /// </summary>
+        public string CurrentDisplayedEmotion { get; set; } = string.Empty;
+
+        /// <summary>
+        /// A boolean that indicates whether another Thread is ready to read faceData.
+        /// </summary>
+        private volatile bool readyToReadData = false;
+
+        /// <summary>
+        /// Gets or sets whether faceData is ready to be read by another Thread. If readyToReadData is set to false, 
+        /// then readyToPassData is also set to false.
+        /// </summary>
+        public bool ReadyToReadData
+        {
+            get => readyToReadData;
+            set
+            {
+                if (value == false)
+                {
+                    ReadyToPassData = false;
+                }
+                readyToReadData = value;
+            }
+        }
+
+        /// <summary>
+        /// A boolean indicating whether faceData is ready to be passed to another Thread.
+        /// </summary>
+        private volatile bool readyToPassData = false;
+
+        /// <summary>
+        /// Gets or sets whether faceData is ready to be passed to another Thread.
+        /// </summary>
+        public bool ReadyToPassData
+        {
+            get => readyToPassData;
+            set => readyToPassData = value;
         }
 
         /// <summary>
@@ -151,7 +192,7 @@ namespace KinectEmotionDeterminer
 
                 StatusText = kinectSensor.IsAvailable ? Properties.Resources.RunningStatusText : Properties.Resources.NoSensorStatusText;
             }
-            drawingGroup = new DrawingGroup();
+            faceData = new double[faceShapeAnimations.Length];
             DataContext = this;
             InitializeComponent();
         }
@@ -171,6 +212,13 @@ namespace KinectEmotionDeterminer
             Canvas.SetTop(fsaTextBlock, 10.0);
             textCanvas.Children.Add(fsaTextBlock);
 
+            emotionTextBlock.FontSize = 20;
+            emotionTextBlock.TextWrapping = TextWrapping.Wrap;
+            emotionTextBlock.Foreground = new SolidColorBrush(Colors.White);
+            Canvas.SetLeft(emotionTextBlock, faceCanvas.Height / 2 - 50);
+            Canvas.SetTop(emotionTextBlock, 350);
+            faceCanvas.Children.Add(emotionTextBlock);
+
             if (bodyFrameReader != null)
             {
                 bodyFrameReader.FrameArrived += Reader_BodyFrameArrived;
@@ -182,7 +230,7 @@ namespace KinectEmotionDeterminer
         }
 
         /// <summary>
-        /// Execute shutdown tasks
+        /// Execute shutdown tasks.
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
@@ -223,11 +271,10 @@ namespace KinectEmotionDeterminer
         }
 
         /// <summary>
-        /// We connect a body to a face by setting the TrackingId property of the FaceSource
+        /// We connect a body to a face by setting the TrackingId property of the FaceSource.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             using (BodyFrame frame = e.FrameReference.AcquireFrame())
@@ -245,58 +292,13 @@ namespace KinectEmotionDeterminer
             }
         }
 
-        readonly TextBlock faceTextBlock = new TextBlock();
-
-        public static string currentEmotionDisplayed = string.Empty;
-
         /// <summary>
-        /// 
-        /// </summary>
-        private void DrawFaceEmotion()
-        {
-            using (DrawingContext dc = drawingGroup.Open())
-            {
-                faceTextBlock.Text = "Emotion: " + currentEmotionDisplayed;
-                faceTextBlock.FontSize = 20;
-                faceTextBlock.TextWrapping = TextWrapping.Wrap;
-                faceTextBlock.Foreground = new SolidColorBrush(Colors.White);
-                Canvas.SetLeft(faceTextBlock, faceCanvas.Height / 2 - 50);
-                Canvas.SetTop(faceTextBlock, 350);
-                if (!faceCanvas.Children.Contains(faceTextBlock)) { faceCanvas.Children.Add(faceTextBlock); }
-            }
-        }
-
-        public static bool readyToPassData = false;
-        public static bool readyToReadData = false;
-
-        public static float[,] faceData = new float[faceShapeAnimations.Length, dataCollectionFramesPerSecond];
-
-        public void CollectFaceData()
-        {
-            if (!readyToPassData && readyToReadData)
-            {
-                int faceDataCounter = 0;
-                for (int i = 0; i < faceShapeAnimations.Length; ++i)
-                {
-                    faceData[i, faceDataCounter] = animationUnits[faceShapeAnimations[i]];
-                }
-                readyToPassData = faceDataCounter++ >= dataCollectionFramesPerSecond - 1;
-            }
-        }
-
-        public bool IsReadyToPassData() { return readyToPassData; }
-
-        public int GetFaceShapeAnimationLength() { return faceShapeAnimations.Length; }
-
-        /// <summary>
-        /// Handles the face frame data arriving from the sensor.
-        /// We need to check two conditions in order to access the face point data:
+        /// Handles the face frame data arriving from the sensor. We need to check two conditions in order to access the face point data:
         /// 1. Check that the frame is not null
         /// 2. Ensure that the frame has at least one tracked face
         /// Once these two conditions are satisfied, we can call the method GetAndRefreshFaceAlignmentResult so that the facial points
         /// and properties are updated.
-        /// The facial points are represented by verticies (3D points). These verticies are of triangles such that a 3D triangular mesh
-        /// can be constructed using these verticies to display the face.
+        /// The facial points are represented by verticies (points in 3D space).
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="hde">event arguments</param>
@@ -307,44 +309,39 @@ namespace KinectEmotionDeterminer
                 if (frame != null && frame.IsFaceTracked)
                 {
                     frame.GetAndRefreshFaceAlignmentResult(faceAlignment);
-                    // Only update the ShapeAnimationUnit information to the screen every certain number of frames per second
-                    UpdateFaceInformationText();
-                    CollectFaceData();
+                    UpdateFaceInformation();
                     UpdateFacePoints();
                     DrawFaceEmotion();
                 }
             }
         }
 
-        public static bool leftLipCornerPulled = false;
-        public static bool rightLipCornerPulled = false;
-        public static bool leftLipCornerDepressed = false;
-        public static bool rightLipCornerDepressed = false;
-        public static bool rightEyebrowLowered = false;
-        public static bool leftEyebrowLowered = false;
-        public static bool rightEyebrowRaised = false;
-        public static bool leftEyebrowRaised = false;
-
         /// <summary>
         /// This method updates the text that is displayed in the Grid's left column which shows how much a person's face is in the given 
-        /// states (FaceShapeAnimation units).
+        /// states (FaceShapeAnimation units). In addition, those values are added to a faceData array that can be acquired from 
+        /// another Thread to perform analyses.
         /// </summary>
-        private void UpdateFaceInformationText()
+        private void UpdateFaceInformation()
         {
             string faceInfoText = string.Empty;
             if (faceAlignment != null) // If there is a face being tracked...
             {
                 animationUnits = faceAlignment.AnimationUnits;
-                foreach (FaceShapeAnimations faceShapeAnimation in faceShapeAnimations)
+                for (int i = 0; i < faceShapeAnimations.Length; ++i)
                 {
-                    faceInfoText += faceShapeAnimation.ToString() + ": " + animationUnits[faceShapeAnimation].ToString() + "\n\n";
+                    faceInfoText += faceShapeAnimations[i].ToString() + ": " + animationUnits[faceShapeAnimations[i]].ToString() + "\n\n";
+                    if (ReadyToReadData && !ReadyToPassData)
+                    {
+                        faceData[i] = animationUnits[faceShapeAnimations[i]];
+                    }
                 }
+                ReadyToPassData = true;
             }
             fsaTextBlock.Text = faceInfoText;
         }
 
         /// <summary>
-        /// We have alist of CameraSpacePoint objects and a list of Ellipse objects which we will add to the canvas and specify their x and
+        /// We have a list of CameraSpacePoint objects and a list of Ellipse objects which we will add to the canvas and specify their x and
         /// y position. The x, y, and z coordiantes are measured in meters. In order to properly find the corresponding pixel values, 
         /// we use a CoordinateMapper which is a built-in mechanism that converts 3D space positions to 2D screen positions.
         /// </summary>
@@ -384,6 +381,14 @@ namespace KinectEmotionDeterminer
                     Canvas.SetTop(ellipse, scaledY);
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void DrawFaceEmotion()
+        {
+            emotionTextBlock.Text = "Emotion: " + CurrentDisplayedEmotion;
         }
 
         /// <summary>

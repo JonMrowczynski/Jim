@@ -21,28 +21,23 @@ Assembly WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856a
 	hash=None, flags=None
 Class KinectEmotionDeterminerWrapper: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Interfaces:
-    System.IDisposable
   Fields:
-    KinectEmotionDeterminer.MainWindow mainWindow : Public
+    KinectEmotionDeterminer.MainWindow mainWindow IsVolatile : Public
     System.Threading.Thread guiThread : Public
-    Int32 numOfFaceShapeAnimations : Public
     Boolean leftLipCornerPulled : Public
     Boolean rightLipCornerPulled : Public
     Boolean leftLipCornerDepressed : Public
     Boolean rightLipCornerDepressed : Public
-    Boolean rightEyebrowLowered : Public
     Boolean leftEyebrowLowered : Public
-    Boolean rightEyebrowRaised : Public
+    Boolean rightEyebrowLowered : Public
     Boolean leftEyebrowRaised : Public
+    Boolean rightEyebrowRaised : Public
   Methods:
     getFacialData(): PrivateScope, Public, HideBySig
+    checkFAUs(Double[]): PrivateScope, Public, HideBySig
     calibrate(): PrivateScope, Public, HideBySig
-    checkFAUs(Double*): PrivateScope, Public, HideBySig
-    updateMainWindowBooleans(): PrivateScope, Public, HideBySig
     updateDisplayedEmotionText(String): PrivateScope, Public, HideBySig
     isHappy(): PrivateScope, Public, HideBySig
     isSad(): PrivateScope, Public, HideBySig
     isAngry(): PrivateScope, Public, HideBySig
     isNeutral(): PrivateScope, Public, HideBySig
-    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
