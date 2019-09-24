@@ -22,7 +22,7 @@ Assembly WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856a
 Class KinectEmotionDeterminerWrapper: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
-    KinectEmotionDeterminer.MainWindow mainWindow IsVolatile : Public
+    KinectEmotionDeterminer.MainWindow mainWindow : Public
     System.Threading.Thread guiThread : Public
     Boolean leftLipCornerPulled : Public
     Boolean rightLipCornerPulled : Public

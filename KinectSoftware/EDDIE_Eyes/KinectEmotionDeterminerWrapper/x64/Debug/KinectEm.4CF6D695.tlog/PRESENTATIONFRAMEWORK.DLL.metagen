@@ -6167,7 +6167,6 @@ Class System.Windows.SystemResources: AutoLayout, AnsiClass, Class, Abstract, Se
     System.Collections.ObjectModel.ReadOnlyCollection`1[System.Windows.Diagnostics.ResourceDictionaryInfo] GenericResourceDictionaries 'get ' : 
     Boolean IsSystemResourcesParsing 'get set' : 
     System.Object ThemeDictionaryLock 'get ' : 
-    MS.Win32.HwndWrapper Hwnd 'get ' : 
   Events:
     System.EventHandler`1[System.Windows.Diagnostics.ResourceDictionaryLoadedEventArgs] ThemedDictionaryLoaded: 
     System.EventHandler`1[System.Windows.Diagnostics.ResourceDictionaryUnloadedEventArgs] ThemedDictionaryUnloaded: 
@@ -6184,7 +6183,7 @@ Class System.Windows.SystemResources: AutoLayout, AnsiClass, Class, Abstract, Se
     get_IsSystemResourcesParsing(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     set_IsSystemResourcesParsing(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_ThemeDictionaryLock(): PrivateScope, Assembly, Static, HideBySig, SpecialName
-    get_Hwnd(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    GetDpiAwarenessCompatibleNotificationWindow(HandleRef): PrivateScope, Assembly, Static, HideBySig
     DelayHwndShutdown(): PrivateScope, Assembly, Static, HideBySig
     add_ThemedDictionaryLoaded(EventHandler`1): PrivateScope, Assembly, Static, HideBySig, SpecialName
     remove_ThemedDictionaryLoaded(EventHandler`1): PrivateScope, Assembly, Static, HideBySig, SpecialName
@@ -6821,7 +6820,11 @@ Class System.Windows.Window: AutoLayout, AnsiClass, Class, Public, HasSecurity
     System.ComponentModel.CancelEventHandler Closing: 
     System.EventHandler Closed: 
     System.EventHandler ContentRendered: 
+    System.EventHandler`1[System.EventArgs] VisualChildrenChanged: 
   Methods:
+    CreateAllStyle(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
+    CreateSourceWindowDuringShow(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
+    CreateSourceWindow(Boolean): PrivateScope, Assembly, HideBySig
     CreateHwndSourceParameters(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     CorrectStyleForBorderlessWindowCase(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     GetRequestedDimensions(Double&, Double&, Double&, Double&): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
@@ -6915,6 +6918,8 @@ Class System.Windows.Window: AutoLayout, AnsiClass, Class, Public, HasSecurity
     remove_Closed(EventHandler): PrivateScope, Public, HideBySig, SpecialName
     add_ContentRendered(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     remove_ContentRendered(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_VisualChildrenChanged(EventHandler`1): PrivateScope, Assembly, HideBySig, SpecialName
+    remove_VisualChildrenChanged(EventHandler`1): PrivateScope, Assembly, HideBySig, SpecialName
     DeviceToLogicalUnits(Point): PrivateScope, Assembly, HideBySig
     LogicalToDeviceUnits(Point): PrivateScope, Assembly, HideBySig
     VisibilityToBool(Visibility): PrivateScope, Assembly, Static, HideBySig
@@ -6928,9 +6933,6 @@ Class System.Windows.Window: AutoLayout, AnsiClass, Class, Public, HasSecurity
     get_WindowSize(): PrivateScope, Assembly, HideBySig, SpecialName
     get_HwndSourceWindow(): PrivateScope, Assembly, HideBySig, SpecialName
     OnAncestorChanged(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
-    CreateAllStyle(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
-    CreateSourceWindowDuringShow(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
-    CreateSourceWindow(Boolean): PrivateScope, Assembly, HideBySig
 Struct System.Windows.WindowStyle: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -9506,7 +9508,7 @@ Class System.Windows.Input.KeyboardNavigation: AutoLayout, AnsiClass, Class, Pub
     PredictFocusedElement(DependencyObject, FocusNavigationDirection, Boolean): PrivateScope, Assembly, HideBySig
     PredictFocusedElement(DependencyObject, FocusNavigationDirection, Boolean, Boolean): PrivateScope, Assembly, HideBySig
     PredictFocusedElementAtViewportEdge(DependencyObject, FocusNavigationDirection, Boolean, FrameworkElement, DependencyObject): PrivateScope, Assembly, HideBySig
-    Navigate(DependencyObject, Key, ModifierKeys): PrivateScope, Assembly, HideBySig
+    Navigate(DependencyObject, Key, ModifierKeys, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
     GetParent(DependencyObject): PrivateScope, Assembly, Static, HideBySig
     IsFocusableInternal(DependencyObject): PrivateScope, Assembly, HideBySig
     GetFirstTabInGroup(DependencyObject): PrivateScope, Assembly, HideBySig
@@ -10183,6 +10185,7 @@ Class System.Windows.Data.BindingExpression: AutoLayout, AnsiClass, Class, Publi
     ChangeWorkerSources(WeakDependencySource[], Int32): PrivateScope, Assembly, HideBySig
     TransferValue(Object, Boolean): PrivateScope, Assembly, HideBySig
     ScheduleTransfer(Boolean): PrivateScope, Assembly, HideBySig
+    ShouldReactToDirtyOverride(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     UpdateOverride(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ConvertProposedValue(Object): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ObtainConvertedProposedValue(BindingGroup): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
@@ -10307,6 +10310,7 @@ Class System.Windows.Data.BindingExpressionBase: AutoLayout, AnsiClass, Class, P
     ChangeValue(Object, Boolean): PrivateScope, Assembly, HideBySig
     Clean(): PrivateScope, Assembly, HideBySig
     Dirty(): PrivateScope, Assembly, HideBySig
+    ShouldReactToDirtyOverride(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     Invalidate(Boolean): PrivateScope, Assembly, HideBySig
     UseFallbackValue(): PrivateScope, Assembly, HideBySig
     IsNullValue(Object): PrivateScope, Assembly, Static, HideBySig
@@ -10650,6 +10654,8 @@ Class System.Windows.Data.BindingOperations: AutoLayout, AnsiClass, Class, Publi
     set_TraceAccessorTableSize(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     OnCollectionRegistering(IEnumerable, Object): PrivateScope, Assembly, Static, HideBySig
     OnCollectionViewRegistering(CollectionView): PrivateScope, Assembly, Static, HideBySig
+    EnableExceptionLogging(): PrivateScope, Assembly, Static, HideBySig
+    LogException(Exception): PrivateScope, Assembly, Static, HideBySig
 Class System.Windows.Data.CollectionContainer: AutoLayout, AnsiClass, Class, Public
   :System.Windows.DependencyObject
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -11186,6 +11192,7 @@ Class System.Windows.Data.MultiBindingExpression: AutoLayout, AnsiClass, Class, 
     HandlePropertyInvalidation(DependencyObject, DependencyPropertyChangedEventArgs): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ReceiveWeakEvent(Type, Object, EventArgs): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     OnLostFocus(Object, RoutedEventArgs): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
+    ShouldReactToDirtyOverride(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     UpdateOverride(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
 Class System.Windows.Data.ObjectDataProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Data.DataSourceProvider
@@ -11249,6 +11256,7 @@ Class System.Windows.Data.PriorityBindingExpression: AutoLayout, AnsiClass, Clas
     ChangeSourcesForChild(BindingExpressionBase, WeakDependencySource[]): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ReplaceChild(BindingExpressionBase): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     UpdateBindingGroup(BindingGroup): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
+    ShouldReactToDirtyOverride(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     GetRawProposedValue(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ConvertProposedValue(Object): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ObtainConvertedProposedValue(BindingGroup): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
@@ -14356,6 +14364,11 @@ Class System.Windows.Markup.ReaderContextStackData: AutoLayout, AnsiClass, Class
     ClearFlag(ReaderFlags): PrivateScope, Assembly, HideBySig
     get_IsObjectElement(): PrivateScope, Assembly, HideBySig, SpecialName
     ClearData(): PrivateScope, Assembly, HideBySig
+Class System.Windows.Markup.RestrictiveXamlXmlReader: NotPublic
+  :System.Xaml.XamlXmlReader
+    Void .ctor(System.Xml.XmlReader, System.Xaml.XamlSchemaContext, System.Xaml.XamlXmlReaderSettings): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Read(): PrivateScope, Public, Virtual, HideBySig
 Class System.Windows.Markup.RoutedEventConverter: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.ComponentModel.TypeConverter
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -15151,7 +15164,10 @@ Class System.Windows.Markup.XamlReader: AutoLayout, AnsiClass, Class, Public, Be
     get_BamlSharedSchemaContext(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_XamlV3SharedSchemaContext(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     GetWpfSchemaContext(): PrivateScope, Public, Static, HideBySig
+    Load(Stream, ParserContext, Boolean): PrivateScope, Assembly, Static, HideBySig
+    Load(XmlReader, Boolean(Optional, HasDefault)): PrivateScope, Assembly, Static, HideBySig
     Load(XmlReader, ParserContext, XamlParseMode): PrivateScope, Assembly, Static, HideBySig
+    Load(XmlReader, ParserContext, XamlParseMode, Boolean): PrivateScope, Assembly, Static, HideBySig
     Load(XamlReader, ParserContext): PrivateScope, Assembly, Static, HideBySig
     Load(XamlReader): PrivateScope, Public, Static, HideBySig
     LoadBaml(Stream, ParserContext, Object, Boolean): PrivateScope, Assembly, Static, HideBySig
@@ -16079,7 +16095,7 @@ Class System.Windows.Automation.Peers.ItemAutomationPeer: AutoLayout, AnsiClass,
     System.Windows.Automation.Provider.IVirtualizedItemProvider
   Properties:
     Boolean AncestorsInvalid 'get set' : 
-    System.Object Item 'get ' : 
+    System.Object Item 'get set' : 
     System.Windows.Automation.Peers.ItemsControlAutomationPeer ItemsControlAutomationPeer 'get set' : 
   Methods:
     get_AncestorsInvalid(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride, SpecialName
@@ -16091,8 +16107,11 @@ Class System.Windows.Automation.Peers.ItemAutomationPeer: AutoLayout, AnsiClass,
     IsDataItemAutomationPeer(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     AddToParentProxyWeakRefCache(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     GetVisibleBoundingRectCore(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
+    GetPositionInSetFromItemsControl(ItemsControl, Object): PrivateScope, Assembly, Static, HideBySig
+    GetSizeOfSetFromItemsControl(ItemsControl, Object): PrivateScope, Assembly, Static, HideBySig
     GetItemsControlAutomationPeer(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     get_Item(): PrivateScope, Public, HideBySig, SpecialName
+    ReuseForItem(Object): PrivateScope, Assembly, HideBySig
     get_ItemsControlAutomationPeer(): PrivateScope, Public, HideBySig, SpecialName
     set_ItemsControlAutomationPeer(ItemsControlAutomationPeer): PrivateScope, Assembly, HideBySig, SpecialName
     RealizeCore(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
@@ -16106,6 +16125,7 @@ Class System.Windows.Automation.Peers.ItemsControlAutomationPeer: AutoLayout, An
     System.Collections.Generic.List`1[System.Windows.Automation.Peers.ItemAutomationPeer] RecentlyRealizedPeers 'get ' : 
   Methods:
     GetPattern(PatternInterface): PrivateScope, Public, Virtual, HideBySig
+    ReusePeerForItem(ItemAutomationPeer, Object): PrivateScope, Assembly, HideBySig
     AddProxyToWeakRefStorage(WeakReference, ItemAutomationPeer): PrivateScope, Assembly, HideBySig
     IsPropertySupportedByControlForFindItem(Int32): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     IsPropertySupportedByControlForFindItemInternal(Int32): PrivateScope, Assembly, Static, HideBySig
@@ -16116,6 +16136,7 @@ Class System.Windows.Automation.Peers.ItemsControlAutomationPeer: AutoLayout, An
     UpdateChildren(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     GetPeerFromWeakRefStorage(Object): PrivateScope, Assembly, HideBySig
     GetExistingPeerByItem(Object, Boolean): PrivateScope, Assembly, HideBySig
+    ReusablePeerFor(Object): PrivateScope, Assembly, HideBySig
     get_ItemPeers(): PrivateScope, Assembly, HideBySig, SpecialName
     set_ItemPeers(ItemPeersStorage`1): PrivateScope, Assembly, HideBySig, SpecialName
     get_WeakRefElementProxyStorage(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -16143,6 +16164,12 @@ Class System.Windows.Automation.Peers.RecyclableWrapper: AutoLayout, AnsiClass, 
   Methods:
     LinkItem(Object): PrivateScope, Public, HideBySig
     get_Peer(): PrivateScope, Public, HideBySig, SpecialName
+Class System.Windows.Automation.Peers.ItemsControlItemAutomationPeer: AutoLayout, AnsiClass, Class, BeforeFieldInit
+  :System.Windows.Automation.Peers.ItemAutomationPeer
+    Void .ctor(System.Object, System.Windows.Automation.Peers.ItemsControlWrapperAutomationPeer): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class System.Windows.Automation.Peers.ItemsControlWrapperAutomationPeer: AutoLayout, AnsiClass, Class, BeforeFieldInit
+  :System.Windows.Automation.Peers.ItemsControlAutomationPeer
+    Void .ctor(System.Windows.Controls.ItemsControl): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Interface System.Windows.Automation.Peers.IViewAutomationPeer: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
   Methods:
     GetAutomationControlType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
@@ -16340,8 +16367,11 @@ Class System.Windows.Automation.Peers.ThumbAutomationPeer: AutoLayout, AnsiClass
 Class System.Windows.Automation.Peers.TextElementAutomationPeer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Automation.Peers.ContentTextAutomationPeer
     Void .ctor(System.Windows.Documents.TextElement): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Nullable`1[System.Boolean] IsTextViewVisible 'get ' : 
   Methods:
     GetAutomationPeersFromRange(ITextPointer, ITextPointer): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
+    get_IsTextViewVisible(): PrivateScope, Assembly, HideBySig, SpecialName
 Class System.Windows.Automation.Peers.ToggleButtonAutomationPeer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Automation.Peers.ButtonBaseAutomationPeer
     Void .ctor(System.Windows.Controls.Primitives.ToggleButton): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -29268,6 +29298,7 @@ Class System.Windows.Controls.ItemsControl: AutoLayout, AnsiClass, Class, Public
     LeaseItemInfo(ItemInfo, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
     RefreshItemInfo(ItemInfo): PrivateScope, Assembly, HideBySig
     ToString(): PrivateScope, Public, Virtual, HideBySig
+    OnCreateAutomationPeerInternal(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     get_DTypeThemeStyleKey(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride, SpecialName
     get_Items(): PrivateScope, Public, HideBySig, SpecialName
     ShouldSerializeItems(): PrivateScope, Public, HideBySig
@@ -29967,6 +29998,7 @@ Class System.Windows.Controls.PasswordBox: AutoLayout, AnsiClass, Class, Public,
     System.Windows.DependencyProperty PasswordCharProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty MaxLengthProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty SelectionBrushProperty : Public, Static, InitOnly
+    System.Windows.DependencyProperty SelectionTextBrushProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty SelectionOpacityProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty CaretBrushProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty IsSelectionActiveProperty : Public, Static, InitOnly
@@ -29978,6 +30010,7 @@ Class System.Windows.Controls.PasswordBox: AutoLayout, AnsiClass, Class, Public,
     Char PasswordChar 'get set' : 
     Int32 MaxLength 'get set' : 
     System.Windows.Media.Brush SelectionBrush 'get set' : 
+    System.Windows.Media.Brush SelectionTextBrush 'get set' : 
     Double SelectionOpacity 'get set' : 
     System.Windows.Media.Brush CaretBrush 'get set' : 
     Boolean IsSelectionActive 'get ' : 
@@ -30001,6 +30034,8 @@ Class System.Windows.Controls.PasswordBox: AutoLayout, AnsiClass, Class, Public,
     set_MaxLength(Int32): PrivateScope, Public, HideBySig, SpecialName
     get_SelectionBrush(): PrivateScope, Public, HideBySig, SpecialName
     set_SelectionBrush(Brush): PrivateScope, Public, HideBySig, SpecialName
+    get_SelectionTextBrush(): PrivateScope, Public, HideBySig, SpecialName
+    set_SelectionTextBrush(Brush): PrivateScope, Public, HideBySig, SpecialName
     get_SelectionOpacity(): PrivateScope, Public, HideBySig, SpecialName
     set_SelectionOpacity(Double): PrivateScope, Public, HideBySig, SpecialName
     get_CaretBrush(): PrivateScope, Public, HideBySig, SpecialName
@@ -30071,7 +30106,9 @@ Class System.Windows.Controls.PopupControlService: AutoLayout, AnsiClass, Class,
   Properties:
     System.Windows.Controls.PopupControlService Current 'get ' : 
     System.Windows.Controls.ToolTip CurrentToolTip 'get ' : 
+    System.Windows.Input.KeyboardFocusChangedEventHandler FocusChangedEventHandler 'get ' : 
   Methods:
+    OpenOrCloseToolTipViaShortcut(): PrivateScope, Public, HideBySig
     StopLookingForToolTip(DependencyObject): PrivateScope, Assembly, HideBySig
     OnRaiseToolTipOpeningEvent(Object, EventArgs): PrivateScope, Assembly, HideBySig
     OnRaiseToolTipClosingEvent(Object, EventArgs): PrivateScope, Assembly, HideBySig
@@ -30081,6 +30118,7 @@ Class System.Windows.Controls.PopupControlService: AutoLayout, AnsiClass, Class,
     get_Current(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_CurrentToolTip(): PrivateScope, Assembly, HideBySig, SpecialName
     CoerceProperty(DependencyObject, Object, DependencyProperty): PrivateScope, Assembly, Static, HideBySig
+    get_FocusChangedEventHandler(): PrivateScope, Assembly, HideBySig, SpecialName
 Struct System.Windows.Controls.VirtualizationCacheLengthUnit: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -30831,17 +30869,6 @@ Class System.Windows.Controls.Slider: AutoLayout, AnsiClass, Class, Public
     System.Windows.FrameworkElement SelectionRangeElement 'get set' : 
     System.Windows.DependencyObjectType DTypeThemeStyleKey 'get ' : 
   Methods:
-    get_IncreaseLarge(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_DecreaseLarge(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_IncreaseSmall(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_DecreaseSmall(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_MinimizeValue(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_MaximizeValue(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_Orientation(): PrivateScope, Public, HideBySig, SpecialName
-    set_Orientation(Orientation): PrivateScope, Public, HideBySig, SpecialName
-    get_IsDirectionReversed(): PrivateScope, Public, HideBySig, SpecialName
-    set_IsDirectionReversed(Boolean): PrivateScope, Public, HideBySig, SpecialName
-    get_Delay(): PrivateScope, Public, HideBySig, SpecialName
     set_Delay(Int32): PrivateScope, Public, HideBySig, SpecialName
     get_Interval(): PrivateScope, Public, HideBySig, SpecialName
     set_Interval(Int32): PrivateScope, Public, HideBySig, SpecialName
@@ -30871,6 +30898,17 @@ Class System.Windows.Controls.Slider: AutoLayout, AnsiClass, Class, Public
     set_SelectionRangeElement(FrameworkElement): PrivateScope, Assembly, HideBySig, SpecialName
     OnApplyTemplate(): PrivateScope, Public, Virtual, HideBySig
     get_DTypeThemeStyleKey(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride, SpecialName
+    get_IncreaseLarge(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DecreaseLarge(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IncreaseSmall(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DecreaseSmall(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MinimizeValue(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MaximizeValue(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Orientation(): PrivateScope, Public, HideBySig, SpecialName
+    set_Orientation(Orientation): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDirectionReversed(): PrivateScope, Public, HideBySig, SpecialName
+    set_IsDirectionReversed(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Delay(): PrivateScope, Public, HideBySig, SpecialName
 Class System.Windows.Controls.SoundPlayerAction: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.TriggerAction
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -30881,11 +30919,11 @@ Class System.Windows.Controls.SoundPlayerAction: AutoLayout, AnsiClass, Class, P
   Properties:
     System.Uri Source 'get set' : 
   Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Source(): PrivateScope, Public, HideBySig, SpecialName
     set_Source(Uri): PrivateScope, Public, HideBySig, SpecialName
     Invoke(FrameworkElement, FrameworkContentElement, Style, FrameworkTemplate, Int64): PrivateScope, Assembly, Final, Virtual, HideBySig
     Invoke(FrameworkElement): PrivateScope, Assembly, Final, Virtual, HideBySig
-    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    get_Source(): PrivateScope, Public, HideBySig, SpecialName
 Class System.Windows.Controls.SpellCheck: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(System.Windows.Controls.Primitives.TextBoxBase): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -31469,6 +31507,7 @@ Class System.Windows.Controls.ToolTip: AutoLayout, AnsiClass, Class, Public
   :System.Windows.Controls.ContentControl
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    System.Windows.DependencyProperty FromKeyboardProperty : Assembly, Static, InitOnly
     System.Windows.DependencyProperty HorizontalOffsetProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty VerticalOffsetProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty IsOpenProperty : Public, Static, InitOnly
@@ -31481,6 +31520,8 @@ Class System.Windows.Controls.ToolTip: AutoLayout, AnsiClass, Class, Public
     System.Windows.RoutedEvent OpenedEvent : Public, Static, InitOnly
     System.Windows.RoutedEvent ClosedEvent : Public, Static, InitOnly
   Properties:
+    Boolean FromKeyboard 'get set' : 
+    Boolean ShouldShowOnKeyboardFocus 'get ' : 
     Double HorizontalOffset 'get set' : 
     Double VerticalOffset 'get set' : 
     Boolean IsOpen 'get set' : 
@@ -31495,6 +31536,9 @@ Class System.Windows.Controls.ToolTip: AutoLayout, AnsiClass, Class, Public
     System.Windows.RoutedEventHandler Opened: 
     System.Windows.RoutedEventHandler Closed: 
   Methods:
+    get_FromKeyboard(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_FromKeyboard(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
+    get_ShouldShowOnKeyboardFocus(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, SpecialName
     get_HorizontalOffset(): PrivateScope, Public, HideBySig, SpecialName
     set_HorizontalOffset(Double): PrivateScope, Public, HideBySig, SpecialName
     get_VerticalOffset(): PrivateScope, Public, HideBySig, SpecialName
@@ -31588,15 +31632,17 @@ Class System.Windows.Controls.FindToolTipEventHandler: AutoLayout, AnsiClass, Cl
     EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
 Class System.Windows.Controls.FindToolTipEventArgs: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   :System.Windows.RoutedEventArgs
-    Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(ToolTipTrigger): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Properties:
     System.Windows.DependencyObject TargetElement 'get set' : 
     Boolean KeepCurrentActive 'get set' : 
+    ToolTipTrigger TriggerAction 'get ' : 
   Methods:
     get_TargetElement(): PrivateScope, Assembly, HideBySig, SpecialName
     set_TargetElement(DependencyObject): PrivateScope, Assembly, HideBySig, SpecialName
     get_KeepCurrentActive(): PrivateScope, Assembly, HideBySig, SpecialName
     set_KeepCurrentActive(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
+    get_TriggerAction(): PrivateScope, Assembly, HideBySig, SpecialName
 Class System.Windows.Controls.TreeView: AutoLayout, AnsiClass, Class, Public
   :System.Windows.Controls.ItemsControl
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -33068,6 +33114,7 @@ Class System.Windows.Controls.Primitives.Popup: AutoLayout, AnsiClass, Class, Pu
   Interfaces:
     System.Windows.Markup.IAddChild
   Fields:
+    System.Windows.DependencyProperty TreatMousePlacementAsBottomProperty : Assembly, Static, InitOnly
     System.Windows.DependencyProperty ChildProperty : Public, Static, InitOnly
     System.Windows.UncommonField`1[System.Collections.Generic.List`1[System.Windows.Controls.Primitives.Popup]] RegisteredPopupsField : Assembly, Static, InitOnly
     System.Windows.DependencyProperty IsOpenProperty : Public, Static, InitOnly
@@ -33085,9 +33132,11 @@ Class System.Windows.Controls.Primitives.Popup: AutoLayout, AnsiClass, Class, Pu
     System.Windows.RoutedEventHandler CloseOnUnloadedHandler : Assembly, Static
     Double Tolerance = 0.01 : Assembly, Static, Literal, HasDefault
   Properties:
+    Boolean TreatMousePlacementAsBottom 'get set' : 
     System.Windows.UIElement Child 'get set' : 
     Boolean IsOpen 'get set' : 
     System.Windows.Controls.Primitives.PlacementMode Placement 'get set' : 
+    System.Windows.Controls.Primitives.PlacementMode PlacementInternal 'get ' : 
     System.Windows.Controls.Primitives.CustomPopupPlacementCallback CustomPopupPlacementCallback 'get set' : 
     Boolean StaysOpen 'get set' : 
     Double HorizontalOffset 'get set' : 
@@ -33106,6 +33155,8 @@ Class System.Windows.Controls.Primitives.Popup: AutoLayout, AnsiClass, Class, Pu
     System.EventHandler Closed: 
     System.EventHandler PopupCouldClose: 
   Methods:
+    get_TreatMousePlacementAsBottom(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_TreatMousePlacementAsBottom(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
     get_Child(): PrivateScope, Public, HideBySig, SpecialName
     set_Child(UIElement): PrivateScope, Public, HideBySig, SpecialName
     pushTextRenderingMode(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
@@ -33113,6 +33164,7 @@ Class System.Windows.Controls.Primitives.Popup: AutoLayout, AnsiClass, Class, Pu
     set_IsOpen(Boolean): PrivateScope, Public, HideBySig, SpecialName
     get_Placement(): PrivateScope, Public, HideBySig, SpecialName
     set_Placement(PlacementMode): PrivateScope, Public, HideBySig, SpecialName
+    get_PlacementInternal(): PrivateScope, Assembly, HideBySig, SpecialName
     get_CustomPopupPlacementCallback(): PrivateScope, Public, HideBySig, SpecialName
     set_CustomPopupPlacementCallback(CustomPopupPlacementCallback): PrivateScope, Public, HideBySig, SpecialName
     get_StaysOpen(): PrivateScope, Public, HideBySig, SpecialName
@@ -33133,6 +33185,7 @@ Class System.Windows.Controls.Primitives.Popup: AutoLayout, AnsiClass, Class, Pu
     set_AllowsTransparency(Boolean): PrivateScope, Public, HideBySig, SpecialName
     get_HasDropShadow(): PrivateScope, Public, HideBySig, SpecialName
     CreateRootPopup(Popup, UIElement): PrivateScope, Public, Static, HideBySig
+    CreateRootPopupInternal(Popup, UIElement, Boolean): PrivateScope, Assembly, Static, HideBySig
     IsRootedInPopup(Popup, UIElement): PrivateScope, Assembly, Static, HideBySig
     add_Opened(EventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_Opened(EventHandler): PrivateScope, Public, HideBySig, SpecialName
@@ -33455,6 +33508,7 @@ Class System.Windows.Controls.Primitives.TextBoxBase: AutoLayout, AnsiClass, Cla
     System.Windows.DependencyProperty UndoLimitProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty AutoWordSelectionProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty SelectionBrushProperty : Public, Static, InitOnly
+    System.Windows.DependencyProperty SelectionTextBrushProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty SelectionOpacityProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty CaretBrushProperty : Public, Static, InitOnly
     System.Windows.DependencyPropertyKey IsSelectionActivePropertyKey : Assembly, Static, InitOnly
@@ -33485,6 +33539,7 @@ Class System.Windows.Controls.Primitives.TextBoxBase: AutoLayout, AnsiClass, Cla
     Int32 UndoLimit 'get set' : 
     Boolean AutoWordSelection 'get set' : 
     System.Windows.Media.Brush SelectionBrush 'get set' : 
+    System.Windows.Media.Brush SelectionTextBrush 'get set' : 
     Double SelectionOpacity 'get set' : 
     System.Windows.Media.Brush CaretBrush 'get set' : 
     Boolean IsSelectionActive 'get ' : 
@@ -33501,6 +33556,9 @@ Class System.Windows.Controls.Primitives.TextBoxBase: AutoLayout, AnsiClass, Cla
     System.Windows.Controls.TextChangedEventHandler TextChanged: 
     System.Windows.RoutedEventHandler SelectionChanged: 
   Methods:
+    GetTextPositionFromPointInternal(Point, Boolean): PrivateScope, Assembly, HideBySig
+    GetRectangleFromTextPosition(TextPointer, Rect&(Out)): PrivateScope, Assembly, HideBySig
+    AttachToVisualTree(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     DoLineUp(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     DoLineDown(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     AddToEventRouteCore(EventRoute, RoutedEventArgs): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
@@ -33570,6 +33628,8 @@ Class System.Windows.Controls.Primitives.TextBoxBase: AutoLayout, AnsiClass, Cla
     set_AutoWordSelection(Boolean): PrivateScope, Public, HideBySig, SpecialName
     get_SelectionBrush(): PrivateScope, Public, HideBySig, SpecialName
     set_SelectionBrush(Brush): PrivateScope, Public, HideBySig, SpecialName
+    get_SelectionTextBrush(): PrivateScope, Public, HideBySig, SpecialName
+    set_SelectionTextBrush(Brush): PrivateScope, Public, HideBySig, SpecialName
     get_SelectionOpacity(): PrivateScope, Public, HideBySig, SpecialName
     set_SelectionOpacity(Double): PrivateScope, Public, HideBySig, SpecialName
     get_CaretBrush(): PrivateScope, Public, HideBySig, SpecialName
@@ -33585,9 +33645,6 @@ Class System.Windows.Controls.Primitives.TextBoxBase: AutoLayout, AnsiClass, Cla
     CreateRenderScope(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, Abstract
     OnTextContainerChanged(Object, TextContainerChangedEventArgs): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     InitializeTextContainer(TextContainer): PrivateScope, Assembly, HideBySig
-    GetTextPositionFromPointInternal(Point, Boolean): PrivateScope, Assembly, HideBySig
-    GetRectangleFromTextPosition(TextPointer, Rect&(Out)): PrivateScope, Assembly, HideBySig
-    AttachToVisualTree(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
 Class System.Windows.Controls.Primitives.Thumb: AutoLayout, AnsiClass, Class, Public
   :System.Windows.Controls.Control
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -34406,10 +34463,12 @@ Class MS.Win32.UxThemeWrapper: AutoLayout, AnsiClass, Class, Abstract, Sealed
     Boolean IsActive 'get ' : 
     System.String ThemeName 'get ' : 
     System.String ThemeColor 'get ' : 
+    System.String ThemedResourceName 'get ' : 
   Methods:
     get_IsActive(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_ThemeName(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_ThemeColor(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_ThemedResourceName(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     OnThemeChanged(): PrivateScope, Assembly, Static, HideBySig
 Struct MS.Utility.ItemStructMap`1[T]: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   Type parameter: T
@@ -34462,24 +34521,29 @@ Class MS.Internal.FrameworkAppContextSwitches: AutoLayout, AnsiClass, Class, Abs
     System.String DoNotUseFollowParentWhenBindingToADODataRelationSwitchName = Switch.System.Windows.Data.DoNotUseFollowParentWhenBindingToADODataRelation : Assembly, Static, Literal, HasDefault
     System.String UseAdornerForTextboxSelectionRenderingSwitchName = Switch.System.Windows.Controls.Text.UseAdornerForTextboxSelectionRendering : Assembly, Static, Literal, HasDefault
     System.String AppendLocalAssemblyVersionForSourceUriSwitchName = Switch.System.Windows.Baml2006.AppendLocalAssemblyVersionForSourceUri : Assembly, Static, Literal, HasDefault
+    System.String IListIndexerHidesCustomIndexerSwitchName = Switch.System.Windows.Data.Binding.IListIndexerHidesCustomIndexer : Assembly, Static, Literal, HasDefault
+    System.String KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElementSwitchName = Switch.System.Windows.Controls.KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElement : Assembly, Static, Literal, HasDefault
+    System.String ItemAutomationPeerKeepsItsItemAliveSwitchName = Switch.System.Windows.Automation.Peers.ItemAutomationPeerKeepsItsItemAlive : Assembly, Static, Literal, HasDefault
   Properties:
     Boolean DoNotApplyLayoutRoundingToMarginsAndBorderThickness 'get ' : 
     Boolean GridStarDefinitionsCanExceedAvailableSpace 'get ' : 
     Boolean SelectionPropertiesCanLagBehindSelectionChangedEvent 'get ' : 
     Boolean DoNotUseFollowParentWhenBindingToADODataRelation 'get ' : 
-    Boolean UseLegacyAccessibilityFeatures 'get ' : 
-    Boolean UseLegacyAccessibilityFeatures2 'get ' : 
     Boolean UseAdornerForTextboxSelectionRendering 'get ' : 
     Boolean AppendLocalAssemblyVersionForSourceUri 'get ' : 
+    Boolean IListIndexerHidesCustomIndexer 'get ' : 
+    Boolean KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElement 'get ' : 
+    Boolean ItemAutomationPeerKeepsItsItemAlive 'get ' : 
   Methods:
     get_DoNotApplyLayoutRoundingToMarginsAndBorderThickness(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_GridStarDefinitionsCanExceedAvailableSpace(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_SelectionPropertiesCanLagBehindSelectionChangedEvent(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_DoNotUseFollowParentWhenBindingToADODataRelation(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_UseLegacyAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_UseLegacyAccessibilityFeatures2(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_UseAdornerForTextboxSelectionRendering(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_AppendLocalAssemblyVersionForSourceUri(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IListIndexerHidesCustomIndexer(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElement(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ItemAutomationPeerKeepsItsItemAlive(): PrivateScope, Public, Static, HideBySig, SpecialName
 Struct MS.Internal.TraceDataLevel: AutoLayout, AnsiClass, Class, Sealed
   :System.Enum
   Fields:
@@ -34908,6 +34972,20 @@ Class MS.Internal.InheritedPropertyChangedEventHandler: AutoLayout, AnsiClass, C
     Invoke(Object, InheritedPropertyChangedEventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     BeginInvoke(Object, InheritedPropertyChangedEventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Interface MS.Internal.IWeakHashtable: AutoLayout, AnsiClass, Class, ClassSemanticsMask, Abstract
+  Properties:
+    System.Object Item [System.Object] 'get ' : 
+    System.Collections.ICollection Keys 'get ' : 
+    Int32 Count 'get ' : 
+  Methods:
+    get_Item(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Keys(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Count(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    ContainsKey(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Remove(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Clear(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetWeak(Object, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UnwrapKey(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Class MS.Internal.LayoutDump: AutoLayout, AnsiClass, Class, Abstract, Sealed
   Methods:
     DumpLayoutAndVisualTreeToString(String, Visual): PrivateScope, Assembly, Static, HideBySig
@@ -35011,10 +35089,14 @@ Class MS.Internal.WeakDictionary`2[TKey,TValue]: AutoLayout, AnsiClass, Class, B
 Class MS.Internal.WeakHashtable: AutoLayout, AnsiClass, Class, Sealed, HasSecurity, BeforeFieldInit
   :System.Collections.Hashtable
     Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    MS.Internal.IWeakHashtable
   Methods:
     Clear(): PrivateScope, Public, Virtual, HideBySig
     Remove(Object): PrivateScope, Public, Virtual, HideBySig
-    SetWeak(Object, Object): PrivateScope, Public, HideBySig
+    SetWeak(Object, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    UnwrapKey(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FromKeyType(Type): PrivateScope, Public, Static, HideBySig
 Class MS.Internal.WeakHashSet`1[T]: AutoLayout, AnsiClass, Class, BeforeFieldInit
   Type parameter: T,  ReferenceType
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -35034,6 +35116,14 @@ Class MS.Internal.WeakHashSet`1[T]: AutoLayout, AnsiClass, Class, BeforeFieldIni
     get_IsReadOnly(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     Remove(T): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class MS.Internal.WeakObjectHashtable: AutoLayout, AnsiClass, Class, Sealed, HasSecurity, BeforeFieldInit
+  :System.Collections.Hashtable
+    Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    MS.Internal.IWeakHashtable
+  Methods:
+    SetWeak(Object, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    UnwrapKey(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Class MS.Internal.TracePageFormatting: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Properties:
     MS.Internal.AvTraceDetails FormatPage 'get ' : 
@@ -42989,9 +43079,9 @@ Class MS.Internal.PresentationFramework.SafeSecurityHelper: AutoLayout, AnsiClas
     IsSameKeyToken(Byte[], Byte[]): PrivateScope, Assembly, Static, HideBySig
     IsFeatureDisabled(KeyToRead): PrivateScope, Assembly, Static, HideBySig
     IsConnectedToPresentationSource(Visual): PrivateScope, Assembly, Static, HideBySig
-Class MS.Internal.PresentationFramework.PresentationNativeLoader: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+Class MS.Internal.PresentationFramework.WpfLibraryLoader: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    EnsureLoaded(): PrivateScope, Assembly, Static, HideBySig
+    EnsureLoaded(String): PrivateScope, Assembly, Static, HideBySig
 Class MS.Internal.PresentationFramework.AnimatedTypeHelpers: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
     InterpolateThickness(Thickness, Thickness, Double): PrivateScope, Assembly, Static, HideBySig
@@ -43003,6 +43093,7 @@ Class MS.Internal.PresentationFramework.AnimatedTypeHelpers: AutoLayout, AnsiCla
     GetZeroValueThickness(Thickness): PrivateScope, Assembly, Static, HideBySig
 Class MS.Internal.PresentationFramework.Interop.OSVersionHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed
   Properties:
+    Boolean IsOsWindows10RS5OrGreater 'get set' : 
     Boolean IsOsWindows10RS3OrGreater 'get set' : 
     Boolean IsOsWindows10RS2OrGreater 'get set' : 
     Boolean IsOsWindows10RS1OrGreater 'get set' : 
@@ -43022,6 +43113,8 @@ Class MS.Internal.PresentationFramework.Interop.OSVersionHelper: AutoLayout, Ans
     Boolean IsOsWindowsXPOrGreater 'get set' : 
     Boolean IsOsWindowsServer 'get set' : 
   Methods:
+    get_IsOsWindows10RS5OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    set_IsOsWindows10RS5OrGreater(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsOsWindows10RS3OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     set_IsOsWindows10RS3OrGreater(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsOsWindows10RS2OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
@@ -43078,6 +43171,7 @@ Struct MS.Internal.PresentationFramework.Interop.OperatingSystemVersion: AutoLay
     MS.Internal.PresentationFramework.Interop.OperatingSystemVersion Windows10RS1 = 11 : Public, Static, Literal, HasDefault
     MS.Internal.PresentationFramework.Interop.OperatingSystemVersion Windows10RS2 = 12 : Public, Static, Literal, HasDefault
     MS.Internal.PresentationFramework.Interop.OperatingSystemVersion Windows10RS3 = 13 : Public, Static, Literal, HasDefault
+    MS.Internal.PresentationFramework.Interop.OperatingSystemVersion Windows10RS5 = 14 : Public, Static, Literal, HasDefault
 Class MS.Internal.Xaml.Context.XamlContextStack`1[T]: AutoLayout, AnsiClass, Class, BeforeFieldInit
   Type parameter: T, MS.Internal.Xaml.Context.XamlFrame
     Void .ctor(System.Func`1[T]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -43512,6 +43606,15 @@ Class System.Windows.Data.BindingGroup+ProposedValueEntry: AutoLayout, AnsiClass
     get_ItemReference(): PrivateScope, Public, HideBySig, SpecialName
     get_Dependents(): PrivateScope, Public, HideBySig, SpecialName
     AddDependent(BindingExpressionBase): PrivateScope, Public, HideBySig
+Class System.Windows.Data.BindingOperations+ExceptionLogger: AutoLayout, AnsiClass, Class, NestedAssembly, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.Collections.Generic.List`1[System.Exception] Log 'get ' : 
+  Methods:
+    LogException(Exception): PrivateScope, Assembly, HideBySig
+    get_Log(): PrivateScope, Assembly, HideBySig, SpecialName
 Class System.Windows.Data.CollectionView+PlaceholderAwareEnumerator: AutoLayout, AnsiClass, Class, NestedAssembly, BeforeFieldInit
     Void .ctor(System.Windows.Data.CollectionView, System.Collections.IEnumerator, System.ComponentModel.NewItemPlaceholderPosition, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -44218,6 +44321,13 @@ Class System.Windows.Controls.SpellCheck+DictionaryCollectionFactory: AutoLayout
   Methods:
     get_DefaultValue(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride, SpecialName
     CreateDefaultValue(DependencyObject, DependencyProperty): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
+Struct System.Windows.Controls.ToolTip+ToolTipTrigger: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    ToolTipTrigger Mouse = 0 : Public, Static, Literal, HasDefault
+    ToolTipTrigger KeyboardFocus = 1 : Public, Static, Literal, HasDefault
+    ToolTipTrigger KeyboardShortcut = 2 : Public, Static, Literal, HasDefault
 Class System.Windows.Controls.WebBrowser+WebOCHostingAdaptor: AutoLayout, AnsiClass, Class, NestedAssembly, BeforeFieldInit
     Void .ctor(System.Windows.Controls.WebBrowser): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -44333,6 +44443,16 @@ Class MS.Internal.LayoutDump+DumpCustomDocumentPage: AutoLayout, AnsiClass, Clas
     BeginInvoke(XmlTextWriter, DocumentPage, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
 Class MS.Internal.WeakHashtable+EqualityWeakReference: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed, BeforeFieldInit
+    Void .ctor(System.Object): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IsAlive 'get ' : 
+    System.Object Target 'get ' : 
+  Methods:
+    get_IsAlive(): PrivateScope, Public, HideBySig, SpecialName
+    get_Target(): PrivateScope, Public, HideBySig, SpecialName
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+Class MS.Internal.WeakObjectHashtable+EqualityWeakReference: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed, BeforeFieldInit
     Void .ctor(System.Object): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Properties:
     Boolean IsAlive 'get ' : 

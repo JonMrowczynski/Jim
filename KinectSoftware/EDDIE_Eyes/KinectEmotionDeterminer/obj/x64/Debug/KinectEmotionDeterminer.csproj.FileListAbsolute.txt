@@ -294,13 +294,13 @@ C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotio
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\bin\x64\Debug\Microsoft.Kinect.Face.dll
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\bin\x64\Debug\Microsoft.Kinect.xml
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\bin\x64\Debug\Microsoft.Kinect.Face.xml
-C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\MainWindow.baml
-C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\MainWindow.g.cs
+C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.baml
+C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.g.cs
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer_MarkupCompile.cache
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.g.resources
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.Properties.Resources.resources
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.csproj.GenerateResource.cache
-C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.csproj.CoreCompileInputs.cache
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.csproj.CopyComplete
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.dll
 C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.pdb
+C:\Users\sleep\Downloads\repositories\Jim\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\x64\Debug\KinectEmotionDeterminer.csprojAssemblyReference.cache

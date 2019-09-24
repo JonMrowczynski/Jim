@@ -1,0 +1,33 @@
+﻿<Window x:Class="KinectEmotionDeterminerNS.KinectEmotionDeterminer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Project Jim" Height="768" Width="1024"
+        Loaded="KinectEmotionDeterminer_Loaded"
+        Closing="KinectEmotionDeterminer_Closing">
+    <Grid>
+        <Viewbox Grid.Row="1" Grid.Column="1">
+            <Canvas Name="textCanvas" Height="768" Width="200" RenderTransformOrigin="0,0">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-420"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+            </Canvas>
+        </Viewbox>
+        <Viewbox Grid.Row="1" Grid.Column="2">
+            <Canvas Name="faceCanvas" Height="424" Width="450" Background="Black">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="68"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+            </Canvas>
+        </Viewbox>
+    </Grid>
+</Window>

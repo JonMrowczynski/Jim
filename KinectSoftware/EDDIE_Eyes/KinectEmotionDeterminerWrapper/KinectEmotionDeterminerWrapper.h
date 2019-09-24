@@ -1,23 +1,35 @@
 /*
-	Name: KinectEmotionDeterminerWrapper.h
-	Date: 2/13/2016
-	Author: Jon Mrowczynski
+	Copyright (c) 2013-2019 Jon Mrowczynski
 
-   The class structure for the C# wrapper class. It contains the necessary fields and 
-   methods to handle intermediate processes such that the information gathered from 
-   the Kinect can be transfered to either another C++ program, or to a Java program 
-   using Java's JNI. 
-   
-   Note that this class is currently marked as sealed which means that none of the 
-   methods should be overridden 
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
 */
 
 #pragma once
 
 #include <iostream>
 
-public ref class KinectEmotionDeterminerWrapper sealed {
+/*
+	KinectEmotionDeterminerWrapper is a C++ wrapper class that is designed to help interface the Kinect code, which is
+	in C#, with the Java master control software via the JNI.
+*/
 
+public ref class KinectEmotionDeterminerWrapper sealed {
 	private:
 
 		// The amount of change from the neutral position of the human's left lip corner puller for the Kinect to register the FAU.
@@ -68,7 +80,7 @@ public ref class KinectEmotionDeterminerWrapper sealed {
 	public:
 
 		// The object that is wrapped by this class to allow for the Kinect C# code to be used with the JNI.
-		KinectEmotionDeterminer::MainWindow^ mainWindow;
+		KinectEmotionDeterminerNS::KinectEmotionDeterminer^ kinectEmotionDeterminer;
 
 		// The STA Thread that runs the Kinect code.
 		System::Threading::Thread^ guiThread;
@@ -118,13 +130,12 @@ public ref class KinectEmotionDeterminerWrapper sealed {
 		// Returns a boolean indicating whether the human is expressing all of the FAUs of a happy face.
 		bool isHappy(void);
 
-		// Returns a boolean indicating whether the human is expressing all of the FAUS of a sad face.
+		// Returns a boolean indicating whether the human is expressing all of the FAUs of a sad face.
 		bool isSad(void);
 
-		// Returns a boolean indicating whether the human is expressing all of the FAUS of an angry face.
+		// Returns a boolean indicating whether the human is expressing all of the FAUs of an angry face.
 		bool isAngry(void);
 
-		// Returns a boolean indicating whether the human is expressing all of the FAUS of their neutral face.
+		// Returns a boolean indicating whether the human is expressing all of the FAUs of their neutral face.
 		bool isNeutral(void);
-
 };

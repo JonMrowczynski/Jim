@@ -1,8 +1,23 @@
-/**	
-	This is the main C++ DLL file which will eventually be used to link the 
-	Kinect v2 software to the Java master control software using the JNI.
+/*
+	Copyright (c) 2013-2019 Jon Mrowczynski
 
-	@author Jon Mrowczynski
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
 */
 
 #include "stdafx.h"
@@ -12,7 +27,7 @@ using namespace std;
 using namespace System;
 using namespace Microsoft::Kinect::Face;
 using namespace System::Threading;
-using namespace KinectEmotionDeterminer;
+using namespace KinectEmotionDeterminerNS;
 
 KinectEmotionDeterminerWrapper::KinectEmotionDeterminerWrapper(void) {
 	guiThread = gcnew Thread(gcnew ThreadStart(this, &KinectEmotionDeterminerWrapper::runKinect));
@@ -21,17 +36,17 @@ KinectEmotionDeterminerWrapper::KinectEmotionDeterminerWrapper(void) {
 }
 
 void KinectEmotionDeterminerWrapper::runKinect(void) {
-	mainWindow = gcnew MainWindow();
-	mainWindow->ShowDialog();
+	kinectEmotionDeterminer = gcnew KinectEmotionDeterminer();
+	kinectEmotionDeterminer->ShowDialog();
 }
 
 cli::array<double>^ KinectEmotionDeterminerWrapper::getFacialData(void) {
 	double sum = 0;
-	double* averageFaceShapeAnimations = new double[MainWindow::faceShapeAnimations->Length];
-	mainWindow->ReadyToReadData = true;
-	while (!mainWindow->ReadyToPassData);
-	mainWindow->ReadyToReadData = false;
-	cli::array<double>^ facialData = mainWindow->faceData;
+	double* averageFaceShapeAnimations = new double[KinectEmotionDeterminer::faceShapeAnimations->Length];
+	kinectEmotionDeterminer->ReadyToReadData = true;
+	while (!kinectEmotionDeterminer->ReadyToPassData);
+	kinectEmotionDeterminer->ReadyToReadData = false;
+	cli::array<double>^ facialData = kinectEmotionDeterminer->faceData;
 	return facialData;
 }
 
@@ -49,7 +64,7 @@ void KinectEmotionDeterminerWrapper::checkFAUs(cli::array<double>^ faceShapeData
 void KinectEmotionDeterminerWrapper::calibrate(void) {
 
 	const int numOfDataPoints = 100;
-	cli::array<double>^ facialDataSums = gcnew cli::array<double>(MainWindow::faceShapeAnimations->Length);
+	cli::array<double>^ facialDataSums = gcnew cli::array<double>(KinectEmotionDeterminer::faceShapeAnimations->Length);
 	char choice = '\0';
 
 	cout << "Press Enter when you are ready to calibrate: ";
@@ -62,7 +77,7 @@ void KinectEmotionDeterminerWrapper::calibrate(void) {
 
 		for (int i = 0; i < numOfDataPoints; ++i) {
 			cli::array<double>^ facialData = getFacialData();
-			for (int j = 0; j < MainWindow::faceShapeAnimations->Length; ++j) { facialDataSums[j] += facialData[j]; }
+			for (int j = 0; j < KinectEmotionDeterminer::faceShapeAnimations->Length; ++j) { facialDataSums[j] += facialData[j]; }
 		}
 
 		leftLipCornerPullerNeutral		= facialDataSums[0] / numOfDataPoints;
@@ -108,5 +123,5 @@ bool KinectEmotionDeterminerWrapper::isNeutral(void) {
 }
 
 void KinectEmotionDeterminerWrapper::updateDisplayedEmotionText(String^ emotion) {
-	mainWindow->CurrentDisplayedEmotion = emotion;
+	kinectEmotionDeterminer->CurrentDisplayedEmotion = emotion;
 }

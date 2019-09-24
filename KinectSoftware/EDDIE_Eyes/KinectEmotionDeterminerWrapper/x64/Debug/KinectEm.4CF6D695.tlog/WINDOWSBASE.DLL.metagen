@@ -57,6 +57,7 @@ Class MS.Win32.ExternDll: AutoLayout, AnsiClass, Class, Abstract, Sealed, Before
     System.String Wininet = wininet.dll : Public, Static, Literal, HasDefault
     System.String Winmm = winmm.dll : Public, Static, Literal, HasDefault
     System.String Winspool = winspool.drv : Public, Static, Literal, HasDefault
+    System.String Wldp = wldp.dll : Public, Static, Literal, HasDefault
     System.String WtsApi32 = wtsapi32.dll : Public, Static, Literal, HasDefault
 Class MS.Win32.HandleCollector: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
@@ -78,6 +79,10 @@ Class MS.Win32.NativeMethods: AutoLayout, AnsiClass, Class, BeforeFieldInit
     System.Runtime.InteropServices.HandleRef HWND_TOPMOST : Public, Static
     System.Runtime.InteropServices.HandleRef HWND_NOTOPMOST : Public, Static
     IntPtr WTS_CURRENT_SERVER_HANDLE : Public, Static, InitOnly
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_UNAWARE : Assembly, Static, InitOnly
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_SYSTEM_AWARE : Assembly, Static, InitOnly
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE : Assembly, Static, InitOnly
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 : Assembly, Static, InitOnly
     IntPtr HWND_MESSAGE : Public, Static
     System.Guid GUID_MONITOR_POWER_ON : Public, Static, InitOnly
     Int32 ERROR = 0 : Public, Static, Literal, HasDefault
@@ -354,6 +359,7 @@ Class MS.Win32.NativeMethods: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Int32 E_NOINTERFACE = -2147467262 : Public, Static, Literal, HasDefault
     Int32 E_FAIL = -2147467259 : Public, Static, Literal, HasDefault
     Int32 E_ABORT = -2147467260 : Public, Static, Literal, HasDefault
+    Int32 E_ACCESSDENIED = -2147024891 : Public, Static, Literal, HasDefault
     Int32 E_UNEXPECTED = -2147418113 : Public, Static, Literal, HasDefault
     Int32 INET_E_DEFAULT_ACTION = -2146697199 : Public, Static, Literal, HasDefault
     Int32 ETO_OPAQUE = 2 : Public, Static, Literal, HasDefault
@@ -1967,6 +1973,14 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     Int32 TF_DICTATION_ON = 1 : Public, Static, Literal, HasDefault
     Int32 TF_COMMANDING_ON = 8 : Public, Static, Literal, HasDefault
   Methods:
+    TF_CreateThreadMgr(ITfThreadMgr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    TF_CreateInputProcessorProfiles(ITfInputProcessorProfiles&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    TF_CreateDisplayAttributeMgr(ITfDisplayAttributeMgr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    TF_CreateCategoryMgr(ITfCategoryMgr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    BeginPanningFeedback(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    UpdatePanningFeedback(HandleRef, Int32, Int32, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    EndPanningFeedback(HandleRef, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SetEvent(IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetEvent(SafeWaitHandle(In)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     WaitForSingleObject(SafeWaitHandle(In), Int32(In)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetMouseMovePointsEx(UInt32, MOUSEMOVEPOINT&(In), MOUSEMOVEPOINT[](Out), Int32, UInt32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -1989,10 +2003,14 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     SetWindowsHookEx(HookType, HookProc, IntPtr, Int32): PrivateScope, Public, Static, HideBySig
     UnhookWindowsHookEx(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     CallNextHookEx(HandleRef, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    TF_CreateThreadMgr(ITfThreadMgr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    TF_CreateInputProcessorProfiles(ITfInputProcessorProfiles&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    TF_CreateDisplayAttributeMgr(ITfDisplayAttributeMgr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    TF_CreateCategoryMgr(ITfCategoryMgr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    WaitForMultipleObjectsEx(Int32, IntPtr[], Boolean, Int32, Boolean): PrivateScope, Assembly, Static, HideBySig
+    MsgWaitForMultipleObjectsEx(Int32, IntPtr[], Int32, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
+    IntRegisterClassEx(WNDCLASSEX_D): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    RegisterClassEx(WNDCLASSEX_D): PrivateScope, Assembly, Static, HideBySig
+    IntUnregisterClass(IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    UnregisterClass(IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig
+    ChangeWindowMessageFilterEx(IntPtr, WindowMessage, MSGFLT, MSGFLTINFO&(Out)): PrivateScope, Assembly, Static, HideBySig
+    ObtainUserAgentString(): PrivateScope, Assembly, Static, HideBySig
     SendMessage(IntPtr, WindowMessage, IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     UnsafeSendMessage(IntPtr, WindowMessage, IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     RegisterPowerSettingNotification(IntPtr, Guid*, Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -2019,11 +2037,11 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     SetWindowPlacement(HandleRef, WINDOWPLACEMENT&(In)): PrivateScope, Assembly, Static, HideBySig
     SystemParametersInfo(Int32, Int32, ANIMATIONINFO(In, Out), Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SystemParametersInfo(Int32, Int32, ICONMETRICS(In, Out), Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    BeginPanningFeedback(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    UpdatePanningFeedback(HandleRef, Int32, Int32, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    EndPanningFeedback(HandleRef, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    SetEvent(IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    GetRawInputDeviceInfo(IntPtr, UInt32, RID_DEVICE_INFO&(In), UInt32&): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetMenu(HandleRef(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SetThreadDpiAwarenessContext(DpiAwarenessContextHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetThreadDpiAwarenessContext(): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    EnumDisplayMonitors(IntPtr, IntPtr, MonitorEnumProc, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WldpIsDynamicCodePolicyEnabled(Boolean&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     _GetTempFileName(String, String, UInt32, StringBuilder): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetTempFileName(String, String, UInt32, StringBuilder): PrivateScope, Assembly, Static, HideBySig
     ExtractIconEx(String, Int32, IconHandle&(Out), IconHandle&(Out), Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -2043,17 +2061,6 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     LocalFree(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CreateFile(String, UInt32, UInt32, SECURITY_ATTRIBUTES(In), Int32, Int32, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetMessageExtraInfo(): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WaitForMultipleObjectsEx(Int32, IntPtr[], Boolean, Int32, Boolean): PrivateScope, Assembly, Static, HideBySig
-    MsgWaitForMultipleObjectsEx(Int32, IntPtr[], Int32, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
-    IntRegisterClassEx(WNDCLASSEX_D): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    RegisterClassEx(WNDCLASSEX_D): PrivateScope, Assembly, Static, HideBySig
-    IntUnregisterClass(IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    UnregisterClass(IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig
-    ChangeWindowMessageFilterEx(IntPtr, WindowMessage, MSGFLT, MSGFLTINFO&(Out)): PrivateScope, Assembly, Static, HideBySig
-    ObtainUserAgentString(): PrivateScope, Assembly, Static, HideBySig
-    EndPaint(HandleRef, PAINTSTRUCT&(In, HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
-    GetDC(HandleRef): PrivateScope, Public, Static, HideBySig
-    ReleaseDC(HandleRef, HandleRef): PrivateScope, Public, Static, HideBySig
     GetDeviceCaps(HandleRef, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetActiveWindow(): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetForegroundWindow(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2086,7 +2093,7 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     PtInRegion(HandleRef, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     CreateRectRgn(Int32, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetRawInputDeviceList(RAWINPUTDEVICELIST[](In, Out), UInt32&(In, Out), UInt32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DefWindowProc(IntPtr, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetRawInputDeviceInfo(IntPtr, UInt32, RID_DEVICE_INFO&(In), UInt32&): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     IntGetProcAddress(HandleRef, String): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetProcAddress(HandleRef, String): PrivateScope, Public, Static, HideBySig
     GetProcAddressNoThrow(HandleRef, String): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2112,7 +2119,9 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     TryPostMessage(HandleRef, WindowMessage, IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     NotifyWinEvent(Int32, HandleRef, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     BeginPaint(HandleRef, PAINTSTRUCT&(In, Out, HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
-    ImmGetConversionStatus(HandleRef, Int32&, Int32&): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    EndPaint(HandleRef, PAINTSTRUCT&(In, HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    GetDC(HandleRef): PrivateScope, Public, Static, HideBySig
+    ReleaseDC(HandleRef, HandleRef): PrivateScope, Public, Static, HideBySig
     ImmGetContext(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     ImmReleaseContext(HandleRef, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     ImmAssociateContext(HandleRef, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2138,8 +2147,7 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     SetParent(HandleRef, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetModuleHandle(String): PrivateScope, Assembly, Static, HideBySig
     CallWindowProc(IntPtr, IntPtr, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    IsWinEventHookInstalled(Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    OleInitialize(): PrivateScope, Public, Static, HideBySig
+    DefWindowProc(IntPtr, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     CoRegisterPSClsid(Guid&, Guid&): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     EnumThreadWindows(Int32, EnumThreadWindowsCallback, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OleUninitialize(): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2168,8 +2176,7 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     GlobalFree(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GlobalSize(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     ImmSetConversionStatus(HandleRef, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    ShowWindow(HandleRef, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DeleteObject(HandleRef): PrivateScope, Public, Static, HideBySig
+    ImmGetConversionStatus(HandleRef, Int32&, Int32&): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     DeleteObjectNoThrow(HandleRef): PrivateScope, Public, Static, HideBySig
     IntDeleteObject(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SelectObject(HandleRef, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2194,7 +2201,10 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     DispatchMessage(MSG&(In)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     PostThreadMessage(Int32, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig
     ObjectFromLresult(IntPtr, Guid&, IntPtr, IAccessible&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    IsWinEventHookInstalled(Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    OleInitialize(): PrivateScope, Public, Static, HideBySig
     PtrToStructure(IntPtr, Type): PrivateScope, Public, Static, HideBySig
+    PtrToStructure(IntPtr): PrivateScope, Public, Static, HideBySig
     StructureToPtr(Object, IntPtr, Boolean): PrivateScope, Public, Static, HideBySig
     OleGetClipboard(IDataObject&): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OleSetClipboard(IDataObject): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2205,8 +2215,7 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     RegisterWindowMessage(String): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetWindowPos(HandleRef, HandleRef, Int32, Int32, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetWindow(HandleRef, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    GetProcessDpiAwareness(HandleRef, IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    GetDpiForMonitor(HandleRef, MonitorDpiType, UInt32&(Out), UInt32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetDpiForMonitor(HandleRef, MONITOR_DPI_TYPE, UInt32&(Out), UInt32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     IsProcessDPIAware(): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     OpenProcess(Int32, Boolean, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     EnableNonClientDpiScaling(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -2218,6 +2227,8 @@ Class MS.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Sealed, Before
     CriticalGetStockObject(Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     CriticalFillRect(IntPtr, RECT&, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetBitmapBits(HandleRef, Int32, Byte[]): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    ShowWindow(HandleRef, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    DeleteObject(HandleRef): PrivateScope, Public, Static, HideBySig
 Class MS.Win32.ManifestEtw: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
     EventRegister(Guid&(In), EtwEnableCallback(In), Void*(In), UInt64&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -2266,6 +2277,7 @@ Class MS.Win32.SafeNativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sealed
     ShowCursor(Boolean): PrivateScope, Public, Static, HideBySig
     AdjustWindowRectEx(RECT&, Int32, Boolean, Int32): PrivateScope, Assembly, Static, HideBySig
     GetClientRect(HandleRef, RECT&(In, Out)): PrivateScope, Assembly, Static, HideBySig
+    GetClientRect(HandleRef): PrivateScope, Assembly, Static, HideBySig
     GetWindowRect(HandleRef, RECT&(In, Out)): PrivateScope, Assembly, Static, HideBySig
     GetDoubleClickTime(): PrivateScope, Public, Static, HideBySig
     IsWindowEnabled(HandleRef): PrivateScope, Public, Static, HideBySig
@@ -2288,6 +2300,16 @@ Class MS.Win32.SafeNativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sealed
     SetCapture(HandleRef): PrivateScope, Public, Static, HideBySig
     MapVirtualKey(Int32, Int32): PrivateScope, Assembly, Static, HideBySig
     IsCurrentSessionConnectStateWTSActive(Nullable`1(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetProcessDpiAwareness(HandleRef): PrivateScope, Assembly, Static, HideBySig
+    GetWindowDpiAwarenessContext(IntPtr): PrivateScope, Assembly, Static, HideBySig
+    AreDpiAwarenessContextsEqual(IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetDpiForWindow(HandleRef): PrivateScope, Assembly, Static, HideBySig
+    GetDpiForSystem(): PrivateScope, Assembly, Static, HideBySig
+    GetWindowDpiHostingBehavior(IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetThreadDpiHostingBehavior(): PrivateScope, Assembly, Static, HideBySig
+    AdjustWindowRectExForDpi(RECT&, Int32, Boolean, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
+    LogicalToPhysicalPointForPerMonitorDPI(HandleRef, POINT&): PrivateScope, Assembly, Static, HideBySig
+    PhysicalToLogicalPointForPerMonitorDPI(HandleRef, POINT&): PrivateScope, Assembly, Static, HideBySig
     InSendMessage(): PrivateScope, Assembly, Static, HideBySig
     IsUxThemeActive(): PrivateScope, Public, Static, HideBySig
     SetCaretPos(Int32, Int32): PrivateScope, Public, Static, HideBySig
@@ -2349,6 +2371,42 @@ Class MS.Win32.ManagedWndProcTracker: AutoLayout, AnsiClass, Class, Abstract, Se
 Class MS.Win32.MessageOnlyHwndWrapper: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :MS.Win32.HwndWrapper
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class MS.Utility.DpiAwarenessContextHandle: NotPublic
+  :System.Runtime.InteropServices.SafeHandle
+    Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(MS.Utility.DpiAwarenessContextValue): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(IntPtr): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IEquatable`1[System.IntPtr]
+    System.IEquatable`1[MS.Utility.DpiAwarenessContextHandle]
+    System.IEquatable`1[MS.Utility.DpiAwarenessContextValue]
+  Properties:
+    Boolean IsInvalid 'get ' : 
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_UNAWARE 'get ' : 
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_SYSTEM_AWARE 'get ' : 
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE 'get ' : 
+    MS.Utility.DpiAwarenessContextHandle DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 'get ' : 
+  Methods:
+    get_IsInvalid(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_DPI_AWARENESS_CONTEXT_UNAWARE(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_DPI_AWARENESS_CONTEXT_SYSTEM_AWARE(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    op_Explicit(DpiAwarenessContextHandle): PrivateScope, Public, Static, HideBySig, SpecialName
+    Equals(DpiAwarenessContextHandle): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Equals(IntPtr): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Equals(DpiAwarenessContextValue): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+Struct MS.Utility.DpiAwarenessContextValue: AutoLayout, AnsiClass, Class, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MS.Utility.DpiAwarenessContextValue Invalid = 0 : Public, Static, Literal, HasDefault
+    MS.Utility.DpiAwarenessContextValue Unaware = -1 : Public, Static, Literal, HasDefault
+    MS.Utility.DpiAwarenessContextValue SystemAware = -2 : Public, Static, Literal, HasDefault
+    MS.Utility.DpiAwarenessContextValue PerMonitorAware = -3 : Public, Static, Literal, HasDefault
+    MS.Utility.DpiAwarenessContextValue PerMonitorAwareVersion2 = -4 : Public, Static, Literal, HasDefault
 Struct MS.Utility.FrugalListStoreState: AutoLayout, AnsiClass, Class, Sealed
   :System.Enum
   Fields:
@@ -2769,12 +2827,21 @@ Class MS.Internal.BaseAppContextSwitches: AutoLayout, AnsiClass, Class, Abstract
   Fields:
     System.String SwitchDoNotUseCulturePreservingDispatcherOperations = Switch.MS.Internal.DoNotUseCulturePreservingDispatcherOperations : Assembly, Static, Literal, HasDefault
     System.String SwitchUseSha1AsDefaultHashAlgorithmForDigitalSignatures = Switch.MS.Internal.UseSha1AsDefaultHashAlgorithmForDigitalSignatures : Assembly, Static, Literal, HasDefault
+    System.String SwitchDoNotInvokeInWeakEventTableShutdownListener = Switch.MS.Internal.DoNotInvokeInWeakEventTableShutdownListener : Assembly, Static, Literal, HasDefault
+    System.String SwitchEnableWeakEventMemoryImprovements = Switch.MS.Internal.EnableWeakEventMemoryImprovements : Assembly, Static, Literal, HasDefault
+    System.String SwitchEnableCleanupSchedulingImprovements = Switch.MS.Internal.EnableCleanupSchedulingImprovements : Assembly, Static, Literal, HasDefault
   Properties:
     Boolean DoNotUseCulturePreservingDispatcherOperations 'get ' : 
     Boolean UseSha1AsDefaultHashAlgorithmForDigitalSignatures 'get ' : 
+    Boolean DoNotInvokeInWeakEventTableShutdownListener 'get ' : 
+    Boolean EnableWeakEventMemoryImprovements 'get ' : 
+    Boolean EnableCleanupSchedulingImprovements 'get ' : 
   Methods:
     get_DoNotUseCulturePreservingDispatcherOperations(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_UseSha1AsDefaultHashAlgorithmForDigitalSignatures(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DoNotInvokeInWeakEventTableShutdownListener(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EnableWeakEventMemoryImprovements(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EnableCleanupSchedulingImprovements(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class MS.Internal.ResourceIDHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
     GetResourceIDFromRelativePath(String): PrivateScope, Assembly, Static, HideBySig
@@ -2997,6 +3064,12 @@ Class MS.Internal.BaseHashHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed
   Methods:
     RegisterTypes(Assembly, Type[]): PrivateScope, Assembly, Static, HideBySig
     HasReliableHashCode(Object): PrivateScope, Assembly, Static, HideBySig
+Class MS.Internal.CleanupHelper: AutoLayout, AnsiClass, Class, BeforeFieldInit
+  :System.Windows.Threading.DispatcherObject
+    Void .ctor(System.Func`2[System.Boolean,System.Boolean], Int32, Int32, Int32): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ScheduleCleanup(): PrivateScope, Assembly, HideBySig
+    DoCleanup(Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
 Class MS.Internal.ContentType: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
     Void .ctor(System.String): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -4422,12 +4495,14 @@ Struct MS.Internal.Interop.WindowMessage: AutoLayout, AnsiClass, Class, Sealed
     MS.Internal.Interop.WindowMessage WM_MOUSELEAVE = 675 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_WTSSESSION_CHANGE = 689 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_TABLET_DEFBASE = 704 : Public, Static, Literal, HasDefault
-    MS.Internal.Interop.WindowMessage WM_DPICHANGED = 736 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_TABLET_MAXOFFSET = 32 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_TABLET_ADDED = 712 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_TABLET_DELETED = 713 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_TABLET_FLICK = 715 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_TABLET_QUERYSYSTEMGESTURESTATUS = 716 : Public, Static, Literal, HasDefault
+    MS.Internal.Interop.WindowMessage WM_DPICHANGED = 736 : Public, Static, Literal, HasDefault
+    MS.Internal.Interop.WindowMessage WM_DPICHANGED_BEFOREPARENT = 738 : Public, Static, Literal, HasDefault
+    MS.Internal.Interop.WindowMessage WM_DPICHANGED_AFTERPARENT = 739 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_CUT = 768 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_COPY = 769 : Public, Static, Literal, HasDefault
     MS.Internal.Interop.WindowMessage WM_PASTE = 770 : Public, Static, Literal, HasDefault
@@ -6393,9 +6468,9 @@ Class MS.Internal.WindowsBase.NativeMethodsSetLastError: AutoLayout, AnsiClass, 
     SetWindowLongPtr(HandleRef, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetWindowLongPtr(IntPtr, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetWindowLongPtrWndProc(HandleRef, Int32, WndProc): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-Class MS.Internal.WindowsBase.PresentationNativeLoader: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+Class MS.Internal.WindowsBase.WpfLibraryLoader: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    EnsureLoaded(): PrivateScope, Assembly, Static, HideBySig
+    EnsureLoaded(String): PrivateScope, Assembly, Static, HideBySig
 Struct MS.Internal.WindowsBase.SRID: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
   Fields:
@@ -6975,6 +7050,7 @@ Struct MS.Internal.WindowsBase.SRID: AutoLayout, AnsiClass, Class, SequentialLay
     System.String InvalidEvent = InvalidEvent : Public, Static, Literal, HasDefault
     System.String CompatibilityPreferencesSealed = CompatibilityPreferencesSealed : Public, Static, Literal, HasDefault
     System.String CombinationOfAccessibilitySwitchesNotSupported = CombinationOfAccessibilitySwitchesNotSupported : Public, Static, Literal, HasDefault
+    System.String AccessibilitySwitchDependencyNotSatisfied = AccessibilitySwitchDependencyNotSatisfied : Public, Static, Literal, HasDefault
 Class MS.Internal.WindowsBase.SR: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Properties:
     System.Resources.ResourceManager ResourceManager 'get ' : 
@@ -6984,6 +7060,7 @@ Class MS.Internal.WindowsBase.SR: AutoLayout, AnsiClass, Class, Abstract, Sealed
     get_ResourceManager(): PrivateScope, Assembly, Static, HideBySig, SpecialName
 Class MS.Internal.WindowsBase.Interop.OSVersionHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed
   Properties:
+    Boolean IsOsWindows10RS5OrGreater 'get set' : 
     Boolean IsOsWindows10RS3OrGreater 'get set' : 
     Boolean IsOsWindows10RS2OrGreater 'get set' : 
     Boolean IsOsWindows10RS1OrGreater 'get set' : 
@@ -7003,6 +7080,8 @@ Class MS.Internal.WindowsBase.Interop.OSVersionHelper: AutoLayout, AnsiClass, Cl
     Boolean IsOsWindowsXPOrGreater 'get set' : 
     Boolean IsOsWindowsServer 'get set' : 
   Methods:
+    get_IsOsWindows10RS5OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    set_IsOsWindows10RS5OrGreater(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsOsWindows10RS3OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     set_IsOsWindows10RS3OrGreater(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsOsWindows10RS2OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
@@ -7059,6 +7138,7 @@ Struct MS.Internal.WindowsBase.Interop.OperatingSystemVersion: AutoLayout, AnsiC
     MS.Internal.WindowsBase.Interop.OperatingSystemVersion Windows10RS1 = 11 : Public, Static, Literal, HasDefault
     MS.Internal.WindowsBase.Interop.OperatingSystemVersion Windows10RS2 = 12 : Public, Static, Literal, HasDefault
     MS.Internal.WindowsBase.Interop.OperatingSystemVersion Windows10RS3 = 13 : Public, Static, Literal, HasDefault
+    MS.Internal.WindowsBase.Interop.OperatingSystemVersion Windows10RS5 = 14 : Public, Static, Literal, HasDefault
 Class System.AppContextDefaultValues: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
     PopulateDefaultValues(): PrivateScope, Public, Static, HideBySig
@@ -7465,14 +7545,24 @@ Class System.Windows.AccessibilitySwitches: AutoLayout, AnsiClass, Class, Abstra
   Fields:
     System.String UseLegacyAccessibilityFeaturesSwitchName = Switch.UseLegacyAccessibilityFeatures : Assembly, Static, Literal, HasDefault
     System.String UseLegacyAccessibilityFeatures2SwitchName = Switch.UseLegacyAccessibilityFeatures.2 : Assembly, Static, Literal, HasDefault
+    System.String UseLegacyAccessibilityFeatures3SwitchName = Switch.UseLegacyAccessibilityFeatures.3 : Assembly, Static, Literal, HasDefault
+    System.String UseLegacyToolTipDisplaySwitchName = Switch.UseLegacyToolTipDisplay : Assembly, Static, Literal, HasDefault
+    System.String ItemsControlDoesNotSupportAutomationSwitchName = Switch.System.Windows.Controls.ItemsControlDoesNotSupportAutomation : Assembly, Static, Literal, HasDefault
   Properties:
-    Boolean UseLegacyAccessibilityFeatures 'get ' : 
-    Boolean UseLegacyAccessibilityFeatures2 'get ' : 
+    Boolean UseNetFx47CompatibleAccessibilityFeatures 'get ' : 
+    Boolean UseNetFx471CompatibleAccessibilityFeatures 'get ' : 
+    Boolean UseNetFx472CompatibleAccessibilityFeatures 'get ' : 
+    Boolean UseLegacyToolTipDisplay 'get ' : 
+    Boolean ItemsControlDoesNotSupportAutomation 'get ' : 
   Methods:
-    get_UseLegacyAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_UseLegacyAccessibilityFeatures2(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseNetFx47CompatibleAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseNetFx471CompatibleAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseNetFx472CompatibleAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseLegacyToolTipDisplay(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ItemsControlDoesNotSupportAutomation(): PrivateScope, Public, Static, HideBySig, SpecialName
     SetSwitchDefaults(Int32): PrivateScope, Assembly, Static, HideBySig
     VerifySwitches(Dispatcher): PrivateScope, Assembly, Static, HideBySig
+    VerifyDependencies(Dispatcher): PrivateScope, Assembly, Static, HideBySig
 Class System.Windows.AttachedPropertyBrowsableAttribute: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
   :System.Attribute
   Properties:
@@ -10474,7 +10564,7 @@ Class System.IO.Compression.ZLibNative: AutoLayout, AnsiClass, Class, Abstract, 
   Fields:
     IntPtr ZNullPtr : Assembly, Static, InitOnly
     System.String ZLibNativeDllName = clrcompression.dll : Public, Static, Literal, HasDefault
-    System.String ZLibVersion = 1.2.3 : Public, Static, Literal, HasDefault
+    System.String ZLibVersion = 1.2.11 : Public, Static, Literal, HasDefault
     Int32 Deflate_DefaultWindowBits = -15 : Public, Static, Literal, HasDefault
     Int32 Deflate_DefaultMemLevel = 8 : Public, Static, Literal, HasDefault
   Methods:
@@ -11486,6 +11576,43 @@ Struct MS.Win32.NativeMethods+WTS_CONNECTSTATE_CLASS: AutoLayout, AnsiClass, Cla
     WTS_CONNECTSTATE_CLASS WTSReset = 7 : Public, Static, Literal, HasDefault
     WTS_CONNECTSTATE_CLASS WTSDown = 8 : Public, Static, Literal, HasDefault
     WTS_CONNECTSTATE_CLASS WTSInit = 9 : Public, Static, Literal, HasDefault
+Struct MS.Win32.NativeMethods+PROCESS_DPI_AWARENESS: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    PROCESS_DPI_AWARENESS PROCESS_DPI_UNAWARE = 0 : Public, Static, Literal, HasDefault
+    PROCESS_DPI_AWARENESS PROCESS_SYSTEM_DPI_AWARE = 1 : Public, Static, Literal, HasDefault
+    PROCESS_DPI_AWARENESS PROCESS_PER_MONITOR_DPI_AWARE = 2 : Public, Static, Literal, HasDefault
+Struct MS.Win32.NativeMethods+DPI_AWARENESS: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DPI_AWARENESS DPI_AWARENESS_INVALID = -1 : Public, Static, Literal, HasDefault
+    DPI_AWARENESS DPI_AWARENESS_UNAWARE = 0 : Public, Static, Literal, HasDefault
+    DPI_AWARENESS DPI_AWARENESS_SYSTEM_AWARE = 1 : Public, Static, Literal, HasDefault
+    DPI_AWARENESS DPI_AWARENESS_PER_MONITOR_AWARE = 2 : Public, Static, Literal, HasDefault
+Struct MS.Win32.NativeMethods+DPI_HOSTING_BEHAVIOR: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DPI_HOSTING_BEHAVIOR DPI_HOSTING_BEHAVIOR_INVALID = -1 : Public, Static, Literal, HasDefault
+    DPI_HOSTING_BEHAVIOR DPI_HOSTING_BEHAVIOR_DEFAULT = 0 : Public, Static, Literal, HasDefault
+    DPI_HOSTING_BEHAVIOR DPI_HOSTING_BEHAVIOR_MIXED = 1 : Public, Static, Literal, HasDefault
+Class MS.Win32.NativeMethods+MonitorEnumProc: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IntPtr, IntPtr, RECT&, IntPtr): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(IntPtr, IntPtr, RECT&, IntPtr, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(RECT&, IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct MS.Win32.NativeMethods+MONITOR_DPI_TYPE: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MONITOR_DPI_TYPE MDT_EFFECTIVE_DPI = 0 : Public, Static, Literal, HasDefault
+    MONITOR_DPI_TYPE MDT_ANGULAR_DPI = 1 : Public, Static, Literal, HasDefault
+    MONITOR_DPI_TYPE MDT_RAW_DPI = 2 : Public, Static, Literal, HasDefault
+    MONITOR_DPI_TYPE MDT_DEFAULT = 0 : Public, Static, Literal, HasDefault
 Class MS.Win32.NativeMethods+OSVERSIONINFOEX: AutoLayout, AnsiClass, Class, NestedAssembly, SequentialLayout, Sealed, UnicodeClass, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -11841,27 +11968,6 @@ Struct MS.Win32.NativeMethods+ColorSpace: AutoLayout, AnsiClass, Class, NestedPu
     ColorSpace SPACE_E_CHANNEL = 1162038354 : Public, Static, Literal, HasDefault
     ColorSpace SPACE_F_CHANNEL = 1178815570 : Public, Static, Literal, HasDefault
     ColorSpace SPACE_sRGB = 1934772034 : Public, Static, Literal, HasDefault
-Struct MS.Win32.UnsafeNativeMethods+MonitorOpts: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
-    MonitorOpts MONITOR_DEFAULTTONULL = 0 : Public, Static, Literal, HasDefault
-    MonitorOpts MONITOR_DEFAULTTOPRIMARY = 1 : Public, Static, Literal, HasDefault
-    MonitorOpts MONITOR_DEFAULTTONEAREST = 2 : Public, Static, Literal, HasDefault
-Struct MS.Win32.UnsafeNativeMethods+MonitorDpiType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
-    MonitorDpiType MDT_Effective_DPI = 0 : Public, Static, Literal, HasDefault
-    MonitorDpiType MDT_Angular_DPI = 1 : Public, Static, Literal, HasDefault
-    MonitorDpiType MDT_Raw_DPI = 2 : Public, Static, Literal, HasDefault
-Struct MS.Win32.UnsafeNativeMethods+ProcessDpiAwareness: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
-    ProcessDpiAwareness Process_DPI_Unaware = 0 : Public, Static, Literal, HasDefault
-    ProcessDpiAwareness Process_System_DPI_Aware = 1 : Public, Static, Literal, HasDefault
-    ProcessDpiAwareness Process_Per_Monitor_DPI_Aware = 2 : Public, Static, Literal, HasDefault
 Class MS.Win32.UnsafeNativeMethods+ShellExecuteInfo: AutoLayout, AnsiClass, Class, NestedAssembly, SequentialLayout, UnicodeClass, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:

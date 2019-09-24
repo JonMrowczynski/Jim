@@ -1070,31 +1070,31 @@ Struct MS.Internal.TtfDelta.GSUBSINGLESUBSTFORMAT1: AutoLayout, AnsiClass, Class
   :System.ValueType
 Struct MS.Internal.TtfDelta.GSUBLOOKUP: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.BASELANGSYSRECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
 Struct MS.Internal.TtfDelta.GSUBLOOKUPLIST: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.JSTFSCRIPT: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct MS.Internal.TtfDelta.JSTFSCRIPTRECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct MS.Internal.TtfDelta.JSTFHEADER: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.BASEHEADER: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.BASEVALUES: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.BASESCRIPTLIST: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-Struct MS.Internal.TtfDelta.GSUBHEADER: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-Struct MS.Internal.TtfDelta.JSTFEXTENDERGLYPH: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct MS.Internal.TtfDelta.JSTFSCRIPT: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.BASEAXIS: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.BASESCRIPTRECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
+Struct MS.Internal.TtfDelta.GSUBHEADER: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
 Struct MS.Internal.TtfDelta.BASESCRIPT: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.JSTFHEADER: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct MS.Internal.TtfDelta.JSTFEXTENDERGLYPH: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.JSTFSCRIPTRECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct MS.Internal.TtfDelta.BASESCRIPTLIST: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct MS.Internal.TtfDelta.BASELANGSYSRECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.BASEFEATMINMAXRECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
@@ -1104,9 +1104,9 @@ Struct MS.Internal.TtfDelta.BASECOORDFORMAT2: AutoLayout, AnsiClass, Class, Sequ
   :System.ValueType
 Struct MS.Internal.TtfDelta.GSUBLIGATURE: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.GSUBCOVERAGEFORMAT2: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
 Struct MS.Internal.TtfDelta.GSUBCOVERAGEFORMAT1: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct MS.Internal.TtfDelta.GSUBCOVERAGEFORMAT2: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.GSUBRANGERECORD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
@@ -1114,9 +1114,9 @@ Struct MS.Internal.TtfDelta.MORTBINSRCHHEADER: AutoLayout, AnsiClass, Class, Seq
   :System.ValueType
 Struct MS.Internal.TtfDelta.MORTLOOKUPSINGLE: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.VDMXRatio: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
 Struct MS.Internal.TtfDelta.VDMX: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct MS.Internal.TtfDelta.VDMXRatio: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.VDMXGroup: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
@@ -1134,13 +1134,13 @@ Struct MS.Internal.TtfDelta.XHEA: AutoLayout, AnsiClass, Class, SequentialLayout
   :System.ValueType
 Struct MS.Internal.TtfDelta.EBLCHEADER: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.INDEXSUBTABLE1: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-Struct MS.Internal.TtfDelta.INDEXSUBTABLE5: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct MS.Internal.TtfDelta.INDEXSUBTABLE2: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.INDEXSUBTABLE3: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct MS.Internal.TtfDelta.INDEXSUBTABLE2: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct MS.Internal.TtfDelta.INDEXSUBTABLE1: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct MS.Internal.TtfDelta.INDEXSUBTABLE5: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct MS.Internal.TtfDelta.INDEXSUBTABLE4: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
@@ -1439,6 +1439,10 @@ Struct <CppImplementationDetails>.??_C@_1BG@HGHNANM@?$AAd?$AAw?$AAr?$AAi?$AAt?$A
   :System.ValueType
 Struct <CppImplementationDetails>.??_C@_0BE@JOALNNKC@DWriteCreateFactory?$AA@$$BY0A@$$CBD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
+Class <CrtImplementationDetails>.Exception: AutoLayout, AnsiClass, Class, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class <CrtImplementationDetails>.ModuleLoadException: AutoLayout, AnsiClass, Class, Serializable, BeforeFieldInit
   :System.Exception
     Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -1462,23 +1466,29 @@ Class <CrtImplementationDetails>.ModuleUninitializer: NotPublic
     <CrtImplementationDetails>.ModuleUninitializer _ModuleUninitializer : Assembly, Static
   Methods:
     AddHandler(EventHandler): PrivateScope, Assembly, HideBySig
+Struct <CrtImplementationDetails>.Progress: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
 Struct <CrtImplementationDetails>.LanguageSupport: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct gcroot<System::String ^>: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct <CppImplementationDetails>.$ArrayType$$$BY00Q6MPBXXZ: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct <CppImplementationDetails>.__xi_vt_z$$BY0A@Q6MPBXXZ: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct <CrtImplementationDetails>.Progress: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+Struct <CppImplementationDetails>.__xc_ma_a$$BY0A@Q6MPBXXZ: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
-Struct <CrtImplementationDetails>.Progress+State: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct <CppImplementationDetails>.__xc_ma_z$$BY0A@Q6MPBXXZ: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct <CppImplementationDetails>.__xi_vt_a$$BY0A@Q6MPBXXZ: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
 Struct <CrtImplementationDetails>.ThisModule: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct _EXCEPTION_POINTERS: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct <CppImplementationDetails>.$ArrayType$$$BY0BO@PAD: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct _SLIST_HEADER: AutoLayout, AnsiClass, Class, ExplicitLayout, Sealed, BeforeFieldInit
   :System.ValueType
 Struct __type_info_node: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
@@ -1490,6 +1500,10 @@ Class System.LocalAppContext: AutoLayout, AnsiClass, Class, Abstract, Sealed
     IsSwitchEnabled(String): PrivateScope, Public, Static, HideBySig
     GetCachedSwitchValue(String, Int32&): PrivateScope, Assembly, Static, HideBySig
     DefineSwitchDefault(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+Class System.IO.FileHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    CreateAndOpenTemporaryFile(String&(Out), FileAccess(Optional, HasDefault), FileOptions(Optional, HasDefault), String(Optional, HasDefault), String(Optional, HasDefault)): PrivateScope, Assembly, Static, HideBySig
+    DeleteTemporaryFile(String): PrivateScope, Assembly, Static, HideBySig
 Class System.IO.Packaging.PackWebRequestFactory: AutoLayout, AnsiClass, Class, Public, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -1637,6 +1651,7 @@ Class System.Windows.Clipboard: AutoLayout, AnsiClass, Class, Public, Abstract, 
     IsCurrent(IDataObject): PrivateScope, Public, Static, HideBySig
     SetDataObject(Object): PrivateScope, Public, Static, HideBySig
     SetDataObject(Object, Boolean): PrivateScope, Public, Static, HideBySig
+    UseLegacyDangerousClipboardDeserializationMode(): PrivateScope, Assembly, Static, HideBySig
     CriticalSetDataObject(Object, Boolean): PrivateScope, Assembly, Static, HideBySig
     IsClipboardPopulated(): PrivateScope, Assembly, Static, HideBySig
 Class System.Windows.ContentElement: AutoLayout, AnsiClass, Class, Public
@@ -2325,7 +2340,8 @@ Class System.Windows.DataObjectSettingDataEventHandler: AutoLayout, AnsiClass, C
     EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
 Class System.Windows.HwndDpiChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.ComponentModel.HandledEventArgs
-    Void .ctor(Double, Double, Double, Double, IntPtr): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double, Double, Double, Double, IntPtr): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName (Obsolete)
+    Void .ctor(System.Windows.DpiScale, System.Windows.DpiScale, System.Windows.Rect): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Properties:
     System.Windows.DpiScale OldDpi 'get set' : 
     System.Windows.DpiScale NewDpi 'get set' : 
@@ -2334,6 +2350,19 @@ Class System.Windows.HwndDpiChangedEventArgs: AutoLayout, AnsiClass, Class, Publ
     get_OldDpi(): PrivateScope, Public, HideBySig, SpecialName
     get_NewDpi(): PrivateScope, Public, HideBySig, SpecialName
     get_SuggestedRect(): PrivateScope, Public, HideBySig, SpecialName
+Class System.Windows.HwndDpiChangedAfterParentEventArgs: AutoLayout, AnsiClass, Class, BeforeFieldInit
+  :System.ComponentModel.HandledEventArgs
+    Void .ctor(System.Windows.DpiScale, System.Windows.DpiScale, System.Windows.Rect): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Windows.HwndDpiChangedEventArgs): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Windows.DpiScale OldDpi 'get ' : 
+    System.Windows.DpiScale NewDpi 'get ' : 
+    System.Windows.Rect SuggestedRect 'get ' : 
+  Methods:
+    get_OldDpi(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_NewDpi(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_SuggestedRect(): PrivateScope, Assembly, HideBySig, SpecialName
+    op_Explicit(HwndDpiChangedAfterParentEventArgs): PrivateScope, Public, Static, HideBySig, SpecialName
 Class System.Windows.DpiChangedEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -2389,6 +2418,21 @@ Class System.Windows.DpiFlags: AutoLayout, AnsiClass, Class, BeforeFieldInit
     set_DpiScaleFlag2(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
     get_Index(): PrivateScope, Assembly, HideBySig, SpecialName
     set_Index(Int32): PrivateScope, Assembly, HideBySig, SpecialName
+Struct System.Windows.DpiScale: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double DpiScaleX 'get ' : 
+    Double DpiScaleY 'get ' : 
+    Double PixelsPerDip 'get ' : 
+    Double PixelsPerInchX 'get ' : 
+    Double PixelsPerInchY 'get ' : 
+  Methods:
+    get_DpiScaleX(): PrivateScope, Public, HideBySig, SpecialName
+    get_DpiScaleY(): PrivateScope, Public, HideBySig, SpecialName
+    get_PixelsPerDip(): PrivateScope, Public, HideBySig, SpecialName
+    get_PixelsPerInchX(): PrivateScope, Public, HideBySig, SpecialName
+    get_PixelsPerInchY(): PrivateScope, Public, HideBySig, SpecialName
 Struct System.Windows.DragAction: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -2993,6 +3037,7 @@ Class System.Windows.UIElement: AutoLayout, AnsiClass, Class, Public
     System.Collections.Generic.IEnumerable`1[System.Windows.Input.TouchDevice] TouchesCapturedWithin 'get ' : 
     System.Collections.Generic.IEnumerable`1[System.Windows.Input.TouchDevice] TouchesOver 'get ' : 
     System.Collections.Generic.IEnumerable`1[System.Windows.Input.TouchDevice] TouchesDirectlyOver 'get ' : 
+    System.Windows.UIElement PositionAndSizeOfSetController 'get set' : 
     Boolean HasAutomationPeer 'get set' : 
     Boolean SnapsToDevicePixelsCache 'get set' : 
     Boolean ClipToBoundsCache 'get set' : 
@@ -3106,6 +3151,7 @@ Class System.Windows.UIElement: AutoLayout, AnsiClass, Class, Public
     set_Focusable(Boolean): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     add_FocusableChanged(DependencyPropertyChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_FocusableChanged(DependencyPropertyChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    OnCreateAutomationPeerInternal(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
     CreateAutomationPeer(): PrivateScope, Assembly, HideBySig
     GetAutomationPeer(): PrivateScope, Assembly, HideBySig
     CreateGenericRootAutomationPeer(): PrivateScope, Assembly, HideBySig
@@ -3139,6 +3185,8 @@ Class System.Windows.UIElement: AutoLayout, AnsiClass, Class, Public
     get_TouchesCapturedWithin(): PrivateScope, Public, HideBySig, SpecialName
     get_TouchesOver(): PrivateScope, Public, HideBySig, SpecialName
     get_TouchesDirectlyOver(): PrivateScope, Public, HideBySig, SpecialName
+    get_PositionAndSizeOfSetController(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_PositionAndSizeOfSetController(UIElement): PrivateScope, Assembly, HideBySig, SpecialName
     get_HasAutomationPeer(): PrivateScope, Assembly, HideBySig, SpecialName
     set_HasAutomationPeer(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
     get_SnapsToDevicePixelsCache(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -4818,21 +4866,6 @@ Struct System.Windows.CoreFlags: AutoLayout, AnsiClass, Class, Sealed
     System.Windows.CoreFlags TouchesCapturedWithinChanged = 536870912 : Public, Static, Literal, HasDefault
     System.Windows.CoreFlags TouchLeaveCache = 1073741824 : Public, Static, Literal, HasDefault
     System.Windows.CoreFlags TouchEnterCache = 2147483648 : Public, Static, Literal, HasDefault
-Struct System.Windows.DpiScale: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-    Void .ctor(Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Double DpiScaleX 'get ' : 
-    Double DpiScaleY 'get ' : 
-    Double PixelsPerDip 'get ' : 
-    Double PixelsPerInchX 'get ' : 
-    Double PixelsPerInchY 'get ' : 
-  Methods:
-    get_DpiScaleX(): PrivateScope, Public, HideBySig, SpecialName
-    get_DpiScaleY(): PrivateScope, Public, HideBySig, SpecialName
-    get_PixelsPerDip(): PrivateScope, Public, HideBySig, SpecialName
-    get_PixelsPerInchX(): PrivateScope, Public, HideBySig, SpecialName
-    get_PixelsPerInchY(): PrivateScope, Public, HideBySig, SpecialName
 Class System.Windows.UIPropertyMetadata: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.PropertyMetadata
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -5882,6 +5915,13 @@ Class System.Windows.Input.FocusManager: AutoLayout, AnsiClass, Class, Public, A
     SetIsFocusScope(DependencyObject, Boolean): PrivateScope, Public, Static, HideBySig
     GetIsFocusScope(DependencyObject): PrivateScope, Public, Static, HideBySig
     GetFocusScope(DependencyObject): PrivateScope, Public, Static, HideBySig
+Interface System.Windows.Input.IAvalonAdapter: AutoLayout, AnsiClass, Class, ClassSemanticsMask, Abstract
+  Methods:
+    OnNoMoreTabStops(TraversalRequest, Boolean&): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class System.Windows.Input.AvalonAdapterImpl: AutoLayout, AnsiClass, Class, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Windows.Input.IAvalonAdapter
 Interface System.Windows.Input.IInputLanguageSource: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
   Properties:
     System.Globalization.CultureInfo CurrentInputLanguage 'get set' : 
@@ -8163,6 +8203,7 @@ Class System.Windows.Input.StylusTouchDeviceBase: AutoLayout, AnsiClass, Class, 
 Class System.Windows.Input.StylusLogic: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   :System.Windows.Threading.DispatcherObject
   Properties:
+    Boolean IsInstantiated 'get ' : 
     Boolean IsStylusAndTouchSupportEnabled 'get ' : 
     Boolean IsPointerStackEnabled 'get ' : 
     System.Windows.Input.StylusLogic CurrentStylusLogic 'get ' : 
@@ -8174,6 +8215,7 @@ Class System.Windows.Input.StylusLogic: AutoLayout, AnsiClass, Class, Abstract, 
     System.Windows.Input.TabletDeviceCollection TabletDevices 'get ' : 
     StylusStatistics Statistics 'get set' : 
   Methods:
+    get_IsInstantiated(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsStylusAndTouchSupportEnabled(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsPointerStackEnabled(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_CurrentStylusLogic(): PrivateScope, Assembly, Static, HideBySig, SpecialName
@@ -9357,6 +9399,10 @@ Class System.Windows.Automation.AutomationProperties: AutoLayout, AnsiClass, Cla
     System.Windows.DependencyProperty LabeledByProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty IsOffscreenBehaviorProperty : Public, Static, InitOnly
     System.Windows.DependencyProperty LiveSettingProperty : Public, Static, InitOnly
+    System.Windows.DependencyProperty PositionInSetProperty : Public, Static, InitOnly
+    System.Windows.DependencyProperty SizeOfSetProperty : Public, Static, InitOnly
+    Int32 AutomationPositionInSetDefault = -1 : Assembly, Static, Literal, HasDefault
+    Int32 AutomationSizeOfSetDefault = -1 : Assembly, Static, Literal, HasDefault
   Methods:
     SetAutomationId(DependencyObject, String): PrivateScope, Public, Static, HideBySig
     GetAutomationId(DependencyObject): PrivateScope, Public, Static, HideBySig
@@ -9384,6 +9430,10 @@ Class System.Windows.Automation.AutomationProperties: AutoLayout, AnsiClass, Cla
     GetIsOffscreenBehavior(DependencyObject): PrivateScope, Public, Static, HideBySig
     SetLiveSetting(DependencyObject, AutomationLiveSetting): PrivateScope, Public, Static, HideBySig
     GetLiveSetting(DependencyObject): PrivateScope, Public, Static, HideBySig
+    SetPositionInSet(DependencyObject, Int32): PrivateScope, Public, Static, HideBySig
+    GetPositionInSet(DependencyObject): PrivateScope, Public, Static, HideBySig
+    SetSizeOfSet(DependencyObject, Int32): PrivateScope, Public, Static, HideBySig
+    GetSizeOfSet(DependencyObject): PrivateScope, Public, Static, HideBySig
 Struct System.Windows.Automation.IsOffscreenBehavior: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -9515,7 +9565,14 @@ Class System.Windows.Automation.Peers.AutomationPeer: AutoLayout, AnsiClass, Cla
     Int32 Index 'get ' : 
     System.Collections.Generic.List`1[System.Windows.Automation.Peers.AutomationPeer] Children 'get ' : 
     System.WeakReference ElementProxyWeakReference 'get set' : 
+    Boolean IncludeInvisibleElementsInControlView 'get ' : 
   Methods:
+    get_Hwnd(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_Hwnd(IntPtr): PrivateScope, Assembly, HideBySig, SpecialName
+    GetWrappedPattern(Int32): PrivateScope, Assembly, HideBySig
+    GetPropertyValue(Int32): PrivateScope, Assembly, HideBySig
+    get_AncestorsInvalid(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, SpecialName
+    set_AncestorsInvalid(Boolean): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, SpecialName
     get_ChildrenValid(): PrivateScope, Assembly, HideBySig, SpecialName
     set_ChildrenValid(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
     get_IsInteropPeer(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -9524,6 +9581,7 @@ Class System.Windows.Automation.Peers.AutomationPeer: AutoLayout, AnsiClass, Cla
     get_Children(): PrivateScope, Assembly, HideBySig, SpecialName
     get_ElementProxyWeakReference(): PrivateScope, Assembly, HideBySig, SpecialName
     set_ElementProxyWeakReference(WeakReference): PrivateScope, Assembly, HideBySig, SpecialName
+    get_IncludeInvisibleElementsInControlView(): PrivateScope, Assembly, HideBySig, SpecialName
     GetPattern(PatternInterface): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     InvalidatePeer(): PrivateScope, Public, HideBySig
     ListenerExists(AutomationEvents): PrivateScope, Public, Static, HideBySig
@@ -9563,6 +9621,9 @@ Class System.Windows.Automation.Peers.AutomationPeer: AutoLayout, AnsiClass, Cla
     GetClickablePoint(): PrivateScope, Public, HideBySig
     SetFocus(): PrivateScope, Public, HideBySig
     GetLiveSetting(): PrivateScope, Public, HideBySig
+    GetControlledPeers(): PrivateScope, Public, HideBySig
+    GetSizeOfSet(): PrivateScope, Public, HideBySig
+    GetPositionInSet(): PrivateScope, Public, HideBySig
     GetParent(): PrivateScope, Public, HideBySig
     GetChildren(): PrivateScope, Public, HideBySig
     ResetChildrenCache(): PrivateScope, Public, HideBySig
@@ -9585,12 +9646,6 @@ Class System.Windows.Automation.Peers.AutomationPeer: AutoLayout, AnsiClass, Cla
     UpdateSubtree(): PrivateScope, Assembly, HideBySig
     InvalidateAncestorsRecursive(): PrivateScope, Assembly, HideBySig
     AddToAutomationEventList(): PrivateScope, Assembly, HideBySig
-    get_Hwnd(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_Hwnd(IntPtr): PrivateScope, Assembly, HideBySig, SpecialName
-    GetWrappedPattern(Int32): PrivateScope, Assembly, HideBySig
-    GetPropertyValue(Int32): PrivateScope, Assembly, HideBySig
-    get_AncestorsInvalid(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, SpecialName
-    set_AncestorsInvalid(Boolean): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, SpecialName
 Class System.Windows.Automation.Peers.ContentElementAutomationPeer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Automation.Peers.AutomationPeer
     Void .ctor(System.Windows.ContentElement): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -9700,8 +9755,10 @@ Struct System.Windows.Interop.OperatingSystemVersion: AutoLayout, AnsiClass, Cla
     System.Windows.Interop.OperatingSystemVersion Windows10RS1 = 11 : Public, Static, Literal, HasDefault
     System.Windows.Interop.OperatingSystemVersion Windows10RS2 = 12 : Public, Static, Literal, HasDefault
     System.Windows.Interop.OperatingSystemVersion Windows10RS3 = 13 : Public, Static, Literal, HasDefault
+    System.Windows.Interop.OperatingSystemVersion Windows10RS5 = 14 : Public, Static, Literal, HasDefault
 Class System.Windows.Interop.OSVersionHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed
   Properties:
+    Boolean IsOsWindows10RS5OrGreater 'get set' : 
     Boolean IsOsWindows10RS3OrGreater 'get set' : 
     Boolean IsOsWindows10RS2OrGreater 'get set' : 
     Boolean IsOsWindows10RS1OrGreater 'get set' : 
@@ -9721,6 +9778,8 @@ Class System.Windows.Interop.OSVersionHelper: AutoLayout, AnsiClass, Class, Abst
     Boolean IsOsWindowsXPOrGreater 'get set' : 
     Boolean IsOsWindowsServer 'get set' : 
   Methods:
+    get_IsOsWindows10RS5OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    set_IsOsWindows10RS5OrGreater(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsOsWindows10RS3OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     set_IsOsWindows10RS3OrGreater(Boolean): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsOsWindows10RS2OrGreater(): PrivateScope, Assembly, Static, HideBySig, SpecialName
@@ -9901,14 +9960,18 @@ Class System.Windows.Interop.HwndTarget: AutoLayout, AnsiClass, Class, Public
     Void .ctor(IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName, HasSecurity
   Properties:
     System.Windows.Interop.RenderMode RenderMode 'get set' : 
-    ProcessDpiAwareness ProcessDpiAwareness 'get set' : 
+    Boolean IsPerMonitorDpiScalingSupportedOnCurrentPlatform 'get ' : 
+    Boolean IsPerMonitorDpiScalingEnabled 'get ' : 
+    System.Nullable`1[System.Boolean] IsProcessPerMonitorDpiAware 'get ' : 
+    System.Nullable`1[System.Boolean] IsProcessSystemAware 'get ' : 
+    System.Nullable`1[System.Boolean] IsProcessUnaware 'get ' : 
+    Boolean IsWindowPerMonitorDpiAware 'get ' : 
     System.Windows.Media.Visual RootVisual 'set' : 
     System.Windows.Media.Matrix TransformToDevice 'get ' : 
     System.Windows.Media.Matrix TransformFromDevice 'get ' : 
     System.Windows.Media.Color BackgroundColor 'get set' : 
     Boolean UsesPerPixelOpacity 'get set' : 
   Methods:
-    MilCore_SetDpiAwarenessForDisplayModeText(Boolean): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     VisualTarget_AttachToHwnd(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     VisualTarget_DetachFromHwnd(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     InvalidateRenderMode(): PrivateScope, Assembly, HideBySig
@@ -9918,10 +9981,17 @@ Class System.Windows.Interop.HwndTarget: AutoLayout, AnsiClass, Class, Public
     CreateUCEResources(Channel, Channel): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ReleaseUCEResources(Channel, Channel): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     HandleMessage(WindowMessage, IntPtr, IntPtr): PrivateScope, Assembly, HideBySig
+    EnsureAutomationPeer(Visual): PrivateScope, Assembly, HideBySig
+    EnsureAutomationPeer(Visual, IntPtr): PrivateScope, Assembly, Static, HideBySig
     AdjustForRightToLeft(RECT&, HandleRef): PrivateScope, Assembly, HideBySig
-    OnMonitorDPIChanged(Rect, Double, Double): PrivateScope, Assembly, HideBySig
-    get_ProcessDpiAwareness(): PrivateScope, Assembly, Static, HideBySig, SpecialName
-    set_ProcessDpiAwareness(ProcessDpiAwareness): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    OnDpiChanged(HwndDpiChangedEventArgs): PrivateScope, Assembly, HideBySig
+    OnDpiChangedAfterParent(HwndDpiChangedAfterParentEventArgs): PrivateScope, Assembly, HideBySig
+    get_IsPerMonitorDpiScalingSupportedOnCurrentPlatform(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_IsPerMonitorDpiScalingEnabled(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_IsProcessPerMonitorDpiAware(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_IsProcessSystemAware(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_IsProcessUnaware(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+    get_IsWindowPerMonitorDpiAware(): PrivateScope, Assembly, HideBySig, SpecialName
     set_RootVisual(Visual): PrivateScope, Public, Virtual, HideBySig, SpecialName, HasSecurity
     get_TransformToDevice(): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_TransformFromDevice(): PrivateScope, Public, Virtual, HideBySig, SpecialName
@@ -10009,6 +10079,7 @@ Class System.Windows.Interop.HwndSource: AutoLayout, AnsiClass, Class, Public
     RemoveHook(HwndSourceHook): PrivateScope, Public, HideBySig
     GetInputProvider(Type): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     ChangeDpi(HwndDpiChangedEventArgs): PrivateScope, Assembly, HideBySig
+    ChangeDpi(HwndDpiChangedAfterParentEventArgs): PrivateScope, Assembly, HideBySig
     add_Disposed(EventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_Disposed(EventHandler): PrivateScope, Public, HideBySig, SpecialName
     add_SizeToContentChanged(EventHandler): PrivateScope, Public, HideBySig, SpecialName
@@ -25261,90 +25332,91 @@ Struct System.Windows.Media.Composition.MILCMD: AutoLayout, AnsiClass, Class, Se
     System.Windows.Media.Composition.MILCMD MilCmdTargetSetClearColor = 54 : Public, Static, Literal, HasDefault
     System.Windows.Media.Composition.MILCMD MilCmdTargetInvalidate = 55 : Public, Static, Literal, HasDefault
     System.Windows.Media.Composition.MILCMD MilCmdTargetSetFlags = 56 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdGlyphRunCreate = 57 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDoubleBufferedBitmap = 58 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDoubleBufferedBitmapCopyForward = 59 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdPartitionNotifyPolicyChangeForNonInteractiveMode = 60 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawLine = 61 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawLineAnimate = 62 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawRectangle = 63 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawRectangleAnimate = 64 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawRoundedRectangle = 65 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawRoundedRectangleAnimate = 66 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawEllipse = 67 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawEllipseAnimate = 68 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawGeometry = 69 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawImage = 70 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawImageAnimate = 71 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawGlyphRun = 72 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawDrawing = 73 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawVideo = 74 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilDrawVideoAnimate = 75 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushClip = 76 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushOpacityMask = 77 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushOpacity = 78 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushOpacityAnimate = 79 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushTransform = 80 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushGuidelineSet = 81 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushGuidelineY1 = 82 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushGuidelineY2 = 83 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPushEffect = 84 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilPop = 85 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdAxisAngleRotation3D = 86 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdQuaternionRotation3D = 87 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdPerspectiveCamera = 88 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdOrthographicCamera = 89 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdMatrixCamera = 90 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdModel3DGroup = 91 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdAmbientLight = 92 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDirectionalLight = 93 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdPointLight = 94 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdSpotLight = 95 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdGeometryModel3D = 96 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdMeshGeometry3D = 97 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdMaterialGroup = 98 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDiffuseMaterial = 99 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdSpecularMaterial = 100 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdEmissiveMaterial = 101 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdTransform3DGroup = 102 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdTranslateTransform3D = 103 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdScaleTransform3D = 104 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdRotateTransform3D = 105 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdMatrixTransform3D = 106 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdPixelShader = 107 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdImplicitInputBrush = 108 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdBlurEffect = 109 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDropShadowEffect = 110 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdShaderEffect = 111 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDrawingImage = 112 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdTransformGroup = 113 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdTranslateTransform = 114 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdScaleTransform = 115 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdSkewTransform = 116 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdRotateTransform = 117 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdMatrixTransform = 118 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdLineGeometry = 119 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdRectangleGeometry = 120 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdEllipseGeometry = 121 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdGeometryGroup = 122 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdCombinedGeometry = 123 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdPathGeometry = 124 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdSolidColorBrush = 125 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdLinearGradientBrush = 126 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdRadialGradientBrush = 127 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdImageBrush = 128 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDrawingBrush = 129 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdVisualBrush = 130 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdBitmapCacheBrush = 131 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDashStyle = 132 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdPen = 133 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdGeometryDrawing = 134 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdGlyphRunDrawing = 135 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdImageDrawing = 136 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdVideoDrawing = 137 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdDrawingGroup = 138 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdGuidelineSet = 139 : Public, Static, Literal, HasDefault
-    System.Windows.Media.Composition.MILCMD MilCmdBitmapCache = 140 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdHwndTargetDpiChanged = 57 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdGlyphRunCreate = 58 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDoubleBufferedBitmap = 59 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDoubleBufferedBitmapCopyForward = 60 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdPartitionNotifyPolicyChangeForNonInteractiveMode = 61 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawLine = 62 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawLineAnimate = 63 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawRectangle = 64 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawRectangleAnimate = 65 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawRoundedRectangle = 66 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawRoundedRectangleAnimate = 67 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawEllipse = 68 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawEllipseAnimate = 69 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawGeometry = 70 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawImage = 71 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawImageAnimate = 72 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawGlyphRun = 73 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawDrawing = 74 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawVideo = 75 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilDrawVideoAnimate = 76 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushClip = 77 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushOpacityMask = 78 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushOpacity = 79 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushOpacityAnimate = 80 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushTransform = 81 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushGuidelineSet = 82 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushGuidelineY1 = 83 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushGuidelineY2 = 84 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPushEffect = 85 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilPop = 86 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdAxisAngleRotation3D = 87 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdQuaternionRotation3D = 88 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdPerspectiveCamera = 89 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdOrthographicCamera = 90 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdMatrixCamera = 91 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdModel3DGroup = 92 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdAmbientLight = 93 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDirectionalLight = 94 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdPointLight = 95 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdSpotLight = 96 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdGeometryModel3D = 97 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdMeshGeometry3D = 98 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdMaterialGroup = 99 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDiffuseMaterial = 100 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdSpecularMaterial = 101 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdEmissiveMaterial = 102 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdTransform3DGroup = 103 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdTranslateTransform3D = 104 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdScaleTransform3D = 105 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdRotateTransform3D = 106 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdMatrixTransform3D = 107 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdPixelShader = 108 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdImplicitInputBrush = 109 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdBlurEffect = 110 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDropShadowEffect = 111 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdShaderEffect = 112 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDrawingImage = 113 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdTransformGroup = 114 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdTranslateTransform = 115 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdScaleTransform = 116 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdSkewTransform = 117 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdRotateTransform = 118 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdMatrixTransform = 119 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdLineGeometry = 120 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdRectangleGeometry = 121 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdEllipseGeometry = 122 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdGeometryGroup = 123 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdCombinedGeometry = 124 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdPathGeometry = 125 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdSolidColorBrush = 126 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdLinearGradientBrush = 127 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdRadialGradientBrush = 128 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdImageBrush = 129 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDrawingBrush = 130 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdVisualBrush = 131 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdBitmapCacheBrush = 132 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDashStyle = 133 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdPen = 134 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdGeometryDrawing = 135 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdGlyphRunDrawing = 136 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdImageDrawing = 137 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdVideoDrawing = 138 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdDrawingGroup = 139 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdGuidelineSet = 140 : Public, Static, Literal, HasDefault
+    System.Windows.Media.Composition.MILCMD MilCmdBitmapCache = 141 : Public, Static, Literal, HasDefault
 Struct System.Windows.Media.Composition.MilRectD: AutoLayout, AnsiClass, Class, ExplicitLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Double, Double, Double, Double): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -25535,6 +25607,9 @@ Class MS.Win32.WinInet: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFi
     System.Uri InternetCacheFolder 'get ' : 
   Methods:
     get_InternetCacheFolder(): PrivateScope, Assembly, Static, HideBySig, SpecialName
+Class MS.Win32.LoadLibraryHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    SecureLoadLibraryEx(String, IntPtr, LoadLibraryFlags): PrivateScope, Assembly, Static, HideBySig
 Class MS.Win32.PresentationCore.SafeNativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
     MilCompositionEngine_InitializePartitionManager(Int32): PrivateScope, Assembly, Static, HideBySig
@@ -26198,7 +26273,7 @@ Class MS.Internal.PartialList`1[T]: AutoLayout, AnsiClass, Class, BeforeFieldIni
     Remove(T): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     get_Count(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     CopyTo(T[], Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-Class MS.Internal.PriorityQueue`1[T]: AutoLayout, AnsiClass, Class, BeforeFieldInit
+Class MS.Internal.LegacyPriorityQueue`1[T]: AutoLayout, AnsiClass, Class, BeforeFieldInit
   Type parameter: T
     Void .ctor(Int32, System.Collections.Generic.IComparer`1[T]): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -26290,6 +26365,10 @@ Class MS.Internal.CoreAppContextSwitches: AutoLayout, AnsiClass, Class, Abstract
     System.String DisableImplicitTouchKeyboardInvocationSwitchName = Switch.System.Windows.Input.Stylus.DisableImplicitTouchKeyboardInvocation : Assembly, Static, Literal, HasDefault
     System.String ShouldRenderEvenWhenNoDisplayDevicesAreAvailableSwitchName = Switch.System.Windows.Media.ShouldRenderEvenWhenNoDisplayDevicesAreAvailable : Assembly, Static, Literal, HasDefault
     System.String ShouldNotRenderInNonInteractiveWindowStationSwitchName = Switch.System.Windows.Media.ShouldNotRenderInNonInteractiveWindowStation : Assembly, Static, Literal, HasDefault
+    System.String DoNotUsePresentationDpiCapabilityTier2OrGreaterSwitchName = Switch.System.Windows.DoNotUsePresentationDpiCapabilityTier2OrGreater : Assembly, Static, Literal, HasDefault
+    System.String DoNotUsePresentationDpiCapabilityTier3OrGreaterSwitchName = Switch.System.Windows.DoNotUsePresentationDpiCapabilityTier3OrGreater : Assembly, Static, Literal, HasDefault
+    System.String AllowExternalProcessToBlockAccessToTemporaryFilesSwitchName = Switch.System.Windows.AllowExternalProcessToBlockAccessToTemporaryFiles : Assembly, Static, Literal, HasDefault
+    System.String EnableLegacyDangerousClipboardDeserializationModeSwitchName = Switch.System.Windows.EnableLegacyDangerousClipboardDeserializationMode : Assembly, Static, Literal, HasDefault
   Properties:
     Boolean DoNotScaleForDpiChanges 'get ' : 
     Boolean DisableStylusAndTouchSupport 'get ' : 
@@ -26298,10 +26377,15 @@ Class MS.Internal.CoreAppContextSwitches: AutoLayout, AnsiClass, Class, Abstract
     Boolean DisableDiagnostics 'get ' : 
     Boolean AllowChangesDuringVisualTreeChanged 'get ' : 
     Boolean DisableImplicitTouchKeyboardInvocation 'get ' : 
-    Boolean UseLegacyAccessibilityFeatures 'get ' : 
-    Boolean UseLegacyAccessibilityFeatures2 'get ' : 
+    Boolean UseNetFx47CompatibleAccessibilityFeatures 'get ' : 
+    Boolean UseNetFx471CompatibleAccessibilityFeatures 'get ' : 
+    Boolean UseNetFx472CompatibleAccessibilityFeatures 'get ' : 
     Boolean ShouldRenderEvenWhenNoDisplayDevicesAreAvailable 'get ' : 
     Boolean ShouldNotRenderInNonInteractiveWindowStation 'get ' : 
+    Boolean DoNotUsePresentationDpiCapabilityTier2OrGreater 'get ' : 
+    Boolean DoNotUsePresentationDpiCapabilityTier3OrGreater 'get ' : 
+    Boolean AllowExternalProcessToBlockAccessToTemporaryFiles 'get ' : 
+    Boolean EnableLegacyDangerousClipboardDeserializationMode 'get ' : 
   Methods:
     get_DoNotScaleForDpiChanges(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_DisableStylusAndTouchSupport(): PrivateScope, Public, Static, HideBySig, SpecialName
@@ -26310,10 +26394,57 @@ Class MS.Internal.CoreAppContextSwitches: AutoLayout, AnsiClass, Class, Abstract
     get_DisableDiagnostics(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_AllowChangesDuringVisualTreeChanged(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_DisableImplicitTouchKeyboardInvocation(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_UseLegacyAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_UseLegacyAccessibilityFeatures2(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseNetFx47CompatibleAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseNetFx471CompatibleAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UseNetFx472CompatibleAccessibilityFeatures(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_ShouldRenderEvenWhenNoDisplayDevicesAreAvailable(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_ShouldNotRenderInNonInteractiveWindowStation(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DoNotUsePresentationDpiCapabilityTier2OrGreater(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DoNotUsePresentationDpiCapabilityTier3OrGreater(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AllowExternalProcessToBlockAccessToTemporaryFiles(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EnableLegacyDangerousClipboardDeserializationMode(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class MS.Internal.DpiScale2: AutoLayout, AnsiClass, Class, BeforeFieldInit
+    Void .ctor(System.Windows.DpiScale): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double, Double): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IEquatable`1[MS.Internal.DpiScale2]
+    System.IEquatable`1[System.Windows.DpiScale]
+  Properties:
+    Double DpiScaleX 'get ' : 
+    Double DpiScaleY 'get ' : 
+    Double PixelsPerDip 'get ' : 
+    Double PixelsPerInchX 'get ' : 
+    Double PixelsPerInchY 'get ' : 
+  Methods:
+    get_DpiScaleX(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_DpiScaleY(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_PixelsPerDip(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_PixelsPerInchX(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_PixelsPerInchY(): PrivateScope, Assembly, HideBySig, SpecialName
+    op_Implicit(DpiScale2): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(DpiScale2, DpiScale2): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Equality(DpiScale2, DpiScale2): PrivateScope, Public, Static, HideBySig, SpecialName
+    Equals(DpiScale): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Equals(DpiScale2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    FromPixelsPerInch(Double, Double): PrivateScope, Assembly, Static, HideBySig
+Class MS.Internal.DpiUtil: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Double DefaultPixelsPerInch = 96 : Assembly, Static, Literal, HasDefault
+  Methods:
+    GetDpiAwarenessContext(IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetProcessDpiAwareness(IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetProcessDpiAwarenessContextValue(IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetLegacyProcessDpiAwareness(): PrivateScope, Assembly, Static, HideBySig
+    GetSystemDpi(): PrivateScope, Assembly, Static, HideBySig
+    GetSystemDpiFromUIElementCache(): PrivateScope, Assembly, Static, HideBySig
+    UpdateUIElementCacheForSystemDpi(DpiScale2): PrivateScope, Assembly, Static, HideBySig
+    GetWindowDpi(IntPtr, Boolean): PrivateScope, Assembly, Static, HideBySig
+    GetExtendedDpiInfoForWindow(IntPtr, Boolean): PrivateScope, Assembly, Static, HideBySig
+    GetExtendedDpiInfoForWindow(IntPtr): PrivateScope, Assembly, Static, HideBySig
+    WithDpiAwarenessContext(DpiAwarenessContextValue): PrivateScope, Assembly, Static, HideBySig
+    UpdateDpiScalesAndGetIndex(Double, Double): PrivateScope, Assembly, Static, HideBySig
 Class MS.Internal.CustomCategoryAttribute: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   :System.ComponentModel.CategoryAttribute
     Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -27146,6 +27277,14 @@ Class MS.Internal.TraceRoutedEvent: AutoLayout, AnsiClass, Class, Abstract, Seal
     Boolean IsEnabled 'get ' : 
     Boolean IsEnabledOverride 'get ' : 
   Methods:
+    get_RaiseEvent(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReRaiseEventAs(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HandleEvent(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_InvokeHandlers(): PrivateScope, Public, Static, HideBySig, SpecialName
+    Trace(TraceEventType, AvTraceDetails, Object[]): PrivateScope, Public, Static, HideBySig
+    Trace(TraceEventType, AvTraceDetails): PrivateScope, Public, Static, HideBySig
+    Trace(TraceEventType, AvTraceDetails, Object): PrivateScope, Public, Static, HideBySig
+    Trace(TraceEventType, AvTraceDetails, Object, Object): PrivateScope, Public, Static, HideBySig
     Trace(TraceEventType, AvTraceDetails, Object, Object, Object): PrivateScope, Public, Static, HideBySig
     TraceActivityItem(AvTraceDetails, Object[]): PrivateScope, Public, Static, HideBySig
     TraceActivityItem(AvTraceDetails): PrivateScope, Public, Static, HideBySig
@@ -27155,14 +27294,6 @@ Class MS.Internal.TraceRoutedEvent: AutoLayout, AnsiClass, Class, Abstract, Seal
     get_IsEnabled(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_IsEnabledOverride(): PrivateScope, Public, Static, HideBySig, SpecialName
     Refresh(): PrivateScope, Public, Static, HideBySig
-    get_RaiseEvent(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_ReRaiseEventAs(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_HandleEvent(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_InvokeHandlers(): PrivateScope, Public, Static, HideBySig, SpecialName
-    Trace(TraceEventType, AvTraceDetails, Object[]): PrivateScope, Public, Static, HideBySig
-    Trace(TraceEventType, AvTraceDetails): PrivateScope, Public, Static, HideBySig
-    Trace(TraceEventType, AvTraceDetails, Object): PrivateScope, Public, Static, HideBySig
-    Trace(TraceEventType, AvTraceDetails, Object, Object): PrivateScope, Public, Static, HideBySig
 Class MS.Internal.TraceAnimation: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Properties:
     MS.Internal.AvTraceDetails StoryboardBegin 'get ' : 
@@ -30169,11 +30300,14 @@ Class MS.Internal.Automation.ElementUtil: AutoLayout, AnsiClass, Class, BeforeFi
     CheckEnabled(Visual): PrivateScope, Assembly, Static, HideBySig
     Invoke(AutomationPeer, DispatcherOperationCallback, Object): PrivateScope, Assembly, Static, HideBySig
 Class MS.Internal.Automation.EventMap: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    Boolean HasListeners 'get ' : 
   Methods:
     AddEvent(Int32): PrivateScope, Assembly, Static, HideBySig
     RemoveEvent(Int32): PrivateScope, Assembly, Static, HideBySig
     HasRegisteredEvent(AutomationEvents): PrivateScope, Assembly, Static, HideBySig
     GetRegisteredEvent(AutomationEvents): PrivateScope, Assembly, Static, HideBySig
+    get_HasListeners(): PrivateScope, Assembly, Static, HideBySig, SpecialName
 Class MS.Internal.Automation.EventPropertyMap: AutoLayout, AnsiClass, Class, BeforeFieldInit
   Methods:
     IsInterestingDP(DependencyProperty): PrivateScope, Assembly, Static, HideBySig
@@ -31320,9 +31454,9 @@ Class MS.Internal.PresentationCore.GCNotificationToken: AutoLayout, AnsiClass, C
 Class MS.Internal.PresentationCore.CommonDependencyPropertyAttribute: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   :System.Attribute
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-Class MS.Internal.PresentationCore.PresentationNativeLoader: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
+Class MS.Internal.PresentationCore.WpfLibraryLoader: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    EnsureLoaded(): PrivateScope, Assembly, Static, HideBySig
+    EnsureLoaded(String): PrivateScope, Assembly, Static, HideBySig
 Class MS.Internal.PresentationCore.BindUriHelper: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Fields:
     Int32 MAX_URL_LENGTH = 2083 : Public, Static, Literal, HasDefault
@@ -31458,11 +31592,6 @@ Class MS.Internal.PresentationCore.AnimatedTypeHelpers: AutoLayout, AnsiClass, C
     ScaleSize(Size, Double): PrivateScope, Assembly, Static, HideBySig
     ScaleVector(Vector, Double): PrivateScope, Assembly, Static, HideBySig
     ScaleVector3D(Vector3D, Double): PrivateScope, Assembly, Static, HideBySig
-Class MS.Internal.PresentationCore.DpiUtil: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
-  Fields:
-    Double DefaultPixelsPerInch = 96 : Assembly, Static, Literal, HasDefault
-  Methods:
-    UpdateDpiScalesAndGetIndex(Double, Double): PrivateScope, Assembly, Static, HideBySig
 Class MS.Internal.PresentationCore.SR: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Properties:
     System.Resources.ResourceManager ResourceManager 'get ' : 
@@ -32589,7 +32718,8 @@ Class System.Windows.Media.Composition.DUCE+Visual3DNode: AutoLayout, AnsiClass,
     SetTransform(ResourceHandle, ResourceHandle, Channel): PrivateScope, Assembly, Static, HideBySig
 Class System.Windows.Media.Composition.DUCE+CompositionTarget: AutoLayout, AnsiClass, Class, NestedAssembly, Abstract, Sealed, BeforeFieldInit
   Methods:
-    HwndInitialize(ResourceHandle, IntPtr, Int32, Int32, Boolean, Channel): PrivateScope, Assembly, Static, HideBySig
+    HwndInitialize(ResourceHandle, IntPtr, Int32, Int32, Boolean, Int32, DpiScale, Channel): PrivateScope, Assembly, Static, HideBySig
+    ProcessDpiChanged(ResourceHandle, DpiScale, Boolean, Channel): PrivateScope, Assembly, Static, HideBySig
     PrintInitialize(ResourceHandle, IntPtr, Int32, Int32, Channel): PrivateScope, Assembly, Static, HideBySig
     SetClearColor(ResourceHandle, Color, Channel): PrivateScope, Assembly, Static, HideBySig
     SetRenderingMode(ResourceHandle, MILRTInitializationFlags, Channel): PrivateScope, Assembly, Static, HideBySig
@@ -32864,6 +32994,9 @@ Struct System.Windows.Media.Composition.DUCE+MILCMD_HWNDTARGET_CREATE: AutoLayou
     ResourceHandle hBitmap : Assembly
     UInt32 stride : Assembly
     UInt32 ePixelFormat : Assembly
+    Int32 DpiAwarenessContext : Assembly
+    Double DpiX : Assembly
+    Double DpiY : Assembly
 Struct System.Windows.Media.Composition.DUCE+MILCMD_TARGET_UPDATEWINDOWSETTINGS: AutoLayout, AnsiClass, Class, NestedAssembly, ExplicitLayout, Sealed, BeforeFieldInit
   :System.ValueType
   Fields:
@@ -32913,6 +33046,14 @@ Struct System.Windows.Media.Composition.DUCE+MILCMD_TARGET_SETFLAGS: AutoLayout,
     System.Windows.Media.Composition.MILCMD Type : Assembly
     ResourceHandle Handle : Assembly
     UInt32 flags : Assembly
+Struct System.Windows.Media.Composition.DUCE+MILCMD_HWNDTARGET_DPICHANGED: AutoLayout, AnsiClass, Class, NestedAssembly, ExplicitLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    System.Windows.Media.Composition.MILCMD Type : Assembly
+    ResourceHandle Handle : Assembly
+    Double DpiX : Assembly
+    Double DpiY : Assembly
+    UInt32 AfterParent : Assembly
 Struct System.Windows.Media.Composition.DUCE+MILCMD_GLYPHRUN_CREATE: AutoLayout, AnsiClass, Class, NestedAssembly, ExplicitLayout, Sealed, BeforeFieldInit
   :System.ValueType
   Fields:
@@ -34241,6 +34382,26 @@ Struct MS.Internal.Classification+RawClassificationTables: AutoLayout, AnsiClass
     IntPtr CharacterAttributes : Assembly
     IntPtr Mirroring : Assembly
     CombiningMarksClassificationData CombiningMarksClassification : Assembly
+Class MS.Internal.DpiUtil+DpiAwarenessScope: AutoLayout, AnsiClass, Class, NestedAssembly, BeforeFieldInit
+    Void .ctor(MS.Utility.DpiAwarenessContextValue): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(MS.Utility.DpiAwarenessContextValue, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(MS.Utility.DpiAwarenessContextValue, Boolean, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class MS.Internal.DpiUtil+HwndDpiInfo: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :System.Tuple`2[MS.Utility.DpiAwarenessContextValue,MS.Internal.DpiScale2]
+    Void .ctor(IntPtr, Boolean): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(MS.Utility.DpiAwarenessContextValue, MS.Internal.DpiScale2): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    RECT ContainingMonitorScreenRect 'get ' : 
+    MS.Utility.DpiAwarenessContextValue DpiAwarenessContextValue 'get ' : 
+    MS.Internal.DpiScale2 DpiScale 'get ' : 
+  Methods:
+    get_ContainingMonitorScreenRect(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_DpiAwarenessContextValue(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_DpiScale(): PrivateScope, Assembly, HideBySig, SpecialName
 Struct MS.Internal.WindowsRuntime.Windows.UI.ViewManagement.InputPaneRcw+TrustLevel: AutoLayout, AnsiClass, Class, NestedAssembly, Sealed
   :System.Enum
   Fields:
