@@ -1,0 +1,5 @@
+MIDI_Servo_Controller.X/build/*
+MIDI_Servo_Controller.X/dist/*
+MIDI_Servo_Controller.X/nbproject/Makefile-*
+MIDI_Servo_Controller.X/nbproject/Package-*
+MIDI_Servo_Controller.X/nbproject/private/*
