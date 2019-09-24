@@ -1,1 +1,0 @@
-C:\Users\chris\Documents\GitHub\canisiuseddie\Software\KinectSoftware\EDDIE_Eyes\KinectEmotionDeterminer\obj\Debug\KinectEmotionDeterminer.csprojResolveAssemblyReference.cache

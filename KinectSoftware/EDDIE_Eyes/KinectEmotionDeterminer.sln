@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KinectEmotionDeterminerWrap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectEmotionDeterminer", "KinectEmotionDeterminer\KinectEmotionDeterminer.csproj", "{1560D17B-DC4F-4331-BE8D-292FA3187F84}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestKinectEmotionDeterminer", "TestKinectEmotionDeterminer\TestKinectEmotionDeterminer.vcxproj", "{599E91E5-D2A0-4726-98A9-725FE1A7870D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KinectEmotionDeterminerTester", "KinectEmotionDeterminerTester\KinectEmotionDeterminerTester.vcxproj", "{599E91E5-D2A0-4726-98A9-725FE1A7870D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

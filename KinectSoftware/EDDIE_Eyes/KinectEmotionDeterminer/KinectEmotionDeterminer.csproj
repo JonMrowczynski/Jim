@@ -7,7 +7,7 @@
     <ProjectGuid>{1560D17B-DC4F-4331-BE8D-292FA3187F84}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KinectEmotionDeterminer</RootNamespace>
+    <RootNamespace>KinectEmotionDeterminerNS</RootNamespace>
     <AssemblyName>KinectEmotionDeterminer</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
