@@ -1,6 +1,5 @@
 # Jim
 
-
 ## Requirements for...
 
 ### Electronics
@@ -50,13 +49,14 @@ Using the Visual Studio Installer that comes with the IDE...
   
   - Desktop development with C++
   
-- Install the individual components if necessary:
+- Install the following individual components if necessary:
 
   - .NET framework >= 4.8 SDK
+  
   - .NET framework >= 4.8 targeting pack
 
 #### Hardware
 
-- [Microsoft XBox Kinect One Sensor Bar](https://www.amazon.com/Microsoft-Xbox-One-Kinect-Sensor-Renewed/dp/B00YT168WA/ref=sr_1_4?keywords=Kinect+One)
+- [Microsoft XBox Kinect One Sensor Bar](https://www.amazon.com/Microsoft-Xbox-One-Kinect-Sensor-Renewed/dp/B00YT168WA/)
 
 - [XBox One Kinect Adapter](https://www.amazon.com/Adapter-PartsCrop-Windows-Interactive-Development/dp/B07H9TLNV4/) to connect the Kinect One to a WIndows PC.
