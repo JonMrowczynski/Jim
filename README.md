@@ -7,7 +7,7 @@
 
 - Any PDF reader to view the PDF of the schematic.
 
-- [Autodesk Eagle](https://www.autodesk.com/products/eagle/free-download) >= 9.5 if you would like to modify the schematics.
+- [Autodesk Eagle](https://www.autodesk.com/products/eagle/free-download) >= 9.5 to modify the schematic, board layout, and/or Gerber files.
 
 ### Firmware
 
