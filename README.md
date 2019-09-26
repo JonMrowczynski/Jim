@@ -1,6 +1,6 @@
 # Jim
 
-An inexpensive interdisciplinary platform for affective AI, Jim the robot has the ability to talk, express and interpret basic human emotions.
+An inexpensive interdisciplinary platform for affective AI, Jim the robot has the ability to talk and express and interpret basic human emotions.
 
 The Electronics, Firmware, and Master Control Software subprojects are the components required to operate the first two main functionalities of Jim. 
 
