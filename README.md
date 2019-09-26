@@ -1,5 +1,15 @@
 # Jim
 
+An inexpensive interdisciplinary platform for affective AI, Jim the robot has the ability to talk, express and interpret basic human emotions.
+
+The Electronics, Firmware, and Master Control Software subprojects are the components required to operate the first two main functionalities of Jim. 
+
+The Kinect Software subproject is required to operate the third main functionality. An AI is used to interpret the data from the Kinect One sensor to allow Jim to interpret basic human emotions from people's facial expressions.
+
+EDDIE is a later embodiment of Jim.
+
+The Documents folder contains more information about Jim/EDDIE if you are interested in learning more.
+
 ## Requirements for...
 
 ### Electronics
@@ -15,7 +25,7 @@
 - [MPLAB X IDE](https://www.microchip.com/mplab/mplab-x-ide) >= 5.25 to modify and develop the firmware.
 
 - MPLAB X IPE >= 5.25 to program the PIC microcontrollers.
-  - While installing the IDE, your are presented with the choice of also installed the IPE.
+  - While installing the IDE, you are presented with the choice of also installed the IPE.
   - The versions of MPLAB X IDE and MPLAB X IPE should be the same.
   
 #### Hardware
@@ -59,4 +69,4 @@ Using the Visual Studio Installer that comes with the IDE...
 
 - [Microsoft XBox Kinect One Sensor Bar](https://www.amazon.com/Microsoft-Xbox-One-Kinect-Sensor-Renewed/dp/B00YT168WA/)
 
-- [XBox One Kinect Adapter](https://www.amazon.com/Adapter-PartsCrop-Windows-Interactive-Development/dp/B07H9TLNV4/) to connect the Kinect One to a WIndows PC.
+- [XBox One Kinect Adapter](https://www.amazon.com/Adapter-PartsCrop-Windows-Interactive-Development/dp/B07H9TLNV4/) to connect the Kinect One to a Windows PC.
