@@ -1,4 +1,6 @@
 /*
+ * MIT License
+ *
  * Copyright (c) 2013-2019 Jon Mrowczynski
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
