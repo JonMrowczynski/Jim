@@ -34,11 +34,29 @@
 
 #### Hardware 
 
-- [USB to MIDI cable](https://www.amazon.com/HDE-Synthesizer-Microphone-Instrument-Converter/dp/B00D3QFHN8/ref=sr_1_7?ie=UTF8&qid=1527187759&sr=8-7&keywords=USB+to+MIDI+cable&dpID=413fQXN0jlL&preST=_SY300_QL70_&dpSrc=srch#customerReviews)
+- [USB to MIDI cable](https://www.amazon.com/HDE-Synthesizer-Microphone-Instrument-Converter/dp/B00D3QFHN8/)
 
 ### Kinect Software
 
 #### Software
 
+- [Microsoft Visual Studio IDE](https://visualstudio.microsoft.com/) >= 2019
+
+Using the Visual Studio Installer that comes with the IDE... 
+
+- Install the following workloads:
+
+  - .NET desktop development
+  
+  - Desktop development with C++
+  
+- Install the individual components if necessary:
+
+  - .NET framework >= 4.8 SDK
+  - .NET framework >= 4.8 targeting pack
+
 #### Hardware
 
+- [Microsoft XBox Kinect One Sensor Bar](https://www.amazon.com/Microsoft-Xbox-One-Kinect-Sensor-Renewed/dp/B00YT168WA/ref=sr_1_4?keywords=Kinect+One)
+
+- [XBox One Kinect Adapter](https://www.amazon.com/Adapter-PartsCrop-Windows-Interactive-Development/dp/B07H9TLNV4/) to connect the Kinect One to a WIndows PC.
