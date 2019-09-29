@@ -49,6 +49,8 @@ The Documentation folder contains more information about Jim/EDDIE if you are in
 
 #### Software
 
+- [Kinect for Windows SDK 2.0](https://www.microsoft.com/en-us/download/details.aspx?id=44561)
+
 - [Microsoft Visual Studio IDE](https://visualstudio.microsoft.com/) >= 2019
 
 Using the Visual Studio Installer that comes with the IDE... 
