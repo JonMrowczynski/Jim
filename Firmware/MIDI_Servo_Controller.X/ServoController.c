@@ -124,7 +124,7 @@ void __interrupt() isr(void) {
 
 void main(void) {
     
-    // Initialize everything up
+    // Initialize everything
     
     initServos();
     initUSART();

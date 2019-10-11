@@ -234,7 +234,6 @@ public final class Ruppet {
 		int choice = -1;
 		lights.on();
 		SequencerConnection.getInstance().getMidiDevice().start();
-		//Connect.getSequencer().setTrackSolo(blinkingTrack.getTrackIndex(), true); // this is where the thing bugs
 		do {
 			deSoloAllTracks(tracks);
 			System.out.println("\n");
@@ -520,6 +519,7 @@ public final class Ruppet {
 	*/
 
 	private final class ReleaseSoul extends Thread {
+		@Override
 		public final void run() {
 			System.out.println();
 			deSoloAllTracks(tracks);
