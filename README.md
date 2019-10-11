@@ -25,7 +25,9 @@ The Documentation folder contains more information about Jim/EDDIE if you are in
 - [MPLAB X IDE](https://www.microchip.com/mplab/mplab-x-ide) >= 5.25 to modify and develop the firmware.
 
 - MPLAB X IPE >= 5.25 to program the PIC microcontrollers.
+
   - While installing the IDE, you are presented with the choice of also installed the IPE.
+  
   - The versions of MPLAB X IDE and MPLAB X IPE should be the same.
   
 #### Hardware
