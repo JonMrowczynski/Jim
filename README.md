@@ -8,7 +8,7 @@ The Kinect Software subproject is required to operate the third main functionali
 
 EDDIE is a later embodiment of Jim.
 
-The Documentation folder contains more information about Jim/EDDIE if you are interested in learning more.
+The Documentation folder contains additional information about Jim/EDDIE if you are interested in learning more.
 
 ## Requirements for...
 
