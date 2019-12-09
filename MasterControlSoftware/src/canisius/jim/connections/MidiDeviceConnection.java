@@ -32,43 +32,34 @@ import javax.sound.midi.MidiDevice;
  *
  * @author Jon Mrowczynski
  */
-
 public abstract class MidiDeviceConnection<T extends MidiDevice> {
 
     /**
      * The {@code MidiDevice} that has been connected.
      */
-
     T midiDevice;
 
     /**
      * Instantiating a new {@code MidiDeviceConnection} automatically attempts to connect to the {@code MidiDevice}.
      */
-
     MidiDeviceConnection() { connect(); }
 
     /**
      * Connect to the {@code MidiDevice}.
      */
-
     protected abstract void connect();
 
     /**
      * Disconnect from the {@code MidiDevice} by closing it iff it is not {@code null} and it is open. Otherwise, this
      * method is a no-op.
-     *
-     * @see MidiDevice#isOpen()
-     * @see MidiDevice#close()
      */
-
     public final void disconnect() { if (midiDevice != null && midiDevice.isOpen()) { midiDevice.close(); } }
 
     /**
      * Returns the {@code MidiDevice} if {@code connect} has been called. Otherwise, {@code null} is returned.
      *
-     * @return the connected {@code MidiDevice} or {@code null}.
+     * @return the connected {@code MidiDevice} or {@code null}
      */
-
     public final T getMidiDevice() { return midiDevice; }
 
 } // end of MidiDeviceConnection

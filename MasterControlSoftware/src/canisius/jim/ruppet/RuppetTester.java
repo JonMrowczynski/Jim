@@ -50,57 +50,48 @@ import java.util.Set;
  *
  * @author Jon Mrowczynski
  */
-
 public class RuppetTester extends Application {
 	
 	/**
 	 * The default font size that is used for the {@code RuppetTester} {@code Scene}.
 	 */
-	
 	private static final Font FONT_SIZE = Font.font(14);
 
 	/**
 	 * Contains all of the {@code Text} and {@code Control}s related to the {@code Ruppet}'s {@code Part}s.
 	 */
-
 	private final GridPane partSelectGridPane = new GridPane();
 
 	/**
 	 * Contains all of the {@code Control}s that allows the user to modify the velocity value of the
 	 * {@code ShortMessage}s and send {@code ShortMessage}s to the microcontroller.
 	 */
-
 	private final GridPane controlsGridPane = new GridPane();
 
 	/**
 	 * The {@code ToggleGroup} for the {@code RadioButton}s.
 	 */
-
 	private final ToggleGroup radioButtonToggleGroup = new ToggleGroup();
 
 	/**
 	 * Turns the lights on when pressed.
 	 */
-
 	private final Button lightsOn = setupButton("On", 0, 10);
 
 	/**
 	 * Turns the lights off when pressed.
 	 */
-
 	private final Button lightsOff = setupButton("Off", 1, 0);
 	
 	/**
 	 * A collection of MIDI notes that should be sent to the USB {@code MidiDevice}'s {@code Receiver}.
 	 */
-	
 	private byte[] midiNotes = null;
 
 	/**
 	 * The velocity value that should be used when the {@code ShortMessage}s are sent to the USB {@code MidiDevice}'s
 	 * {@code Receiver}.
 	 */
-	
 	private byte currentVelocity = 0;
 	
 	public static void main(final String[] args) { launch(args); }
@@ -111,7 +102,6 @@ public class RuppetTester extends Application {
 	/**
 	 * Construct the manual operation {@code Scene} add it to the primary {@code Stage} and show the {@code Stage}.
 	 */
-	
 	private void manualOperationSceneSetup(final Stage primaryStage) {
 		primaryStage.setTitle("Ruppet Tester");
 		partSelectGridPane.setAlignment(Pos.CENTER);
@@ -125,11 +115,11 @@ public class RuppetTester extends Application {
 		PICPinNumberSetup();
 		PICPinNameSetup();
 		MIDISelectSetup(primaryStage);
-		final VBox container = new VBox(partSelectGridPane, controlsGridPane);
+		final var container = new VBox(partSelectGridPane, controlsGridPane);
 		container.setSpacing(20);
 		container.setAlignment(Pos.CENTER);
 		container.setPadding(new Insets(25));
-		final Scene manualControlScene = new Scene(container, 500, 350);
+		final var manualControlScene = new Scene(container, 500, 350);
 		primaryStage.setScene(manualControlScene);
 		primaryStage.sizeToScene();
 		primaryStage.setResizable(false);
@@ -141,7 +131,6 @@ public class RuppetTester extends Application {
 	 * Constructs the left most column of the GUI where the user is able to select which {@code Ruppet Part} they would
 	 * like to manually operate.
 	 */
-	
 	private void partSelectSetup() {
 		setupText("Part Select", 0, 0);
 		setupRadioButton(true, "Eyebrows", 1, Ruppet.EYEBROW_MIDI_NOTE);
@@ -156,20 +145,20 @@ public class RuppetTester extends Application {
 	/**
 	 * Returns a {@code Button} that can control a component of the {@code Ruppet}.
 	 *
-	 * @param label that the {@code Button} should have.
-	 * @param rowIndex that the {@code Button} should have in {@code controlsGridPane}.
-	 * @param velocity of the {@code ShortMessage} that is sent when the {@code Button} is pressed.
-	 * @return the constructed {@code Button}.
+	 * @param label that the {@code Button} should have
+	 * @param rowIndex that the {@code Button} should have in {@code controlsGridPane}
+	 * @param velocity of the {@code ShortMessage} that is sent when the {@code Button} is pressed
+	 * @return the constructed {@code Button}
 	 */
 
 	private Button setupButton(final String label, final int rowIndex, final int velocity) {
-		final Button button = new Button(label);
+		final var button = new Button(label);
 		button.setDisable(true);
 		button.setFont(FONT_SIZE);
 		controlsGridPane.add(button, 0, rowIndex);
 		GridPane.setHalignment(button, HPos.LEFT);
 		try {
-			final ShortMessage msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, velocity);
+			final var msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, velocity);
 			button.setOnAction(actionEvent -> UsbMidiConnection.getInstance().send(msg));
 		} catch (InvalidMidiDataException e) { e.printStackTrace(); }
 		return button;
@@ -180,14 +169,14 @@ public class RuppetTester extends Application {
 	 * {@code partsSelectGridPane}.
 	 *
 	 * @param setLightsDisabled a {@code boolean} indicating whether the lights on/off {@code Button}s should be
-	 *                          disabled upon the selection of the {@code RadioButton}.
-	 * @param label that the {@code RadioButton} should have.
-	 * @param rowIndex that the {@code RadioButton} should have in {@code partSelectGridPane}.
-	 * @param midiNotes that should be sent when the {@code RadioButton} is pressed.
+	 *                          disabled upon the selection of the {@code RadioButton}
+	 * @param label that the {@code RadioButton} should have
+	 * @param rowIndex that the {@code RadioButton} should have in {@code partSelectGridPane}
+	 * @param midiNotes that should be sent when the {@code RadioButton} is pressed
 	 */
 
 	private void setupRadioButton(final boolean setLightsDisabled, final String label, final int rowIndex, final byte... midiNotes) {
-		final RadioButton radioButton = new RadioButton();
+		final var radioButton = new RadioButton();
 		radioButton.setText(label);
 		radioButton.setFont(FONT_SIZE);
 		radioButton.setToggleGroup(radioButtonToggleGroup);
@@ -204,7 +193,6 @@ public class RuppetTester extends Application {
 	 * Constructs and adds {@code Text} to the {@code Scene} that displays information about which servo numbers are
 	 * associated with each {@code Ruppet Part}.
 	 */
-	
 	private void servoNumSetup() {
 		setupText("Servo", 1, 0);
 		setupText("1", 1, 1);
@@ -220,7 +208,6 @@ public class RuppetTester extends Application {
 	 * Constructs the {@code Text} that associates the PIC pin number that outputs the PWM signal with the servo that
 	 * that signal gets sent to.
 	 */
-	
 	private void PICPinNumberSetup() {
 		setupText("PIC Pin Number(s)", 2, 0);
 		setupText("17", 2, 1);
@@ -235,7 +222,6 @@ public class RuppetTester extends Application {
 	/**
 	 * Constructs the {@code Text} that associates all of the PIC pin numbers with their names.
 	 */
-	
 	private void PICPinNameSetup() {
 		setupText("PIC Pin Name(s)", 3, 0);
 		setupText("RA0", 3, 1);
@@ -251,13 +237,12 @@ public class RuppetTester extends Application {
 	 * A helper method used to add a {@code String} to {@code partSelectGridPane} as {@code Text} at the specified
 	 * {@code column} and {@code row}.
 	 *
-	 * @param label of the {@code Text}.
-	 * @param column that the {@code Text} should be placed in.
-	 * @param row that the {@code Text} should be placed in.
+	 * @param label of the {@code Text}
+	 * @param column that the {@code Text} should be placed in
+	 * @param row that the {@code Text} should be placed in
 	 */
-	
 	private void setupText(final String label, final int column, final int row) {
-		final Text text = new Text(label);
+		final var text = new Text(label);
 		text.setFont(FONT_SIZE);
 		partSelectGridPane.add(text, column, row);
 		GridPane.setHalignment(text, HPos.CENTER);
@@ -267,14 +252,13 @@ public class RuppetTester extends Application {
 	 * Constructs a {@code Spinner} that allows the user to enter in a velocity value for the {@code ShortMessage}s and
 	 * a {@code Button} that allows the user to send the {@code ShortMessage}s to the electronics.
 	 * 
-	 * @param primaryStage The primary {@code Stage} that contains all of the {@code Text} and {@code Control}s.
+	 * @param primaryStage The primary {@code Stage} that contains all of the {@code Text} and {@code Control}s
 	 */
-	
 	private void MIDISelectSetup(final Stage primaryStage) {
-		final Button sendMIDIBtn = new Button("Send MIDI");
+		final var sendMIDIBtn = new Button("Send MIDI");
 		sendMIDIBtn.setOnAction(actionListener -> {	
 			if (midiNotes == null) {
-				Alert alert = new Alert(AlertType.ERROR);
+				final var alert = new Alert(AlertType.ERROR);
 				alert.initOwner(primaryStage);
 				alert.setTitle("Invalid Part Selection");
 				alert.setHeaderText("No Ruppet Part has been Selected");
@@ -288,7 +272,7 @@ public class RuppetTester extends Application {
 		});
 		controlsGridPane.add(sendMIDIBtn, 1, 1);
 
-		final Spinner<Integer> spinner = new Spinner<>(Ruppet.MIN_VELOCITY, Ruppet.MAX_VELOCITY, Ruppet.MIN_VELOCITY);
+		final var spinner = new Spinner<>(Ruppet.MIN_VELOCITY, Ruppet.MAX_VELOCITY, Ruppet.MIN_VELOCITY);
 		spinner.setEditable(true);
 		spinner.setPrefWidth(55);
 		/*
@@ -313,22 +297,22 @@ public class RuppetTester extends Application {
 		 */
 		spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.equals("")) {
-				final boolean isNotNumber = !newValue.matches("\\d*");
-				final boolean isNotValidNumber = newValue.charAt(0) == '0' && newValue.length() > 1;
+				final var isNotNumber = !newValue.matches("\\d*");
+				final var isNotValidNumber = newValue.charAt(0) == '0' && newValue.length() > 1;
 				if (isNotNumber || isNotValidNumber) { spinner.getEditor().setText(oldValue); }
 				else {
-					final int newValueInt = Integer.parseInt(newValue);
+					final var newValueInt = Integer.parseInt(newValue);
 					if (newValueInt > Ruppet.MAX_VELOCITY || newValueInt < Ruppet.MIN_VELOCITY) { spinner.getEditor().setText(oldValue); }
 					currentVelocity = (byte) newValueInt;
 				}
 			}				
 		});
-		final Tooltip tooltip = new Tooltip("Min velocity: " + Ruppet.MIN_VELOCITY + "\n" + "Max velocity: " + Ruppet.MAX_VELOCITY);
+		final var tooltip = new Tooltip("Min velocity: " + Ruppet.MIN_VELOCITY + "\n" + "Max velocity: " + Ruppet.MAX_VELOCITY);
 		spinner.setTooltip(tooltip);
 
-		final Text velocityText = new Text("Velocity:");
+		final var velocityText = new Text("Velocity:");
 		velocityText.setFont(FONT_SIZE);
-		final HBox spinnerContainer = new HBox(velocityText, spinner);
+		final var spinnerContainer = new HBox(velocityText, spinner);
 		spinnerContainer.setSpacing(10);
 		spinnerContainer.setAlignment(Pos.CENTER);
 
@@ -339,18 +323,14 @@ public class RuppetTester extends Application {
 	 * Creates a {@code Set} of {@code ShortMessage}s based on the {@code byte}s stored in {@code midiNotes} and the
 	 * {@code currentVelocity} value.
 	 * 
-	 * @return A {@code Set} of {@code ShortMessage}s that should be sent to the microcontroller.
-	 * @throws InvalidMidiDataException if any of the MIDI data is invalid.
+	 * @return A {@code Set} of {@code ShortMessage}s that should be sent to the microcontroller
+	 * @throws InvalidMidiDataException if any of the MIDI data is invalid
 	 */
-	
 	private Set<ShortMessage> makeMessages() throws InvalidMidiDataException {
-		final Set<ShortMessage> messages = new HashSet<>();
+		final var messages = new HashSet<ShortMessage>();
 		if (midiNotes.length >= 1) { messages.add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNotes[0], currentVelocity)); }
 		if (midiNotes.length == 2) { messages.add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNotes[1], Ruppet.MAX_VELOCITY - currentVelocity)); }
 		return messages;
 	}
 	
 } // end of RuppetTester
-
-
-

@@ -24,7 +24,10 @@
 
 package canisius.jim.connections;
 
-import javax.sound.midi.*;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequencer;
 
 /**
  * {@code SequencerConnection} is a singleton class that allows one to make a connection to the system's default
@@ -33,32 +36,24 @@ import javax.sound.midi.*;
  *
  * @author Jon Mrowczynski
  */
-
 public class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 
     /**
      * The singleton {@code SequencerConnection} instance.
      */
-
     private static final SequencerConnection SEQUENCER_CONNECTION = new SequencerConnection();
 
     /**
      * Returns the singleton {@code SequencerConnection} instance.
      *
-     * @return the singleton {@code SequencerConnection} instance.
+     * @return the singleton {@code SequencerConnection} instance
      */
-
     public static SequencerConnection getInstance() { return SEQUENCER_CONNECTION; }
 
     /**
      * Connects to the system's default {@code Sequencer} and disconnects it from the default {@code Synthesizer}. This
      * prevents the {@code MidiMessage}s from being played by the system's speakers.
-     *
-     * @see MidiSystem#getSequencer(boolean)
-     * @see MidiDevice#isOpen()
-     * @see MidiDevice#open()
      */
-
     public void connect() {
         try {
             // Disconnects the system's sequencer from the default device (the computer's speakers).
@@ -70,10 +65,8 @@ public class SequencerConnection extends MidiDeviceConnection<Sequencer> {
     /**
      * Sets the {@code Receiver} that should receive the sequenced {@code MidiMessage}s.
      *
-     * @param receiver that should receive {@code MidiMessage}s from this {@code SequencerConnection}.
-     * @see javax.sound.midi.Transmitter#setReceiver(Receiver)
+     * @param receiver that should receive {@code MidiMessage}s from this {@code SequencerConnection}
      */
-
     public void setReceiver(final Receiver receiver) {
         try { midiDevice.getTransmitter().setReceiver(receiver); }
         catch (MidiUnavailableException e) { e.printStackTrace(); }

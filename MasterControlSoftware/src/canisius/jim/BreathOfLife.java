@@ -34,7 +34,6 @@ import javafx.stage.Stage;
  *
  *  @author Jon Mrowczynski
  */
-
 public final class BreathOfLife extends Application {
 	
 	public static void main(final String[] args) { launch(args); }
