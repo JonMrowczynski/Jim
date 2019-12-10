@@ -32,10 +32,8 @@ import javax.sound.midi.MidiEvent;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * This class provides the framework for the components of the {@code Ruppet} that are operated by the microcontroller.
@@ -82,8 +80,11 @@ public abstract class Part {
 	 * @param ruppetParts of all of the {@code Part}s of a {@code Ruppet} that this {@code Part} is to be added to
 	 * @param midiNote The corresponding MIDI note that is used to operate this {@code Part}
      * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+     * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-	Part(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
+	Part(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound)
+            throws InvalidParameterException, NullPointerException {
+        Objects.requireNonNull(ruppetParts, "Cannot initialize " + Part.class.getSimpleName() + " with null ruppetParts");
         if (lowerBound <= upperBound) {
             if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
             else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
@@ -95,10 +96,10 @@ public abstract class Part {
                 "\nCould not instantiate Movable Part.");
         }
         neutral = (upperBound + lowerBound) / 2;
-        for (var i = 0; i < (this.upperBound - this.lowerBound) + 1; ++i) {
-			try { states.add(new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound)))); }
-			catch (InvalidMidiDataException e) { e.printStackTrace(); }
-		}
+        IntStream.range(0, upperBound - lowerBound + 1).forEach(i -> {
+            try { states.add(new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound)))); }
+            catch (InvalidMidiDataException e) { e.printStackTrace(); }
+        });
         ruppetParts.add(this);
     }
 
@@ -132,8 +133,10 @@ public abstract class Part {
 	 * @param track that is to have {@code ShortMessage}s added to it
 	 * @param messages that are to be added to the {@code Track}
 	 * @param tick of that the {@code ShortMessage}s should be played at from the start of the {@code Track}
+     * @throws NullPointerException if {@code track} is {@code null}
 	 */
-	public final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) {
+	public final void addStateToTrack(final Track track, final Set<ShortMessage> messages, final int tick) throws NullPointerException {
+	    Objects.requireNonNull(track, "Cannot add state to a null Track");
 		if (validShortMessages(messages)) { messages.forEach(msg -> track.add(new MidiEvent(msg, tick))); }
 	}
 
@@ -238,8 +241,7 @@ public abstract class Part {
      *         {@code ShortMessage}s for this {@code Part}
      */
     private boolean validShortMessages(final Set<ShortMessage> messages) {
-        final var state = states.get(velocityToStateIndex(getVelocityVal(messages.iterator().next())));
-        return state.containsAll(messages);
+        return messages != null && states.get(velocityToStateIndex(getVelocityVal(messages.iterator().next()))).containsAll(messages);
     }
 
     /**
@@ -261,7 +263,8 @@ public abstract class Part {
      *
      * @param msg whose velocity value will be returned
      * @return The velocity value of {@code msg} as an {@code int}
+     * @throws NullPointerException if {@code msg} is {@code null}
      */
-    private static int getVelocityVal(final ShortMessage msg) { return msg.getData2(); }
+    private static int getVelocityVal(final ShortMessage msg) throws NullPointerException { return msg.getData2(); }
 
 } // end of Part

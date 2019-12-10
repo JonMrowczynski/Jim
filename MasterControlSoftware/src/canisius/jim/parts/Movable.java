@@ -28,6 +28,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * A {@code Movable} is a component of the {@code Ruppet} that can be controlled by one or more servo motors. If the
@@ -49,8 +50,10 @@ public final class Movable extends Part {
 	 * @param lowerBound that the servo arm can move to
 	 * @param upperBound that the servo arm can move to
 	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+	 * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-    public Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
+    public Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound)
+			throws InvalidParameterException, NullPointerException {
 		super(ruppetParts, midiNote, lowerBound, upperBound);
 	}
 	
@@ -67,24 +70,25 @@ public final class Movable extends Part {
 	 *                    to one another
 	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values or if
 	 * 									 {@code parallelism} is not "parallel" or "antiparallel"
+	 * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-    public Movable(final List<Part> ruppetParts, final int midiNote1, final int lowerBound, final int upperBound, final int midiNote2, final String parallelism)
-			throws InvalidParameterException {
+    public Movable(final List<Part> ruppetParts, final int midiNote1, final int lowerBound, final int upperBound,
+				   final int midiNote2, final String parallelism) throws InvalidParameterException, NullPointerException {
 	    this(ruppetParts, midiNote1, lowerBound, upperBound);
-		for (var i = 0; i < states.size(); ++i) {
+		IntStream.range(0, states.size()).forEach(i -> {
 			try {
 				switch(parallelism.toLowerCase()) {
-                    case "parallel":
-                        states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, i + lowerBound));
-                        break;
-                    case "antiparallel":
-                        states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, ((upperBound + lowerBound) - (i + lowerBound))));
-                        break;
-                    default:
-                        throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
-                }
+					case "parallel":
+						states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, i + lowerBound));
+						break;
+					case "antiparallel":
+						states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, ((upperBound + lowerBound) - (i + lowerBound))));
+						break;
+					default:
+						throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
+				}
 			} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
-		}
+		});
 	}
 		
 } // end of Movable
