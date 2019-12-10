@@ -30,6 +30,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 
 import javax.sound.midi.*;
+import java.util.Objects;
 
 /**
  * {@code UsbMidiConnection} is a singleton class that allows one to make a connection to a USB {@code MidiDevice} in
@@ -98,9 +99,13 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	 * {@code MidiDevice} with a {@code timeStamp} of -1.
 	 *
 	 * @param midiMessage that is to be sent to the {@code Receiver} of the connected {@code MidiDevice}
-	 * @throws NullPointerException if the {@code connect()} method of this class has not been called or if it failed
+	 * @throws NullPointerException if the {@code connect()} method of this class has not been called, if it failed to
+	 * 								fully execute, or if {@code midiMessage} is {@code null}
 	 */
-	public final void send(final MidiMessage midiMessage) throws NullPointerException { usbMidiDeviceReceiver.send(midiMessage, -1); }
+	public final void send(final MidiMessage midiMessage) throws NullPointerException {
+		Objects.requireNonNull(midiMessage, "Cannot send a null " + MidiMessage.class.getSimpleName());
+		usbMidiDeviceReceiver.send(midiMessage, -1);
+	}
 
 	/**
 	 * Returns the {@code Receiver} of the {@code USB_MIDI_CONNECTION} after {@code connect} has been called. Otherwise,

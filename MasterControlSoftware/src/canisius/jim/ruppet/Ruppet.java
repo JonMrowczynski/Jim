@@ -200,7 +200,7 @@ public final class Ruppet {
             SequencerConnection.getInstance().getMidiDevice().setSequence(actions);
             // Mute all of the tracks so that they are not unintentionally all playing at once
 			tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
-            deSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
+            dontSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
         } catch(InvalidMidiDataException e) { e.printStackTrace();}
 		final ReleaseSoul releaseSoul = new ReleaseSoul();
 		Runtime.getRuntime().addShutdownHook(releaseSoul);
@@ -214,7 +214,7 @@ public final class Ruppet {
 		lights.on();
 		SequencerConnection.getInstance().getMidiDevice().start();
 		do {
-			deSoloAllTracks(tracks);
+			dontSoloAllTracks(tracks);
 			System.out.println("\n");
 			System.out.println("Would you like me to...");
 			System.out.println("1. Go into manual emotion demo mode");
@@ -410,8 +410,9 @@ public final class Ruppet {
 	 * the {@code Ruppet}'s eyes.
 	 * 
 	 * @param blinkingTrack that contains the timings for the blinking
+	 * @throws NullPointerException if {@code blinkingTrack} is {@code null}
 	 */
-	private void fillBlinkTrack(final Track blinkingTrack) {
+	private void fillBlinkTrack(final Track blinkingTrack) throws NullPointerException {
 		final var blink_length = 200;
 		final var max_blink_wait = 3500;
 		final var eyelidsUp = this.eyelids.getUpperBoundState();
@@ -429,12 +430,14 @@ public final class Ruppet {
 	}
 
 	/**
-	 * Sets all {@code track}s to not soloed.
+	 * Sets all {@code track}s to not soloed. If {@code tracks} is {@code null}, then this method is a no-op.
 	 *
 	 * @param tracks that are to be not soloed
 	 */
-	private static void deSoloAllTracks(final List<Track> tracks) {
-		tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
+	private static void dontSoloAllTracks(final List<Track> tracks) {
+		if (tracks != null && !tracks.isEmpty()) {
+			tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
+		} else { System.out.println("No tracks to desolo"); }
 	}
 
 	/**
@@ -447,18 +450,21 @@ public final class Ruppet {
 	private static int getRandInt(final int min, final int max) { return (new Random()).nextInt((max - min) + 1) + min; }
 
 	/**
-	 * Sets all of the {@code track}s to not soloed except for the given {@code soloTrack}.
+	 * Sets all of the {@code track}s to not soloed except for the given {@code soloTrack}. If {@code tracks} is
+	 * {@code null} then this method is a no-op.
 	 *
 	 * @param tracks that are to be set to not soloed
 	 * @param soloTrack that is to be left alone
 	 */
-	private static void deSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
-		final var soloTrackIndex = tracks.indexOf(soloTrack);
-		tracks.forEach(track -> {
-			final var currentTrackIndex = tracks.indexOf(track);
-			if (currentTrackIndex == soloTrackIndex) { SequencerConnection.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
-			else { SequencerConnection.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
-		});
+	private static void dontSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
+		if (tracks != null && !tracks.isEmpty()) {
+			final var soloTrackIndex = tracks.indexOf(soloTrack);
+			tracks.forEach(track -> {
+				final var currentTrackIndex = tracks.indexOf(track);
+				if (currentTrackIndex == soloTrackIndex) { SequencerConnection.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
+				else { SequencerConnection.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
+			});
+		} else { System.out.println("No tracks to desolo"); }
 	}
 
 	/**
@@ -483,7 +489,7 @@ public final class Ruppet {
 		@Override
 		public final void run() {
 			System.out.println();
-			deSoloAllTracks(tracks);
+			dontSoloAllTracks(tracks);
 			reader.close();
 			parts.forEach(Part::toNeutral);
 			UsbMidiConnection.getInstance().disconnect();

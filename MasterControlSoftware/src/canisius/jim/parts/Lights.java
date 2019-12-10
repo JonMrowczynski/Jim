@@ -49,8 +49,9 @@ public final class Lights extends Part {
 	 * 
 	 * @param ruppetParts of a {@code Ruppet}
 	 * @param midiNote that should be associated with these {@code Lights}
+	 * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-	public Lights(final List<Part> ruppetParts, final byte midiNote) {
+	public Lights(final List<Part> ruppetParts, final byte midiNote) throws NullPointerException {
 		super(ruppetParts, midiNote, OFF, ON);
 		setNeutral(OFF);
 	}

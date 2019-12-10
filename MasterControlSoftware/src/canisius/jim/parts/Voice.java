@@ -39,6 +39,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -94,10 +95,11 @@ public final class Voice {
 	 * @param ruppet that this {@code Voice} belongs to
 	 * @param actions that is used to create a {@code Track} that stores all of the timing information for the mouth
 	 *                movements
+	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
-    public Voice(final Ruppet ruppet, final Sequence actions) {
-		this.ruppet = ruppet;
-		voiceTrack = actions.createTrack();
+    public Voice(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
+		this.ruppet = Objects.requireNonNull(ruppet, "Cannot initialize " + Voice.class.getSimpleName() + " with null ruppet");
+		voiceTrack = Objects.requireNonNull(actions, "Cannot initialize " + Voice.class.getSimpleName() + " with null actions").createTrack();
 		readTimingInfoFromFile();
 		openAudioFile();
 		setupTimings();

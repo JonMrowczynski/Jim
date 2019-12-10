@@ -25,6 +25,7 @@
 package canisius.jim.parts;
 
 import javax.sound.midi.ShortMessage;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -54,10 +55,8 @@ final class PartState {
 	 * @throws NullPointerException if {@code part} or {@code state} is {@code null}
 	 */
 	PartState(final Part part, final Set<ShortMessage> state) throws NullPointerException {
-		if (part == null) { throw new NullPointerException("part cannot be null"); }
-		if (state == null) { throw new NullPointerException("state cannot be null"); }
-		this.part = part;
-		this.state = state;
+		this.part = Objects.requireNonNull(part, "part cannot be null");
+		this.state = Objects.requireNonNull(state, "state cannot be null");
 	}
 
 	/**

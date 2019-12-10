@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *	The {@code Heart} mainly deals with the {@code Emotion}al states of the {@code Ruppet} that can either be expressed
@@ -96,8 +97,12 @@ public final class Heart {
 	 * 
 	 * @param ruppet that this {@code Heart} object belongs to
 	 * @param actions that is used to create a {@code Track} that stores all of the {@code Emotion} expression timings
+	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
-    public Heart(final Ruppet ruppet, final Sequence actions) {
+    public Heart(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
+		Objects.requireNonNull(ruppet, "Cannot initialize a " + Heart.class.getSimpleName() + " with a null ruppet");
+		Objects.requireNonNull(actions, "Cannot initialize a " + Heart.class.getSimpleName() + " with null actions");
+
 		final var lowerJaw   = ruppet.getLowerJaw();
 		final var lipCorners = ruppet.getLipCorners();
 		final var eyebrow 	 = ruppet.getEyebrows();
@@ -119,8 +124,12 @@ public final class Heart {
 	 * Display {@code emotion}.
 	 * 
 	 * @param emotion that the {@code Ruppet} is to feel
+	 * @throws NullPointerException if {@code emotion} is {@code null}
 	 */
-	public final void feel(Emotion emotion) { emotion.getAttributes().forEachRemaining(msg -> UsbMidiConnection.getInstance().send(msg)); }
+	public final void feel(final Emotion emotion) throws NullPointerException{
+		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getAttributes()
+				.forEachRemaining(msg -> UsbMidiConnection.getInstance().send(msg));
+	}
 
 	/**
 	 * Returns the {@code Ruppet}'s neutral {@code Emotion}.

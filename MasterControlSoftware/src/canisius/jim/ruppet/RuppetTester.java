@@ -42,6 +42,7 @@ import javafx.stage.Stage;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -101,8 +102,11 @@ public class RuppetTester extends Application {
 	
 	/**
 	 * Construct the manual operation {@code Scene} add it to the primary {@code Stage} and show the {@code Stage}.
+	 *
+	 * @throws NullPointerException if {@code primaryStage} is {@code null}
 	 */
-	private void manualOperationSceneSetup(final Stage primaryStage) {
+	private void manualOperationSceneSetup(final Stage primaryStage) throws NullPointerException {
+		Objects.requireNonNull(primaryStage, "Cannot setup manual operation Scene with a null primaryStage");
 		primaryStage.setTitle("Ruppet Tester");
 		partSelectGridPane.setAlignment(Pos.CENTER);
 		partSelectGridPane.setHgap(20);
@@ -253,8 +257,10 @@ public class RuppetTester extends Application {
 	 * a {@code Button} that allows the user to send the {@code ShortMessage}s to the electronics.
 	 * 
 	 * @param primaryStage The primary {@code Stage} that contains all of the {@code Text} and {@code Control}s
+	 * @throws NullPointerException if {@code primaryStage} is {@code null}
 	 */
 	private void MIDISelectSetup(final Stage primaryStage) {
+		Objects.requireNonNull(primaryStage, "Cannot setup MIDI select with a null primaryStage");
 		final var sendMIDIBtn = new Button("Send MIDI");
 		sendMIDIBtn.setOnAction(actionListener -> {	
 			if (midiNotes == null) {
