@@ -47,10 +47,7 @@ public final class Lights extends Part {
 	 * 
 	 * @param midiNote that should be associated with these {@code Lights}
 	 */
-	public Lights(final byte midiNote) {
-		super(midiNote, OFF, ON);
-		setNeutral(OFF);
-	}
+	public Lights(final byte midiNote) { super(midiNote, OFF, ON, OFF); }
 
 	/**
 	 * Turns the {@code Ruppet}'s eye lights on.
