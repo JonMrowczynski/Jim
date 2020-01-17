@@ -24,8 +24,6 @@
 
 package canisius.jim.parts;
 
-import java.util.List;
-
 /**
  * {@code Lights} represents the digital eye lights of the {@code Ruppet}, which can be turned either on or off.
  *
@@ -47,12 +45,10 @@ public final class Lights extends Part {
 	 * Takes a {@code Ruppet}'s {@code List} of {@code Part}s as well as a MIDI note which should be associated with
 	 * these {@code Lights} in order to operate them.
 	 * 
-	 * @param ruppetParts of a {@code Ruppet}
 	 * @param midiNote that should be associated with these {@code Lights}
-	 * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-	public Lights(final List<Part> ruppetParts, final byte midiNote) throws NullPointerException {
-		super(ruppetParts, midiNote, OFF, ON);
+	public Lights(final byte midiNote) {
+		super(midiNote, OFF, ON);
 		setNeutral(OFF);
 	}
 

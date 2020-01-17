@@ -27,7 +27,6 @@ package canisius.jim.parts;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import java.security.InvalidParameterException;
-import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -40,52 +39,67 @@ import java.util.stream.IntStream;
  * @author Jon Mrowczynski
  */
 public final class Movable extends Part {
-	
+
 	/**
-	 * If the {@code Movable} only requires one servo motor to be operated, then the superclass's constructor is simply
-	 * called.
-	 * 
-	 * @param ruppetParts of a {@code Ruppet}
-	 * @param midiNote associated with the servo(s) that is/are to operate this {@code Movable}
+	 * Represents the type of parallelism that two servo motor setups can take.
+	 */
+	public enum Parallelism {
+		PARALLEL,
+		ANTIPARALLEL
+	}
+
+	/**
+	 * If the {@code Movable} only requires one servo motor to be operated, the the superclass's constructor is simply
+	 * called. This constructor also sets the neutral value of the
+	 *
+	 * @param midiNote associated with the servo that is to operate this {@code Movable}
 	 * @param lowerBound that the servo arm can move to
 	 * @param upperBound that the servo arm can move to
+	 * @param neutral position of the {@code Movable}
 	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
-	 * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-    public Movable(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound)
-			throws InvalidParameterException, NullPointerException {
-		super(ruppetParts, midiNote, lowerBound, upperBound);
+	public Movable(final int midiNote, final int lowerBound, final int upperBound, final int neutral) throws InvalidParameterException {
+    	super(midiNote, lowerBound, upperBound, neutral);
 	}
-	
+
 	/**
 	 * If the {@code Movable} requires two servo motors to be operated, then it first calls the superclass's constructor
-	 * to create the state for the first servo motor and then it creates the state for the second servo motor.
-	 * 
-	 * @param ruppetParts of a {@code Ruppet}
+	 * to create the states for the first servo motor and then it creates the states for the second servo motor. The
+	 * neutral position of the {@code Movable} is also set.
+	 *
 	 * @param midiNote1 that is associated with the first servo motor
-	 * @param lowerBound that the servo arms can move to
-	 * @param upperBound that the servo arms can move to
+	 * @param lowerBound that the servo arm can move to
+	 * @param upperBound that the servo arm can move to
+	 * @param neutral position of the {@code Movable}
 	 * @param midiNote2 that is associated with the second servo motor
-	 * @param parallelism Represents whether the servo motors are to be operated in parallel or anti-parallel relative
+	 * @param parallelism represents whether the servo motors are to be operated in parallel or anti-parallel relative
 	 *                    to one another
-	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values or if
-	 * 									 {@code parallelism} is not "parallel" or "antiparallel"
-	 * @throws NullPointerException if {@code ruppetParts} is {@code null}
+	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
 	 */
-    public Movable(final List<Part> ruppetParts, final int midiNote1, final int lowerBound, final int upperBound,
-				   final int midiNote2, final String parallelism) throws InvalidParameterException, NullPointerException {
-	    this(ruppetParts, midiNote1, lowerBound, upperBound);
+	public Movable(final int midiNote1, final int lowerBound, final int upperBound, final int neutral, final int midiNote2, final Parallelism parallelism) throws InvalidParameterException {
+    	this(midiNote1, lowerBound, upperBound, neutral);
+    	setupSecondServoStates(lowerBound, upperBound, midiNote2, parallelism);
+	}
+
+	/**
+	 * Sets up all of the states of this {@code Movable}.
+	 *
+	 * @param lowerBound that the servo arm can move to
+	 * @param upperBound that the servo arm can move to
+	 * @param midiNote2 that is associated with the second servo motor
+	 * @param parallelism represents whether the servo motors are to be operated in parallel or anti-parallel relative
+	 *                    to one another
+	 */
+	private void setupSecondServoStates(final int lowerBound, final int upperBound, final int midiNote2, final Parallelism parallelism) {
 		IntStream.range(0, states.size()).forEach(i -> {
 			try {
-				switch(parallelism.toLowerCase()) {
-					case "parallel":
+				switch(parallelism) {
+					case PARALLEL:
 						states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, i + lowerBound));
 						break;
-					case "antiparallel":
+					case ANTIPARALLEL:
 						states.get(i).add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote2, ((upperBound + lowerBound) - (i + lowerBound))));
 						break;
-					default:
-						throw new InvalidParameterException("The String: " + parallelism + " is not defined for this constructor.");
 				}
 			} catch(InvalidMidiDataException ex) { ex.printStackTrace(); }
 		});

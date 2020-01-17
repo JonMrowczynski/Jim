@@ -123,7 +123,7 @@ public final class Ruppet {
     /**
      * All of the {@code Ruppet}'s {@code Part}s. Each {@code Part} is added when it is initialized.
      */
-    private final List<Part> parts = new ArrayList<>();
+    private List<Part> parts;
 
     /**
      * All of the {@code Ruppet}'s {@code Track}'s that are used to sequence commands to the {@code Ruppet}.
@@ -133,27 +133,27 @@ public final class Ruppet {
     /**
      * The lower jaw of the {@code Ruppet}.
      */
-    private final Movable lowerJaw = new Movable(parts, Ruppet.LOWER_JAW_MIDI_NOTE, 3, 8);
+    private final Movable lowerJaw = new Movable(Ruppet.LOWER_JAW_MIDI_NOTE, 3, 8, 8);
 
     /**
      * The right and left lip corners of the {@code Ruppet}.
      */
-    private final Movable lipCorners = new Movable(parts, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, 1, 4, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE, "antiparallel");
+    private final Movable lipCorners = new Movable(Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, 1, 4, 2, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE, Movable.Parallelism.ANTIPARALLEL);
 
     /**
      * The eyebrows of the {@code Ruppet}.
      */
-    private final Movable eyebrows = new Movable(parts, Ruppet.EYEBROW_MIDI_NOTE, 4, 7);
+    private final Movable eyebrows = new Movable(Ruppet.EYEBROW_MIDI_NOTE, 4, 7, 5);
 
     /**
      * The eyelids of the {@code Ruppet}.
      */
-    private final Movable eyelids = new Movable(parts, Ruppet.EYELIDS_MIDI_NOTE, 3, 7);
+    private final Movable eyelids = new Movable(Ruppet.EYELIDS_MIDI_NOTE, 3, 7, 5);
 
     /**
      * The eye lights of the {@code Ruppet}.
      */
-    private final Lights lights = new Lights(parts, Ruppet.LIGHTS_MIDI_NOTE);
+    private final Lights lights = new Lights(Ruppet.LIGHTS_MIDI_NOTE);
 
 	/**
 	 * The component of the {@code Ruppet} that allows it to feel.
@@ -169,10 +169,7 @@ public final class Ruppet {
      * Set everything up so that the {@code Ruppet} can have a successful life.
      */
     public Ruppet() {
-		lowerJaw.setNeutral(8);
-		lipCorners.setNeutral(2);
-		eyebrows.setNeutral(5);
-		eyelids.setNeutral(5);
+    	parts = List.of(lowerJaw, lipCorners, eyebrows, eyelids, lights);
 		/*
 		 * The values Sequence.PPQ, 160, and 375 were chosen based on the formula:
 		 * ticksPerSecond = resolution * (currentTempoInBeatsPerMinute / 60.0)

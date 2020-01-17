@@ -73,18 +73,15 @@ public abstract class Part {
 	final List<Set<ShortMessage>> states = new ArrayList<>();
 	
 	/**
-	 * Initializes all of the states that this {@code Part} can go to. It also adds this {@code Part} to the
-     * {@code Ruppet}'s {@code Part}'s {@code List} and sets {@code neutral} to the average of {@code lowerBound} and
-     * {@code upperBound}.
+	 * Initializes all of the states that this {@code Part} can go to. It also sets {@code neutral} to the average of
+     * {@code lowerBound} and {@code upperBound}.
 	 * 
-	 * @param ruppetParts of all of the {@code Part}s of a {@code Ruppet} that this {@code Part} is to be added to
-	 * @param midiNote The corresponding MIDI note that is used to operate this {@code Part}
+	 * @param midiNote the corresponding MIDI note that is used to operate this {@code Part}
+     * @param lowerBound that the {@code Part} can move to
+     * @param upperBound that the {@code Part} can move to
      * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
-     * @throws NullPointerException if {@code ruppetParts} is {@code null}
 	 */
-	Part(final List<Part> ruppetParts, final int midiNote, final int lowerBound, final int upperBound)
-            throws InvalidParameterException, NullPointerException {
-        Objects.requireNonNull(ruppetParts, "Cannot initialize " + Part.class.getSimpleName() + " with null ruppetParts");
+	Part(final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
         if (lowerBound <= upperBound) {
             if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
             else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
@@ -100,7 +97,21 @@ public abstract class Part {
             try { states.add(new HashSet<>(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound)))); }
             catch (InvalidMidiDataException e) { e.printStackTrace(); }
         });
-        ruppetParts.add(this);
+    }
+
+    /**
+     * Initializes all of the states that this {@code Part} can go to. It also sets {@code this.neutral} to
+     * {@code neutral}.
+     *
+     * @param midiNote the corresponding MIDI note that is used to operate this {@code Part}
+     * @param lowerBound that the {@code Part} can move to
+     * @param upperBound that the {@code Part} can move to
+     * @param neutral value that should be used instead of the average of {@code lowerBound} and {@code upperBound}
+     * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+     */
+    Part(final int midiNote, final int lowerBound, final int upperBound, final int neutral) throws InvalidParameterException {
+	    this(midiNote, lowerBound, upperBound);
+	    setNeutral(neutral);
     }
 
     /**
