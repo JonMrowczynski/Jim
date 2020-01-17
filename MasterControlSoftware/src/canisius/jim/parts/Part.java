@@ -104,17 +104,12 @@ public abstract class Part {
     }
 
     /**
-     * Sets the neutral velocity value of this {@code Part}.
+     * Sets the neutral velocity value of this {@code Part}. If {@code newNeutral} is outside of the bounds, then
+     * {@code neutral} is set to the bound value that is closest to {@code newNeutral}.
      *
      * @param newNeutral velocity value of this {@code Part}
-     * @throws InvalidParameterException if {@code newNeutral} value is invalid.
      */
-    public final void setNeutral(final int newNeutral) throws InvalidParameterException {
-        if (newNeutral >= lowerBound && newNeutral <= upperBound) { neutral = newNeutral; }
-        else { throw new InvalidParameterException("Cannot set the neutral state value to: " + newNeutral
-                + "\nThe provided value is not within the defined acceptable range of values: "
-                + lowerBound + "-" + upperBound); }
-    }
+    public final void setNeutral(final int newNeutral) { neutral = newNeutral < lowerBound ? lowerBound : Math.min(newNeutral, upperBound); }
 	
 	/**
      * Sets the state of this {@code Part} to the state that corresponds to the {@code velocity} value, but only if that
