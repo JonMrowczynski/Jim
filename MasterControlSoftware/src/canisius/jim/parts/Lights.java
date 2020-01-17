@@ -34,12 +34,12 @@ public final class Lights extends Part {
 	/**
 	 * The on value of the {@code Lights}.
 	 */
-	private static final byte OFF = 0;
+	public static final byte OFF = 0;
 
 	/**
 	 * The off value of the {@code Lights}.
 	 */
-	private static final byte ON = 10;
+	public static final byte ON = 10;
 
 	/**
 	 * Takes a {@code Ruppet}'s {@code List} of {@code Part}s as well as a MIDI note which should be associated with
