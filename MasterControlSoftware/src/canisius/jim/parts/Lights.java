@@ -29,17 +29,7 @@ package canisius.jim.parts;
  *
  *  @author Jon Mrowczynski
  */
-public final class Lights extends Part {
-
-	/**
-	 * The on value of the {@code Lights}.
-	 */
-	public static final byte OFF = 0;
-
-	/**
-	 * The off value of the {@code Lights}.
-	 */
-	public static final byte ON = 10;
+public final class Lights extends HardwarePart {
 
 	/**
 	 * Takes a {@code Ruppet}'s {@code List} of {@code Part}s as well as a MIDI note which should be associated with
@@ -47,16 +37,16 @@ public final class Lights extends Part {
 	 * 
 	 * @param midiNote that should be associated with these {@code Lights}
 	 */
-	public Lights(final byte midiNote) { super(midiNote, OFF, ON, OFF); }
+	public Lights(final byte midiNote) { super(midiNote, HardwarePart.MIN_BOUND, HardwarePart.MAX_BOUND, HardwarePart.MIN_BOUND); }
 
 	/**
 	 * Turns the {@code Ruppet}'s eye lights on.
 	 */
-	public final void on() { toState(ON); }
+	public final void on() { toState(HardwarePart.MAX_BOUND); }
 	
 	/**
 	 * Turns the {@code Ruppet}'s eye lights off.
 	 */
-	final void off() { toState(OFF); }
+	final void off() { toState(HardwarePart.MIN_BOUND); }
 	
 } // end of Light

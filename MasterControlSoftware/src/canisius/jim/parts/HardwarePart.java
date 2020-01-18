@@ -39,7 +39,7 @@ import java.util.stream.IntStream;
  * This class provides the framework for the components of the {@code Ruppet} that are operated by the microcontroller.
  *
  * The {@code List} {@code states} contains {@code Set}s of {@code ShortMessage}s where each {@code Set} represents a
- * state of this {@code Part}.
+ * state of this {@code HardwarePart}.
  *
  * For the parts that move due to changes in the angular position of one or more servo motors, or {@code Movable}s,
  * {@code states} represents the possible angular positions of those servo motors.
@@ -49,39 +49,50 @@ import java.util.stream.IntStream;
  *
  *	@author Jon Mrowcsynski
  */
-public abstract class Part {
+public abstract class HardwarePart {
+
+    /**
+     * The absolute minimum bound.
+     */
+    public static final int MIN_BOUND = 0;
+
+    /**
+     * The absolute maximum bound.
+     */
+    public static final int MAX_BOUND = 10;
 	
 	/**
-	 * The highest velocity value that represents one bounding state for this {@code Part}.
+	 * The highest velocity value that represents one bounding state for this {@code HardwarePart}.
 	 */
     private final int upperBound;
 	
 	/**
-	 * The lowest velocity value that represents the other bounding state for this {@code Part}.
+	 * The lowest velocity value that represents the other bounding state for this {@code HardwarePart}.
 	 */
     private final int lowerBound;
 
     /**
-     * The neutral velocity value that represents a "middle" or "resting" state for this {@code Part}.
+     * The neutral velocity value that represents a "middle" or "resting" state for this {@code HardwarePart}.
      */
     private int neutral;
 
 	/**
-	 * The {@code List} that contains the available states that a {@code Part} can go to. If there is a {@code Part}
-     * that requires n servo motors to operate properly, then n {@code ShortMessage}s can be added to the {@code Set}s.
+	 * The {@code List} that contains the available states that a {@code HardwarePart} can go to. If there is a
+     * {@code HardwarePart} that requires n servo motors to operate properly, then n {@code ShortMessage}s can be added
+     * to the {@code Set}s.
 	 */
 	final List<Set<ShortMessage>> states = new ArrayList<>();
 	
 	/**
-	 * Initializes all of the states that this {@code Part} can go to. It also sets {@code neutral} to the average of
-     * {@code lowerBound} and {@code upperBound}.
+	 * Initializes all of the states that this {@code HardwarePart} can go to. It also sets {@code neutral} to the
+     * average of {@code lowerBound} and {@code upperBound}.
 	 * 
-	 * @param midiNote the corresponding MIDI note that is used to operate this {@code Part}
-     * @param lowerBound that the {@code Part} can move to
-     * @param upperBound that the {@code Part} can move to
+	 * @param midiNote the corresponding MIDI note that is used to operate this {@code HardwarePart}
+     * @param lowerBound that the {@code HardwarePart} can move to
+     * @param upperBound that the {@code HardwarePart} can move to
      * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
 	 */
-	Part(final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
+	HardwarePart(final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
         if (lowerBound <= upperBound) {
             if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
             else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
@@ -100,31 +111,31 @@ public abstract class Part {
     }
 
     /**
-     * Initializes all of the states that this {@code Part} can go to. It also sets {@code this.neutral} to
+     * Initializes all of the states that this {@code HardwarePart} can go to. It also sets {@code this.neutral} to
      * {@code neutral}.
      *
-     * @param midiNote the corresponding MIDI note that is used to operate this {@code Part}
-     * @param lowerBound that the {@code Part} can move to
-     * @param upperBound that the {@code Part} can move to
+     * @param midiNote the corresponding MIDI note that is used to operate this {@code HardwarePart}
+     * @param lowerBound that the {@code HardwarePart} can move to
+     * @param upperBound that the {@code HardwarePart} can move to
      * @param neutral value that should be used instead of the average of {@code lowerBound} and {@code upperBound}
      * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
      */
-    Part(final int midiNote, final int lowerBound, final int upperBound, final int neutral) throws InvalidParameterException {
+    HardwarePart(final int midiNote, final int lowerBound, final int upperBound, final int neutral) throws InvalidParameterException {
 	    this(midiNote, lowerBound, upperBound);
 	    setNeutral(neutral);
     }
 
     /**
-     * Sets the neutral velocity value of this {@code Part}. If {@code newNeutral} is outside of the bounds, then
-     * {@code neutral} is set to the bound value that is closest to {@code newNeutral}.
+     * Sets the neutral velocity value of this {@code HardwarePart}. If {@code newNeutral} is outside of the bounds,
+     * then {@code neutral} is set to the bound value that is closest to {@code newNeutral}.
      *
-     * @param newNeutral velocity value of this {@code Part}
+     * @param newNeutral velocity value of this {@code HardwarePart}
      */
     public final void setNeutral(final int newNeutral) { neutral = newNeutral < lowerBound ? lowerBound : Math.min(newNeutral, upperBound); }
 	
 	/**
-     * Sets the state of this {@code Part} to the state that corresponds to the {@code velocity} value, but only if that
-     * {@code velocity} value is valid for this {@code Part}.
+     * Sets the state of this {@code HardwarePart} to the state that corresponds to the {@code velocity} value, but only
+     * if that {@code velocity} value is valid for this {@code HardwarePart}.
 	 * 
 	 * @param velocity value that is to be converted to a {@code stateIndex}
 	 */
@@ -134,7 +145,8 @@ public abstract class Part {
 	
 	/**
 	 * Adds the passed in state (which is represented by a {@code Set} of {@code ShortMessage}s) to {@code track} at a
-     * specified time ({@code tick}). However, this is only done if the passed in state is valid for this {@code Part}.
+     * specified time ({@code tick}). However, this is only done if the passed in state is valid for this
+     * {@code HardwarePart}.
 	 * 
 	 * @param track that is to have {@code ShortMessage}s added to it
 	 * @param messages that are to be added to the {@code Track}
@@ -147,72 +159,72 @@ public abstract class Part {
 	}
 
     /**
-     * Transitions the {@code {Part}} to one of its bounding states.
+     * Transitions the {@code HardwarePart} to one of its bounding states.
      */
     public final void toUpperBound() { toState(upperBound); }
 
     /**
-     * Transitions the {@code Part} to its other bounding state.
+     * Transitions the {@code HardwarePart} to its other bounding state.
      */
     public final void toLowerBound() { toState(lowerBound); }
 
     /**
-     * Transitions the {@code Part} to its neutral state.
+     * Transitions the {@code HardwarePart} to its neutral state.
      */
     public void toNeutral() { toState(neutral); }
 
     /**
-     * Returns the state that represents one bounding state of this {@code Part}.
+     * Returns the state that represents one bounding state of this {@code HardwarePart}.
      *
-     * @return The state that represents one bounding state of this {@code Part}
+     * @return The state that represents one bounding state of this {@code HardwarePart}
      */
     public final Set<ShortMessage> getUpperBoundState() { return getState(upperBound); }
 
     /**
-     * Returns the state the represents the other bounding state of this {@code Part}.
+     * Returns the state the represents the other bounding state of this {@code HardwarePart}.
      *
-     * @return The state the represents the other bounding state of this {@code Part}
+     * @return The state the represents the other bounding state of this {@code HardwarePart}
      */
     public final Set<ShortMessage> getLowerBoundState() { return getState(lowerBound); }
 
     /**
-     * Returns the state the represents the neutral state of this {@code Part}.
+     * Returns the state the represents the neutral state of this {@code HardwarePart}.
      *
-     * @return The state that represents the neutral state of this {@code Part}
+     * @return The state that represents the neutral state of this {@code HardwarePart}
      */
-    final Set<ShortMessage> getNeutralState() { return getState(neutral); }
+    public final Set<ShortMessage> getNeutralState() { return getState(neutral); }
 
     /**
-     * Returns the {@code upperBound} {@code PartState} of this {@code Part}.
+     * Returns the {@code upperBound} {@code HardwarePartState} of this {@code HardwarePart}.
      *
-     * @return The {@code upperBound} {@code PartState} of this {@code Part}
+     * @return The {@code upperBound} {@code HardwarePartState} of this {@code HardwarePart}
      */
-    final PartState getUpperBoundPartState() { return getPartState(upperBound); }
+    final HardwarePartState getUpperBoundHardwarePartState() { return getHardwarePartState(upperBound); }
 
     /**
-     * Returns the {@code lowerBound} {@code PartState} of this {@code Part}.
+     * Returns the {@code lowerBound} {@code HardwarePartState} of this {@code HardwarePart}.
      *
-     * @return The {@code lowerBound} {@code PartState} of this {@code Part}
+     * @return The {@code lowerBound} {@code HardwarePartState} of this {@code HardwarePart}
      */
-    final PartState getLowerBoundPartState() { return getPartState(lowerBound); }
+    final HardwarePartState getLowerBoundHardwarePartState() { return getHardwarePartState(lowerBound); }
 
     /**
-     * Returns the {@code neutral} {@code PartStat} of this {@code Part}.
+     * Returns the {@code neutral} {@code HardwarePartState} of this {@code HardwarePart}.
      *
-     * @return The {@code neutral} {@code PartState} of this {@code Part}
+     * @return The {@code neutral} {@code HardwarePartState} of this {@code HardwarePart}
      */
-    final PartState getNeutralPartState() { return new PartState(this, getState(neutral)); }
+    final HardwarePartState getNeutralHardwarePartState() { return new HardwarePartState(this, getState(neutral)); }
 
     /**
      * Returns the corresponding {@code PartState} associated with the {@code velocity} if {@code velocity} is a valid
      * value.
      *
-     * @param velocity value that maps to the returned {@code PartState}
-     * @return The {@code PartState} that corresponds to {@code velocity}
+     * @param velocity value that maps to the returned {@code HardwarePartState}
+     * @return The {@code HardwarePartState} that corresponds to {@code velocity}
      * @throws InvalidParameterException if {@code velocity} is a invalid
      */
-    private PartState getPartState(final int velocity) throws InvalidParameterException {
-        if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound) { return new PartState(this, getState(velocity)); }
+    private HardwarePartState getHardwarePartState(final int velocity) throws InvalidParameterException {
+        if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound) { return new HardwarePartState(this, getState(velocity)); }
         else { throw new InvalidParameterException("Cannot retrieve the PartState associated with the velocity value: " + velocity); }
     }
 	
@@ -225,7 +237,7 @@ public abstract class Part {
 	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }
 
     /**
-     * Returns a {@code boolean} representing whether {@code velocity} is valid for this {@code Part}.
+     * Returns a {@code boolean} representing whether {@code velocity} is valid for this {@code HardwarePart}.
      *
      * @param velocity value that is to be checked
      * @return A {@code boolean} representing whether {@code velocity} is valid
@@ -240,19 +252,20 @@ public abstract class Part {
 
     /**
      * Returns a {@code boolean} representing whether {@code messages} are contained in {@code states} for this
-     * {@code Part}. If any of them are not, then {@code messages} are not valid. Otherwise, {@code messages} are valid.
+     * {@code HardwarePart}. If any of them are not, then {@code messages} are not valid. Otherwise, {@code messages}
+     * are valid.
      *
      * @param messages The {@code Set} of {@code ShortMessage}s that are to be checked for validity
      * @return a {@code boolean} representing whether the given {@code Set} of {@code ShortMessage}s is a valid group of
-     *         {@code ShortMessage}s for this {@code Part}
+     *         {@code ShortMessage}s for this {@code HardwarePart}
      */
     private boolean validShortMessages(final Set<ShortMessage> messages) {
         return messages != null && states.get(velocityToStateIndex(getVelocityVal(messages.iterator().next()))).containsAll(messages);
     }
 
     /**
-     * Returns this {@code Part}'s state based on the velocity value iff that velocity value is valid for this
-     * {@code Part}.
+     * Returns this {@code HardwarePart}'s state based on the velocity value iff that velocity value is valid for this
+     * {@code HardwarePart}.
      *
      * @param velocity value that is to be checked for validity
      * @return A {@code Set} of {@code ShortMessage}s that represents the state associated with the given velocity
@@ -273,4 +286,4 @@ public abstract class Part {
      */
     private static int getVelocityVal(final ShortMessage msg) throws NullPointerException { return msg.getData2(); }
 
-} // end of Part
+} // end of HardwarePart

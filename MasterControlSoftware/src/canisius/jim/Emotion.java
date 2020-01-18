@@ -22,8 +22,11 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim;
 
+import canisius.jim.parts.HardwarePart;
+import canisius.jim.parts.HardwarePartState;
+import canisius.jim.parts.Movable;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.MidiEvent;
@@ -39,7 +42,7 @@ import java.util.stream.Collectors;
  *
  *  @author Jon Mrowczynski
  */
-final class Emotion {
+public final class Emotion {
 
 	/**
 	 * The {@code Set} of {@code ShortMessage}s that are sent to the electronics to make the {@code Ruppet} express this
@@ -53,14 +56,14 @@ final class Emotion {
 	 * {@code Emotion attributes Set}.
 	 *
 	 * @param ruppet that this {@code Emotion} belongs to
-	 * @param partStates that are transitioned to for this {@code Emotion}
+	 * @param hardwarePartStates that are transitioned to for this {@code Emotion}
 	 * @throws InvalidParameterException if {@code partStates.length == 0}
 	 * @throws NullPointerException if {@code ruppet} or {@code partStates} is {@code null}
 	 */
-	Emotion(final Ruppet ruppet, final PartState... partStates) throws InvalidParameterException, NullPointerException {
+	public Emotion(final Ruppet ruppet, final HardwarePartState... hardwarePartStates) throws InvalidParameterException, NullPointerException {
 		Objects.requireNonNull(ruppet, "Cannot initialize " + Emotion.class.getSimpleName() + " with null ruppet");
-		Objects.requireNonNull(partStates, "Cannot initialize " + Emotion.class.getSimpleName() + " with null partStates");
-		if (partStates.length > 0) { addEmotionPartStates(ruppet, partStates); }
+		Objects.requireNonNull(hardwarePartStates, "Cannot initialize " + Emotion.class.getSimpleName() + " with null partStates");
+		if (hardwarePartStates.length > 0) { addEmotionPartStates(ruppet, hardwarePartStates); }
 		else { throw new InvalidParameterException("partStates.length cannot be 0."); }
 	}
 
@@ -72,17 +75,17 @@ final class Emotion {
 	 * another.
 	 *
 	 * @param ruppet that this {@code Emotion} belongs to
-	 * @param partStates whose states are to be added to {@code attributes}
+	 * @param hardwarePartStates whose states are to be added to {@code attributes}
 	 * @throws NullPointerException if {@code ruppet} or {@code partStates} is {@code null}
 	 */
-	private void addEmotionPartStates(final Ruppet ruppet, final PartState[] partStates) throws NullPointerException {
+	private void addEmotionPartStates(final Ruppet ruppet, final HardwarePartState[] hardwarePartStates) throws NullPointerException {
 		Objects.requireNonNull(ruppet, "Cannot add emotion part states with a null ruppet");
-		Objects.requireNonNull(partStates, "Cannot add emotion part states with null partStates");
-		final var ruppetParts = new ArrayList<Part>();
-		ruppet.getParts().stream().filter(part -> part instanceof Movable).forEach(ruppetParts::add);
-		Arrays.stream(partStates).filter(partState -> partState.getPart() instanceof Movable).map(PartState::getState).forEach(attributes::addAll);
-		ruppetParts.removeAll(Arrays.stream(partStates).map(PartState::getPart).collect(Collectors.toList()));
-		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable).map(Part::getNeutralState).forEach(attributes::addAll);
+		Objects.requireNonNull(hardwarePartStates, "Cannot add emotion part states with null partStates");
+		final var ruppetParts = new ArrayList<HardwarePart>();
+		ruppet.getHardwareParts().stream().filter(part -> part instanceof Movable).forEach(ruppetParts::add);
+		Arrays.stream(hardwarePartStates).filter(hardwarePartState -> hardwarePartState.getHardwarePart() instanceof Movable).map(HardwarePartState::getState).forEach(attributes::addAll);
+		ruppetParts.removeAll(Arrays.stream(hardwarePartStates).map(HardwarePartState::getHardwarePart).collect(Collectors.toList()));
+		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable).map(HardwarePart::getNeutralState).forEach(attributes::addAll);
 	}
 	
 	/**
@@ -97,7 +100,7 @@ final class Emotion {
 	 * @param tick that indicates the transition time of this {@code Emotion}
 	 * @throws NullPointerException if {@code track} is {@code null}
 	 */
-	final void addEmotionToTrack(final Track track, final int tick) throws NullPointerException {
+	public final void addEmotionToTrack(final Track track, final int tick) throws NullPointerException {
 		Objects.requireNonNull(track, "Cannot add emotion to a null Track");
 		attributes.stream().filter(msg -> getMidiNote(msg) != Ruppet.LOWER_JAW_MIDI_NOTE).forEach(msg -> track.add(new MidiEvent(msg, tick)));
 	}
@@ -108,7 +111,7 @@ final class Emotion {
 	 * 
 	 * @return The {@code ShortMessage}s that are associated with this {@code Emotion}al state
 	 */
-	final Iterator<ShortMessage> getAttributes() { return attributes.iterator(); }
+	public final Iterator<ShortMessage> getAttributes() { return attributes.iterator(); }
 
 	/**
 	 * Returns the MIDI note that is associated with {@code msg} or -1 if {@code msg} is {@code null}

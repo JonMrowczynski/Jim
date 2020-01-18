@@ -24,12 +24,11 @@
 
 package canisius.jim.parts;
 
+import canisius.jim.Emotion;
 import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
@@ -42,13 +41,7 @@ import java.util.Objects;
  *	
  *	@author Jon Mrowczynski
  */
-public final class Heart {
-	
-	/**
-	 * The {@code File} that contains the times and {@code String}s that represent the {@code Emotion}s that should be
-	 * transitioned to at the corresponding times.
-	 */
-	private static final File emotionTransitionTimesFile = new File("EmotionTransitionTimes.txt");
+public final class Heart extends SoftwarePart {
 
 	/**
 	 * The neutral {@code Emotion} state of the {@code Ruppet}.
@@ -79,11 +72,6 @@ public final class Heart {
 	 * The smile "{@code Emotion}" state of the {@code Ruppet}.
 	 */
 	private final Emotion smile;
-		
-	/**
-	 * The {@code Track} that stores all of the {@code Emotion} expression timings.
-	 */
-	private final Track emotionTrack;
 
     /**
      * Maps {@code Integer} times in ms to a {@code String} that represents the {@code Emotion} that should be
@@ -100,24 +88,59 @@ public final class Heart {
 	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
     public Heart(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
-		Objects.requireNonNull(ruppet, "Cannot initialize a " + Heart.class.getSimpleName() + " with a null ruppet");
-		Objects.requireNonNull(actions, "Cannot initialize a " + Heart.class.getSimpleName() + " with null actions");
+		super(ruppet, actions, "EmotionTransitionTimes.txt");
 
 		final var lowerJaw   = ruppet.getLowerJaw();
 		final var lipCorners = ruppet.getLipCorners();
 		final var eyebrow 	 = ruppet.getEyebrows();
 		final var eyelid 	 = ruppet.getEyelids();
 
-		neutral = new Emotion(ruppet, lowerJaw.getNeutralPartState(), lipCorners.getNeutralPartState(), eyebrow.getNeutralPartState(), eyelid.getNeutralPartState());
-		happy = new Emotion(ruppet, lowerJaw.getUpperBoundPartState(), lipCorners.getUpperBoundPartState());
-		sad = new Emotion(ruppet, lowerJaw.getUpperBoundPartState(), lipCorners.getLowerBoundPartState(), eyebrow.getUpperBoundPartState());
-		angry = new Emotion(ruppet, lowerJaw.getUpperBoundPartState(), lipCorners.getLowerBoundPartState(), eyebrow.getLowerBoundPartState());
-		scared = new Emotion(ruppet, lowerJaw.getUpperBoundPartState(), lipCorners.getLowerBoundPartState(), eyebrow.getLowerBoundPartState());
-		smile = new Emotion(ruppet, lipCorners.getUpperBoundPartState());
+		neutral = new Emotion(ruppet, lowerJaw.getNeutralHardwarePartState(), lipCorners.getNeutralHardwarePartState(), eyebrow.getNeutralHardwarePartState(), eyelid.getNeutralHardwarePartState());
+		happy = new Emotion(ruppet, lowerJaw.getUpperBoundHardwarePartState(), lipCorners.getUpperBoundHardwarePartState());
+		sad = new Emotion(ruppet, lowerJaw.getUpperBoundHardwarePartState(), lipCorners.getLowerBoundHardwarePartState(), eyebrow.getUpperBoundHardwarePartState());
+		angry = new Emotion(ruppet, lowerJaw.getUpperBoundHardwarePartState(), lipCorners.getLowerBoundHardwarePartState(), eyebrow.getLowerBoundHardwarePartState());
+		scared = new Emotion(ruppet, lowerJaw.getUpperBoundHardwarePartState(), lipCorners.getLowerBoundHardwarePartState(), eyebrow.getLowerBoundHardwarePartState());
+		smile = new Emotion(ruppet, lipCorners.getUpperBoundHardwarePartState());
 
-		emotionTrack = actions.createTrack();
-		readTimingLabels();
+		readTimingInfoFromFile();
 		setupTimings();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void readTimingInfoFromFile() {
+		try {
+			Files.readAllLines(transitionTimesFile.toPath()).stream().map(line -> line.split("\t"))
+					.forEach(splitLine -> emotionTimingsMap.put((int) Math.round(Double.parseDouble(splitLine[0]) * 1000), splitLine[1].trim()));
+		} catch (IOException e) { e.printStackTrace(); }
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void setupTimings() {
+		for (final var entry : emotionTimingsMap.entrySet()) {
+			final var emotion = entry.getValue();
+			final var emotionTransitionTime = entry.getKey();
+			switch (emotion.toUpperCase()) {
+				case "HAPPY": 	happy.addEmotionToTrack(track, emotionTransitionTime);       	break;
+				case "SAD": 	sad.addEmotionToTrack(track, emotionTransitionTime);           	break;
+				case "ANGRY": 	angry.addEmotionToTrack(track, emotionTransitionTime);       	break;
+				case "SCARED": 	scared.addEmotionToTrack(track, emotionTransitionTime);     	break;
+				case "NEUTRAL": neutral.addEmotionToTrack(track, emotionTransitionTime);   		break;
+				case "SMILE": 	smile.addEmotionToTrack(track, emotionTransitionTime);       	break;
+				default:
+					System.out.println("\nEMOTION DEFINITION ERROR:");
+					System.out.println("\tEmotion: \"" + emotion + "\" is not currently defined.");
+					System.out.println("\n\tPlease define what to do for \"" + emotion + "\" before operating ruppet.");
+					System.out.println("\nTerminating Program.");
+					System.exit(1);
+					break;
+			}
+		}
 	}
 	
 	/**
@@ -126,9 +149,8 @@ public final class Heart {
 	 * @param emotion that the {@code Ruppet} is to feel
 	 * @throws NullPointerException if {@code emotion} is {@code null}
 	 */
-	public final void feel(final Emotion emotion) throws NullPointerException{
-		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getAttributes()
-				.forEachRemaining(msg -> UsbMidiConnection.getInstance().send(msg));
+	public final void feel(final Emotion emotion) throws NullPointerException {
+		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getAttributes().forEachRemaining(msg -> UsbMidiConnection.getInstance().send(msg));
 	}
 
 	/**
@@ -172,48 +194,5 @@ public final class Heart {
 	 * @return The {@code Ruppet}'s smile "{@code Emotion}"
 	 */
 	public final Emotion getSmile() { return smile; }
-	
-	/**
-	 * Reads the {@code Emotion} states and corresponding transition timings from a text file and stores that data in
-	 * {@code emotionTimingsMap}.
-	 */
-	private void readTimingLabels() {
-		try {
-			Files.readAllLines(emotionTransitionTimesFile.toPath()).stream().map(line -> line.split("\t"))
-					.forEach(splitLine -> emotionTimingsMap.put((int) Math.round(Double.parseDouble(splitLine[0]) * 1000), splitLine[1].trim()));
-		} catch (IOException e) { e.printStackTrace(); }
-	}
-		
-	/**
-	 * Sets up all of the {@code Emotion} timings for a prerecorded script.
-	 */
-	private void setupTimings() {
-	    for (final var entry : emotionTimingsMap.entrySet()) {
-	        final var emotion = entry.getValue();
-	        final var emotionTransitionTime = entry.getKey();
-            switch (emotion.toUpperCase()) {
-                case "HAPPY": happy.addEmotionToTrack(emotionTrack, emotionTransitionTime);       break;
-                case "SAD": sad.addEmotionToTrack(emotionTrack, emotionTransitionTime);           break;
-                case "ANGRY": angry.addEmotionToTrack(emotionTrack, emotionTransitionTime);       break;
-                case "SCARED": scared.addEmotionToTrack(emotionTrack, emotionTransitionTime);     break;
-                case "NEUTRAL": neutral.addEmotionToTrack(emotionTrack, emotionTransitionTime);   break;
-                case "SMILE": smile.addEmotionToTrack(emotionTrack, emotionTransitionTime);       break;
-                default:
-                    System.out.println("\nEMOTION DEFINITION ERROR:");
-                    System.out.println("\tEmotion: \"" + emotion + "\" is not currently defined.");
-                    System.out.println("\n\tPlease define what to do for \"" + emotion + "\" before operating ruppet.");
-                    System.out.println("\nTerminating Program.");
-                    System.exit(1);
-                    break;
-            }
-        }
-	}
-
-	/**
-	 * Returns the {@code Track} that contains all of the {@code Emotion} transition timings.
-	 *
-	 * @return The {@code Track} that contains all of the {@code Emotion} transition timings
-	 */
-	public final Track getEmotionTrack() { return emotionTrack; }
 
 } // end of Heart

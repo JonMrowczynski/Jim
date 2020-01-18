@@ -28,7 +28,6 @@ import canisius.jim.connections.SequencerConnection;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -39,7 +38,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -50,12 +48,7 @@ import java.util.Scanner;
  * 
  * @author Jon Mrowczynski
  */
-public final class Voice {
-
-	/**
-	 * The {@code File} that contains the timing information for the mouth movements.
-	 */
-	private static final File mouthMovementTimesFile = new File("MouthMovementTimes.txt");
+public final class Voice extends SoftwarePart {
 
 	/**
 	 * The {@code File} that contains the audio that is to be played synchronously with the mouth movements.
@@ -71,12 +64,6 @@ public final class Voice {
 	 * Plays the audio file.
 	 */
 	private Clip clip = null;
-
-	/**
-	 * The {@code Track} that stores the timing information for the {@code Ruppet}'s mouth movements based on the timing
-     * information gathered from the {@code List}s {@code mouthDownTimes} and {@code mouthUpTimes}.
-	 */
-	private final Track voiceTrack;
 
 	/**
 	 * Stores the timing information in ms for mouth down movements.
@@ -98,20 +85,19 @@ public final class Voice {
 	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
     public Voice(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
-		this.ruppet = Objects.requireNonNull(ruppet, "Cannot initialize " + Voice.class.getSimpleName() + " with null ruppet");
-		voiceTrack = Objects.requireNonNull(actions, "Cannot initialize " + Voice.class.getSimpleName() + " with null actions").createTrack();
+    	super(ruppet, actions, "MouthMovementTimes.txt");
+    	this.ruppet = ruppet;
 		readTimingInfoFromFile();
 		openAudioFile();
 		setupTimings();
 	}
 
 	/**
-	 * Reads timing information from a {@code File} that contains {@code double}s representing when mouth movements
-	 * should occur from start in seconds. These times are converted into ms and stored in {@code Integer} {@code List}s
-	 * for later use in the {@code setupTimings} method.
+	 * {@inheritDoc}
 	 */
-	private void readTimingInfoFromFile() {
-		try (final var reader = new Scanner(new FileReader(mouthMovementTimesFile))) {
+	@Override
+	protected void readTimingInfoFromFile() {
+		try (final var reader = new Scanner(new FileReader(transitionTimesFile))) {
 			final var sec_to_ms_factor = 1000;
 			while (reader.hasNextLine()) {
 				var splitLine = reader.nextLine().split("\t");
@@ -123,22 +109,22 @@ public final class Voice {
 	}
 
 	/**
-	 * Uses the data stored in {@code mouthDownTimes} and {@code mouthUpTimes} to create {@code Track}s with
-	 * {@code MidiEvents} such that the mouth movements can be sequenced to have a {@code Ruppet} run a script.
+	 * {@inheritDoc}
 	 */
-	private void setupTimings() {
+	@Override
+	protected void setupTimings() {
 		final var mouth = ruppet.getLowerJaw();
 		final var delay_end_of_seq = 10000;
 		final var mouthDown = mouth.getLowerBoundState();
 		final var mouthUp = mouth.getUpperBoundState();
-		mouthDownTimes.forEach(time -> mouth.addStateToTrack(voiceTrack, mouthDown, time));
-		mouthUpTimes.forEach(time -> mouth.addStateToTrack(voiceTrack, mouthUp, time));
+		mouthDownTimes.forEach(time -> mouth.addStateToTrack(track, mouthDown, time));
+		mouthUpTimes.forEach(time -> mouth.addStateToTrack(track, mouthUp, time));
 		/*
 		 * Add a buffer to prevent one or more audio/visual blips at the end of the presentation. This prevents the
 		 * sequence from being looped to early.
 		 */
 		final var latestTime = mouthUpTimes.get(mouthUpTimes.size() - 1);
-		mouth.addStateToTrack(voiceTrack, mouthUp, latestTime + delay_end_of_seq);
+		mouth.addStateToTrack(track, mouthUp, latestTime + delay_end_of_seq);
 	}
 
 	/**
@@ -163,9 +149,9 @@ public final class Voice {
 		final var us_to_ms_factor = 1000;
 		final var sequencer = SequencerConnection.getInstance().getMidiDevice();
 		final var ruppetTracks = ruppet.getTracks();
-		final var emotionTrack = ruppet.getHeart().getEmotionTrack();
+		final var emotionTrack = ruppet.getHeart().getTrack();
 		sequencer.setTrackSolo(ruppetTracks.indexOf(emotionTrack), true);
-		sequencer.setTrackSolo(ruppetTracks.indexOf(voiceTrack), true);
+		sequencer.setTrackSolo(ruppetTracks.indexOf(track), true);
 		clip.stop();
 		sequencer.stop();
 		clip.setMicrosecondPosition(0);
@@ -174,14 +160,7 @@ public final class Voice {
 		sequencer.start();
 		Ruppet.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
 		sequencer.setTrackSolo(ruppetTracks.indexOf(emotionTrack), false);
-		sequencer.setTrackSolo(ruppetTracks.indexOf(voiceTrack), false);
+		sequencer.setTrackSolo(ruppetTracks.indexOf(track), false);
 	}
 
-	/**
-	 * Returns the {@code Track} that contains all of the {@code lowerJaw} movement timings.
-	 *
-	 * @return The {@code Track} that contains all of the {@code lowerJaw} movement timings
-	 */
-	public final Track getVoiceTrack() { return voiceTrack; }
-	
 } // end of Voice

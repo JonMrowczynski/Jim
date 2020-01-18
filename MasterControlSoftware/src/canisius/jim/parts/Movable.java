@@ -38,7 +38,7 @@ import java.util.stream.IntStream;
  *
  * @author Jon Mrowczynski
  */
-public final class Movable extends Part {
+public final class Movable extends HardwarePart {
 
 	/**
 	 * Represents the type of parallelism that two servo motor setups can take.

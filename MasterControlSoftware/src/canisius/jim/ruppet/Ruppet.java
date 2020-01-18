@@ -123,7 +123,7 @@ public final class Ruppet {
     /**
      * All of the {@code Ruppet}'s {@code Part}s. Each {@code Part} is added when it is initialized.
      */
-    private List<Part> parts;
+    private List<HardwarePart> hardwareParts;
 
     /**
      * All of the {@code Ruppet}'s {@code Track}'s that are used to sequence commands to the {@code Ruppet}.
@@ -169,7 +169,7 @@ public final class Ruppet {
      * Set everything up so that the {@code Ruppet} can have a successful life.
      */
     public Ruppet() {
-    	parts = List.of(lowerJaw, lipCorners, eyebrows, eyelids, lights);
+    	hardwareParts = List.of(lowerJaw, lipCorners, eyebrows, eyelids, lights);
 		/*
 		 * The values Sequence.PPQ, 160, and 375 were chosen based on the formula:
 		 * ticksPerSecond = resolution * (currentTempoInBeatsPerMinute / 60.0)
@@ -185,8 +185,8 @@ public final class Ruppet {
             heart = new Heart(this, actions);
             voice = new Voice(this, actions);
             final var blinkingTrack = actions.createTrack();
-            tracks.add(heart.getEmotionTrack());
-            tracks.add(voice.getVoiceTrack());
+            tracks.add(heart.getTrack());
+            tracks.add(voice.getTrack());
             tracks.add(blinkingTrack);
             // Fill blinkingTrack with events that have been randomly chosen to give more of a "real" blinking effect.
             fillBlinkTrack(blinkingTrack);
@@ -400,7 +400,7 @@ public final class Ruppet {
 	 * 
 	 * @return all of this {@code Ruppet}'s {@code Part}s
 	 */
-	public final List<Part> getParts() { return parts; }
+	public final List<HardwarePart> getHardwareParts() { return hardwareParts; }
 	
 	/**
 	 * Fills {@code blinkingTrack} with MIDI data. The blinking effect is created by turning on and off the two LED's in
@@ -488,7 +488,7 @@ public final class Ruppet {
 			System.out.println();
 			dontSoloAllTracks(tracks);
 			reader.close();
-			parts.forEach(Part::toNeutral);
+			hardwareParts.forEach(HardwarePart::toNeutral);
 			UsbMidiConnection.getInstance().disconnect();
 			SequencerConnection.getInstance().disconnect();
 		}
