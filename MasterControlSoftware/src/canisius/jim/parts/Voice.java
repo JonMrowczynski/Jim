@@ -51,6 +51,11 @@ import java.util.Scanner;
 public final class Voice extends SoftwarePart {
 
 	/**
+	 * The name of the {@code File} that should contain the timing information for the mouth movements.
+	 */
+	public static final String FILE_NAME = "MouthMovementTimes.txt";
+
+	/**
 	 * The {@code File} that contains the audio that is to be played synchronously with the mouth movements.
 	 */
 	private static final File VoiceFile = new File("Voice.wav");
@@ -85,7 +90,7 @@ public final class Voice extends SoftwarePart {
 	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
     public Voice(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
-    	super(ruppet, actions, "MouthMovementTimes.txt");
+    	super(ruppet, actions, FILE_NAME);
     	this.ruppet = ruppet;
 		readTimingInfoFromFile();
 		openAudioFile();

@@ -104,7 +104,8 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	 */
 	public final void send(final MidiMessage midiMessage) throws NullPointerException {
 		Objects.requireNonNull(midiMessage, "Cannot send a null " + MidiMessage.class.getSimpleName());
-		usbMidiDeviceReceiver.send(midiMessage, -1);
+		if (usbMidiDeviceReceiver != null) { usbMidiDeviceReceiver.send(midiMessage, -1); }
+		else { System.err.println("Cannot send a " + MidiMessage.class.getSimpleName() + " to a null " + Receiver.class.getSimpleName()); }
 	}
 
 	/**

@@ -39,6 +39,11 @@ import javax.sound.midi.Sequencer;
 public class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 
     /**
+     * The resolution of the {@code Sequence} that is to be used by the {@code Sequencer}.
+     */
+    public static final int RESOLUTION = 160;
+
+    /**
      * The singleton {@code SequencerConnection} instance.
      */
     private static final SequencerConnection SEQUENCER_CONNECTION = new SequencerConnection();

@@ -181,7 +181,7 @@ public final class Ruppet {
         SequencerConnection.getInstance().getMidiDevice().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
         Sequence actions;
 		try {
-			actions = new Sequence(Sequence.PPQ, 160);
+			actions = new Sequence(Sequence.PPQ, SequencerConnection.RESOLUTION);
             heart = new Heart(this, actions);
             voice = new Voice(this, actions);
             final var blinkingTrack = actions.createTrack();

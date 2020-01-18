@@ -46,8 +46,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * This class provides a GUI with {@code Control}s that assists with the testing and debugging of any functionalities
- * related to either the electronics, firmware, or software of the {@code Ruppet}.
+ * This class provides a GUI with {@code Control}s that assists with the interconnectivity testing and debugging of any
+ * functionalities related to either the electronics, firmware, or software of the {@code Ruppet}.
  *
  * @author Jon Mrowczynski
  */

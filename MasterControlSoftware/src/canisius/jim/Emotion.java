@@ -106,12 +106,12 @@ public final class Emotion {
 	}
 
 	/**
-	 * Returns an {@code Iterator} of {@code ShortMessage}s that need to be transmitted to the electronics in order for
-	 * the {@code Ruppet} to express this {@code Emotion}.
+	 * Returns an {@code Set} of {@code ShortMessage}s that need to be transmitted to the electronics in order for the
+	 * {@code Ruppet} to express this {@code Emotion}.
 	 * 
 	 * @return The {@code ShortMessage}s that are associated with this {@code Emotion}al state
 	 */
-	public final Iterator<ShortMessage> getAttributes() { return attributes.iterator(); }
+	public final Set<ShortMessage> getAttributes() { return attributes; }
 
 	/**
 	 * Returns the MIDI note that is associated with {@code msg} or -1 if {@code msg} is {@code null}

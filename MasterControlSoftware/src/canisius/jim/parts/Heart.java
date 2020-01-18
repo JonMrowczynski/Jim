@@ -44,6 +44,11 @@ import java.util.Objects;
 public final class Heart extends SoftwarePart {
 
 	/**
+	 * The name of the {@code File} that contains the timing information for the emotion transitions.
+	 */
+	public static final String FILE_NAME = "EmotionTransitionTimes.txt";
+
+	/**
 	 * The neutral {@code Emotion} state of the {@code Ruppet}.
 	 */
 	private final Emotion neutral;
@@ -88,7 +93,7 @@ public final class Heart extends SoftwarePart {
 	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
     public Heart(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
-		super(ruppet, actions, "EmotionTransitionTimes.txt");
+		super(ruppet, actions, FILE_NAME);
 
 		final var lowerJaw   = ruppet.getLowerJaw();
 		final var lipCorners = ruppet.getLipCorners();
@@ -150,8 +155,17 @@ public final class Heart extends SoftwarePart {
 	 * @throws NullPointerException if {@code emotion} is {@code null}
 	 */
 	public final void feel(final Emotion emotion) throws NullPointerException {
-		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getAttributes().forEachRemaining(msg -> UsbMidiConnection.getInstance().send(msg));
+		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getAttributes().forEach(msg -> UsbMidiConnection.getInstance().send(msg));
 	}
+
+	/**
+	 * Returns an {@code int} representing the number of {@code Emotion} transitions that have been read from the
+	 * {@code File}.
+	 *
+	 * @return an {@code int} representing the number o {@code Emotion} transitions that have been read from the
+	 * 		   {@code File}
+	 */
+	public final int getNumberOfEmotionTransitions() { return emotionTimingsMap.size(); }
 
 	/**
 	 * Returns the {@code Ruppet}'s neutral {@code Emotion}.
