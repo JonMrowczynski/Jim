@@ -53,8 +53,9 @@ abstract class SoftwarePartTest {
         assertTrue(softwarePart.getTrack().size() > 1);
         assertTrue(softwarePart.getTrack().ticks() > 0);
 
-        // In addition, 1 less than number of events in the Track should be a multiple of the number of transitions.
-        assertEquals(0, (softwarePart.getTrack().size() - 1) % softwarePart.getNumberOfTransitions());
+        // In addition, the number of events in the Track should be greater than the number of lines in the File
+        final var file = new File(softwarePart.fileName);
+        try { assertTrue(softwarePart.getTrack().size() > Files.readAllLines(file.toPath()).size()); } catch (IOException e) { e.printStackTrace(); }
     }
 
     @Test
