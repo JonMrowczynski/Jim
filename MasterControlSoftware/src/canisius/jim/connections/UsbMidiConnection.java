@@ -30,6 +30,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 
 import javax.sound.midi.*;
+import javax.sound.midi.MidiDevice.Info;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -51,6 +53,16 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	 * @return the singleton {@code UsbMidiConnection} instance
 	 */
 	public static UsbMidiConnection getInstance() { return USB_MIDI_CONNECTION; }
+
+	/**
+	 * Returns a {@code boolean} indicating whether there exists a USB MIDI connection that can be used with this
+	 * program.
+	 *
+	 * @return a {@code boolean} indicating whether a USB MIDI connection exists that can be used with this program.
+	 */
+	public static boolean doesMidiDeviceExist() {
+		return Arrays.stream(MidiSystem.getMidiDeviceInfo()).map(Info::getName).anyMatch(name -> name.contains("USB") && name.contains("MIDIOUT"));
+	}
 	
 	/**
 	 * The {@code Receiver} of the acquired {@code UsbMidiConnection}.
