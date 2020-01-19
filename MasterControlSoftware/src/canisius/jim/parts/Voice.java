@@ -51,11 +51,6 @@ import java.util.Scanner;
 public final class Voice extends SoftwarePart {
 
 	/**
-	 * The name of the {@code File} that should contain the timing information for the mouth movements.
-	 */
-	public static final String FILE_NAME = "MouthMovementTimes.txt";
-
-	/**
 	 * The {@code File} that contains the audio that is to be played synchronously with the mouth movements.
 	 */
 	private static final File VoiceFile = new File("Voice.wav");
@@ -90,7 +85,7 @@ public final class Voice extends SoftwarePart {
 	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
     public Voice(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
-    	super(ruppet, actions, FILE_NAME);
+    	super(ruppet, actions, "MouthMovementTimes.txt");
     	this.ruppet = ruppet;
 		readTimingInfoFromFile();
 		openAudioFile();
@@ -101,7 +96,7 @@ public final class Voice extends SoftwarePart {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void readTimingInfoFromFile() {
+	protected final void readTimingInfoFromFile() {
 		try (final var reader = new Scanner(new FileReader(transitionTimesFile))) {
 			final var sec_to_ms_factor = 1000;
 			while (reader.hasNextLine()) {
@@ -117,7 +112,7 @@ public final class Voice extends SoftwarePart {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void setupTimings() {
+	protected final void setupTimings() {
 		final var mouth = ruppet.getLowerJaw();
 		final var delay_end_of_seq = 10000;
 		final var mouthDown = mouth.getLowerBoundState();
@@ -131,6 +126,12 @@ public final class Voice extends SoftwarePart {
 		final var latestTime = mouthUpTimes.get(mouthUpTimes.size() - 1);
 		mouth.addStateToTrack(track, mouthUp, latestTime + delay_end_of_seq);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected final int getNumberOfTransitions() { return mouthDownTimes.size() + mouthUpTimes.size(); }
 
 	/**
 	 * Loads the audio file for later playback.

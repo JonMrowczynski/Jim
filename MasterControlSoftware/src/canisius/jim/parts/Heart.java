@@ -44,11 +44,6 @@ import java.util.Objects;
 public final class Heart extends SoftwarePart {
 
 	/**
-	 * The name of the {@code File} that contains the timing information for the emotion transitions.
-	 */
-	public static final String FILE_NAME = "EmotionTransitionTimes.txt";
-
-	/**
 	 * The neutral {@code Emotion} state of the {@code Ruppet}.
 	 */
 	private final Emotion neutral;
@@ -93,7 +88,7 @@ public final class Heart extends SoftwarePart {
 	 * @throws NullPointerException if {@code ruppet} or {@code actions} is {@code null}
 	 */
     public Heart(final Ruppet ruppet, final Sequence actions) throws NullPointerException {
-		super(ruppet, actions, FILE_NAME);
+		super(ruppet, actions, "EmotionTransitionTimes.txt");
 
 		final var lowerJaw   = ruppet.getLowerJaw();
 		final var lipCorners = ruppet.getLipCorners();
@@ -130,13 +125,13 @@ public final class Heart extends SoftwarePart {
 		for (final var entry : emotionTimingsMap.entrySet()) {
 			final var emotion = entry.getValue();
 			final var emotionTransitionTime = entry.getKey();
-			switch (emotion.toUpperCase()) {
-				case "HAPPY": 	happy.addEmotionToTrack(track, emotionTransitionTime);       	break;
-				case "SAD": 	sad.addEmotionToTrack(track, emotionTransitionTime);           	break;
-				case "ANGRY": 	angry.addEmotionToTrack(track, emotionTransitionTime);       	break;
-				case "SCARED": 	scared.addEmotionToTrack(track, emotionTransitionTime);     	break;
-				case "NEUTRAL": neutral.addEmotionToTrack(track, emotionTransitionTime);   		break;
-				case "SMILE": 	smile.addEmotionToTrack(track, emotionTransitionTime);       	break;
+			switch (emotion.toLowerCase()) {
+				case "happy": 	happy.addEmotionToTrack(track, emotionTransitionTime);       	break;
+				case "sad": 	sad.addEmotionToTrack(track, emotionTransitionTime);           	break;
+				case "angry": 	angry.addEmotionToTrack(track, emotionTransitionTime);       	break;
+				case "scared": 	scared.addEmotionToTrack(track, emotionTransitionTime);     	break;
+				case "neutral": neutral.addEmotionToTrack(track, emotionTransitionTime);   		break;
+				case "smile": 	smile.addEmotionToTrack(track, emotionTransitionTime);       	break;
 				default:
 					System.out.println("\nEMOTION DEFINITION ERROR:");
 					System.out.println("\tEmotion: \"" + emotion + "\" is not currently defined.");
@@ -159,13 +154,9 @@ public final class Heart extends SoftwarePart {
 	}
 
 	/**
-	 * Returns an {@code int} representing the number of {@code Emotion} transitions that have been read from the
-	 * {@code File}.
-	 *
-	 * @return an {@code int} representing the number o {@code Emotion} transitions that have been read from the
-	 * 		   {@code File}
+	 * {@inheritDoc}
 	 */
-	public final int getNumberOfEmotionTransitions() { return emotionTimingsMap.size(); }
+	public final int getNumberOfTransitions() { return emotionTimingsMap.size(); }
 
 	/**
 	 * Returns the {@code Ruppet}'s neutral {@code Emotion}.

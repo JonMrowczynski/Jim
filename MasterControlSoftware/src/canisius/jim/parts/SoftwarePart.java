@@ -16,15 +16,21 @@ import java.util.Objects;
 public abstract class SoftwarePart {
 
     /**
-     * The {@code File} that contains the timing information for the mouth movements.
-     */
-    protected final File transitionTimesFile;
-
-    /**
      * The {@code Track} that stores the timing information for the {@code Ruppet}'s mouth movements based on the timing
      * information gathered from the {@code List}s {@code mouthDownTimes} and {@code mouthUpTimes}.
      */
     protected final Track track;
+
+    /**
+     * The name of the {@code File} that contains the timing information for this {@code SoftwarePart} to run for the
+     * script.
+     */
+    protected final String fileName;
+
+    /**
+     * The {@code File} that contains the timing information for the mouth movements.
+     */
+    protected final File transitionTimesFile;
 
     /**
      * Constructs a {@code SoftwarePart} that can be used to time specific types of actions for the execution of a
@@ -38,6 +44,7 @@ public abstract class SoftwarePart {
     SoftwarePart(final Ruppet ruppet, final Sequence actions, final String fileName) throws NullPointerException {
         Objects.requireNonNull(ruppet, "Cannot initialize a " + SoftwarePart.class.getSimpleName() + " with a null ruppet");
         track = Objects.requireNonNull(actions, "Cannot initialize a " + SoftwarePart.class.getSimpleName() + " with null actions").createTrack();
+        this.fileName = fileName;
         transitionTimesFile = new File(fileName);
     }
 
@@ -52,6 +59,13 @@ public abstract class SoftwarePart {
      * script.
      */
     protected abstract void setupTimings();
+
+    /**
+     * Returns an {@code int} representing the number of transitions that have been read from the {@code File}.
+     *
+     * @return an {@code int} representing the number of transitions that have been read from the {@code File}
+     */
+    protected abstract int getNumberOfTransitions();
 
     /**
      * Returns the {@code Track} that contains all of the {@code MidiEvent} timings.
