@@ -23,7 +23,7 @@ class HeartTest extends SoftwarePartTest {
         neutralSet.addAll(ruppet.getLipCorners().getNeutralState());
         neutralSet.addAll(ruppet.getEyebrows().getNeutralState());
         neutralSet.addAll(ruppet.getEyelids().getNeutralState());
-        assertTrue(neutralSet.containsAll(heart.getNeutral().getAttributes()));
+        assertTrue(neutralSet.containsAll(heart.getNeutral().getStates()));
     }
 
     @Test
@@ -33,7 +33,7 @@ class HeartTest extends SoftwarePartTest {
         happySet.addAll(ruppet.getLipCorners().getUpperBoundState());
         happySet.addAll(ruppet.getEyebrows().getNeutralState());
         happySet.addAll(ruppet.getEyelids().getNeutralState());
-        assertTrue(happySet.containsAll(heart.getHappy().getAttributes()));
+        assertTrue(happySet.containsAll(heart.getHappy().getStates()));
     }
 
     @Test
@@ -44,7 +44,7 @@ class HeartTest extends SoftwarePartTest {
         sadSet.addAll(ruppet.getLipCorners().getLowerBoundState());
         sadSet.addAll(ruppet.getEyebrows().getUpperBoundState());
         sadSet.addAll(ruppet.getEyelids().getNeutralState());
-        assertTrue(sadSet.containsAll(heart.getSad().getAttributes()));
+        assertTrue(sadSet.containsAll(heart.getSad().getStates()));
     }
 
     @Test
@@ -55,7 +55,7 @@ class HeartTest extends SoftwarePartTest {
         angrySet.addAll(ruppet.getLipCorners().getLowerBoundState());
         angrySet.addAll(ruppet.getEyebrows().getLowerBoundState());
         angrySet.addAll(ruppet.getEyelids().getNeutralState());
-        assertTrue(angrySet.containsAll(heart.getAngry().getAttributes()));
+        assertTrue(angrySet.containsAll(heart.getAngry().getStates()));
     }
 
     @Test
@@ -66,7 +66,7 @@ class HeartTest extends SoftwarePartTest {
         scaredSet.addAll(ruppet.getLipCorners().getLowerBoundState());
         scaredSet.addAll(ruppet.getEyebrows().getLowerBoundState());
         scaredSet.addAll(ruppet.getEyelids().getNeutralState());
-        assertTrue(scaredSet.containsAll(heart.getScared().getAttributes()));
+        assertTrue(scaredSet.containsAll(heart.getScared().getStates()));
     }
 
     @Test
@@ -76,6 +76,6 @@ class HeartTest extends SoftwarePartTest {
         smileSet.addAll(ruppet.getLipCorners().getUpperBoundState());
         smileSet.addAll(ruppet.getEyebrows().getNeutralState());
         smileSet.addAll(ruppet.getEyelids().getNeutralState());
-        assertTrue(smileSet.containsAll(heart.getSmile().getAttributes()));
+        assertTrue(smileSet.containsAll(heart.getSmile().getStates()));
     }
 }

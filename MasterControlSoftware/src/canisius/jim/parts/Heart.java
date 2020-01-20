@@ -150,7 +150,7 @@ public final class Heart extends SoftwarePart {
 	 * @throws NullPointerException if {@code emotion} is {@code null}
 	 */
 	public final void feel(final Emotion emotion) throws NullPointerException {
-		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getAttributes().forEach(msg -> UsbMidiConnection.getInstance().send(msg));
+		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getStates().forEach(msg -> UsbMidiConnection.getInstance().send(msg));
 	}
 
 	/**

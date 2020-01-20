@@ -48,16 +48,16 @@ public final class Emotion {
 	 * The {@code Set} of {@code ShortMessage}s that are sent to the electronics to make the {@code Ruppet} express this
 	 * {@code Emotion}.
 	 */
-	private final Set<ShortMessage> attributes = new HashSet<>();
+	private final Set<ShortMessage> states = new HashSet<>();
 	
 	/**
 	 * Takes a {@code Ruppet} that this {@code Emotion} is associated with as well as a variable amount of
-	 * {@code PartState}s. The {@code PartState}s and their associated {@code ShortMessage}s are added to the
-	 * {@code Emotion attributes Set}.
+	 * {@code PartState}s. The {@code PartState}s and their associated {@code ShortMessage}s are added to
+	 * {@code attributes}.
 	 *
 	 * @param ruppet that this {@code Emotion} belongs to
 	 * @param hardwarePartStates that are transitioned to for this {@code Emotion}
-	 * @throws InvalidParameterException if {@code partStates.length == 0}
+	 * @throws InvalidParameterException if {@code hardwarePartStates.length == 0}
 	 * @throws NullPointerException if {@code ruppet} or {@code partStates} is {@code null}
 	 */
 	public Emotion(final Ruppet ruppet, final HardwarePartState... hardwarePartStates) throws InvalidParameterException, NullPointerException {
@@ -83,9 +83,9 @@ public final class Emotion {
 		Objects.requireNonNull(hardwarePartStates, "Cannot add emotion part states with null partStates");
 		final var ruppetParts = new ArrayList<HardwarePart>();
 		ruppet.getHardwareParts().stream().filter(part -> part instanceof Movable).forEach(ruppetParts::add);
-		Arrays.stream(hardwarePartStates).filter(hardwarePartState -> hardwarePartState.getHardwarePart() instanceof Movable).map(HardwarePartState::getState).forEach(attributes::addAll);
+		Arrays.stream(hardwarePartStates).filter(hardwarePartState -> hardwarePartState.getHardwarePart() instanceof Movable).map(HardwarePartState::getState).forEach(states::addAll);
 		ruppetParts.removeAll(Arrays.stream(hardwarePartStates).map(HardwarePartState::getHardwarePart).collect(Collectors.toList()));
-		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable).map(HardwarePart::getNeutralState).forEach(attributes::addAll);
+		ruppetParts.stream().filter(ruppetPart -> ruppetPart instanceof Movable).map(HardwarePart::getNeutralState).forEach(states::addAll);
 	}
 	
 	/**
@@ -102,23 +102,15 @@ public final class Emotion {
 	 */
 	public final void addEmotionToTrack(final Track track, final int tick) throws NullPointerException {
 		Objects.requireNonNull(track, "Cannot add emotion to a null Track");
-		attributes.stream().filter(msg -> getMidiNote(msg) != Ruppet.LOWER_JAW_MIDI_NOTE).forEach(msg -> track.add(new MidiEvent(msg, tick)));
+		states.stream().filter(msg -> msg.getData1() != Ruppet.LOWER_JAW_MIDI_NOTE).forEach(msg -> track.add(new MidiEvent(msg, tick)));
 	}
 
 	/**
 	 * Returns an {@code Set} of {@code ShortMessage}s that need to be transmitted to the electronics in order for the
 	 * {@code Ruppet} to express this {@code Emotion}.
 	 * 
-	 * @return The {@code ShortMessage}s that are associated with this {@code Emotion}al state
+	 * @return the {@code ShortMessage}s that are associated with this {@code Emotion}
 	 */
-	public final Set<ShortMessage> getAttributes() { return attributes; }
-
-	/**
-	 * Returns the MIDI note that is associated with {@code msg} or -1 if {@code msg} is {@code null}
-	 *
-	 * @param msg whose MIDI note will be returned
-	 * @return A {@code byte} representing the MIDI note of {@code msg} or -1.
-	 */
-	private static byte getMidiNote(final ShortMessage msg) { return msg != null ? (byte) msg.getData1() : -1; }
+	public final Set<ShortMessage> getStates() { return states; }
 
 } // end of Emotion
