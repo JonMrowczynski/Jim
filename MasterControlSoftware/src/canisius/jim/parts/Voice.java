@@ -154,10 +154,7 @@ public final class Voice extends SoftwarePart {
     public void givePresentation() {
 		final var us_to_ms_factor = 1000;
 		final var sequencer = SequencerConnection.getInstance().getMidiDevice();
-		final var ruppetTracks = ruppet.getTracks();
-		final var emotionTrack = ruppet.getHeart().getTrack();
-		sequencer.setTrackSolo(ruppetTracks.indexOf(emotionTrack), true);
-		sequencer.setTrackSolo(ruppetTracks.indexOf(track), true);
+		ruppet.muteAllTracks(ruppet.getHeart().getTrack(), track);
 		clip.stop();
 		sequencer.stop();
 		clip.setMicrosecondPosition(0);
@@ -165,8 +162,7 @@ public final class Voice extends SoftwarePart {
 		clip.start();
 		sequencer.start();
 		Ruppet.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
-		sequencer.setTrackSolo(ruppetTracks.indexOf(emotionTrack), false);
-		sequencer.setTrackSolo(ruppetTracks.indexOf(track), false);
+		ruppet.muteAllTracks(ruppet.getBlinkingTrack());
 	}
 
 } // end of Voice

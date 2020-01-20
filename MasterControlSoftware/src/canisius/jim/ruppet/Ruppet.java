@@ -107,6 +107,25 @@ public final class Ruppet {
 	//static { System.loadLibrary("KinectEmotionDeterminer"); }
 
 	/**
+	 * Halts the program for {@code ms} milliseconds.
+	 *
+	 * @param ms that the program should paused
+	 */
+	public static void pause_ms(final int ms) {
+		try { Thread.sleep(ms); }
+		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
+	}
+
+	/**
+	 * Returns a random {@code int} between {@code min} and {@code max} inclusive.
+	 *
+	 * @param min The maximum {@code int} value that can be randomly generated
+	 * @param max The minimum {@code int} value that can be randomly generated
+	 * @return A random {@code int} between {@code min} and {@code max} inclusive
+	 */
+	private static int getRandInt(final int min, final int max) { return (new Random()).nextInt((max - min) + 1) + min; }
+
+	/**
 	 * Returns a {@code String} representation of the current detected human emotion.
 	 *
 	 * @return a {@code String} representing the current detected human emotion
@@ -120,15 +139,35 @@ public final class Ruppet {
 	 */
 	public native boolean hasFace();
 
-    /**
-     * All of the {@code Ruppet}'s {@code Part}s. Each {@code Part} is added when it is initialized.
-     */
-    private Set<HardwarePart> hardwareParts;
+	/**
+	 * All of the {@code Ruppet}'s {@code SoftwarePart}s. Each {@code SoftwarePart} is added when it is initialized.
+	 */
+	private Set<SoftwarePart> softwareParts;
+
+	/**
+	 * The component of the {@code Ruppet} that allows it to feel.
+	 */
+	private Heart heart;
+
+	/**
+	 * The component of the {@code Ruppet} that allows it to talk.
+	 */
+	private Voice voice;
 
     /**
      * All of the {@code Ruppet}'s {@code Track}'s that are used to sequence commands to the {@code Ruppet}.
      */
     private final List<Track> tracks = new ArrayList<>();
+
+	/**
+	 * The {@code Track} that contains all of the blinking {@code MidiEvent}s.
+	 */
+	private Track blinkingTrack;
+
+	/**
+	 * All of the {@code Ruppet}'s {@code HardwarePart}s. Each {@code HardwarePart} is added when it is initialized.
+	 */
+	private Set<HardwarePart> hardwareParts;
 
     /**
      * The lower jaw of the {@code Ruppet}.
@@ -155,16 +194,6 @@ public final class Ruppet {
      */
     private final Lights lights = new Lights(Ruppet.LIGHTS_MIDI_NOTE);
 
-	/**
-	 * The component of the {@code Ruppet} that allows it to feel.
-	 */
-	private Heart heart;
-	
-	/**
-	 * The component of the {@code Ruppet} that allows it to talk.
-	 */
-	private Voice voice;
-
     /**
      * Set everything up so that the {@code Ruppet} can have a successful life.
      */
@@ -184,23 +213,59 @@ public final class Ruppet {
 			actions = new Sequence(Sequence.PPQ, SequencerConnection.RESOLUTION);
             heart = new Heart(this, actions);
             voice = new Voice(this, actions);
-            final var blinkingTrack = actions.createTrack();
+			softwareParts = Set.of(heart, voice);
             tracks.add(heart.getTrack());
             tracks.add(voice.getTrack());
-            tracks.add(blinkingTrack);
-            // Fill blinkingTrack with events that have been randomly chosen to give more of a "real" blinking effect.
+			blinkingTrack = actions.createTrack();
+			tracks.add(blinkingTrack);
             fillBlinkTrack(blinkingTrack);
             /*
              * Now that all of the Sequence's Tracks have been filled with MidiEvents, add the Sequence to the
              * Sequencer, otherwise, MidiEvents will not be stored in the Tracks.
              */
             SequencerConnection.getInstance().getMidiDevice().setSequence(actions);
-            // Mute all of the tracks so that they are not unintentionally all playing at once
-			tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
-            dontSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
+            muteAllTracks(blinkingTrack);
         } catch(InvalidMidiDataException e) { e.printStackTrace();}
 		Runtime.getRuntime().addShutdownHook(new ReleaseSoul());
 	} // end of Ruppet constructor
+
+	/**
+	 * Fills {@code blinkingTrack} with MIDI data. The blinking effect is created by turning on and off the two LED's in
+	 * the {@code Ruppet}'s eyes at bound, randomly chosen intervals.
+	 *
+	 * @param blinkingTrack that contains the timings for the blinking
+	 */
+	private void fillBlinkTrack(final Track blinkingTrack) {
+		final var blink_length = 200;
+		final var max_blink_wait = 3500;
+		final var eyelidsUp = this.eyelids.getUpperBoundState();
+		final var eyelidsDown = this.eyelids.getLowerBoundState();
+
+		var prev_blink_time = 0;
+		int next_blink_time;
+
+		for(var i = 0; i < 500; ++i) {
+			next_blink_time = getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
+			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
+			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
+			prev_blink_time = next_blink_time + blink_length;
+		}
+	}
+
+	/**
+	 * Mutes all of the {@code Track}s except for all of the {@code Track}s that are included in the optional argument
+	 * {@code excludedTracks}.
+	 *
+	 * @param excludedTracks that are not to be muted
+	 */
+	public void muteAllTracks(final Track... excludedTracks) {
+		tracks.forEach(track -> {
+			final var sequencer = SequencerConnection.getInstance().getMidiDevice();
+			final var trackIndex = tracks.indexOf(track);
+			if (Arrays.stream(excludedTracks).anyMatch(excludedTrack -> excludedTrack == track)) { sequencer.setTrackMute(trackIndex, false); }
+			else { sequencer.setTrackMute(trackIndex, true); }
+		});
+	}
 	
 	/**
 	 * Allows the {@code Ruppet} to interact with people by asking for user input from the keyboard using a CLI.
@@ -210,7 +275,7 @@ public final class Ruppet {
 		lights.on();
 		SequencerConnection.getInstance().getMidiDevice().start();
 		do {
-			dontSoloAllTracks(tracks);
+			muteAllTracks(blinkingTrack);
 			System.out.println("\n");
 			System.out.println("Would you like me to...");
 			System.out.println("1. Go into manual emotion demo mode");
@@ -224,7 +289,7 @@ public final class Ruppet {
 				switch(choice) {
 					case 1: manualEmotionDemoMode();								break;
 					case 2: manualFAUDemoMode();									break;
-					case 3: runSteveScripts();										break;
+					case 3: runSteveScript();										break;
 					case 4: mirrorMode();											break;
 					case 5: goToSleep();											break;
 					default: System.out.println("Sorry, that's not an option.");	break;
@@ -233,7 +298,7 @@ public final class Ruppet {
 				System.out.println("\nI don't understand that input, make sure you type in an int!");
 				reader.nextLine();
 			}
-		} while(choice != 3);
+		} while(choice != 5);
 	}
 
 	/**
@@ -320,7 +385,7 @@ public final class Ruppet {
 	/**
 	 * Runs the scripted demo that our friend Steve was so kind to record for us. :)
 	 */
-	private void runSteveScripts() {
+	private void runSteveScript() {
 		System.out.println();
 		SequencerConnection.getInstance().getMidiDevice().stop();
 		SequencerConnection.getInstance().getMidiDevice().setMicrosecondPosition(0);
@@ -353,125 +418,81 @@ public final class Ruppet {
 	}
 
 	/**
+	 * Returns all of this {@code Ruppet}'s {@code SoftwarePart}s.
+	 *
+	 * @return all of this {@code Ruppet}'s {@code SoftwarePart}s
+	 */
+	public final Set<SoftwarePart> getSoftwareParts() { return softwareParts; }
+
+	/**
+	 * Returns this {@code Ruppet}'s {@code Heart}.
+	 *
+	 * @return this {@code Ruppet}'s {@code Heart}
+	 */
+	public final Heart getHeart() { return heart; }
+
+	/**
+	 * Returns this {@code Ruppet}'s {@code Voice}.
+	 *
+	 * @return this {@code Ruppet}'s {@code Voice}
+	 */
+	public final Voice getVoice() { return voice; }
+
+	/**
 	 * Returns a {@code List} of all of this {@code Ruppet}'s {@code Track}s.
 	 * 
-	 * @return A {@code List} of all of this {@code Ruppet}'s {@code Track}s
+	 * @return a {@code List} of all of this {@code Ruppet}'s {@code Track}s
 	 */
 	public final List<Track> getTracks() { return tracks; }
 
-    /**
-     * Returns this {@code Ruppet}'s {@code Heart}.
-     *
-     * @return This {@code Ruppet}'s {@code Heart}
-     */
-	public final Heart getHeart() { return heart; }
+	/**
+	 * Returns the {@code Track} that contains all of the blinking {@code MidiEvent}s.
+	 *
+	 * @return the {@code Track} that contains all of the blinking {@code MidiEvent}s
+	 */
+	public final Track getBlinkingTrack() { return blinkingTrack; }
+
+	/**
+	 * Returns all of this {@code Ruppet}'s {@code HardwarePart}s.
+	 *
+	 * @return all of this {@code Ruppet}'s {@code HardwarePart}s
+	 */
+	public final Set<HardwarePart> getHardwareParts() { return hardwareParts; }
 	
 	/**
 	 * Returns this {@code Ruppet}'s {@code lowerJaw}.
 	 * 
-	 * @return This {@code Ruppet}'s {@code lowerJaw}
+	 * @return this {@code Ruppet}'s {@code lowerJaw}
 	 */
 	public final Movable getLowerJaw() { return lowerJaw; }
 	
 	/**
 	 * Returns this {@code Ruppet}'s {@code lipCorners}.
 	 * 
-	 * @return This {@code Ruppet}'s {@code lipCorners}
+	 * @return this {@code Ruppet}'s {@code lipCorners}
 	 */
 	public final Movable getLipCorners() { return lipCorners; }
 	
 	/**
-	 * Returns this {@code Ruppet's }{@code eyebrows}
+	 * Returns this {@code Ruppet's }{@code eyebrows}.
 	 * 
-	 * @return This {@code Ruppet}'s {@code eyebrows}
+	 * @return this {@code Ruppet}'s {@code eyebrows}
 	 */
 	public final Movable getEyebrows() { return eyebrows; }
 	
 	/**
 	 * Returns this {@code Ruppet}'s {@code eyelids}.
 	 * 
-	 * @return This {@code Ruppet}'s {@code eyelids}
+	 * @return this {@code Ruppet}'s {@code eyelids}
 	 */
 	public final Movable getEyelids() { return eyelids; }
-	
-	/**
-	 * Returns all of this {@code Ruppet}'s {@code Part}s.
-	 * 
-	 * @return all of this {@code Ruppet}'s {@code Part}s
-	 */
-	public final Set<HardwarePart> getHardwareParts() { return hardwareParts; }
-	
-	/**
-	 * Fills {@code blinkingTrack} with MIDI data. The blinking effect is created by turning on and off the two LED's in
-	 * the {@code Ruppet}'s eyes.
-	 * 
-	 * @param blinkingTrack that contains the timings for the blinking
-	 * @throws NullPointerException if {@code blinkingTrack} is {@code null}
-	 */
-	private void fillBlinkTrack(final Track blinkingTrack) throws NullPointerException {
-		final var blink_length = 200;
-		final var max_blink_wait = 3500;
-		final var eyelidsUp = this.eyelids.getUpperBoundState();
-		final var eyelidsDown = this.eyelids.getLowerBoundState();
-
-		var prev_blink_time = 0;
-		int next_blink_time;
-
-		for(var i = 0; i < 500; ++i) {
-			next_blink_time = getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
-			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
-			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
-			prev_blink_time = next_blink_time + blink_length;
-		}
-	}
 
 	/**
-	 * Sets all {@code track}s to not soloed. If {@code tracks} is {@code null}, then this method is a no-op.
+	 * Returns this {@code Ruppet}'s {@code lights}.
 	 *
-	 * @param tracks that are to be not soloed
+	 * @return this {@code Ruppet}'s {@code lights}
 	 */
-	private static void dontSoloAllTracks(final List<Track> tracks) {
-		if (tracks != null && !tracks.isEmpty()) {
-			tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackSolo(tracks.indexOf(track), false));
-		} else { System.out.println("No tracks to desolo"); }
-	}
-
-	/**
-	 * Returns a random {@code int} between {@code min} and {@code max} inclusive.
-	 *
-	 * @param min The maximum {@code int} value that can be randomly generated
-	 * @param max The minimum {@code int} value that can be randomly generated
-	 * @return A random {@code int} between {@code min} and {@code max} inclusive
-	 */
-	private static int getRandInt(final int min, final int max) { return (new Random()).nextInt((max - min) + 1) + min; }
-
-	/**
-	 * Sets all of the {@code track}s to not soloed except for the given {@code soloTrack}. If {@code tracks} is
-	 * {@code null} then this method is a no-op.
-	 *
-	 * @param tracks that are to be set to not soloed
-	 * @param soloTrack that is to be left alone
-	 */
-	private static void dontSoloAllTracks_ExceptEyes(final List<Track> tracks, final Track soloTrack) {
-		if (tracks != null && !tracks.isEmpty()) {
-			final var soloTrackIndex = tracks.indexOf(soloTrack);
-			tracks.forEach(track -> {
-				final var currentTrackIndex = tracks.indexOf(track);
-				if (currentTrackIndex == soloTrackIndex) { SequencerConnection.getInstance().getMidiDevice().setTrackSolo(soloTrackIndex, true); }
-				else { SequencerConnection.getInstance().getMidiDevice().setTrackMute(currentTrackIndex, true); }
-			});
-		} else { System.out.println("No tracks to desolo"); }
-	}
-
-	/**
-	 * Halts the program for {@code ms} milliseconds.
-	 *
-	 * @param ms that the program should paused
-	 */
-	public static void pause_ms(final int ms) {
-		try { Thread.sleep(ms); }
-		catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-	}
+	public final Lights getLights() { return lights; }
 
 	/**
      * If the program terminates and one or more {@code Part}s are being operated, no note off {@code MidiMessage}s will
@@ -485,7 +506,7 @@ public final class Ruppet {
 		@Override
 		public final void run() {
 			System.out.println();
-			dontSoloAllTracks(tracks);
+			muteAllTracks();
 			reader.close();
 			hardwareParts.forEach(HardwarePart::toNeutral);
 			UsbMidiConnection.getInstance().disconnect();
