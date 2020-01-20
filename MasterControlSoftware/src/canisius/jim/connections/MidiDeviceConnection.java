@@ -42,7 +42,7 @@ public abstract class MidiDeviceConnection<T extends MidiDevice> {
     /**
      * Instantiating a new {@code MidiDeviceConnection} automatically attempts to connect to the {@code MidiDevice}.
      */
-    MidiDeviceConnection() { connect(); }
+    protected MidiDeviceConnection() { connect(); }
 
     /**
      * Connect to the {@code MidiDevice}.
@@ -53,7 +53,7 @@ public abstract class MidiDeviceConnection<T extends MidiDevice> {
      * Disconnect from the {@code MidiDevice} by closing it iff it is not {@code null} and it is open. Otherwise, this
      * method is a no-op.
      */
-    public final void disconnect() { if (midiDevice != null && midiDevice.isOpen()) { midiDevice.close(); } }
+    public void disconnect() { if (midiDevice != null && midiDevice.isOpen()) { midiDevice.close(); } }
 
     /**
      * Returns the {@code MidiDevice} if {@code connect} has been called. Otherwise, {@code null} is returned.

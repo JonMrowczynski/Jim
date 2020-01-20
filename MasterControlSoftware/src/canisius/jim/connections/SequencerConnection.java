@@ -56,9 +56,15 @@ public class SequencerConnection extends MidiDeviceConnection<Sequencer> {
     public static SequencerConnection getInstance() { return SEQUENCER_CONNECTION; }
 
     /**
+     * This is a singleton class.
+     */
+    private SequencerConnection() {  }
+
+    /**
      * Connects to the system's default {@code Sequencer} and disconnects it from the default {@code Synthesizer}. This
      * prevents the {@code MidiMessage}s from being played by the system's speakers.
      */
+    @Override
     public void connect() {
         try {
             // Disconnects the system's sequencer from the default device (the computer's speakers).
@@ -73,8 +79,10 @@ public class SequencerConnection extends MidiDeviceConnection<Sequencer> {
      * @param receiver that should receive {@code MidiMessage}s from this {@code SequencerConnection}
      */
     public void setReceiver(final Receiver receiver) {
-        try { midiDevice.getTransmitter().setReceiver(receiver); }
-        catch (MidiUnavailableException e) { e.printStackTrace(); }
+        if (midiDevice != null && midiDevice.isOpen()) {
+            try { midiDevice.getTransmitter().setReceiver(receiver); }
+            catch (MidiUnavailableException e) { e.printStackTrace(); }
+        }
     }
 
 } // end of SequencerConnection

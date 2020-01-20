@@ -60,7 +60,7 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	 *
 	 * @return a {@code boolean} indicating whether a USB MIDI connection exists that can be used with this program.
 	 */
-	public static boolean doesMidiDeviceExist() {
+	public static boolean doesUSBMidiDeviceExist() {
 		return Arrays.stream(MidiSystem.getMidiDeviceInfo()).map(Info::getName).anyMatch(name -> name.contains("USB") && name.contains("MIDIOUT"));
 	}
 	
@@ -68,6 +68,11 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	 * The {@code Receiver} of the acquired {@code UsbMidiConnection}.
 	 */
 	private Receiver usbMidiDeviceReceiver;
+
+	/**
+	 * This is a singleton class.
+	 */
+	private UsbMidiConnection() { }
 	
 	/**
 	 * Sets up a connection between the computer and the USB {@code MidiDevice}'s {@code Receiver} by first acquiring
@@ -102,8 +107,17 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 				}
 			}
 		} while (!midiDevice.isOpen());
-		try { if (usbMidiDeviceReceiver == null) { usbMidiDeviceReceiver = midiDevice.getReceiver(); } }
+		try { usbMidiDeviceReceiver = midiDevice.getReceiver(); }
 		catch (MidiUnavailableException e) { e.printStackTrace(); }
+	}
+
+	/**
+	 * In addition to disconnecting from the {@code midiDevice}, also set {@code usbMidiDeviceReceiver} to {@code null}.
+	 */
+	@Override
+	public final void disconnect() {
+		super.disconnect();
+		usbMidiDeviceReceiver = null;
 	}
 
 	/**
