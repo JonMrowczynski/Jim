@@ -199,21 +199,21 @@ public abstract class HardwarePart {
      *
      * @return The {@code upperBound} {@code HardwarePartState} of this {@code HardwarePart}
      */
-    final HardwarePartState getUpperBoundHardwarePartState() { return getHardwarePartState(upperBound); }
+    public final HardwarePartState getUpperBoundHardwarePartState() { return getHardwarePartState(upperBound); }
 
     /**
      * Returns the {@code lowerBound} {@code HardwarePartState} of this {@code HardwarePart}.
      *
      * @return The {@code lowerBound} {@code HardwarePartState} of this {@code HardwarePart}
      */
-    final HardwarePartState getLowerBoundHardwarePartState() { return getHardwarePartState(lowerBound); }
+    public final HardwarePartState getLowerBoundHardwarePartState() { return getHardwarePartState(lowerBound); }
 
     /**
      * Returns the {@code neutral} {@code HardwarePartState} of this {@code HardwarePart}.
      *
      * @return The {@code neutral} {@code HardwarePartState} of this {@code HardwarePart}
      */
-    final HardwarePartState getNeutralHardwarePartState() { return new HardwarePartState(this, getState(neutral)); }
+    public final HardwarePartState getNeutralHardwarePartState() { return new HardwarePartState(this, getState(neutral)); }
 
     /**
      * Returns the corresponding {@code PartState} associated with the {@code velocity} if {@code velocity} is a valid
