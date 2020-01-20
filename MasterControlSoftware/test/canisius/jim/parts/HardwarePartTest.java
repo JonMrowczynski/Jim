@@ -35,31 +35,29 @@ abstract class HardwarePartTest {
     }
 
     @Test
-    void addStateToTrack() {
+    void addStateToTrack() throws InvalidMidiDataException {
         // Adding any state to a null Track should throw a NullPointerException.
         assertThrows(NullPointerException.class, () -> hardwarePart.addStateToTrack(null, hardwarePart.getLowerBoundState(), -1));
 
-        try {
-            // Adding a null Set of ShortMessages should result in a still empty Track.
-            final var sequence = new Sequence(Sequence.PPQ, 160);
-            final var track = sequence.createTrack();
-            hardwarePart.addStateToTrack(track, null, -1);
-            assertEquals(1, track.size());
+        // Adding a null Set of ShortMessages should result in a still empty Track.
+        final var sequence = new Sequence(Sequence.PPQ, 160);
+        final var track = sequence.createTrack();
+        hardwarePart.addStateToTrack(track, null, -1);
+        assertEquals(1, track.size());
 
-            // Adding a singleton Set of a ShortMessage to a Track should contain the data of the ShortMessage with the maximum tick.
-            hardwarePart.addStateToTrack(track, hardwarePart.getLowerBoundState(), 10);
-            assertEquals(hardwarePart.getLowerBoundState().iterator().next().getData2(), track.get(0).getMessage().getMessage()[2]);
-            assertEquals(2, track.size()); // Contains two events. The one we added and the eotEvent.
-            assertEquals(10, track.ticks());
+        // Adding a singleton Set of a ShortMessage to a Track should contain the data of the ShortMessage with the maximum tick.
+        hardwarePart.addStateToTrack(track, hardwarePart.getLowerBoundState(), 10);
+        assertEquals(hardwarePart.getLowerBoundState().iterator().next().getData2(), track.get(0).getMessage().getMessage()[2]);
+        assertEquals(2, track.size()); // Contains two events. The one we added and the eotEvent.
+        assertEquals(10, track.ticks());
 
-            // Adding 3 unique ShortMessages should result in a Track size of 4 with a tick that is the maximum added tick.
-            hardwarePart.addStateToTrack(track, hardwarePart.getNeutralState(), 20);
-            assertEquals(3, track.size());
-            assertEquals(20, track.ticks());
-            hardwarePart.addStateToTrack(track, hardwarePart.getUpperBoundState(), 30);
-            assertEquals(4, track.size());
-            assertEquals(30, track.ticks());
-        } catch (InvalidMidiDataException e) { e.printStackTrace(); }
+        // Adding 3 unique ShortMessages should result in a Track size of 4 with a tick that is the maximum added tick.
+        hardwarePart.addStateToTrack(track, hardwarePart.getNeutralState(), 20);
+        assertEquals(3, track.size());
+        assertEquals(20, track.ticks());
+        hardwarePart.addStateToTrack(track, hardwarePart.getUpperBoundState(), 30);
+        assertEquals(4, track.size());
+        assertEquals(30, track.ticks());
     }
 
     @Test

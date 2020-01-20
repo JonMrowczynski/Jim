@@ -27,11 +27,11 @@ abstract class SoftwarePartTest {
     protected SoftwarePart softwarePart;
 
     @BeforeAll
-    static void init() {
+    static void init() throws InvalidMidiDataException {
         // A Ruppet cannot be instantiated without a USB MIDI connection
-        assertTrue(UsbMidiConnection.doesMidiDeviceExist());
+        assertTrue(UsbMidiConnection.doesUSBMidiDeviceExist());
         ruppet = new Ruppet();
-        try { actions = new Sequence(Sequence.PPQ, SequencerConnection.RESOLUTION); } catch (InvalidMidiDataException e) { e.printStackTrace(); }
+        actions = new Sequence(Sequence.PPQ, SequencerConnection.RESOLUTION);
     }
 
     @Test
@@ -48,21 +48,21 @@ abstract class SoftwarePartTest {
     }
 
     @Test
-    void setupTimings() {
+    void setupTimings() throws IOException {
         // After a SoftwarePart has been initialized, the Track should have more than 1 event.
         assertTrue(softwarePart.getTrack().size() > 1);
         assertTrue(softwarePart.getTrack().ticks() > 0);
 
         // In addition, the number of events in the Track should be greater than the number of lines in the File
         final var file = new File(softwarePart.fileName);
-        try { assertTrue(softwarePart.getTrack().size() > Files.readAllLines(file.toPath()).size()); } catch (IOException e) { e.printStackTrace(); }
+        assertTrue(softwarePart.getTrack().size() > Files.readAllLines(file.toPath()).size());
     }
 
     @Test
-    void getNumberOfTransitions() {
+    void getNumberOfTransitions() throws IOException {
         // The number of transitions should match the number of lines in the File.
         final var file = new File(softwarePart.fileName);
-        try { assertEquals(Files.readAllLines(file.toPath()).size(), softwarePart.getNumberOfTransitions()); } catch (IOException e) { e.printStackTrace(); }
+        assertEquals(Files.readAllLines(file.toPath()).size(), softwarePart.getNumberOfTransitions());
     }
 
     @Test
