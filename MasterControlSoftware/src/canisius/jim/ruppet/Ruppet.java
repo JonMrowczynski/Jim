@@ -199,8 +199,7 @@ public final class Ruppet {
 			tracks.forEach(track -> SequencerConnection.getInstance().getMidiDevice().setTrackMute(tracks.indexOf(track), true));
             dontSoloAllTracks_ExceptEyes(tracks, blinkingTrack);
         } catch(InvalidMidiDataException e) { e.printStackTrace();}
-		final ReleaseSoul releaseSoul = new ReleaseSoul();
-		Runtime.getRuntime().addShutdownHook(releaseSoul);
+		Runtime.getRuntime().addShutdownHook(new ReleaseSoul());
 	} // end of Ruppet constructor
 	
 	/**
