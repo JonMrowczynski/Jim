@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.Track;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -56,7 +57,7 @@ class RuppetTest {
         // A Ruppet's SoftwareParts should contain its Heart and Voice.
         assertNotNull(ruppet.getSoftwareParts());
         final var softwareParts = Set.of(ruppet.getHeart(), ruppet.getVoice());
-        assertTrue(softwareParts.containsAll(ruppet.getSoftwareParts()));
+        assertEquals(softwareParts, ruppet.getSoftwareParts());
     }
 
     @Test
@@ -78,7 +79,7 @@ class RuppetTest {
         // A Ruppet's Tracks should contain its Heart, Voice, and blinking Track.
         assertNotNull(ruppet.getTracks());
         final var tracks = Set.of(ruppet.getHeart().getTrack(), ruppet.getVoice().getTrack(), ruppet.getBlinkingTrack());
-        assertTrue(tracks.containsAll(ruppet.getTracks()));
+        assertEquals(tracks, new HashSet<>(ruppet.getTracks()));
     }
 
     @Test
@@ -94,7 +95,7 @@ class RuppetTest {
         // A Ruppet's HardwareParts should contain its lower jaw, lip corners, eyebrows, and eyelids.
         assertNotNull(ruppet.getHardwareParts());
         final var hardwareParts = Set.of(ruppet.getLowerJaw(), ruppet.getLipCorners(), ruppet.getEyebrows(), ruppet.getEyelids(), ruppet.getLights());
-        assertTrue(hardwareParts.containsAll(ruppet.getHardwareParts()));
+        assertEquals(hardwareParts, ruppet.getHardwareParts());
     }
 
     @Test

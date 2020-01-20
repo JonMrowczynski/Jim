@@ -2,8 +2,8 @@ package canisius.jim.parts;
 
 import org.junit.jupiter.api.Test;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -13,25 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  */
 class HardwarePartStateTest {
 
-    /**
-     * A concrete implementation of {@code HardwarePart} that simply helps test {@code HardwarePartState}.
-     *
-     * @author Jon Mrowczynski
-     */
-    private static final class TestHardwarePart extends HardwarePart {
-        TestHardwarePart(final int midiNote, final int lowerBound, final int upperBound) { super(midiNote, lowerBound, upperBound); }
-    }
-
     @Test
-    void getHardwarePart() {
+    void getHardwarePart() throws InvalidMidiDataException {
         final var testHardwarePart = new TestHardwarePart(77, 3, 7);
-        final var hardwarePartState = new HardwarePartState(testHardwarePart, Set.of());
+        final var msg = new ShortMessage(ShortMessage.NOTE_ON, 0, 77, 100);
+        final var hardwarePartState = new HardwarePartState(testHardwarePart, Set.of(msg));
         assertSame(testHardwarePart, hardwarePartState.getHardwarePart());
     }
 
     @Test
-    void getState() {
-        final var states = new HashSet<ShortMessage>();
+    void getState() throws InvalidMidiDataException {
+        final var states = Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, 77, 100));
         final var hardwarePartState = new HardwarePartState(new TestHardwarePart(77, 3, 7), states);
         assertSame(states, hardwarePartState.getState());
     }
