@@ -25,6 +25,7 @@
 package canisius.jim.parts;
 
 import javax.sound.midi.ShortMessage;
+import java.security.InvalidParameterException;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,10 +54,12 @@ public final class HardwarePartState {
 	 * @param hardwarePart of the {@code Ruppet}
 	 * @param state that the {@code HardwarePart} can be in
 	 * @throws NullPointerException if {@code hardwarePart} or {@code state} is {@code null}
+	 * @throws InvalidParameterException if {@code state.isEmpty()}
 	 */
-	HardwarePartState(final HardwarePart hardwarePart, final Set<ShortMessage> state) throws NullPointerException {
+	public HardwarePartState(final HardwarePart hardwarePart, final Set<ShortMessage> state) throws InvalidParameterException, NullPointerException {
 		this.hardwarePart = Objects.requireNonNull(hardwarePart, "hardwarePart cannot be null");
 		this.state = Objects.requireNonNull(state, "state cannot be null");
+		if (state.isEmpty()) { throw new InvalidParameterException("state cannot be empty"); }
 	}
 
 	/**
