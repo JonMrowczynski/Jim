@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
