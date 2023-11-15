@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 public final class BreathOfLife extends Application {
 	
 	/**
-	 * @param args
+	 * @param args command-line arguments. These are currently not used.
 	 */
 	public static void main(final String[] args) { launch(args); }
 	

@@ -285,7 +285,7 @@ public abstract class HardwarePart {
 	 *
 	 * @param velocity value that maps to the returned {@code HardwarePartState}
 	 * @return The {@code HardwarePartState} that corresponds to {@code velocity}
-	 * @throws InvalidParameterException if {@code velocity} is a invalid
+	 * @throws InvalidParameterException if {@code velocity} is an invalid
 	 */
 	private HardwarePartState getHardwarePartState(final int velocity) throws InvalidParameterException {
 		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound) {

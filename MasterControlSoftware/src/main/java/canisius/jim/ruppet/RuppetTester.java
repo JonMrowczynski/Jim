@@ -99,7 +99,7 @@ public class RuppetTester extends Application {
 	private byte currentVelocity;
 	
 	/**
-	 * @param args
+	 * @param args command-line arguments. These are currently not used.
 	 */
 	public static void main(final String[] args) { launch(args); }
 	
@@ -167,7 +167,7 @@ public class RuppetTester extends Application {
 	}
 	
 	/**
-	 * Constructs the {@code Text} that associates the PIC pin numbers that outputs the PWM signal with the servo that
+	 * Constructs the {@code Text} that associates the PIC pins that outputs the PWM signal with the servo that
 	 * that signal gets sent to.
 	 */
 	private void PICPinNumberSetup() {
@@ -182,7 +182,7 @@ public class RuppetTester extends Application {
 	}
 	
 	/**
-	 * Constructs the {@code Text} that associates all the PIC pin numbers with their names.
+	 * Constructs the {@code Text} that associates all the PIC pins with their names.
 	 */
 	private void PICPinNameSetup() {
 		setupText("PIC Pin Name(s)", 3, 0);

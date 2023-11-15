@@ -101,7 +101,7 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 		do {
 			if (!midiDevice.isOpen()) {
 				try { midiDevice.open(); }
-				catch (MidiUnavailableException e) {
+				catch (final MidiUnavailableException e) {
 					new UsbMidiConnectionAlert("Error opening USB to MIDI device",
 						"Close any programs that may be using the USB to MIDI device before retrying.");
 				}

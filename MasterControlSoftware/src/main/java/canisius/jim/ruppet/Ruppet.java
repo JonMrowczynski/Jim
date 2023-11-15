@@ -456,9 +456,9 @@ public final class Ruppet {
 	public List<Track> getTracks() { return tracks; }
 	
 	/**
-	 * Returns the {@code Track} that contains all of the blinking {@code MidiEvent}s.
+	 * Returns the {@code Track} that contains all the blinking {@code MidiEvent}s.
 	 *
-	 * @return the {@code Track} that contains all of the blinking {@code MidiEvent}s
+	 * @return the {@code Track} that contains all the blinking {@code MidiEvent}s
 	 */
 	public Track getBlinkingTrack() { return blinkingTrack; }
 	
