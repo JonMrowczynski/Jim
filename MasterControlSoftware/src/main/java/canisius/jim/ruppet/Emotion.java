@@ -34,10 +34,7 @@ import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * An {@code Emotion} is a {@link Set} of {@link MidiMessage}s that when sent to the electronics sets the angular
@@ -87,7 +84,8 @@ public final class Emotion {
 			throws NullPointerException {
 		Objects.requireNonNull(ruppet, "Cannot add emotion part states with a null ruppet");
 		Objects.requireNonNull(hardwarePartStates, "Cannot add emotion part states with null partStates");
-		final var ruppetParts = ruppet.getHardwareParts().stream().filter(Movable.class::isInstance).toList();
+		final var ruppetParts =
+				new ArrayList<>(ruppet.getHardwareParts().stream().filter(Movable.class::isInstance).toList());
 		Arrays.stream(hardwarePartStates)
 				.filter(hardwarePartState -> hardwarePartState.hardwarePart() instanceof Movable)
 				.map(HardwarePartState::state).forEach(states::addAll);
