@@ -95,9 +95,11 @@
 			
 			<!-- Create Bottom Chunk -->
 			<Button fx:id="lightsOnButton" text="On" textAlignment="CENTER" font="$mediumFont" disable="true"
-			        onAction="#handleOn" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+			        onAction="#handleLightsOn" GridPane.halignment="LEFT" GridPane.rowIndex="8"
+			        GridPane.columnIndex="1"/>
 			<Button fx:id="lightsOffButton" text="Off" textAlignment="CENTER" font="$mediumFont" disable="true"
-			        onAction="#handleOff" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+			        onAction="#handleLightsOff" GridPane.halignment="LEFT" GridPane.rowIndex="9"
+			        GridPane.columnIndex="1"/>
 			
 			<HBox alignment="CENTER" spacing="10" GridPane.halignment="CENTER" GridPane.rowIndex="8"
 			      GridPane.columnIndex="2">

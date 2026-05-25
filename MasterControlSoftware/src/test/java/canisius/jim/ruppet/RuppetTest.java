@@ -25,7 +25,8 @@
 package canisius.jim.ruppet;
 
 import canisius.jim.connections.SequencerConnection;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.Track;
@@ -40,11 +41,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class RuppetTest {
 	
-	static Ruppet ruppet;
+	Ruppet ruppet;
 	
 	// Since we are only testing static methods and getters, then we only need to construct a Ruppet object once to
 	// test.
-	@BeforeAll static void init() { ruppet = new Ruppet(); }
+	@BeforeEach void setup() { ruppet = new Ruppet(); }
 	
 	@Test void pause_ms() {
 		// The pause should be in milliseconds and accurate to the nearest millisecond.
@@ -61,57 +62,61 @@ class RuppetTest {
 		// Muting all Tracks should cause all the Ruppet's Tracks to be muted.
 		ruppet.muteAllTracks();
 		final var sequencer = SequencerConnection.instance().getMidiDevice();
-		assertTrue(IntStream.range(0, ruppet.getTracks().size()).anyMatch(sequencer::getTrackMute));
+		final var tracks = ruppet.getTracks();
+		sequencer.ifPresentOrElse(s -> assertTrue(IntStream.range(0, tracks.size()).anyMatch(s::getTrackMute)),
+		                          Assertions::fail);
 		
 		// Muting all Tracks except for the Ruppet's Heart Track should cause all the Ruppet's Tracks to be muted
 		// except for its Heart Track.
 		ruppet.muteAllTracks(ruppet.getHeart().getTrack());
-		assertFalse(sequencer.getTrackMute(ruppet.getTracks().indexOf(ruppet.getHeart().getTrack())));
-		assertTrue(sequencer.getTrackMute(ruppet.getTracks().indexOf(ruppet.getVoice().getTrack())));
-		assertTrue(sequencer.getTrackMute(ruppet.getTracks().indexOf(ruppet.getBlinkingTrack())));
+		assertFalse(sequencer.getTrackMute(tracks.indexOf(ruppet.getHeart().getTrack())));
+		assertTrue(sequencer.getTrackMute(tracks.indexOf(ruppet.getVoice().getTrack())));
+		assertTrue(sequencer.getTrackMute(tracks.indexOf(ruppet.getBlinkingTrack())));
 		
 		// Muting all Tracks except for all of them should result in none of the Ruppet's Tracks from being muted.
-		ruppet.muteAllTracks(ruppet.getTracks().toArray(Track[]::new));
-		assertFalse(IntStream.range(0, ruppet.getTracks().size()).anyMatch(sequencer::getTrackMute));
+		ruppet.muteAllTracks(tracks.toArray(Track[]::new));
+		assertFalse(IntStream.range(0, tracks.size()).anyMatch(sequencer::getTrackMute));
 	}
 	
 	@Test void getSoftwareParts() {
 		// A Ruppet's SoftwareParts should contain its Heart and Voice.
-		assertNotNull(ruppet.getSoftwareParts());
 		final var softwareParts = Set.of(ruppet.getHeart(), ruppet.getVoice());
 		assertEquals(softwareParts, ruppet.getSoftwareParts());
 	}
 	
 	@Test void getHeart() {
 		// A Ruppet's SoftwareParts should contain its Heart.
-		assertNotNull(ruppet.getHeart());
-		assertTrue(ruppet.getSoftwareParts().contains(ruppet.getHeart()));
+		final var heart = ruppet.getHeart();
+		assertNotNull(heart);
+		assertTrue(ruppet.getSoftwareParts().contains(heart));
 	}
 	
 	@Test void getVoice() {
 		// A Ruppet's SoftwareParts should contain its Voice.
-		assertNotNull(ruppet.getVoice());
-		assertTrue(ruppet.getSoftwareParts().contains(ruppet.getVoice()));
+		final var voice = ruppet.getVoice();
+		assertNotNull(voice);
+		assertTrue(ruppet.getSoftwareParts().contains(voice));
 	}
 	
 	@Test void getTracks() {
 		// A Ruppet's Tracks should contain its Heart, Voice, and blinking Track.
-		assertNotNull(ruppet.getTracks());
+		final var actualTracks = ruppet.getTracks();
+		assertNotNull(actualTracks);
 		final var tracks =
 				Set.of(ruppet.getHeart().getTrack(), ruppet.getVoice().getTrack(), ruppet.getBlinkingTrack());
-		assertEquals(tracks, new HashSet<>(ruppet.getTracks()));
+		assertEquals(tracks, new HashSet<>(actualTracks));
 	}
 	
 	@Test void getBlinkingTrack() {
 		// A Ruppet's blinking Track should contain more than 1 MidiEvent.
-		assertNotNull(ruppet.getBlinkingTrack());
-		assertTrue(ruppet.getBlinkingTrack().size() > 1);
-		assertTrue(ruppet.getBlinkingTrack().ticks() > 0);
+		final var blinkingTrack = ruppet.getBlinkingTrack();
+		assertNotNull(blinkingTrack);
+		assertTrue(blinkingTrack.size() > 1);
+		assertTrue(blinkingTrack.ticks() > 0);
 	}
 	
 	@Test void getHardwareParts() {
 		// A Ruppet's HardwareParts should contain its lower jaw, lip corners, eyebrows, and eyelids.
-		assertNotNull(ruppet.getHardwareParts());
 		final var hardwareParts =
 				Set.of(ruppet.getLowerJaw(), ruppet.getLipCorners(), ruppet.getEyebrows(), ruppet.getEyelids(),
 				       ruppet.getLights());
@@ -120,31 +125,36 @@ class RuppetTest {
 	
 	@Test void getLowerJaw() {
 		// A Ruppet's HardwareParts should contain its lower jaw.
-		assertNotNull(ruppet.getLowerJaw());
-		assertTrue(ruppet.getHardwareParts().contains(ruppet.getLowerJaw()));
+		final var lowerJaw = ruppet.getLowerJaw();
+		assertNotNull(lowerJaw);
+		assertTrue(ruppet.getHardwareParts().contains(lowerJaw));
 	}
 	
 	@Test void getLipCorners() {
 		// A Ruppet's HardwareParts should contain its lip corners.
-		assertNotNull(ruppet.getLipCorners());
-		assertTrue(ruppet.getHardwareParts().contains(ruppet.getLipCorners()));
+		final var lipCorners = ruppet.getLipCorners();
+		assertNotNull(lipCorners);
+		assertTrue(ruppet.getHardwareParts().contains(lipCorners));
 	}
 	
 	@Test void getEyebrows() {
 		// A Ruppet's HardWareParts should contain its eyebrows.
-		assertNotNull(ruppet.getEyebrows());
-		assertTrue(ruppet.getHardwareParts().contains(ruppet.getEyebrows()));
+		final var eyebrows = ruppet.getEyebrows();
+		assertNotNull(eyebrows);
+		assertTrue(ruppet.getHardwareParts().contains(eyebrows));
 	}
 	
 	@Test void getEyelids() {
 		// A Ruppet's HardwareParts should contain its eyelids.
-		assertNotNull(ruppet.getEyelids());
-		assertTrue(ruppet.getHardwareParts().contains(ruppet.getEyelids()));
+		final var eyelids = ruppet.getEyelids();
+		assertNotNull(eyelids);
+		assertTrue(ruppet.getHardwareParts().contains(eyelids));
 	}
 	
 	@Test void getLights() {
 		// A Ruppet's HardwareParts should contain its lights.
-		assertNotNull(ruppet.getLights());
-		assertTrue(ruppet.getHardwareParts().contains(ruppet.getLights()));
+		final var lights = ruppet.getLights();
+		assertNotNull(lights);
+		assertTrue(ruppet.getHardwareParts().contains(lights));
 	}
 }

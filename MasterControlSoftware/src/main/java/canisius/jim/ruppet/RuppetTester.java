@@ -123,6 +123,9 @@ public class RuppetTester extends Application {
 		velocitySelector.setTooltip(tooltip);
 	}
 	
+	/**
+	 *
+	 */
 	public void handleSendMidi() {
 		try { makeMessages().forEach(usbMidiConnection::send); }
 		catch (final InvalidMidiDataException e) { e.printStackTrace(); }
@@ -135,7 +138,7 @@ public class RuppetTester extends Application {
 	 * @return A {@code Set} of {@code ShortMessage}s that should be sent to the microcontroller
 	 * @throws InvalidMidiDataException if any of the MIDI data is invalid
 	 */
-	private Set<ShortMessage> makeMessages() throws InvalidMidiDataException {
+	private @NotNull Set<ShortMessage> makeMessages() throws InvalidMidiDataException {
 		final var messages = new HashSet<ShortMessage>();
 		if (midiNotes.length >= 1) {
 			messages.add(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNotes[0], currentVelocity));
@@ -146,59 +149,31 @@ public class RuppetTester extends Application {
 		return messages;
 	}
 	
-	public void handleSelectEyebrows() {
+	public void handleSelectEyebrows() { handleSelection(true, Ruppet.EYEBROW_MIDI_NOTE); }
+	
+	private void handleSelection(final boolean disableLightButtons, final byte... notes) {
+		lightsOnButton.setDisable(disableLightButtons);
+		lightsOffButton.setDisable(disableLightButtons);
 		sendMidiButton.setDisable(false);
-		disableLightsButton(true);
-		copyNotes(Ruppet.EYEBROW_MIDI_NOTE);
-	}
-	
-	private void disableLightsButton(final boolean disable) {
-		lightsOnButton.setDisable(disable);
-		lightsOffButton.setDisable(disable);
-	}
-	
-	private void copyNotes(final byte... notes) {
 		midiNotes = new byte[notes.length];
 		System.arraycopy(notes, 0, midiNotes, 0, midiNotes.length);
 	}
 	
-	public void handleSelectLeftLipCorners() {
-		sendMidiButton.setDisable(false);
-		disableLightsButton(true);
-		copyNotes(Ruppet.LEFT_LIP_CORNER_MIDI_NOTE);
-	}
+	public void handleSelectLeftLipCorners() { handleSelection(true, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE); }
 	
-	public void handleSelectRightLipCorners() {
-		sendMidiButton.setDisable(false);
-		disableLightsButton(true);
-		copyNotes(Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE);
-	}
+	public void handleSelectRightLipCorners() { handleSelection(true, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE); }
 	
-	public void handleSelectLowerJaw() {
-		sendMidiButton.setDisable(false);
-		disableLightsButton(true);
-		copyNotes(Ruppet.LOWER_JAW_MIDI_NOTE);
-	}
+	public void handleSelectLowerJaw() { handleSelection(true, Ruppet.LOWER_JAW_MIDI_NOTE); }
 	
-	public void handleSelectEyelids() {
-		sendMidiButton.setDisable(false);
-		disableLightsButton(true);
-		copyNotes(Ruppet.EYELIDS_MIDI_NOTE);
-	}
+	public void handleSelectEyelids() { handleSelection(true, Ruppet.EYEBROW_MIDI_NOTE); }
 	
-	public void handleSelectLights() {
-		sendMidiButton.setDisable(false);
-		disableLightsButton(false);
-		copyNotes(Ruppet.LIGHTS_MIDI_NOTE);
-	}
+	public void handleSelectLights() { handleSelection(false, Ruppet.LIGHTS_MIDI_NOTE); }
 	
 	public void handleSelectLipCorners() {
-		sendMidiButton.setDisable(false);
-		disableLightsButton(true);
-		copyNotes(Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE);
+		handleSelection(true, Ruppet.LEFT_LIP_CORNER_MIDI_NOTE, Ruppet.RIGHT_LIP_CORNER_MIDI_NOTE);
 	}
 	
-	public void handleOn() {
+	public void handleLightsOn() {
 		try {
 			final var msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, MAX_VELOCITY);
 			usbMidiConnection.send(msg);
@@ -206,7 +181,7 @@ public class RuppetTester extends Application {
 		catch (final InvalidMidiDataException e) { throw new RuntimeException(e); }
 	}
 	
-	public void handleOff() {
+	public void handleLightsOff() {
 		try {
 			final var msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, MIN_VELOCITY);
 			usbMidiConnection.send(msg);

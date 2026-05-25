@@ -27,7 +27,7 @@ package canisius.jim.parts;
 import canisius.jim.connections.SequencerConnection;
 import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.ruppet.Ruppet;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -45,13 +45,13 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 abstract class SoftwarePartTest {
 	
-	protected static Ruppet ruppet;
+	protected Ruppet ruppet;
 	
-	protected static Sequence actions;
+	protected Sequence actions;
 	
 	protected SoftwarePart softwarePart;
 	
-	@BeforeAll static void init() throws InvalidMidiDataException {
+	@BeforeEach void setUp() throws InvalidMidiDataException {
 		// A Ruppet cannot be instantiated without a USB MIDI connection
 		assertTrue(UsbMidiConnection.doesUSBMidiDeviceExist());
 		ruppet = new Ruppet();
