@@ -28,7 +28,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-jacoco.toolVersion = "0.8.11"
+jacoco.toolVersion = "0.8.14"
 
 tasks.test {
     useJUnitPlatform()
