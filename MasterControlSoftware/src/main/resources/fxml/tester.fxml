@@ -6,7 +6,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.text.*?>
 <Scene xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
-       fx:controller="canisius.jim.ruppet.RuppetTester" width="600" height="350">
+       fx:controller="canisius.jim.controllers.ManualController" width="600" height="350">
 	<fx:define>
 		<Insets fx:id="standardPadding" topRightBottomLeft="25"/>
 		<Font fx:id="mediumFont" size="14"/>

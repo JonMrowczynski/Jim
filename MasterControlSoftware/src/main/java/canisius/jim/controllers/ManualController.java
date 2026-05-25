@@ -22,9 +22,10 @@
  * SOFTWARE.
  */
 
-package canisius.jim.ruppet;
+package canisius.jim.controllers;
 
 import canisius.jim.connections.UsbMidiConnection;
+import canisius.jim.ruppet.Ruppet;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +51,7 @@ import static canisius.jim.ruppet.Ruppet.MIN_VELOCITY;
  *
  * @author Jon Mrowczynski
  */
-public class RuppetTester extends Application {
+public class ManualController extends Application {
 	
 	private static final UsbMidiConnection usbMidiConnection = UsbMidiConnection.instance();
 	
