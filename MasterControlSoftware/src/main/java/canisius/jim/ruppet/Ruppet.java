@@ -26,7 +26,10 @@ package canisius.jim.ruppet;
 
 import canisius.jim.connections.SequencerConnection;
 import canisius.jim.connections.UsbMidiConnection;
-import canisius.jim.parts.*;
+import canisius.jim.hardwareparts.*;
+import canisius.jim.softwareparts.Heart;
+import canisius.jim.softwareparts.SoftwarePart;
+import canisius.jim.softwareparts.Voice;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;

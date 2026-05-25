@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.softwareparts;
 
 import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.ruppet.Emotion;
@@ -113,11 +113,12 @@ public final class Heart extends SoftwarePart {
 	
 	@Override protected void readTimingInfoFromFile() {
 		try {
-			final var splitLines =
-					Files.readAllLines(transitionTimesFile.toPath()).stream().map(line -> line.split("\t"));
-			splitLines.forEach(
-					splitLine -> emotionTimingsMap.put((int) Math.round(Double.parseDouble(splitLine[0]) * 1000),
-					                                   splitLine[1].trim()));
+			final var lines = Files.readAllLines(transitionTimesFile.toPath());
+			final var splitLines = lines.stream().map(line -> line.split("\t"));
+			splitLines.forEach(splitLine -> {
+				final var time = Double.parseDouble(splitLine[0]);
+				emotionTimingsMap.put((int) Math.round(time * 1000), splitLine[1].trim());
+			});
 		}
 		catch (final IOException e) { e.printStackTrace(); }
 	}

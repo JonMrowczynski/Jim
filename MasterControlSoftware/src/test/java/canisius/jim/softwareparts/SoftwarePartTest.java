@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.softwareparts;
 
 import canisius.jim.connections.SequencerConnection;
 import canisius.jim.connections.UsbMidiConnection;
@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -60,7 +59,7 @@ abstract class SoftwarePartTest {
 	
 	@Test void readTimingInfoFromFile() {
 		// First the existence of a File with the file name Heart.FILE_NAME is checked.
-		final var file = new File(softwarePart.fileName);
+		final var file = softwarePart.transitionTimesFile;
 		assertTrue(file.exists());
 		
 		// The contents of the File should not be empty.
@@ -77,14 +76,13 @@ abstract class SoftwarePartTest {
 		assertTrue(track.ticks() > 0);
 		
 		// In addition, the number of events in the Track should be greater than the number of lines in the File
-		final var file = new File(softwarePart.fileName);
-		assertTrue(track.size() > Files.readAllLines(file.toPath()).size());
+		assertTrue(track.size() > Files.readAllLines(softwarePart.transitionTimesFile.toPath()).size());
 	}
 	
 	@Test void getNumberOfTransitions() throws IOException {
 		// The number of transitions should match the number of lines in the File.
-		final var file = new File(softwarePart.fileName);
-		assertEquals(Files.readAllLines(file.toPath()).size(), softwarePart.getNumberOfTransitions());
+		assertEquals(Files.readAllLines(softwarePart.transitionTimesFile.toPath()).size(),
+		             softwarePart.getNumberOfTransitions());
 	}
 	
 	@Test void getTrack() {

@@ -22,32 +22,16 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.softwareparts;
+
+import org.junit.jupiter.api.BeforeEach;
 
 /**
- * {@code Lights} represents the digital eye lights of the {@code Ruppet}, which can be turned either on or off.
- *
  * @author Jon Mrowczynski
  */
-public final class Lights extends HardwarePart {
+final class VoiceTest extends SoftwarePartTest {
 	
-	/**
-	 * Takes a {@code Ruppet}'s {@code List} of {@code Part}s as well as a MIDI note which should be associated with
-	 * these {@code Lights} in order to operate them.
-	 *
-	 * @param midiNote that should be associated with these {@code Lights}
-	 */
-	public Lights(final byte midiNote) {
-		super(midiNote, HardwarePart.MIN_BOUND, HardwarePart.MAX_BOUND, HardwarePart.MIN_BOUND);
-	}
+	Voice voice;
 	
-	/**
-	 * Turns the {@code Ruppet}'s eye lights on.
-	 */
-	public void on() { toState(HardwarePart.MAX_BOUND); }
-	
-	/**
-	 * Turns the {@code Ruppet}'s eye lights off.
-	 */
-	void off() { toState(HardwarePart.MIN_BOUND); }
+	@BeforeEach void setUp() { softwarePart = voice = new Voice(ruppet, actions); }
 }

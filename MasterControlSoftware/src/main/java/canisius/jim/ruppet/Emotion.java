@@ -24,9 +24,9 @@
 
 package canisius.jim.ruppet;
 
-import canisius.jim.parts.HardwarePart;
-import canisius.jim.parts.HardwarePartState;
-import canisius.jim.parts.Movable;
+import canisius.jim.hardwareparts.HardwarePart;
+import canisius.jim.hardwareparts.HardwarePartState;
+import canisius.jim.hardwareparts.Movable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

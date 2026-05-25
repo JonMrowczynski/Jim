@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.softwareparts;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Jon Mrowczynski
  */
-class HeartTest extends SoftwarePartTest {
+final class HeartTest extends SoftwarePartTest {
 	
 	Heart heart;
 	

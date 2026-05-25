@@ -22,33 +22,18 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.hardwareparts;
 
-import org.junit.jupiter.api.Test;
-
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.ShortMessage;
-import java.util.Set;
-
-import static javax.sound.midi.ShortMessage.NOTE_ON;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import canisius.jim.ruppet.Ruppet;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Jon Mrowczynski
  */
-class HardwarePartStateTest {
+class LightsTest extends HardwarePartTest {
 	
-	@Test void getHardwarePart() throws InvalidMidiDataException {
-		final var testHardwarePart = new TestHardwarePart(77, 3, 7);
-		final var msg = new ShortMessage(NOTE_ON, 0, 77, 100);
-		final var hardwarePartState = new HardwarePartState(testHardwarePart, Set.of(msg));
-		assertSame(testHardwarePart, hardwarePartState.hardwarePart());
-	}
+	@BeforeAll static void init() { default_neutral = HardwarePart.MIN_BOUND; }
 	
-	@Test void getState() throws InvalidMidiDataException {
-		final Set<MidiMessage> states = Set.of(new ShortMessage(NOTE_ON, 0, 77, 100));
-		final var hardwarePartState = new HardwarePartState(new TestHardwarePart(77, 3, 7), states);
-		assertSame(states, hardwarePartState.state());
-	}
+	@BeforeEach void setUp() { hardwarePart = new Lights(Ruppet.LIGHTS_MIDI_NOTE); }
 }

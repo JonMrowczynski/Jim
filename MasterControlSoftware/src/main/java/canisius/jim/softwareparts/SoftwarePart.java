@@ -22,9 +22,10 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.softwareparts;
 
 import canisius.jim.ruppet.Ruppet;
+import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
@@ -39,18 +40,13 @@ import java.util.Objects;
  */
 public abstract class SoftwarePart {
 	
-	/**
-	 * The {@code Track} that stores the timing information for the {@code Ruppet}'s mouth movements based on the
-	 * timing
-	 * information gathered from the {@code List}s {@code mouthDownTimes} and {@code mouthUpTimes}.
-	 */
-	protected final Track track;
+	private static final String CLASS_NAME = SoftwarePart.class.getSimpleName();
 	
 	/**
-	 * The name of the {@code File} that contains the timing information for this {@code SoftwarePart} to run for the
-	 * script.
+	 * The {@code Track} that stores the timing information for the {@code Ruppet}'s mouth movements based on the
+	 * timing information gathered from the {@code List}s {@code mouthDownTimes} and {@code mouthUpTimes}.
 	 */
-	protected final String fileName;
+	protected final Track track;
 	
 	/**
 	 * The {@code File} that contains the timing information for the mouth movements.
@@ -67,11 +63,9 @@ public abstract class SoftwarePart {
 	 * @throws NullPointerException if {@code ruppet}, {@code actions} or {@code fileName} is null;
 	 */
 	SoftwarePart(final Ruppet ruppet, final Sequence actions, final String fileName) throws NullPointerException {
-		Objects.requireNonNull(ruppet,
-		                       "Cannot initialize a " + SoftwarePart.class.getSimpleName() + " with a null ruppet");
-		track = Objects.requireNonNull(actions, "Cannot initialize a " + SoftwarePart.class.getSimpleName() +
-				" with null actions").createTrack();
-		this.fileName = fileName;
+		Objects.requireNonNull(ruppet, "Cannot initialize a " + CLASS_NAME + " with a null ruppet");
+		track = Objects.requireNonNull(actions, "Cannot initialize a " + CLASS_NAME + " with null actions")
+				.createTrack();
 		transitionTimesFile = new File(fileName);
 	}
 	
@@ -99,5 +93,5 @@ public abstract class SoftwarePart {
 	 *
 	 * @return The {@code Track} that contains all of the {@code MidiEvent} timings
 	 */
-	public final Track getTrack() { return track; }
+	public final @NotNull Track getTrack() { return track; }
 }

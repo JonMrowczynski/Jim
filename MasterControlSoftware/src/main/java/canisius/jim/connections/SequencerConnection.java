@@ -78,8 +78,9 @@ public final class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 	 * @param receiver that should receive {@link MidiMessage}s from this {@code SequencerConnection}
 	 */
 	public void setReceiver(final @Nullable Receiver receiver) {
-		if (midiDevice == null || !midiDevice.isOpen()) { return; }
-		try { midiDevice.getTransmitter().setReceiver(receiver); }
-		catch (final MidiUnavailableException e) { e.printStackTrace(); }
+		getMidiDevice().ifPresent(midiDevice -> {
+			try { midiDevice.getTransmitter().setReceiver(receiver); }
+			catch (final MidiUnavailableException e) { e.printStackTrace(); }
+		});
 	}
 }

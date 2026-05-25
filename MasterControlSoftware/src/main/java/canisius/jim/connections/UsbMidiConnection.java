@@ -141,11 +141,8 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 			IO.println("Cannot send a null " + MIDI_MESSAGE_NAME);
 			return;
 		}
-		if (usbMidiDeviceReceiver == null) {
-			System.err.println("Cannot send a " + MIDI_MESSAGE_NAME + " to a null " + RECEIVER_NAME);
-			return;
-		}
-		usbMidiDeviceReceiver.send(midiMessage, -1);
+		getUsbReceiver().ifPresentOrElse(receiver -> receiver.send(midiMessage, -1), () -> System.err.println(
+				"Cannot send a " + MIDI_MESSAGE_NAME + " to a null " + RECEIVER_NAME));
 	}
 	
 	/**
@@ -176,8 +173,8 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 			setContentText(contentText);
 			getButtonTypes().setAll(new ButtonType("Retry"), ButtonType.CLOSE);
 			getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-			showAndWait().ifPresent(theResult -> {
-				if (theResult != ButtonType.CLOSE) { return; }
+			showAndWait().ifPresent(result -> {
+				if (result != ButtonType.CLOSE) { return; }
 				Platform.exit();
 				System.exit(0);
 			});

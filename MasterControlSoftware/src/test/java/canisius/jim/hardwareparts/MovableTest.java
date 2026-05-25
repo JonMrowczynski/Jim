@@ -22,18 +22,19 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.hardwareparts;
 
-import canisius.jim.ruppet.Ruppet;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Jon Mrowczynski
  */
-class LightsTest extends HardwarePartTest {
+class MovableTest extends HardwarePartTest {
 	
-	@BeforeAll static void init() { default_neutral = HardwarePart.MIN_BOUND; }
+	@BeforeAll static void init() { default_neutral = 7; }
 	
-	@BeforeEach void setUp() { hardwarePart = new Lights(Ruppet.LIGHTS_MIDI_NOTE); }
+	@BeforeEach void setUp() {
+		hardwarePart = new Movable(77, HardwarePart.MIN_BOUND, HardwarePart.MAX_BOUND, default_neutral);
+	}
 }

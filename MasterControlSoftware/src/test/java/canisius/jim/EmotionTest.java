@@ -32,6 +32,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Sequence;
 import java.util.HashSet;
 
@@ -40,11 +41,11 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Jon Mrowczynski
  */
-class EmotionTest {
+final class EmotionTest {
 	
-	Ruppet ruppet;
+	private Ruppet ruppet;
 	
-	Sequence sequence;
+	private Sequence sequence;
 	
 	@BeforeEach void setUp() throws InvalidMidiDataException {
 		// A Ruppet cannot be instantiated without a USB MIDI connection
@@ -71,11 +72,10 @@ class EmotionTest {
 	@Test void getStates() {
 		// The number of states should be equal to the sum of all the ShortMessages in all the HardwarePartStates
 		// and should contain the neutral states of all the other HardwareParts that are not included from the
-		// Ruppet
-		// in the Emotion constructor.
+		// Ruppet in the Emotion constructor.
 		var emotion = new Emotion(ruppet, ruppet.getLowerJaw().getLowerBoundHardwarePartState());
 		assertNotNull(emotion.getStates());
-		var states = new HashSet<>(ruppet.getLowerJaw().getLowerBoundHardwarePartState().state());
+		var states = new HashSet<MidiMessage>(ruppet.getLowerJaw().getLowerBoundHardwarePartState().state());
 		states.addAll(ruppet.getEyebrows().getNeutralHardwarePartState().state());
 		states.addAll(ruppet.getEyelids().getNeutralHardwarePartState().state());
 		states.addAll(ruppet.getLipCorners().getNeutralHardwarePartState().state());

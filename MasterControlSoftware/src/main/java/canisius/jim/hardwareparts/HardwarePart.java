@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.hardwareparts;
 
 import canisius.jim.connections.UsbMidiConnection;
 import canisius.jim.ruppet.Ruppet;

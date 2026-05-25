@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.hardwareparts;
 
 import org.junit.jupiter.api.Test;
 

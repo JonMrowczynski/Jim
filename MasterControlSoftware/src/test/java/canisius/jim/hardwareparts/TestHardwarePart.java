@@ -22,19 +22,21 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+package canisius.jim.hardwareparts;
 
 /**
+ * A concrete implementation of {@code HardwarePart} that simply helps test {@code HardwarePartState}.
+ *
  * @author Jon Mrowczynski
  */
-class MovableTest extends HardwarePartTest {
+public final class TestHardwarePart extends HardwarePart {
 	
-	@BeforeAll static void init() { default_neutral = 7; }
-	
-	@BeforeEach void setUp() {
-		hardwarePart = new Movable(77, HardwarePart.MIN_BOUND, HardwarePart.MAX_BOUND, default_neutral);
+	/**
+	 * @param midiNote
+	 * @param lowerBound
+	 * @param upperBound
+	 */
+	public TestHardwarePart(final int midiNote, final int lowerBound, final int upperBound) {
+		super(midiNote, lowerBound, upperBound);
 	}
 }

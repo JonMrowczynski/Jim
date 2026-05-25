@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package canisius.jim.parts;
+package canisius.jim.softwareparts;
 
 import canisius.jim.connections.SequencerConnection;
 import canisius.jim.ruppet.Ruppet;
@@ -53,7 +53,7 @@ public final class Voice extends SoftwarePart {
 	/**
 	 * The {@code File} that contains the audio that is to be played synchronously with the mouth movements.
 	 */
-	private static final File voiceFile = new File("Voice.wav");
+	private final File voiceFile = new File("Voice.wav");
 	
 	/**
 	 * The {@code Ruppet} that this {@code Voice} belongs to.
