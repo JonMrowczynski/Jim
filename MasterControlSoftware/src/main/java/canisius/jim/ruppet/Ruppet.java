@@ -26,7 +26,9 @@ package canisius.jim.ruppet;
 
 import canisius.jim.connections.SequencerConnection;
 import canisius.jim.connections.UsbMidiConnection;
-import canisius.jim.hardwareparts.*;
+import canisius.jim.hardwareparts.HardwarePart;
+import canisius.jim.hardwareparts.Lights;
+import canisius.jim.hardwareparts.Movable;
 import canisius.jim.softwareparts.Heart;
 import canisius.jim.softwareparts.SoftwarePart;
 import canisius.jim.softwareparts.Voice;
@@ -109,6 +111,10 @@ public final class Ruppet {
 	
 	//static { System.loadLibrary("KinectEmotionDeterminer"); }
 	
+	private static final Random random = new Random();
+	
+	private static final SequencerConnection sequencerConnection = SequencerConnection.instance();
+	
 	/**
 	 * All of the {@code Ruppet}'s {@code Track}'s that are used to sequence commands to the {@code Ruppet}.
 	 */
@@ -117,7 +123,7 @@ public final class Ruppet {
 	/**
 	 * All of the {@code Ruppet}'s {@code HardwarePart}s. Each {@code HardwarePart} is added when it is initialized.
 	 */
-	private final Set<HardwarePart> hardwareParts;
+	private final Set<HardwarePart> hardwareParts = new HashSet<>();
 	
 	/**
 	 * The lower jaw of the {@code Ruppet}.
@@ -169,14 +175,13 @@ public final class Ruppet {
 	 * Set everything up so that the {@code Ruppet} can have a successful life.
 	 */
 	public Ruppet() {
-		hardwareParts = Set.of(lowerJaw, lipCorners, eyebrows, eyelids, lights);
+		hardwareParts.addAll(List.of(lowerJaw, lipCorners, eyebrows, eyelids, lights));
 		/*
 		 * The values Sequence.PPQ, 160, and 375 were chosen based on the formula:
 		 * ticksPerSecond = resolution * (currentTempoInBeatsPerMinute / 60.0)
 		 * such that we would get 1 tick per ms.
 		 * ticksPerSecond = 160 * (375 / 60.0) = 1,000[ticks/s] = 1[tick/ms]
 		 */
-		final var sequencerConnection = SequencerConnection.instance();
 		UsbMidiConnection.instance().getUsbReceiver().ifPresent(sequencerConnection::setReceiver);
 		final var midiDevice = sequencerConnection.getMidiDevice();
 		midiDevice.ifPresent(sequencer -> {
@@ -223,7 +228,7 @@ public final class Ruppet {
 		var prev_blink_time = 0;
 		
 		for (var i = 0; i < 500; ++i) {
-			final var next_blink_time = getRandInt(prev_blink_time, prev_blink_time + max_blink_wait);
+			final var next_blink_time = random.nextInt(prev_blink_time, prev_blink_time + max_blink_wait + 1);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsDown, prev_blink_time);
 			eyelids.addStateToTrack(blinkingTrack, eyelidsUp, next_blink_time);
 			prev_blink_time = next_blink_time + blink_length;
@@ -239,21 +244,10 @@ public final class Ruppet {
 	public void muteAllTracks(final Track... excludedTracks) {
 		tracks.forEach(track -> {
 			final var trackIndex = tracks.indexOf(track);
-			final var midiDevice = SequencerConnection.instance().getMidiDevice();
+			final var midiDevice = sequencerConnection.getMidiDevice();
 			midiDevice.ifPresent(sequencer -> sequencer.setTrackMute(trackIndex, Arrays.stream(excludedTracks)
 					.noneMatch(excludedTrack -> excludedTrack == track)));
 		});
-	}
-	
-	/**
-	 * Returns a random {@code int} between {@code min} and {@code max} inclusive.
-	 *
-	 * @param min The maximum {@code int} value that can be randomly generated
-	 * @param max The minimum {@code int} value that can be randomly generated
-	 * @return A random {@code int} between {@code min} and {@code max} inclusive
-	 */
-	private static int getRandInt(final int min, final int max) {
-		return (new Random()).nextInt((max - min) + 1) + min;
 	}
 	
 	/**
@@ -262,7 +256,7 @@ public final class Ruppet {
 	public void live() {
 		var choice = -1;
 		lights.on();
-		SequencerConnection.instance().getMidiDevice().ifPresent(Sequencer::start);
+		sequencerConnection.getMidiDevice().ifPresent(Sequencer::start);
 		do {
 			muteAllTracks(blinkingTrack);
 			final var prompt = """
@@ -381,7 +375,7 @@ public final class Ruppet {
 	 */
 	private void runSteveScript() {
 		IO.println();
-		final var midiDevice = SequencerConnection.instance().getMidiDevice();
+		final var midiDevice = sequencerConnection.getMidiDevice();
 		midiDevice.ifPresent(sequencer -> {
 			sequencer.stop();
 			sequencer.setMicrosecondPosition(0);
@@ -534,7 +528,7 @@ public final class Ruppet {
 			reader.close();
 			hardwareParts.forEach(HardwarePart::toNeutral);
 			UsbMidiConnection.instance().disconnect();
-			SequencerConnection.instance().disconnect();
+			sequencerConnection.disconnect();
 		}
 	}
 }
