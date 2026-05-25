@@ -100,8 +100,8 @@ final class UsbMidiConnectionTest extends MidiDeviceConnectionTest<UsbMidiConnec
 	@Test void getUsbReceiver() {
 		midiDeviceConnection.connect();
 		midiDeviceConnection.getUsbReceiver().ifPresentOrElse(receiver -> {
-			final var receivers = midiDeviceConnection.getMidiDevice().map(MidiDevice::getReceivers).stream();
-			assertTrue(receivers.anyMatch(r -> r == receiver));
+			final var allReceivers = midiDeviceConnection.getMidiDevice().map(MidiDevice::getReceivers).stream();
+			assertTrue(allReceivers.anyMatch(receivers -> receivers.stream().anyMatch(r -> r == receiver)));
 		}, Assertions::fail);
 	}
 }
