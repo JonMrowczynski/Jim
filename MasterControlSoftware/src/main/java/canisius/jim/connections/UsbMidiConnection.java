@@ -44,8 +44,14 @@ import java.util.Optional;
  */
 public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	
+	/**
+	 *
+	 */
 	private static final String MIDI_MESSAGE_NAME = MidiMessage.class.getSimpleName();
 	
+	/**
+	 *
+	 */
 	private static final String RECEIVER_NAME = Receiver.class.getSimpleName();
 	
 	/**

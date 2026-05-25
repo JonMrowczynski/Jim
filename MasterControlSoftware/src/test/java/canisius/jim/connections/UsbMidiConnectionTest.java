@@ -47,32 +47,27 @@ import static org.junit.jupiter.api.Assertions.*;
 final class UsbMidiConnectionTest extends MidiDeviceConnectionTest<UsbMidiConnection> {
 	
 	/**
-	 * Makes sure that
+	 * Sets the {@link #midiDeviceConnection} to the singleton instance of {@link SequencerConnection}.
 	 */
 	@BeforeEach void setUp() { midiDeviceConnection = UsbMidiConnection.instance(); }
 	
 	/**
-	 * Tests {@link UsbMidiConnection#connect()}.
+	 * Tests {@link UsbMidiConnection#connect()}. The USB {@link Receiver} should not be {@code null}.
 	 */
 	@Test @Override void connect() {
 		super.connect();
-		// The USB Receiver should also not be null.
 		assertNotNull(midiDeviceConnection.getUsbReceiver());
 	}
 	
 	/**
-	 * Tests {@link UsbMidiConnection#disconnect()}.
+	 * Tests {@link UsbMidiConnection#disconnect()}. The USB {@link Receiver} should start out {@code null} then
+	 * become not {@code null} after connecting. After disconnected, it should become {@code null} again.
 	 */
 	@Test @Override void disconnect() {
 		super.disconnect();
-		// The USB Receiver should start out null.
 		assertTrue(midiDeviceConnection.getUsbReceiver().isEmpty());
-		
-		// After a connection, the USB Receiver should not be null.
 		midiDeviceConnection.connect();
 		assertTrue(midiDeviceConnection.getUsbReceiver().isPresent());
-		
-		// After a disconnect, the USB Receiver should be null.
 		midiDeviceConnection.disconnect();
 		assertTrue(midiDeviceConnection.getUsbReceiver().isEmpty());
 	}

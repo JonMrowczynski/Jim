@@ -27,7 +27,6 @@ package canisius.jim.parts;
 import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.MidiMessage;
-import java.security.InvalidParameterException;
 import java.util.Objects;
 import java.util.Set;
 
@@ -39,7 +38,7 @@ import java.util.Set;
  * @param state        The state of the {@code HardwarePartState} pair.
  * @author Jon Mrowczynski
  */
-public record HardwarePartState(HardwarePart hardwarePart, Set<? extends MidiMessage> state) {
+public record HardwarePartState(@NotNull HardwarePart hardwarePart, @NotNull Set<? extends MidiMessage> state) {
 	
 	/**
 	 * Pairs together a {@code HardwarePart} and a state that the {@code HardwarePart} can be in where a state is a
@@ -47,13 +46,13 @@ public record HardwarePartState(HardwarePart hardwarePart, Set<? extends MidiMes
 	 *
 	 * @param hardwarePart of the {@code Ruppet}
 	 * @param state        that the {@code HardwarePart} can be in
-	 * @throws NullPointerException      if {@code hardwarePart} or {@code state} is {@code null}
-	 * @throws InvalidParameterException if {@code state.isEmpty()}
+	 * @throws NullPointerException     if {@code hardwarePart} or {@code state} is {@code null}
+	 * @throws IllegalArgumentException if {@code state.isEmpty()}
 	 */
 	public HardwarePartState(final @NotNull HardwarePart hardwarePart,
 	                         final @NotNull Set<? extends MidiMessage> state) {
 		this.hardwarePart = Objects.requireNonNull(hardwarePart, "hardwarePart cannot be null");
 		this.state = Objects.requireNonNull(state, "state cannot be null");
-		if (state.isEmpty()) { throw new InvalidParameterException("state cannot be empty"); }
+		if (state.isEmpty()) { throw new IllegalArgumentException("state cannot be empty"); }
 	}
 }

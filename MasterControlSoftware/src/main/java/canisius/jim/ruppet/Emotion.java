@@ -22,19 +22,22 @@
  * SOFTWARE.
  */
 
-package canisius.jim;
+package canisius.jim.ruppet;
 
 import canisius.jim.parts.HardwarePart;
 import canisius.jim.parts.HardwarePartState;
 import canisius.jim.parts.Movable;
-import canisius.jim.ruppet.Ruppet;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
+import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
-import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * An {@code Emotion} is a {@link Set} of {@link MidiMessage}s that when sent to the electronics sets the angular
@@ -48,7 +51,7 @@ public final class Emotion {
 	 * The {@link Set} of {@link MidiMessage}s that are sent to the electronics to make the {@link Ruppet} express
 	 * this {@code Emotion}.
 	 */
-	private final @NotNull Set<? extends MidiMessage> states = new HashSet<>();
+	private final @NotNull Set<MidiMessage> states = new HashSet<>();
 	
 	/**
 	 * Takes a {@link Ruppet} that this {@code Emotion} is associated with as well as a variable amount of
@@ -57,15 +60,15 @@ public final class Emotion {
 	 *
 	 * @param ruppet             that this {@code Emotion} belongs to
 	 * @param hardwarePartStates that are transitioned to for this {@code Emotion}
-	 * @throws InvalidParameterException if {@code hardwarePartStates.length == 0}
-	 * @throws NullPointerException      if {@code ruppet} or {@code partStates} is {@code null}
+	 * @throws IllegalArgumentException if {@code hardwarePartStates.length == 0}
+	 * @throws NullPointerException     if {@code ruppet} or {@code partStates} is {@code null}
 	 */
 	public Emotion(final Ruppet ruppet, final HardwarePartState... hardwarePartStates)
-			throws InvalidParameterException, NullPointerException {
+			throws IllegalArgumentException, NullPointerException {
 		Objects.requireNonNull(ruppet, "Cannot initialize " + Emotion.class.getSimpleName() + " with null ruppet");
 		Objects.requireNonNull(hardwarePartStates,
 		                       "Cannot initialize " + Emotion.class.getSimpleName() + " with null partStates");
-		if (hardwarePartStates.length == 0) { throw new InvalidParameterException("partStates.length cannot be 0."); }
+		if (hardwarePartStates.length == 0) { throw new IllegalArgumentException("partStates.length cannot be 0."); }
 		addEmotionPartStates(ruppet, hardwarePartStates);
 	}
 	
@@ -84,8 +87,7 @@ public final class Emotion {
 			throws NullPointerException {
 		Objects.requireNonNull(ruppet, "Cannot add emotion part states with a null ruppet");
 		Objects.requireNonNull(hardwarePartStates, "Cannot add emotion part states with null partStates");
-		final var ruppetParts = new ArrayList<HardwarePart>();
-		ruppet.getHardwareParts().stream().filter(Movable.class::isInstance).forEach(ruppetParts::add);
+		final var ruppetParts = ruppet.getHardwareParts().stream().filter(Movable.class::isInstance).toList();
 		Arrays.stream(hardwarePartStates)
 				.filter(hardwarePartState -> hardwarePartState.hardwarePart() instanceof Movable)
 				.map(HardwarePartState::state).forEach(states::addAll);
@@ -104,11 +106,15 @@ public final class Emotion {
 	 *
 	 * @param track that will contain this {@code Emotion}
 	 * @param tick  that indicates the transition time of this {@code Emotion}
-	 * @throws NullPointerException if {@code track} is {@code null}
 	 */
-	public void addEmotionToTrack(final Track track, final int tick) throws NullPointerException {
-		Objects.requireNonNull(track, "Cannot add emotion to a null Track");
-		states.stream().filter(msg -> msg.getData1() != Ruppet.LOWER_JAW_MIDI_NOTE)
+	public void addEmotionToTrack(final @Nullable Track track, final int tick) {
+		if (track == null) {
+			IO.println(
+					"Cannot add %s to a null %s".formatted(Emotion.class.getSimpleName(),
+					                                       Track.class.getSimpleName()));
+			return;
+		}
+		states.stream().map(ShortMessage.class::cast).filter(msg -> msg.getData1() != Ruppet.LOWER_JAW_MIDI_NOTE)
 				.forEach(msg -> track.add(new MidiEvent(msg, tick)));
 	}
 	
@@ -118,5 +124,5 @@ public final class Emotion {
 	 *
 	 * @return the {@link MidiMessage}s that are associated with this {@code Emotion}
 	 */
-	public Set<? extends MidiMessage> getStates() { return states; }
+	public @NotNull Set<? extends MidiMessage> getStates() { return states; }
 }

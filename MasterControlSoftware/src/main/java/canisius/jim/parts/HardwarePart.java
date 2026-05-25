@@ -71,7 +71,7 @@ public abstract class HardwarePart {
 	 * {@code HardwarePart} that requires n servo motors to operate properly, then n {@link MidiMessage}s can be added
 	 * to the {@code Set}s.
 	 */
-	protected final List<Set<? extends MidiMessage>> states = new ArrayList<>();
+	protected final List<Set<MidiMessage>> states = new ArrayList<>();
 	
 	/**
 	 * The highest velocity value that represents one bounding state for this {@code HardwarePart}.
@@ -172,8 +172,8 @@ public abstract class HardwarePart {
 	 * @param tick     of that the {@code ShortMessage}s should be played at from the start of the {@code Track}
 	 * @throws NullPointerException if {@code track} is {@code null}
 	 */
-	public final void addStateToTrack(final Track track, final Set<? extends MidiMessage> messages, final int tick)
-			throws NullPointerException {
+	public final void addStateToTrack(final @NotNull Track track, final @NotNull Set<? extends MidiMessage> messages,
+	                                  final int tick) throws NullPointerException {
 		Objects.requireNonNull(track, "Cannot add state to a null Track");
 		if (!validShortMessages(messages)) { return; }
 		messages.stream().map(msg -> new MidiEvent(msg, tick)).forEach(track::add);
@@ -222,7 +222,7 @@ public abstract class HardwarePart {
 	 *
 	 * @param velocity value that is to be converted to a {@code stateIndex}
 	 */
-	final void toState(final int velocity) {
+	protected final void toState(final int velocity) {
 		if (!validVelocity(velocity)) { return; }
 		states.get(velocityToStateIndex(velocity)).forEach(msg -> UsbMidiConnection.instance().send(msg));
 	}
@@ -242,7 +242,7 @@ public abstract class HardwarePart {
 	 *
 	 * @return The state that represents one bounding state of this {@code HardwarePart}
 	 */
-	public final @NotNull Set<? extends MidiMessage> getUpperBoundState() { return getState(upperBound); }
+	public final @NotNull Set<MidiMessage> getUpperBoundState() { return getState(upperBound); }
 	
 	/**
 	 * Returns this {@code HardwarePart}'s state based on the velocity value iff that velocity value is valid for this
@@ -253,7 +253,7 @@ public abstract class HardwarePart {
 	 * value
 	 * @throws IllegalArgumentException if the value of {@code velocity} is invalid
 	 */
-	private @NotNull Set<? extends MidiMessage> getState(final int velocity) throws IllegalArgumentException {
+	private @NotNull Set<MidiMessage> getState(final int velocity) throws IllegalArgumentException {
 		if (validVelocity(velocity)) { return states.get(velocityToStateIndex(velocity)); }
 		throw new IllegalArgumentException(" for velocityToStateIndex conversion. No State can be returned.");
 	}
@@ -263,14 +263,14 @@ public abstract class HardwarePart {
 	 *
 	 * @return The state the represents the other bounding state of this {@code HardwarePart}
 	 */
-	public final @NotNull Set<? extends MidiMessage> getLowerBoundState() { return getState(lowerBound); }
+	public final @NotNull Set<MidiMessage> getLowerBoundState() { return getState(lowerBound); }
 	
 	/**
 	 * Returns the state the represents the neutral state of this {@code HardwarePart}.
 	 *
 	 * @return The state that represents the neutral state of this {@code HardwarePart}
 	 */
-	public final @NotNull Set<? extends MidiMessage> getNeutralState() { return getState(neutral); }
+	public final @NotNull Set<MidiMessage> getNeutralState() { return getState(neutral); }
 	
 	/**
 	 * Returns the {@code upperBound} {@code HardwarePartState} of this {@code HardwarePart}.

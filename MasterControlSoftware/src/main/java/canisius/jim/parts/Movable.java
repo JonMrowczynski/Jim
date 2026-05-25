@@ -24,7 +24,10 @@
 
 package canisius.jim.parts;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import java.util.stream.IntStream;
 
@@ -87,27 +90,33 @@ public final class Movable extends HardwarePart {
 	 *                    to one another
 	 */
 	private void setupSecondServoStates(final int lowerBound, final int upperBound, final int midiNote2,
-	                                    final Parallelism parallelism) {
+	                                    final @NotNull Parallelism parallelism) {
 		IntStream.range(0, states.size()).forEach(i -> {
 			final var data2 = switch (parallelism) {
 				case PARALLEL -> i + lowerBound;
 				case ANTIPARALLEL -> ((upperBound + lowerBound) - (i + lowerBound));
 			};
-			try { states.get(i).add(new ShortMessage(NOTE_ON, 0, midiNote2, data2)); }
+			try {
+				final MidiMessage msg = new ShortMessage(NOTE_ON, 0, midiNote2, data2);
+				states.get(i).add(msg);
+			}
 			catch (final InvalidMidiDataException e) { e.printStackTrace(); }
 		});
 	}
 	
 	/**
 	 * Represents the type of parallelism that two servo motor setups can take.
+	 *
+	 * @author Jon Mrowczynski
 	 */
 	public enum Parallelism {
 		/**
-		 *
+		 * Indicates that the servo motors operate in parallel.
 		 */
 		PARALLEL,
+		
 		/**
-		 *
+		 * Indicates that the servo motors operate antiparallel to each other.
 		 */
 		ANTIPARALLEL
 	}

@@ -26,6 +26,7 @@ package canisius.jim;
 
 import canisius.jim.connections.SequencerConnection;
 import canisius.jim.connections.UsbMidiConnection;
+import canisius.jim.ruppet.Emotion;
 import canisius.jim.ruppet.Ruppet;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.text.*?>
+<Scene xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
+       fx:controller="canisius.jim.ruppet.RuppetTester" width="600" height="350">
+	<fx:define>
+		<Insets fx:id="standardPadding" topRightBottomLeft="25"/>
+		<Font fx:id="mediumFont" size="14"/>
+		<ToggleGroup fx:id="radioButtonToggleGroup"/>
+	</fx:define>
+	<VBox spacing="20" alignment="CENTER" padding="$standardPadding">
+		<GridPane alignment="CENTER" hgap="20" vgap="10">
+			<!-- Create the 1st Column -->
+			<Text text="Part Select" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+			<RadioButton text="Eyebrows" font="$mediumFont" onAction="#handleSelectEyebrows"
+			             toggleGroup="$radioButtonToggleGroup" GridPane.halignment="LEFT" GridPane.rowIndex="1"
+			             GridPane.columnIndex="0"/>
+			<RadioButton text="Left Lip Corners" font="$mediumFont" onAction="#handleSelectLeftLipCorners"
+			             toggleGroup="$radioButtonToggleGroup" GridPane.halignment="LEFT" GridPane.rowIndex="2"
+			             GridPane.columnIndex="0"/>
+			<RadioButton text="Right Lip Corners" font="$mediumFont" onAction="#handleSelectRightLipCorners"
+			             toggleGroup="$radioButtonToggleGroup" GridPane.halignment="LEFT" GridPane.rowIndex="3"
+			             GridPane.columnIndex="0"/>
+			<RadioButton text="Lower Jaw" font="$mediumFont" onAction="#handleSelectLowerJaw"
+			             toggleGroup="$radioButtonToggleGroup" GridPane.halignment="LEFT" GridPane.rowIndex="4"
+			             GridPane.columnIndex="0"/>
+			<RadioButton text="Eyelids" font="$mediumFont" onAction="#handleSelectEyelids"
+			             toggleGroup="$radioButtonToggleGroup" GridPane.halignment="LEFT" GridPane.rowIndex="5"
+			             GridPane.columnIndex="0"/>
+			<RadioButton text="Lights" font="$mediumFont" onAction="#handleSelectLights"
+			             toggleGroup="$radioButtonToggleGroup"
+			             GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+			<RadioButton text="Lip Corners" font="$mediumFont" onAction="#handleSelectLipCorners"
+			             toggleGroup="$radioButtonToggleGroup" GridPane.halignment="LEFT" GridPane.rowIndex="7"
+			             GridPane.columnIndex="0"/>
+			
+			<!-- Create the 2nd Column -->
+			<Text text="Servo" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+			<Text text="1" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+			<Text text="2" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+			<Text text="3" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+			<Text text="4" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+			<Text text="5" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+			<Text text="-" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+			<Text text="2 and 3" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+			
+			<!-- Create the 3rd Column -->
+			<Text text="PIC Pin Number(s)" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+			<Text text="17" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+			<Text text="18" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+			<Text text="1" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+			<Text text="2" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+			<Text text="6" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+			<Text text="11" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+			<Text text="18 and 1" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="7" GridPane.columnIndex="2"/>
+			
+			<!-- Create the 4th Column -->
+			<Text text="PIC Pin Name(s)" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+			<Text text="RA0" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+			<Text text="RA1" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+			<Text text="RA2" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+			<Text text="RA3" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+			<Text text="RB0" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+			<Text text="RB5" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+			<Text text="RA1 and RA2" textAlignment="CENTER" font="$mediumFont" GridPane.halignment="CENTER"
+			      GridPane.rowIndex="7" GridPane.columnIndex="3"/>
+			
+			<!-- Create Bottom Chunk -->
+			<Button fx:id="lightsOnButton" text="On" textAlignment="CENTER" font="$mediumFont" disable="true"
+			        onAction="#handleOn" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+			<Button fx:id="lightsOffButton" text="Off" textAlignment="CENTER" font="$mediumFont" disable="true"
+			        onAction="#handleOff" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+			
+			<HBox alignment="CENTER" spacing="10" GridPane.halignment="CENTER" GridPane.rowIndex="8"
+			      GridPane.columnIndex="2">
+				<Text text="Velocity:" textAlignment="CENTER" font="$mediumFont"/>
+				<Spinner fx:id="velocitySelector" editable="true" prefWidth="55"/>
+			</HBox>
+			<Button fx:id="sendMidiButton" text="Send MIDI" textAlignment="CENTER" font="$mediumFont" disable="true"
+			        onAction="#handleSendMidi" GridPane.halignment="CENTER" GridPane.rowIndex="9"
+			        GridPane.columnIndex="2"/>
+		</GridPane>
+	</VBox>
+</Scene>

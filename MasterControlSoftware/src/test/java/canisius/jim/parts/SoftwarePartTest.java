@@ -45,9 +45,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 abstract class SoftwarePartTest {
 	
-	static Ruppet ruppet;
+	protected static Ruppet ruppet;
 	
-	static Sequence actions;
+	protected static Sequence actions;
 	
 	protected SoftwarePart softwarePart;
 	
@@ -71,13 +71,14 @@ abstract class SoftwarePartTest {
 	}
 	
 	@Test void setupTimings() throws IOException {
+		final var track = softwarePart.getTrack();
 		// After a SoftwarePart has been initialized, the Track should have more than 1 event.
-		assertTrue(softwarePart.getTrack().size() > 1);
-		assertTrue(softwarePart.getTrack().ticks() > 0);
+		assertTrue(track.size() > 1);
+		assertTrue(track.ticks() > 0);
 		
 		// In addition, the number of events in the Track should be greater than the number of lines in the File
 		final var file = new File(softwarePart.fileName);
-		assertTrue(softwarePart.getTrack().size() > Files.readAllLines(file.toPath()).size());
+		assertTrue(track.size() > Files.readAllLines(file.toPath()).size());
 	}
 	
 	@Test void getNumberOfTransitions() throws IOException {
@@ -87,11 +88,12 @@ abstract class SoftwarePartTest {
 	}
 	
 	@Test void getTrack() {
+		final var track = softwarePart.getTrack();
 		// The Track should not be null.
-		assertNotNull(softwarePart.getTrack());
+		assertNotNull(track);
 		
 		// After a SoftwarePart has been initialized, there should be more than just the default event in the Track.
-		assertTrue(softwarePart.getTrack().size() > 1);
-		assertTrue(softwarePart.getTrack().ticks() > 0);
+		assertTrue(track.size() > 1);
+		assertTrue(track.ticks() > 0);
 	}
 }

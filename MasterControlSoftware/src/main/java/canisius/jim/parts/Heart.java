@@ -24,8 +24,8 @@
 
 package canisius.jim.parts;
 
-import canisius.jim.Emotion;
 import canisius.jim.connections.UsbMidiConnection;
+import canisius.jim.ruppet.Emotion;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.Sequence;
@@ -113,7 +113,9 @@ public final class Heart extends SoftwarePart {
 	
 	@Override protected void readTimingInfoFromFile() {
 		try {
-			Files.readAllLines(transitionTimesFile.toPath()).stream().map(line -> line.split("\t")).forEach(
+			final var splitLines =
+					Files.readAllLines(transitionTimesFile.toPath()).stream().map(line -> line.split("\t"));
+			splitLines.forEach(
 					splitLine -> emotionTimingsMap.put((int) Math.round(Double.parseDouble(splitLine[0]) * 1000),
 					                                   splitLine[1].trim()));
 		}
@@ -121,9 +123,7 @@ public final class Heart extends SoftwarePart {
 	}
 	
 	@Override protected void setupTimings() {
-		for (final var entry : emotionTimingsMap.entrySet()) {
-			final var emotion = entry.getValue();
-			final var emotionTransitionTime = entry.getKey();
+		emotionTimingsMap.forEach((emotionTransitionTime, emotion) -> {
 			switch (emotion.toLowerCase()) {
 				case "happy" -> happy.addEmotionToTrack(track, emotionTransitionTime);
 				case "sad" -> sad.addEmotionToTrack(track, emotionTransitionTime);
@@ -141,7 +141,7 @@ public final class Heart extends SoftwarePart {
 					System.exit(1);
 				}
 			}
-		}
+		});
 	}
 	
 	public int getNumberOfTransitions() { return emotionTimingsMap.size(); }
@@ -198,5 +198,4 @@ public final class Heart extends SoftwarePart {
 	 * @return The {@code Ruppet}'s smile "{@code Emotion}"
 	 */
 	public Emotion getSmile() { return smile; }
-	
 }

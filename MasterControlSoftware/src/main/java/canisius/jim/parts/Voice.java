@@ -33,13 +33,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Allows a {@code Ruppet} to talk by reading timing information from a TXT file and storing that information into a
@@ -54,7 +53,7 @@ public final class Voice extends SoftwarePart {
 	/**
 	 * The {@code File} that contains the audio that is to be played synchronously with the mouth movements.
 	 */
-	private static final File VoiceFile = new File("Voice.wav");
+	private static final File voiceFile = new File("Voice.wav");
 	
 	/**
 	 * The {@code Ruppet} that this {@code Voice} belongs to.
@@ -94,16 +93,17 @@ public final class Voice extends SoftwarePart {
 	}
 	
 	@Override protected void readTimingInfoFromFile() {
-		try (final var reader = new Scanner(new FileReader(transitionTimesFile))) {
+		try (final var lines = new BufferedReader(new FileReader(transitionTimesFile)).lines()) {
 			final var sec_to_ms_factor = 1000;
-			while (reader.hasNextLine()) {
-				var splitLine = reader.nextLine().split("\t");
-				mouthDownTimes.add((int) Math.round(Double.parseDouble(splitLine[0]) * sec_to_ms_factor));
-				splitLine = reader.nextLine().split("\t");
-				mouthUpTimes.add((int) Math.round(Double.parseDouble(splitLine[0]) * sec_to_ms_factor));
-			}
+			lines.map(line -> line.split("\t")).forEach(splitLine -> {
+				final var time = (int) Math.round(Double.parseDouble(splitLine[0]) * sec_to_ms_factor);
+				switch (splitLine[2]) {
+					case "D" -> mouthDownTimes.add(time);
+					case "U" -> mouthUpTimes.add(time);
+				}
+			});
 		}
-		catch (final FileNotFoundException e) { e.printStackTrace(); }
+		catch (final IOException e) { e.printStackTrace(); }
 	}
 	
 	@Override protected void setupTimings() {
@@ -117,8 +117,7 @@ public final class Voice extends SoftwarePart {
 		 * Add a buffer to prevent one or more audio/visual blips at the end of the presentation. This prevents the
 		 * sequence from being looped too early.
 		 */
-		final var latestTime = mouthUpTimes.getLast();
-		mouth.addStateToTrack(track, mouthUp, latestTime + delay_end_of_seq);
+		mouth.addStateToTrack(track, mouthUp, mouthUpTimes.getLast() + delay_end_of_seq);
 	}
 	
 	@Override protected int getNumberOfTransitions() { return mouthDownTimes.size() + mouthUpTimes.size(); }
@@ -129,14 +128,14 @@ public final class Voice extends SoftwarePart {
 	private void openAudioFile() {
 		try {
 			clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(VoiceFile));
+			clip.open(AudioSystem.getAudioInputStream(voiceFile));
 		}
 		catch (final LineUnavailableException | IOException e) { e.printStackTrace(); }
 		catch (final UnsupportedAudioFileException e) {
 			final var errorMsg = """
 					ERROR:
-					"%s"'s file type is not supported!
-					Make sure that you are using a .wav file!""".formatted(VoiceFile.getName());
+						"%s"'s file type is not supported!
+						Make sure that you are using a .wav file!""".formatted(voiceFile.getName());
 			IO.println(errorMsg);
 		}
 	}
