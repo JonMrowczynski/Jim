@@ -137,7 +137,7 @@ public final class Heart extends SoftwarePart {
 								Emotion: %s is not currently defined.
 								Please define what to do for this emotion before operating the ruppet.
 							Terminating Program.""";
-					System.out.println(msg);
+					IO.println(msg);
 					System.exit(1);
 				}
 			}
@@ -154,7 +154,7 @@ public final class Heart extends SoftwarePart {
 	 */
 	public void feel(final Emotion emotion) throws NullPointerException {
 		Objects.requireNonNull(emotion, "Cannot feel a null emotion").getStates()
-				.forEach(msg -> UsbMidiConnection.getInstance().send(msg));
+				.forEach(msg -> UsbMidiConnection.instance().send(msg));
 	}
 	
 	/**

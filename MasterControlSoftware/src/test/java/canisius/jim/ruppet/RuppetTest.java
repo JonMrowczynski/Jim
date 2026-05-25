@@ -60,7 +60,7 @@ class RuppetTest {
 	@Test void muteAllTracks() {
 		// Muting all Tracks should cause all the Ruppet's Tracks to be muted.
 		ruppet.muteAllTracks();
-		final var sequencer = SequencerConnection.getInstance().getMidiDevice();
+		final var sequencer = SequencerConnection.instance().getMidiDevice();
 		assertTrue(IntStream.range(0, ruppet.getTracks().size()).anyMatch(sequencer::getTrackMute));
 		
 		// Muting all Tracks except for the Ruppet's Heart Track should cause all the Ruppet's Tracks to be muted

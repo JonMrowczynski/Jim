@@ -173,12 +173,15 @@ public final class Ruppet {
 		 * such that we would get 1 tick per ms.
 		 * ticksPerSecond = 160 * (375 / 60.0) = 1,000[ticks/s] = 1[tick/ms]
 		 */
-		SequencerConnection.getInstance().setReceiver(UsbMidiConnection.getInstance().getUsbReceiver());
-		SequencerConnection.getInstance().getMidiDevice().setTempoInBPM(375);
-		SequencerConnection.getInstance().getMidiDevice().setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-		final Sequence actions;
+		final var sequencerConnection = SequencerConnection.instance();
+		UsbMidiConnection.instance().getUsbReceiver().ifPresent(sequencerConnection::setReceiver);
+		final var midiDevice = sequencerConnection.getMidiDevice();
+		midiDevice.ifPresent(sequencer -> {
+			sequencer.setTempoInBPM(375);
+			sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+		});
 		try {
-			actions = new Sequence(Sequence.PPQ, SequencerConnection.RESOLUTION);
+			final var actions = new Sequence(Sequence.PPQ, SequencerConnection.RESOLUTION);
 			heart = new Heart(this, actions);
 			voice = new Voice(this, actions);
 			softwareParts = Set.of(heart, voice);
@@ -191,7 +194,10 @@ public final class Ruppet {
 			 * Now that all the Sequence's Tracks have been filled with MidiEvents, add the Sequence to the
 			 * Sequencer, otherwise, MidiEvents will not be stored in the Tracks.
 			 */
-			SequencerConnection.getInstance().getMidiDevice().setSequence(actions);
+			midiDevice.ifPresent(sequencer -> {
+				try { sequencer.setSequence(actions); }
+				catch (InvalidMidiDataException e) { throw new RuntimeException(e); }
+			});
 			muteAllTracks(blinkingTrack);
 		}
 		catch (final InvalidMidiDataException e) { e.printStackTrace(); }
@@ -229,10 +235,10 @@ public final class Ruppet {
 	 */
 	public void muteAllTracks(final Track... excludedTracks) {
 		tracks.forEach(track -> {
-			final var sequencer = SequencerConnection.getInstance().getMidiDevice();
 			final var trackIndex = tracks.indexOf(track);
-			sequencer.setTrackMute(trackIndex,
-			                       Arrays.stream(excludedTracks).noneMatch(excludedTrack -> excludedTrack == track));
+			final var midiDevice = SequencerConnection.instance().getMidiDevice();
+			midiDevice.ifPresent(sequencer -> sequencer.setTrackMute(trackIndex, Arrays.stream(excludedTracks)
+					.noneMatch(excludedTrack -> excludedTrack == track)));
 		});
 	}
 	
@@ -253,7 +259,7 @@ public final class Ruppet {
 	public void live() {
 		var choice = -1;
 		lights.on();
-		SequencerConnection.getInstance().getMidiDevice().start();
+		SequencerConnection.instance().getMidiDevice().ifPresent(Sequencer::start);
 		do {
 			muteAllTracks(blinkingTrack);
 			final var prompt = """
@@ -264,7 +270,7 @@ public final class Ruppet {
 					4. Go into mirror mode?
 					5. Go back to sleep?
 						Choice: """;
-			System.out.print(prompt);
+			IO.print(prompt);
 			try {
 				choice = reader.nextInt();
 				switch (choice) {
@@ -273,11 +279,11 @@ public final class Ruppet {
 					case 3 -> runSteveScript();
 					case 4 -> mirrorMode();
 					case 5 -> goToSleep();
-					default -> System.out.println("Sorry, that's not an option.");
+					default -> IO.println("Sorry, that's not an option.");
 				}
 			}
 			catch (final InputMismatchException e) {
-				System.out.println("\nI don't understand that input, make sure you type in an int!");
+				IO.println("\nI don't understand that input, make sure you type in an int!");
 				reader.nextLine();
 			}
 		} while (choice != 5);
@@ -298,13 +304,13 @@ public final class Ruppet {
 					6. Smile
 					9. To Exit
 						Choice: """;
-			System.out.print(prompt);
+			IO.print(prompt);
 			try { emotionChoice = reader.nextInt(); }
 			catch (final InputMismatchException e) {
 				reader.nextLine();
 				emotionChoice = -1;
 			}
-			System.out.println();
+			IO.println();
 			switch (emotionChoice) {
 				case 1 -> heart.feel(heart.getNeutral());
 				case 2 -> heart.feel(heart.getHappy());
@@ -312,8 +318,8 @@ public final class Ruppet {
 				case 4 -> heart.feel(heart.getAngry());
 				case 5 -> heart.feel(heart.getScared());
 				case 6 -> heart.feel(heart.getSmile());
-				case 9 -> System.out.println("Exited manual demo mode");
-				default -> System.out.println("That is not an option.");
+				case 9 -> IO.println("Exited manual demo mode");
+				default -> IO.println("That is not an option.");
 			}
 			// Display the specified emotion for a couple of seconds.
 			if (emotionChoice != 9) { pause_ms(2000); }
@@ -341,7 +347,7 @@ public final class Ruppet {
 					12. Eyelids down
 					20. To Go Back
 						Choice: """;
-			System.out.print(prompt);
+			IO.print(prompt);
 			try {
 				fauChoice = reader.nextInt();
 				switch (fauChoice) {
@@ -357,7 +363,7 @@ public final class Ruppet {
 					case 10 -> eyelids.toLowerBound();
 					case 11 -> eyelids.toNeutral();
 					case 12 -> eyelids.toUpperBound();
-					default -> System.out.println("That is not an available option");
+					default -> IO.println("That is not an available option");
 				} // end of switch
 			}
 			catch (final InputMismatchException e) {
@@ -371,9 +377,12 @@ public final class Ruppet {
 	 * Runs the scripted demo that our friend Steve was so kind to record for us. :)
 	 */
 	private void runSteveScript() {
-		System.out.println();
-		SequencerConnection.getInstance().getMidiDevice().stop();
-		SequencerConnection.getInstance().getMidiDevice().setMicrosecondPosition(0);
+		IO.println();
+		final var midiDevice = SequencerConnection.instance().getMidiDevice();
+		midiDevice.ifPresent(sequencer -> {
+			sequencer.stop();
+			sequencer.setMicrosecondPosition(0);
+		});
 		voice.givePresentation();
 	}
 	
@@ -382,12 +391,12 @@ public final class Ruppet {
 	 */
 	private void mirrorMode() {
 		do {
-			switch (getCurrentEmotion()) {
-				case "HAPPY" -> heart.feel(heart.getHappy());
-				case "SAD" -> heart.feel(heart.getSad());
-				case "ANGRY" -> heart.feel(heart.getAngry());
-				default -> heart.feel(heart.getNeutral());
-			}
+			heart.feel(switch (getCurrentEmotion()) {
+				case "HAPPY" -> heart.getHappy();
+				case "SAD" -> heart.getSad();
+				case "ANGRY" -> heart.getAngry();
+				default -> heart.getNeutral();
+			});
 		} while (hasFace());
 	}
 	
@@ -398,7 +407,7 @@ public final class Ruppet {
 	 * using {@code System.exit(0)}.
 	 */
 	private void goToSleep() {
-		System.out.println("\nOkay, I was getting tired anyway.");
+		IO.println("\nOkay, I was getting tired anyway.");
 		pause_ms(2000);
 		System.exit(0);
 	}
@@ -517,13 +526,12 @@ public final class Ruppet {
 	private final class ReleaseSoul extends Thread {
 		
 		@Override public void run() {
-			System.out.println();
+			IO.println();
 			muteAllTracks();
 			reader.close();
 			hardwareParts.forEach(HardwarePart::toNeutral);
-			UsbMidiConnection.getInstance().disconnect();
-			SequencerConnection.getInstance().disconnect();
+			UsbMidiConnection.instance().disconnect();
+			SequencerConnection.instance().disconnect();
 		}
 	}
-	
 }

@@ -98,11 +98,6 @@ public class RuppetTester extends Application {
 	 */
 	private byte currentVelocity;
 	
-	/**
-	 * @param args command-line arguments. These are currently not used.
-	 */
-	public static void main(final String[] args) { launch(args); }
-	
 	@Override public void start(final Stage primaryStage) { manualOperationSceneSetup(primaryStage); }
 	
 	/**
@@ -132,7 +127,7 @@ public class RuppetTester extends Application {
 		primaryStage.setScene(manualControlScene);
 		primaryStage.sizeToScene();
 		primaryStage.setResizable(false);
-		primaryStage.setOnCloseRequest(windowEvent -> UsbMidiConnection.getInstance().disconnect());
+		primaryStage.setOnCloseRequest(windowEvent -> UsbMidiConnection.instance().disconnect());
 		primaryStage.show();
 	}
 	
@@ -215,7 +210,7 @@ public class RuppetTester extends Application {
 				alert.showAndWait();
 			}
 			else {
-				try { makeMessages().forEach(msg -> UsbMidiConnection.getInstance().send(msg)); }
+				try { makeMessages().forEach(msg -> UsbMidiConnection.instance().send(msg)); }
 				catch (final InvalidMidiDataException e) { e.printStackTrace(); }
 				actionListener.consume();
 			}
@@ -247,17 +242,16 @@ public class RuppetTester extends Application {
 		 * velocity value and the maximum velocity value inclusive.
 		 */
 		spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.isEmpty()) {
-				final var isNotNumber = !newValue.matches("\\d*");
-				final var isNotValidNumber = newValue.charAt(0) == '0' && newValue.length() > 1;
-				if (isNotNumber || isNotValidNumber) { spinner.getEditor().setText(oldValue); }
-				else {
-					final var newValueInt = Integer.parseInt(newValue);
-					if (newValueInt > MAX_VELOCITY || newValueInt < MIN_VELOCITY) {
-						spinner.getEditor().setText(oldValue);
-					}
-					currentVelocity = (byte) newValueInt;
+			if (newValue.isEmpty()) { return; }
+			final var isNotNumber = !newValue.matches("\\d*");
+			final var isNotValidNumber = newValue.charAt(0) == '0' && newValue.length() > 1;
+			if (isNotNumber || isNotValidNumber) { spinner.getEditor().setText(oldValue); }
+			else {
+				final var newValueInt = Integer.parseInt(newValue);
+				if (newValueInt > MAX_VELOCITY || newValueInt < MIN_VELOCITY) {
+					spinner.getEditor().setText(oldValue);
 				}
+				currentVelocity = (byte) newValueInt;
 			}
 		});
 		final var tooltip = new Tooltip("Min velocity: " + MIN_VELOCITY + "\n" + "Max velocity: " + MAX_VELOCITY);
@@ -304,7 +298,7 @@ public class RuppetTester extends Application {
 		radioButton.setText(label);
 		radioButton.setFont(FONT_SIZE);
 		radioButton.setToggleGroup(radioButtonToggleGroup);
-		radioButton.setOnAction(actionEvent -> {
+		radioButton.setOnAction(_ -> {
 			lightsOn.setDisable(setLightsDisabled);
 			lightsOff.setDisable(setLightsDisabled);
 			this.midiNotes = new byte[midiNotes.length];
@@ -348,10 +342,9 @@ public class RuppetTester extends Application {
 		GridPane.setHalignment(button, HPos.LEFT);
 		try {
 			final var msg = new ShortMessage(ShortMessage.NOTE_ON, 0, Ruppet.LIGHTS_MIDI_NOTE, velocity);
-			button.setOnAction(actionEvent -> UsbMidiConnection.getInstance().send(msg));
+			button.setOnAction(_ -> UsbMidiConnection.instance().send(msg));
 		}
 		catch (final InvalidMidiDataException e) { e.printStackTrace(); }
 		return button;
 	}
-	
 }

@@ -28,15 +28,16 @@ import canisius.jim.parts.HardwarePart;
 import canisius.jim.parts.HardwarePartState;
 import canisius.jim.parts.Movable;
 import canisius.jim.ruppet.Ruppet;
+import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.MidiEvent;
-import javax.sound.midi.ShortMessage;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Track;
 import java.security.InvalidParameterException;
 import java.util.*;
 
 /**
- * An {@code Emotion} is a {@code Set} of {@code ShortMessage}s that when sent to the electronics sets the angular
+ * An {@code Emotion} is a {@link Set} of {@link MidiMessage}s that when sent to the electronics sets the angular
  * positions of the servo motors such that a {@code Ruppet} expresses the corresponding {@code Emotion}.
  *
  * @author Jon Mrowczynski
@@ -44,15 +45,15 @@ import java.util.*;
 public final class Emotion {
 	
 	/**
-	 * The {@code Set} of {@code ShortMessage}s that are sent to the electronics to make the {@code Ruppet} express
+	 * The {@link Set} of {@link MidiMessage}s that are sent to the electronics to make the {@link Ruppet} express
 	 * this {@code Emotion}.
 	 */
-	private final Set<ShortMessage> states = new HashSet<>();
+	private final @NotNull Set<? extends MidiMessage> states = new HashSet<>();
 	
 	/**
-	 * Takes a {@code Ruppet} that this {@code Emotion} is associated with as well as a variable amount of
-	 * {@code PartState}s. The {@code PartState}s and their associated {@code ShortMessage}s are added to
-	 * {@code attributes}.
+	 * Takes a {@link Ruppet} that this {@code Emotion} is associated with as well as a variable amount of
+	 * {@link HardwarePartState}s. The {@link HardwarePartState}s and their associated {@link MidiMessage}s are
+	 * added to {@link #states}.
 	 *
 	 * @param ruppet             that this {@code Emotion} belongs to
 	 * @param hardwarePartStates that are transitioned to for this {@code Emotion}
@@ -64,8 +65,8 @@ public final class Emotion {
 		Objects.requireNonNull(ruppet, "Cannot initialize " + Emotion.class.getSimpleName() + " with null ruppet");
 		Objects.requireNonNull(hardwarePartStates,
 		                       "Cannot initialize " + Emotion.class.getSimpleName() + " with null partStates");
-		if (hardwarePartStates.length > 0) { addEmotionPartStates(ruppet, hardwarePartStates); }
-		else { throw new InvalidParameterException("partStates.length cannot be 0."); }
+		if (hardwarePartStates.length == 0) { throw new InvalidParameterException("partStates.length cannot be 0."); }
+		addEmotionPartStates(ruppet, hardwarePartStates);
 	}
 	
 	/**
@@ -112,10 +113,10 @@ public final class Emotion {
 	}
 	
 	/**
-	 * Returns an {@code Set} of {@code ShortMessage}s that need to be transmitted to the electronics in order for the
-	 * {@code Ruppet} to express this {@code Emotion}.
+	 * Returns an {@link Set} of {@link MidiMessage}s that need to be transmitted to the electronics in order for the
+	 * {@link Ruppet} to express this {@code Emotion}.
 	 *
-	 * @return the {@code ShortMessage}s that are associated with this {@code Emotion}
+	 * @return the {@link MidiMessage}s that are associated with this {@code Emotion}
 	 */
-	public Set<ShortMessage> getStates() { return states; }
+	public Set<? extends MidiMessage> getStates() { return states; }
 }

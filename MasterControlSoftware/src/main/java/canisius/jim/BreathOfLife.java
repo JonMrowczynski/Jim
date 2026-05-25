@@ -27,6 +27,7 @@ package canisius.jim;
 import canisius.jim.ruppet.Ruppet;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class allows one lone {@code Ruppet} to live, to see the world, things dangerous to come to, to see behind
@@ -36,11 +37,5 @@ import javafx.stage.Stage;
  */
 public final class BreathOfLife extends Application {
 	
-	/**
-	 * @param args command-line arguments. These are currently not used.
-	 */
-	public static void main(final String[] args) { launch(args); }
-	
-	@Override public void start(final Stage primaryStage) { new Ruppet().live(); }
-	
+	@Override public void start(final @NotNull Stage primaryStage) { new Ruppet().live(); }
 }

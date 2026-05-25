@@ -26,7 +26,6 @@ package canisius.jim.parts;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
-import java.security.InvalidParameterException;
 import java.util.stream.IntStream;
 
 import static javax.sound.midi.ShortMessage.NOTE_ON;
@@ -55,10 +54,10 @@ public final class Movable extends HardwarePart {
 	 * @param midiNote2   that is associated with the second servo motor
 	 * @param parallelism represents whether the servo motors are to be operated in parallel or antiparallel relative
 	 *                    to one another
-	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+	 * @throws IllegalArgumentException if {@code lowerBound <= upperBound} or if either are not valid values
 	 */
 	public Movable(final int midiNote1, final int lowerBound, final int upperBound, final int neutral,
-	               final int midiNote2, final Parallelism parallelism) throws InvalidParameterException {
+	               final int midiNote2, final Parallelism parallelism) throws IllegalArgumentException {
 		this(midiNote1, lowerBound, upperBound, neutral);
 		setupSecondServoStates(lowerBound, upperBound, midiNote2, parallelism);
 	}
@@ -71,10 +70,10 @@ public final class Movable extends HardwarePart {
 	 * @param lowerBound that the servo arm can move to
 	 * @param upperBound that the servo arm can move to
 	 * @param neutral    position of the {@code Movable}
-	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+	 * @throws IllegalArgumentException if {@code lowerBound <= upperBound} or if either are not valid values
 	 */
 	public Movable(final int midiNote, final int lowerBound, final int upperBound, final int neutral)
-			throws InvalidParameterException {
+			throws IllegalArgumentException {
 		super(midiNote, lowerBound, upperBound, neutral);
 	}
 	
@@ -90,13 +89,11 @@ public final class Movable extends HardwarePart {
 	private void setupSecondServoStates(final int lowerBound, final int upperBound, final int midiNote2,
 	                                    final Parallelism parallelism) {
 		IntStream.range(0, states.size()).forEach(i -> {
-			try {
-				final var data2 = switch (parallelism) {
-					case PARALLEL -> i + lowerBound;
-					case ANTIPARALLEL -> ((upperBound + lowerBound) - (i + lowerBound));
-				};
-				states.get(i).add(new ShortMessage(NOTE_ON, 0, midiNote2, data2));
-			}
+			final var data2 = switch (parallelism) {
+				case PARALLEL -> i + lowerBound;
+				case ANTIPARALLEL -> ((upperBound + lowerBound) - (i + lowerBound));
+			};
+			try { states.get(i).add(new ShortMessage(NOTE_ON, 0, midiNote2, data2)); }
 			catch (final InvalidMidiDataException e) { e.printStackTrace(); }
 		});
 	}
@@ -114,5 +111,4 @@ public final class Movable extends HardwarePart {
 		 */
 		ANTIPARALLEL
 	}
-	
 }

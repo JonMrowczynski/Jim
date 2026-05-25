@@ -83,8 +83,7 @@ class HeartTest extends SoftwarePartTest {
 	
 	@Test void getScared() {
 		// Scared is define as the lower jaw going to its upper bound state, the lip corners going to its lower bound
-		// state
-		// and the eyebrows going to the lower bound state.
+		// state and the eyebrows going to the lower bound state.
 		final var scaredSet = new HashSet<>(ruppet.getLowerJaw().getUpperBoundState());
 		scaredSet.addAll(ruppet.getLipCorners().getLowerBoundState());
 		scaredSet.addAll(ruppet.getEyebrows().getLowerBoundState());

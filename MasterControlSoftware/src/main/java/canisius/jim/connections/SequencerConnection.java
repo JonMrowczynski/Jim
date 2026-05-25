@@ -24,29 +24,28 @@
 
 package canisius.jim.connections;
 
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Sequencer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.sound.midi.*;
 
 /**
  * {@code SequencerConnection} is a singleton class that allows one to make a connection to the system's default
- * {@code Sequencer} in order to store sequenced commands for the {@code Ruppet} in the form of {@code MidiEvent}s.
- * This allows the {@code Ruppet} to automatically run scripts.
+ * {@link Sequencer} in order to store sequenced commands in the form of {@link MidiEvent}s.
  *
  * @author Jon Mrowczynski
  */
 public final class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 	
 	/**
-	 * The resolution of the {@code Sequence} that is to be used by the {@code Sequencer}.
+	 * The resolution of the {@link Sequence} that is to be used by the {@code Sequencer}.
 	 */
 	public static final int RESOLUTION = 160;
 	
 	/**
 	 * The singleton {@code SequencerConnection} instance.
 	 */
-	private static final SequencerConnection SEQUENCER_CONNECTION = new SequencerConnection();
+	private static final @NotNull SequencerConnection SEQUENCER_CONNECTION = new SequencerConnection();
 	
 	/**
 	 * This is a singleton class.
@@ -58,11 +57,11 @@ public final class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 	 *
 	 * @return the singleton {@code SequencerConnection} instance
 	 */
-	public static SequencerConnection getInstance() { return SEQUENCER_CONNECTION; }
+	public static @NotNull SequencerConnection instance() { return SEQUENCER_CONNECTION; }
 	
 	/**
-	 * Connects to the system's default {@code Sequencer} and disconnects it from the default {@code Synthesizer}. This
-	 * prevents the {@code MidiMessage}s from being played by the system's speakers.
+	 * Connects to the system's default {@link Sequencer} and disconnects it from the default {@link Synthesizer}. This
+	 * prevents the {@link MidiMessage}s from being played by the system's speakers.
 	 */
 	@Override public void connect() {
 		try {
@@ -74,14 +73,13 @@ public final class SequencerConnection extends MidiDeviceConnection<Sequencer> {
 	}
 	
 	/**
-	 * Sets the {@code Receiver} that should receive the sequenced {@code MidiMessage}s.
+	 * Sets the {@link Receiver} that should receive the sequenced {@link MidiMessage}s.
 	 *
-	 * @param receiver that should receive {@code MidiMessage}s from this {@code SequencerConnection}
+	 * @param receiver that should receive {@link MidiMessage}s from this {@code SequencerConnection}
 	 */
-	public void setReceiver(final Receiver receiver) {
-		if (midiDevice != null && midiDevice.isOpen()) {
-			try { midiDevice.getTransmitter().setReceiver(receiver); }
-			catch (final MidiUnavailableException e) { e.printStackTrace(); }
-		}
+	public void setReceiver(final @Nullable Receiver receiver) {
+		if (midiDevice == null || !midiDevice.isOpen()) { return; }
+		try { midiDevice.getTransmitter().setReceiver(receiver); }
+		catch (final MidiUnavailableException e) { e.printStackTrace(); }
 	}
 }

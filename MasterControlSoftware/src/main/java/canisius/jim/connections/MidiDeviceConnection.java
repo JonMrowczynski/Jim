@@ -24,42 +24,47 @@
 
 package canisius.jim.connections;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiSystem;
+import java.util.Optional;
 
 /**
- * A {@code MidiDeviceConnection} allows one to connect to and disconnect from an instance of a {@code MidiDevice} that
- * is acquired from the {@code MidiSystem}.
+ * A {@code MidiDeviceConnection} allows one to connect to and disconnect from an instance of a {@link MidiDevice} that
+ * is acquired from the {@link MidiSystem}.
  *
- * @param <T>
+ * @param <T> the type of {@link MidiDevice}.
  * @author Jon Mrowczynski
  */
-public abstract class MidiDeviceConnection<T extends MidiDevice> {
+abstract class MidiDeviceConnection<T extends MidiDevice> {
 	
 	/**
-	 * The {@code MidiDevice} that has been connected.
+	 * The {@link MidiDevice} that has been connected.
 	 */
-	T midiDevice;
+	protected @Nullable T midiDevice;
 	
 	/**
-	 * Instantiating a new {@code MidiDeviceConnection} automatically attempts to connect to the {@code MidiDevice}.
+	 * Instantiating a new {@code MidiDeviceConnection} automatically attempts to connect to the {@link MidiDevice}.
 	 */
 	protected MidiDeviceConnection() { connect(); }
 	
 	/**
-	 * Connect to the {@code MidiDevice}.
+	 * Connect to the {@link MidiDevice}.
 	 */
 	protected abstract void connect();
 	
 	/**
-	 * Disconnect from the {@code MidiDevice} by closing it iff it is not {@code null} and it is open. Otherwise, this
+	 * Disconnect from the {@link MidiDevice} by closing it iff it is not {@code null} and it is open. Otherwise, this
 	 * method is a no-op.
 	 */
 	public void disconnect() { if (midiDevice != null && midiDevice.isOpen()) { midiDevice.close(); } }
 	
 	/**
-	 * Returns the {@code MidiDevice} if {@code connect} has been called. Otherwise, {@code null} is returned.
+	 * Returns the {@link MidiDevice} if {@code connect} has been called. Otherwise, {@code null} is returned.
 	 *
-	 * @return the connected {@code MidiDevice} or {@code null}
+	 * @return the connected {@link MidiDevice} or {@code null}
 	 */
-	public final T getMidiDevice() { return midiDevice; }
+	public final @NotNull Optional<T> getMidiDevice() { return Optional.ofNullable(midiDevice); }
 }

@@ -24,48 +24,55 @@
 
 package canisius.jim.connections;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Transmitter;
+import javax.sound.midi.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * Tests {@link SequencerConnection}.
+ *
  * @author Jon Mrowczynski
  */
-class SequencerConnectionTest extends MidiDeviceConnectionTest {
+final class SequencerConnectionTest extends MidiDeviceConnectionTest<SequencerConnection> {
 	
-	@BeforeAll static void init() { midiDeviceConnection = SequencerConnection.getInstance(); }
+	/**
+	 * Sets the {@link #midiDeviceConnection} to the singleton instance of {@link SequencerConnection}.
+	 */
+	@BeforeEach void setUp() { midiDeviceConnection = SequencerConnection.instance(); }
 	
-	@Test void getInstance() {
-		// The singleton instance should not be null.
-		assertNotNull(SequencerConnection.getInstance());
-	}
-	
-	@Test @Override void connect() throws MidiUnavailableException {
+	/**
+	 * Tests {@link SequencerConnection#connect()}. The default {@link Sequencer} should not be connected to anything.
+	 */
+	@Test @Override void connect() {
 		super.connect();
-		// The connected Sequencer should not be connected to anything.
-		assertNull(SequencerConnection.getInstance().getMidiDevice().getTransmitter().getReceiver());
+		midiDeviceConnection.getMidiDevice().ifPresentOrElse(device -> {
+			try { assertNull(device.getTransmitter().getReceiver()); }
+			catch (MidiUnavailableException e) { fail(e); }
+		}, Assertions::fail);
 	}
 	
+	/**
+	 * Tests {@link SequencerConnection#setReceiver(Receiver)}. Setting the {@link Receiver} after connecting should
+	 * yield back that {@link Receiver}. The {@link MidiDevice} might have more than one {@link Transmitter}, so all
+	 * its {@link Transmitter}s are examined to determine if at least one of their {@link Receiver}s matches that of
+	 * set {@link Receiver}.
+	 */
 	@Test void setReceiver() {
-		// Setting the Receiver after connecting should yield back that Receiver. The MidiDevice might have more than
-		// one Transmitter, so all of its Transmitters' Receivers are examined to determine if at least one of their
-		// Receivers' reference matches that of receiver.
 		final var receiver = new Receiver() {
-			@Override public void send(final MidiMessage message, final long timeStamp) {
-				System.out.println(message.toString());
-			}
+			@Override public void send(final @NotNull MidiMessage message, final long timeStamp) { }
 			
 			@Override public void close() { }
 		};
-		SequencerConnection.getInstance().connect();
-		SequencerConnection.getInstance().setReceiver(receiver);
-		final var transmitters = SequencerConnection.getInstance().getMidiDevice().getTransmitters().stream();
-		assertTrue(() -> transmitters.map(Transmitter::getReceiver).anyMatch(r -> r == receiver));
+		midiDeviceConnection.connect();
+		midiDeviceConnection.setReceiver(receiver);
+		midiDeviceConnection.getMidiDevice().ifPresentOrElse(device -> {
+			final var receivers = device.getTransmitters().stream().map(Transmitter::getReceiver);
+			assertTrue(receivers.anyMatch(r -> r == receiver));
+		}, Assertions::fail);
 	}
 }

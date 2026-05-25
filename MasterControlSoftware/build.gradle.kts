@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.9.10"
+    java
     idea
     application
     jacoco
@@ -7,38 +7,29 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
-val jetbrainsAnnotationsVersion = "24.0.1"
-val junitVersion = "5.10.1"
+val jetbrainsAnnotation = "org.jetbrains:annotations:24.0.1"
 
-repositories {
-    mavenCentral()
-}
+repositories.mavenCentral()
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 
 javafx {
-    version = "21"
+    version = "25"
     modules = listOf("javafx.controls", "javafx.fxml", "javafx.swing")
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:$jetbrainsAnnotationsVersion")
-    testCompileOnly("org.jetbrains:annotations:$jetbrainsAnnotationsVersion")
-    testCompileOnly("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    compileOnly(jetbrainsAnnotation)
+    testCompileOnly(jetbrainsAnnotation)
+
+    testImplementation(platform("org.junit:junit-bom:6.0.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 jacoco.toolVersion = "0.8.11"
 
-tasks {
-
-    test {
-        useJUnitPlatform()
-        finalizedBy(listOf("jacocoTestReport", "jacocoTestCoverageVerification"))
-    }
-
+tasks.test {
+    useJUnitPlatform()
+    finalizedBy(listOf("jacocoTestReport", "jacocoTestCoverageVerification"))
 }

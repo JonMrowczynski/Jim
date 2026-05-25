@@ -25,12 +25,11 @@
 package canisius.jim.parts;
 
 import canisius.jim.connections.UsbMidiConnection;
+import canisius.jim.ruppet.Ruppet;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Track;
-import java.security.InvalidParameterException;
+import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,18 +38,19 @@ import java.util.stream.IntStream;
 
 import static canisius.jim.ruppet.Ruppet.MAX_VELOCITY;
 import static canisius.jim.ruppet.Ruppet.MIN_VELOCITY;
+import static javax.sound.midi.ShortMessage.NOTE_ON;
 
 /**
- * This class provides the framework for the components of the {@code Ruppet} that are operated by the microcontroller.
+ * This class provides the framework for the components of the {@link Ruppet} that are operated by the microcontroller.
  * <p>
- * The {@code List} {@code states} contains {@code Set}s of {@code ShortMessage}s where each {@code Set} represents a
+ * The {@link List} {@code states} contains {@code Set}s of {@link MidiMessage}s where each {@link Set} represents a
  * state of this {@code HardwarePart}.
  * <p>
- * For the parts that move due to changes in the angular position of one or more servo motors, or {@code Movable}s,
+ * For the parts that move due to changes in the angular position of one or more servo motors, or {@link Movable}s,
  * {@code states} represents the possible angular positions of those servo motors.
  * <p>
- * For {@code Lights}, {@code states} represents the brightness levels. Currently, the lights are digitally operated so
- * the only meaningful states would be the first and last elements in the {@code List} {@code states}.
+ * For {@link Lights}, {@code states} represents the brightness levels. Currently, the lights are digitally operated so
+ * the only meaningful states would be the first and last elements in the {@link List} {@code states}.
  *
  * @author Jon Mrowcsynski
  */
@@ -68,10 +68,10 @@ public abstract class HardwarePart {
 	
 	/**
 	 * The {@code List} that contains the available states that a {@code HardwarePart} can go to. If there is a
-	 * {@code HardwarePart} that requires n servo motors to operate properly, then n {@code ShortMessage}s can be added
+	 * {@code HardwarePart} that requires n servo motors to operate properly, then n {@link MidiMessage}s can be added
 	 * to the {@code Set}s.
 	 */
-	final List<Set<ShortMessage>> states = new ArrayList<>();
+	protected final List<Set<? extends MidiMessage>> states = new ArrayList<>();
 	
 	/**
 	 * The highest velocity value that represents one bounding state for this {@code HardwarePart}.
@@ -96,10 +96,10 @@ public abstract class HardwarePart {
 	 * @param lowerBound that the {@code HardwarePart} can move to
 	 * @param upperBound that the {@code HardwarePart} can move to
 	 * @param neutral    value that should be used instead of the average of {@code lowerBound} and {@code upperBound}
-	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+	 * @throws IllegalArgumentException if {@code lowerBound <= upperBound} or if either are not valid values
 	 */
 	HardwarePart(final int midiNote, final int lowerBound, final int upperBound, final int neutral)
-			throws InvalidParameterException {
+			throws IllegalArgumentException {
 		this(midiNote, lowerBound, upperBound);
 		setNeutral(neutral);
 	}
@@ -111,26 +111,31 @@ public abstract class HardwarePart {
 	 * @param midiNote   the corresponding MIDI note that is used to operate this {@code HardwarePart}
 	 * @param lowerBound that the {@code HardwarePart} can move to
 	 * @param upperBound that the {@code HardwarePart} can move to
-	 * @throws InvalidParameterException if {@code lowerBound <= upperBound} or if either are not valid values
+	 * @throws IllegalArgumentException if {@code lowerBound <= upperBound} or if either are not valid values
 	 */
-	HardwarePart(final int midiNote, final int lowerBound, final int upperBound) throws InvalidParameterException {
-		if (lowerBound <= upperBound) {
-			if (validVelocity(lowerBound)) { this.lowerBound = lowerBound; }
-			else { throw new InvalidParameterException("for lowerBound. Boundary values could not be set."); }
-			if (validVelocity(upperBound)) { this.upperBound = upperBound; }
-			else { throw new InvalidParameterException("for upperBound. Boundary values could not be set."); }
-		}
-		else {
+	HardwarePart(final int midiNote, final int lowerBound, final int upperBound) throws IllegalArgumentException {
+		if (lowerBound > upperBound) {
 			final var errorMsg = """
 					Invalid boundary values:
 					lowerBound: %d
 					upperBound: %d
-					Could not instantiate Movable Part.""".formatted(lowerBound, upperBound);
-			throw new InvalidParameterException(errorMsg);
+					Could not instantiate %s.""".formatted(lowerBound, upperBound, getClass().getSimpleName());
+			throw new IllegalArgumentException(errorMsg);
 		}
+		if (!validVelocity(lowerBound)) {
+			throw new IllegalArgumentException("for lowerBound. Boundary values could not be set.");
+		}
+		if (!validVelocity(upperBound)) {
+			throw new IllegalArgumentException("for upperBound. Boundary values could not be set.");
+		}
+		this.lowerBound = lowerBound;
+		this.upperBound = upperBound;
 		neutral = (upperBound + lowerBound) / 2;
-		IntStream.range(0, upperBound - lowerBound + 1).forEach(i -> {
-			try { states.add(Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, midiNote, i + lowerBound))); }
+		IntStream.rangeClosed(0, upperBound - lowerBound).forEach(i -> {
+			try {
+				final var msg = new ShortMessage(NOTE_ON, 0, midiNote, i + lowerBound);
+				states.add(Set.of(msg));
+			}
 			catch (final InvalidMidiDataException e) { e.printStackTrace(); }
 		});
 	}
@@ -153,10 +158,8 @@ public abstract class HardwarePart {
 	 */
 	private boolean validVelocity(final int velocity) {
 		if (velocity >= MIN_VELOCITY && velocity <= MAX_VELOCITY) { return true; }
-		else {
-			System.out.println("Invalid velocity value: " + velocity);
-			return false;
-		}
+		IO.println("Invalid velocity value: " + velocity);
+		return false;
 	}
 	
 	/**
@@ -169,12 +172,11 @@ public abstract class HardwarePart {
 	 * @param tick     of that the {@code ShortMessage}s should be played at from the start of the {@code Track}
 	 * @throws NullPointerException if {@code track} is {@code null}
 	 */
-	public final void addStateToTrack(final Track track, final Set<? extends ShortMessage> messages, final int tick)
+	public final void addStateToTrack(final Track track, final Set<? extends MidiMessage> messages, final int tick)
 			throws NullPointerException {
 		Objects.requireNonNull(track, "Cannot add state to a null Track");
-		if (validShortMessages(messages)) {
-			messages.stream().map(msg -> new MidiEvent(msg, tick)).forEach(track::add);
-		}
+		if (!validShortMessages(messages)) { return; }
+		messages.stream().map(msg -> new MidiEvent(msg, tick)).forEach(track::add);
 	}
 	
 	/**
@@ -184,12 +186,12 @@ public abstract class HardwarePart {
 	 *
 	 * @param messages The {@code Set} of {@code ShortMessage}s that are to be checked for validity
 	 * @return a {@code boolean} representing whether the given {@code Set} of {@code ShortMessage}s is a valid
-	 * group of
-	 * {@code ShortMessage}s for this {@code HardwarePart}
+	 * group of {@code ShortMessage}s for this {@code HardwarePart}
 	 */
-	private boolean validShortMessages(final Set<? extends ShortMessage> messages) {
-		return messages != null &&
-				states.get(velocityToStateIndex(getVelocityVal(messages.iterator().next()))).containsAll(messages);
+	private boolean validShortMessages(final @Nullable Set<? extends MidiMessage> messages) {
+		if (messages == null) { return false; }
+		final var msg = (ShortMessage) messages.iterator().next();
+		return states.get(velocityToStateIndex(getVelocityVal(msg))).containsAll(messages);
 	}
 	
 	/**
@@ -201,13 +203,12 @@ public abstract class HardwarePart {
 	private int velocityToStateIndex(final int velocity) { return velocity - lowerBound; }
 	
 	/**
-	 * Returns the velocity value associated with {@code msg}.
+	 * Returns the velocity value associated with {@code msg} or -1 if {@code msg ==null}.
 	 *
 	 * @param msg whose velocity value will be returned
-	 * @return The velocity value of {@code msg} as an {@code int}
-	 * @throws NullPointerException if {@code msg} is {@code null}
+	 * @return the velocity value of {@code msg} as an {@code int} or -1 if {@code msg == null}
 	 */
-	private static int getVelocityVal(final ShortMessage msg) throws NullPointerException { return msg.getData2(); }
+	private static int getVelocityVal(final @Nullable ShortMessage msg) { return msg == null ? -1 : msg.getData2(); }
 	
 	/**
 	 * Transitions the {@code HardwarePart} to one of its bounding states.
@@ -222,9 +223,8 @@ public abstract class HardwarePart {
 	 * @param velocity value that is to be converted to a {@code stateIndex}
 	 */
 	final void toState(final int velocity) {
-		if (validVelocity(velocity)) {
-			states.get(velocityToStateIndex(velocity)).forEach(msg -> UsbMidiConnection.getInstance().send(msg));
-		}
+		if (!validVelocity(velocity)) { return; }
+		states.get(velocityToStateIndex(velocity)).forEach(msg -> UsbMidiConnection.instance().send(msg));
 	}
 	
 	/**
@@ -242,20 +242,20 @@ public abstract class HardwarePart {
 	 *
 	 * @return The state that represents one bounding state of this {@code HardwarePart}
 	 */
-	public final Set<ShortMessage> getUpperBoundState() { return getState(upperBound); }
+	public final @NotNull Set<? extends MidiMessage> getUpperBoundState() { return getState(upperBound); }
 	
 	/**
 	 * Returns this {@code HardwarePart}'s state based on the velocity value iff that velocity value is valid for this
 	 * {@code HardwarePart}.
 	 *
 	 * @param velocity value that is to be checked for validity
-	 * @return A {@code Set} of {@code ShortMessage}s that represents the state associated with the given velocity
+	 * @return A {@code Set} of {@link MidiMessage}s that represents the state associated with the given velocity
 	 * value
-	 * @throws InvalidParameterException if the value of {@code velocity} is invalid
+	 * @throws IllegalArgumentException if the value of {@code velocity} is invalid
 	 */
-	private Set<ShortMessage> getState(final int velocity) throws InvalidParameterException {
+	private @NotNull Set<? extends MidiMessage> getState(final int velocity) throws IllegalArgumentException {
 		if (validVelocity(velocity)) { return states.get(velocityToStateIndex(velocity)); }
-		else { throw new InvalidParameterException(" for velocityToStateIndex conversion. No State can be returned."); }
+		throw new IllegalArgumentException(" for velocityToStateIndex conversion. No State can be returned.");
 	}
 	
 	/**
@@ -263,21 +263,23 @@ public abstract class HardwarePart {
 	 *
 	 * @return The state the represents the other bounding state of this {@code HardwarePart}
 	 */
-	public final Set<ShortMessage> getLowerBoundState() { return getState(lowerBound); }
+	public final @NotNull Set<? extends MidiMessage> getLowerBoundState() { return getState(lowerBound); }
 	
 	/**
 	 * Returns the state the represents the neutral state of this {@code HardwarePart}.
 	 *
 	 * @return The state that represents the neutral state of this {@code HardwarePart}
 	 */
-	public final Set<ShortMessage> getNeutralState() { return getState(neutral); }
+	public final @NotNull Set<? extends MidiMessage> getNeutralState() { return getState(neutral); }
 	
 	/**
 	 * Returns the {@code upperBound} {@code HardwarePartState} of this {@code HardwarePart}.
 	 *
 	 * @return The {@code upperBound} {@code HardwarePartState} of this {@code HardwarePart}
 	 */
-	public final HardwarePartState getUpperBoundHardwarePartState() { return getHardwarePartState(upperBound); }
+	public final @NotNull HardwarePartState getUpperBoundHardwarePartState() {
+		return getHardwarePartState(upperBound);
+	}
 	
 	/**
 	 * Returns the corresponding {@code PartState} associated with the {@code velocity} if {@code velocity} is a valid
@@ -285,16 +287,14 @@ public abstract class HardwarePart {
 	 *
 	 * @param velocity value that maps to the returned {@code HardwarePartState}
 	 * @return The {@code HardwarePartState} that corresponds to {@code velocity}
-	 * @throws InvalidParameterException if {@code velocity} is an invalid
+	 * @throws IllegalArgumentException if {@code velocity} is an invalid
 	 */
-	private HardwarePartState getHardwarePartState(final int velocity) throws InvalidParameterException {
-		if (validVelocity(velocity) && velocity >= lowerBound && velocity <= upperBound) {
-			return new HardwarePartState(this, getState(velocity));
+	private @NotNull HardwarePartState getHardwarePartState(final int velocity) throws IllegalArgumentException {
+		if (!validVelocity(velocity) || velocity < lowerBound || velocity > upperBound) {
+			final var msg = "Cannot retrieve the PartState associated with the velocity value: " + velocity;
+			throw new IllegalArgumentException(msg);
 		}
-		else {
-			throw new InvalidParameterException(
-					"Cannot retrieve the PartState associated with the velocity value: " + velocity);
-		}
+		return new HardwarePartState(this, getState(velocity));
 	}
 	
 	/**
@@ -302,15 +302,16 @@ public abstract class HardwarePart {
 	 *
 	 * @return The {@code lowerBound} {@code HardwarePartState} of this {@code HardwarePart}
 	 */
-	public final HardwarePartState getLowerBoundHardwarePartState() { return getHardwarePartState(lowerBound); }
+	public final @NotNull HardwarePartState getLowerBoundHardwarePartState() {
+		return getHardwarePartState(lowerBound);
+	}
 	
 	/**
 	 * Returns the {@code neutral} {@code HardwarePartState} of this {@code HardwarePart}.
 	 *
 	 * @return The {@code neutral} {@code HardwarePartState} of this {@code HardwarePart}
 	 */
-	public final HardwarePartState getNeutralHardwarePartState() {
+	public final @NotNull HardwarePartState getNeutralHardwarePartState() {
 		return new HardwarePartState(this, getState(neutral));
 	}
-	
 }

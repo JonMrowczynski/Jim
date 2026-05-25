@@ -24,47 +24,77 @@
 
 package canisius.jim.connections;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.MidiDevice;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
+ * Tests {@link MidiDeviceConnection}
+ *
  * @author Jon Mrowczynski
  */
-class MidiDeviceConnectionTest {
+abstract class MidiDeviceConnectionTest<T extends MidiDeviceConnection<?>> {
 	
-	static MidiDeviceConnection<?> midiDeviceConnection;
+	/**
+	 * The {@link MidiDeviceConnection} used for testing.
+	 */
+	protected T midiDeviceConnection;
 	
-	@BeforeEach void setUp() { midiDeviceConnection.disconnect(); }
-	
-	@Test void connect() throws MidiUnavailableException {
-		System.out.println("I am in super class");
-		// Before a connection is made, the MidiDevice should not be open.
-		assertFalse(midiDeviceConnection.getMidiDevice().isOpen());
-		
-		// After a connection is made, the MidiDevice should be open.
-		midiDeviceConnection.connect();
-		assertTrue(midiDeviceConnection.getMidiDevice().isOpen());
+	/**
+	 * Makes sure that the {@link MidiDeviceConnection} is disconnected after each test.
+	 */
+	@AfterEach void tearDown() {
+		if (midiDeviceConnection == null) { return; }
+		midiDeviceConnection.disconnect();
+		midiDeviceConnection = null;
 	}
 	
+	/**
+	 * Assume that the {@link MidiDeviceConnection} is not {@code null} before performing any of the other tests.
+	 */
+	@BeforeEach void instanceNotNull() { assumeTrue(midiDeviceConnection != null); }
+	
+	/**
+	 * Tests {@link MidiDeviceConnection#connect()} by making sure it can properly establish a connection to a
+	 * {@link MidiDevice}. Before a connection is made, the {@link MidiDevice} should not be open. However, after a
+	 * connection is made, the {@link MidiDevice} should be open.
+	 */
+	@Test void connect() {
+		final var midiDevice = midiDeviceConnection.getMidiDevice();
+		midiDevice.ifPresentOrElse(device -> assertFalse(device.isOpen()), Assertions::fail);
+		midiDeviceConnection.connect();
+		midiDevice.ifPresentOrElse(device -> assertTrue(device.isOpen()), Assertions::fail);
+	}
+	
+	/**
+	 * Tests {@link MidiDeviceConnection#disconnect()} by making sure that a connection can be successfully
+	 * disconnected.
+	 */
 	@Test void disconnect() {
+		final var midiDevice = midiDeviceConnection.getMidiDevice();
 		// The MidiDevice should start out not being open.
-		assertFalse(midiDeviceConnection.getMidiDevice().isOpen());
+		midiDevice.ifPresentOrElse(device -> assertFalse(device.isOpen()), Assertions::fail);
 		
 		// After a connection is made, the MidiDevice should be open.
 		midiDeviceConnection.connect();
-		assertTrue(midiDeviceConnection.getMidiDevice().isOpen());
+		midiDevice.ifPresentOrElse(device -> assertTrue(device.isOpen()), Assertions::fail);
 		
 		// After a disconnect is performed, the MidiDevice should not be open.
 		midiDeviceConnection.disconnect();
-		assertFalse(midiDeviceConnection.getMidiDevice().isOpen());
+		midiDevice.ifPresentOrElse(device -> assertFalse(device.isOpen()), Assertions::fail);
 	}
 	
+	/**
+	 * Tests {@link MidiDeviceConnection#getMidiDevice()} by ensuring it returns the {@link MidiDevice} instance.
+	 */
 	@Test void getMidiDevice() {
-		// getMidiDevice should return the midiDevice instance object.
-		assertSame(midiDeviceConnection.midiDevice, midiDeviceConnection.getMidiDevice());
+		midiDeviceConnection.getMidiDevice()
+				.ifPresentOrElse(device -> assertSame(midiDeviceConnection.midiDevice, device), Assertions::fail);
 	}
 }

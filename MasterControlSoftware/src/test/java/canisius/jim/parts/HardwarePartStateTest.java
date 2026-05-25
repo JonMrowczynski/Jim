@@ -30,6 +30,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import java.util.Set;
 
+import static javax.sound.midi.ShortMessage.NOTE_ON;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
@@ -39,13 +40,13 @@ class HardwarePartStateTest {
 	
 	@Test void getHardwarePart() throws InvalidMidiDataException {
 		final var testHardwarePart = new TestHardwarePart(77, 3, 7);
-		final var msg = new ShortMessage(ShortMessage.NOTE_ON, 0, 77, 100);
+		final var msg = new ShortMessage(NOTE_ON, 0, 77, 100);
 		final var hardwarePartState = new HardwarePartState(testHardwarePart, Set.of(msg));
 		assertSame(testHardwarePart, hardwarePartState.hardwarePart());
 	}
 	
 	@Test void getState() throws InvalidMidiDataException {
-		final var states = Set.of(new ShortMessage(ShortMessage.NOTE_ON, 0, 77, 100));
+		final var states = Set.of(new ShortMessage(NOTE_ON, 0, 77, 100));
 		final var hardwarePartState = new HardwarePartState(new TestHardwarePart(77, 3, 7), states);
 		assertSame(states, hardwarePartState.state());
 	}

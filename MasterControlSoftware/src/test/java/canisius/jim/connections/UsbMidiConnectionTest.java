@@ -24,75 +24,89 @@
 
 package canisius.jim.connections;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * Tests {@link UsbMidiConnection}.
+ *
  * @author Jon Mrowczynski
  */
-class UsbMidiConnectionTest extends MidiDeviceConnectionTest {
+final class UsbMidiConnectionTest extends MidiDeviceConnectionTest<UsbMidiConnection> {
 	
-	@BeforeAll static void init() { midiDeviceConnection = UsbMidiConnection.getInstance(); }
+	/**
+	 * Makes sure that
+	 */
+	@BeforeEach void setUp() { midiDeviceConnection = UsbMidiConnection.instance(); }
 	
-	@BeforeEach @Override void setUp() { UsbMidiConnection.getInstance().disconnect(); }
-	
-	@Test @Override void connect() throws MidiUnavailableException {
+	/**
+	 * Tests {@link UsbMidiConnection#connect()}.
+	 */
+	@Test @Override void connect() {
 		super.connect();
 		// The USB Receiver should also not be null.
-		assertNotNull(UsbMidiConnection.getInstance().getUsbReceiver());
+		assertNotNull(midiDeviceConnection.getUsbReceiver());
 	}
 	
+	/**
+	 * Tests {@link UsbMidiConnection#disconnect()}.
+	 */
 	@Test @Override void disconnect() {
 		super.disconnect();
 		// The USB Receiver should start out null.
-		assertNull(UsbMidiConnection.getInstance().getUsbReceiver());
+		assertTrue(midiDeviceConnection.getUsbReceiver().isEmpty());
 		
 		// After a connection, the USB Receiver should not be null.
-		UsbMidiConnection.getInstance().connect();
-		assertNotNull(UsbMidiConnection.getInstance().getUsbReceiver());
+		midiDeviceConnection.connect();
+		assertTrue(midiDeviceConnection.getUsbReceiver().isPresent());
 		
 		// After a disconnect, the USB Receiver should be null.
-		UsbMidiConnection.getInstance().disconnect();
-		assertNull(UsbMidiConnection.getInstance().getUsbReceiver());
+		midiDeviceConnection.disconnect();
+		assertTrue(midiDeviceConnection.getUsbReceiver().isEmpty());
 	}
 	
-	@Test void getInstance() {
-		// The singleton instance should not be null.
-		assertNotNull(UsbMidiConnection.getInstance());
+	/**
+	 * Tests {@link UsbMidiConnection#doesUSBMidiDeviceExist()} Whether the USB {@link MidiDevice} exists on the
+	 * system or not, the {@link Callable}'s results should match the result of the
+	 */
+	@Test void doesUSBMidiDeviceExist() {
+		final Callable<Boolean> UsbMidiDeviceChecker = () -> {
+			final var names = Arrays.stream(MidiSystem.getMidiDeviceInfo()).map(MidiDevice.Info::getName);
+			return names.anyMatch(name -> name.contains("USB") && name.contains("MIDIOUT"));
+		};
+		try { assertEquals(UsbMidiDeviceChecker.call(), UsbMidiConnection.doesUSBMidiDeviceExist()); }
+		catch (final Exception e) { fail(e); }
 	}
 	
-	@Test void doesUSBMidiDeviceExist() throws Exception {
-		// Whether the USB MIDI device exists on the system or not, the Callable's result should match the result of
-		// the
-		// method.
-		final Callable<Boolean> UsbMidiDeviceChecker =
-				() -> Arrays.stream(MidiSystem.getMidiDeviceInfo()).map(MidiDevice.Info::getName)
-						.anyMatch(name -> name.contains("USB") && name.contains("MIDIOUT"));
-		assertEquals(UsbMidiDeviceChecker.call(), UsbMidiConnection.doesUSBMidiDeviceExist());
-	}
+	/**
+	 * Tests {@link UsbMidiConnection#send(MidiMessage)} by Sending a {@code null} {@link MidiMessage} shouldn't
+	 * throw anything.
+	 */
+	@Test void sendNullMessage() { assertDoesNotThrow(() -> midiDeviceConnection.send(null)); }
 	
-	@Test void send() {
-		// Sending a null MidiMessage should throw a NullPointerException
-		assertThrows(NullPointerException.class, () -> UsbMidiConnection.getInstance().send(null));
-		// The rest of the method is difficult to test using unit testing and should be tested with RuppetTester
-		// instead.
-	}
-	
+	/**
+	 * Tests {@link UsbMidiConnection#getUsbReceiver()}. After a connection, the acquired USB {@link Receiver} should
+	 * be one of the {@link MidiDevice}'s {@link Receiver}s. A MIDI In device can have more than one {@link Receiver},
+	 * so we are not necessarily guaranteed to get the same {@link Receiver} from the
+	 * {@link MidiDevice#getReceiver()} method. Therefore, the {@link Stream#anyMatch(Predicate)} is used.
+	 */
 	@Test void getUsbReceiver() {
-		// After a connection, the acquired USB Receiver, should be one of the MidiDevice's Receivers.
-		// A MIDI In device can have more than one Receiver, so we are not necessarily guaranteed to get the same
-		// Receiver Object from the getReceiver method. This is why the contains method is used.
-		UsbMidiConnection.getInstance().connect();
-		assertTrue(UsbMidiConnection.getInstance().getMidiDevice().getReceivers()
-				           .contains(UsbMidiConnection.getInstance().getUsbReceiver()));
+		midiDeviceConnection.connect();
+		midiDeviceConnection.getUsbReceiver().ifPresentOrElse(receiver -> {
+			final var receivers = midiDeviceConnection.getMidiDevice().map(MidiDevice::getReceivers).stream();
+			assertTrue(receivers.anyMatch(r -> r == receiver));
+		}, Assertions::fail);
 	}
 }

@@ -28,6 +28,7 @@ import canisius.jim.connections.SequencerConnection;
 import canisius.jim.ruppet.Ruppet;
 
 import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -116,7 +117,7 @@ public final class Voice extends SoftwarePart {
 		 * Add a buffer to prevent one or more audio/visual blips at the end of the presentation. This prevents the
 		 * sequence from being looped too early.
 		 */
-		final var latestTime = mouthUpTimes.get(mouthUpTimes.size() - 1);
+		final var latestTime = mouthUpTimes.getLast();
 		mouth.addStateToTrack(track, mouthUp, latestTime + delay_end_of_seq);
 	}
 	
@@ -136,7 +137,7 @@ public final class Voice extends SoftwarePart {
 					ERROR:
 					"%s"'s file type is not supported!
 					Make sure that you are using a .wav file!""".formatted(VoiceFile.getName());
-			System.out.println(errorMsg);
+			IO.println(errorMsg);
 		}
 	}
 	
@@ -145,14 +146,14 @@ public final class Voice extends SoftwarePart {
 	 */
 	public void givePresentation() {
 		final var us_to_ms_factor = 1000;
-		final var sequencer = SequencerConnection.getInstance().getMidiDevice();
+		final var midiDevice = SequencerConnection.instance().getMidiDevice();
 		ruppet.muteAllTracks(ruppet.getHeart().getTrack(), track);
 		clip.stop();
-		sequencer.stop();
+		midiDevice.ifPresent(Sequencer::stop);
 		clip.setMicrosecondPosition(0);
-		sequencer.setMicrosecondPosition(0);
+		midiDevice.ifPresent(sequencer -> sequencer.setMicrosecondPosition(0));
 		clip.start();
-		sequencer.start();
+		midiDevice.ifPresent(Sequencer::start);
 		Ruppet.pause_ms((int) (clip.getMicrosecondLength() / us_to_ms_factor));
 		ruppet.muteAllTracks(ruppet.getBlinkingTrack());
 	}

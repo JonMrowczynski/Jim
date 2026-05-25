@@ -100,5 +100,4 @@ public abstract class SoftwarePart {
 	 * @return The {@code Track} that contains all of the {@code MidiEvent} timings
 	 */
 	public final Track getTrack() { return track; }
-	
 }
