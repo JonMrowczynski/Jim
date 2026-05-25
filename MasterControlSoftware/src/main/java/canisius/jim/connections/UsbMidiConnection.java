@@ -47,17 +47,32 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	/**
 	 *
 	 */
-	private static final String MIDI_MESSAGE_NAME = MidiMessage.class.getSimpleName();
+	private static final @NotNull String MIDI_MESSAGE_NAME = MidiMessage.class.getSimpleName();
 	
 	/**
 	 *
 	 */
-	private static final String RECEIVER_NAME = Receiver.class.getSimpleName();
+	private static final @NotNull String RECEIVER_NAME = Receiver.class.getSimpleName();
 	
 	/**
 	 * The singleton {@code UsbMidiConnection} instance.
 	 */
 	private static final @NotNull UsbMidiConnection USB_MIDI_CONNECTION = new UsbMidiConnection();
+	
+	/**
+	 *
+	 */
+	private static final @NotNull UsbMidiConnectionAlert errorConnectingAlert =
+			new UsbMidiConnectionAlert("Error Connecting to USB MIDI Device",
+			                           "Make sure that the USB to MIDI cable is plugged in before retrying.");
+	
+	/**
+	 *
+	 */
+	private static final @NotNull UsbMidiConnectionAlert errorOpeningAlert =
+			new UsbMidiConnectionAlert("Error opening USB to MIDI device",
+			                           "Close any programs that may be using the USB to MIDI device before " +
+					                           "retrying.");
 	
 	/**
 	 * The {@link Receiver} of the acquired {@code UsbMidiConnection}.
@@ -104,18 +119,11 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 				}
 				catch (final MidiUnavailableException e) { e.printStackTrace(); }
 			}
-			if (midiDevice == null) {
-				new UsbMidiConnectionAlert("Error Connecting to USB MIDI Device",
-				                           "Make sure that the USB to MIDI cable is plugged in before retrying.");
-			}
+			if (midiDevice == null) { errorConnectingAlert.display(); }
 		} while (midiDevice == null);
 		while (!midiDevice.isOpen()) {
 			try { midiDevice.open(); }
-			catch (final MidiUnavailableException e) {
-				new UsbMidiConnectionAlert("Error opening USB to MIDI device",
-				                           "Close any programs that may be using the USB to MIDI device before " +
-						                           "retrying.");
-			}
+			catch (final MidiUnavailableException e) { errorOpeningAlert.display(); }
 		}
 		try { usbMidiDeviceReceiver = midiDevice.getReceiver(); }
 		catch (final MidiUnavailableException e) { e.printStackTrace(); }
@@ -173,6 +181,12 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 			setContentText(contentText);
 			getButtonTypes().setAll(new ButtonType("Retry"), ButtonType.CLOSE);
 			getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+		}
+		
+		/**
+		 *
+		 */
+		void display() {
 			showAndWait().ifPresent(result -> {
 				if (result != ButtonType.CLOSE) { return; }
 				Platform.exit();
