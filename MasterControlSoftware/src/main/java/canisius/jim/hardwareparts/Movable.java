@@ -27,7 +27,6 @@ package canisius.jim.hardwareparts;
 import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import java.util.stream.IntStream;
 
@@ -97,7 +96,7 @@ public final class Movable extends HardwarePart {
 				case ANTIPARALLEL -> ((upperBound + lowerBound) - (i + lowerBound));
 			};
 			try {
-				final MidiMessage msg = new ShortMessage(NOTE_ON, 0, midiNote2, data2);
+				final var msg = new ShortMessage(NOTE_ON, 0, midiNote2, data2);
 				states.get(i).add(msg);
 			}
 			catch (final InvalidMidiDataException e) { e.printStackTrace(); }
