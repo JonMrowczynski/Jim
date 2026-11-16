@@ -504,13 +504,6 @@ public final class Ruppet {
 	public Movable getEyelids() { return eyelids; }
 	
 	/**
-	 * Returns this {@code Ruppet}'s {@code lights}.
-	 *
-	 * @return this {@code Ruppet}'s {@code lights}
-	 */
-	public Lights getLights() { return lights; }
-	
-	/**
 	 * If the program terminates and one or more {@code Part}s are being operated, no note off {@code MidiMessage}s
 	 * will
 	 * be sent to shut off those {@code Part}s and they can potentially strain the {@code Ruppet}'s mechanisms

@@ -104,7 +104,7 @@ public final class Heart extends SoftwarePart {
 		angry = new Emotion(ruppet, lowerJaw.getUpperBoundHardwarePartState(),
 		                    lipCorners.getLowerBoundHardwarePartState(), eyebrow.getLowerBoundHardwarePartState());
 		scared = new Emotion(ruppet, lowerJaw.getUpperBoundHardwarePartState(),
-		                     lipCorners.getLowerBoundHardwarePartState(), eyebrow.getLowerBoundHardwarePartState());
+		                     lipCorners.getLowerBoundHardwarePartState(), eyebrow.getUpperBoundHardwarePartState());
 		smile = new Emotion(ruppet, lipCorners.getUpperBoundHardwarePartState());
 		
 		readTimingInfoFromFile();
