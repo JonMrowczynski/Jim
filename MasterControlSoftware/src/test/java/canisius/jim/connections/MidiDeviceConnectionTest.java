@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  *
  * @author Jon Mrowczynski
  */
-abstract class MidiDeviceConnectionTest<T extends MidiDeviceConnection<?>> {
+class MidiDeviceConnectionTest<T extends MidiDeviceConnection<?>> {
 	
 	/**
 	 * The {@link MidiDeviceConnection} used for testing.
