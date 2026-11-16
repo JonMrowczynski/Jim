@@ -1,12 +1,10 @@
 plugins {
-    java
-    idea
     application
     jacoco
     id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
-application.mainClass = "canisius.jim.ruppet.RuppetTester"
+application.mainClass = "canisius.jim.BreathOfLife"
 
 val jetbrainsAnnotation = "org.jetbrains:annotations:26.1.0"
 
@@ -15,7 +13,7 @@ repositories.mavenCentral()
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 
 javafx {
-    version = "25"
+    version = "25.0.2"
     modules = listOf("javafx.controls", "javafx.fxml")
 }
 
