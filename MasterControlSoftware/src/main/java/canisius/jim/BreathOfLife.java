@@ -36,6 +36,8 @@ import org.jetbrains.annotations.NotNull;
  * @author Jon Mrowczynski
  */
 public final class BreathOfLife extends Application {
-	
-	@Override public void start(final @NotNull Stage primaryStage) { new Ruppet().live(); }
+	@Override public void start(final @NotNull Stage primaryStage) {
+		try { new Ruppet().live(); }
+		catch (final Exception e) { e.printStackTrace(); }
+	}
 }
