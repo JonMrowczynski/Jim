@@ -55,11 +55,6 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 	private static final @NotNull String RECEIVER_NAME = Receiver.class.getSimpleName();
 	
 	/**
-	 * The singleton {@code UsbMidiConnection} instance.
-	 */
-	private static final @NotNull UsbMidiConnection USB_MIDI_CONNECTION = new UsbMidiConnection();
-	
-	/**
 	 *
 	 */
 	private static final @NotNull UsbMidiConnectionAlert errorConnectingAlert =
@@ -73,6 +68,11 @@ public final class UsbMidiConnection extends MidiDeviceConnection<MidiDevice> {
 			new UsbMidiConnectionAlert("Error opening USB to MIDI device",
 			                           "Close any programs that may be using the USB to MIDI device before " +
 					                           "retrying.");
+	
+	/**
+	 * The singleton {@code UsbMidiConnection} instance.
+	 */
+	private static final @NotNull UsbMidiConnection USB_MIDI_CONNECTION = new UsbMidiConnection();
 	
 	/**
 	 * The {@link Receiver} of the acquired {@code UsbMidiConnection}.

@@ -30,10 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static canisius.jim.ruppet.Ruppet.MAX_VELOCITY;
@@ -134,7 +131,7 @@ public abstract class HardwarePart {
 		IntStream.rangeClosed(0, upperBound - lowerBound).forEach(i -> {
 			try {
 				final var msg = new ShortMessage(NOTE_ON, 0, midiNote, i + lowerBound);
-				states.add(Set.of(msg));
+				states.add(new HashSet<>(Set.of(msg)));
 			}
 			catch (final InvalidMidiDataException e) { e.printStackTrace(); }
 		});
